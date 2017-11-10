@@ -1,0 +1,45 @@
+﻿
+<div class="main-login main-center pull-left">
+    <img class="profile-img" src="~/Images/Utility/loginLogo.png" alt="">
+    <div class="form-group">
+        <div class="cols-sm-10">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Podaj Email" })*@
+            </div>
+            @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="cols-sm-10">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                @*@Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Podaj hasło" })*@
+            </div>
+            @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="cols-sm-10">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Podaj Email" })*@
+            </div>
+            @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="cols-sm-10">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                @*@Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Podaj hasło" })*@
+            </div>
+            @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FF | Fakt or Fake</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="~/semantic/out/semantic.min.css" />    
+
+    <link rel="stylesheet" href="~/semantic/out/components/dropdown.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" />
+
+    
+
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Images/Utility/favicons_fof/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/Images/Utility/favicons_fof/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Images/Utility/favicons_fof/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Images/Utility/favicons_fof/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Images/Utility/favicons_fof/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Images/Utility/favicons_fof/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Images/Utility/favicons_fof/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Images/Utility/favicons_fof/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Images/Utility/favicons_fof/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Images/Utility/favicons_fof/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Images/Utility/favicons_fof/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/Images/Utility/favicons_fof/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Images/Utility/favicons_fof/favicon-16x16.png">
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    @*<link rel="stylesheet" href="~/Content/menu.carousel.css">*@
+    <link rel="stylesheet" href="~/Content/tagsinput.css" />
+    <link rel="stylesheet" href="~/Content/CustomStyle.css?v={random number/string}">
+    <link rel="stylesheet" href="~/Content/CustomStyleNewsDetails.css?v={random number/string}">
+    <link rel="stylesheet" href="~/Content/CustomStyleMedia.css?v={random number/string}">
+</head>
+
+<body class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top row">
+        <div class="container">
+            <div class="navbar-header" style="margin-right:5px">
+                <button type="button" class="navButton navbar-toggle collapsed left" data-toggle="collapse" data-target="#menu">
+                    <i class="sidebar icon"></i>
+                </button>
+                <a class="navbar-brand" style="padding: 14px 0 0 0" href="@Url.Action("Index", "Main")"><img src="~/Images/Utility/fflogo.png" style="height:30px" class="ffLogo" /></a>
+                @{
+                    var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
+                }
+
+                @if (Request.IsAuthenticated)
+                {
+                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Index", "Manage")"><img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" /></a>
+                }
+                else
+                {
+                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Login", "Account")"><img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" /></a>
+
+                }
+                <button type="button" class="plusButton navbar-toggle collapsed" data-toggle="collapse" data-target="#search">
+                    <i class="plus icon"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="menu" style="margin-left:5px; margin-right:5px">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="@Url.Action("Index", "Main")">  Start <span class="sr-only">(current)</span></a></li>
+                    <li><a href="@Url.Action("Index", "Main")">  Poczekalnia</a></li>
+                    <li><a href="@Url.Action("Index", "Forum")">  Forum</a></li>
+                    <li class="navbar-form navbar-right hidden-sm hidden-xs" role="search" action="/" method="GET">
+                        <div>
+                            @if (Request.IsAuthenticated)
+                            {
+                                <form id="frmAddNews" class="input-group" method="post" action="@Url.Action("Add","News")">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success removeRadius hidden-md" type="submit" style="background-color:#48CFAD; border-color:#48CFAD">Dodaj Newsa</button>
+                                        <button class="btn btn-success removeRadius visible-md" type="submit" style="background-color:#48CFAD; border-color:#48CFAD"><i class="plus icon"></i></button>
+                                    </span>
+                                    <input name="UrlLink" type="text" class="form-control removeRadius" placeholder="Wklej link" />
+                                </form>
+                            }
+                            else
+                            {
+                                <form class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger" type="button" onclick="location.href='@Url.Action("Add", "News")'">Dodaj newsa</button>
+                                    </span>
+                                </form>
+                            }
+                        </div>
+                    </li>
+                </ul>
+                <div style="margin-right:30px">
+                    @Html.Partial("_LoginPartial")
+                </div>
+
+
+            </div>
+
+            <div class="collapse navbar-collapse hidden-lg" id="search">
+                <form class="mobile_search hidden-md hidden-lg" role="search" action="/" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Wklej link..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button">Dodaj</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="mainContainer removePadding">
+        @RenderBody()
+    </div>
+
+    <footer class="nb-footer">
+        <div class="col-lg-12 about">
+
+            <p>Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności.</p>
+
+        </div>
+
+
+        <div class="copyright col-lg-12">
+            <img src="~/Images/Utility/ffslogodark.png" style="height:25px" /><span>&nbsp;Copyright &copy; 2017 Fakt or Fake.</span>
+        </div>
+    </footer>
+
+    @RenderSection("ScriptsBottom", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+    @*<script src="~/Scripts/jqmeter.min.js"></script>
+    <script src="~/Scripts/grasp_mobile_progress_circle.js"></script>*@
+
+    <script src="~/Scripts/CustomScripts.js"></script>
+    <script src="~/Scripts/CustomScriptsMain.js"></script>
+    <script src="~/Scripts/CustomScriptNewsDetails.js"></script>
+    <script src="~/Scripts/CustomScriptComments.js"></script>
+    <script src="~/Scripts/CustomScriptsVoting.js"></script>
+
+
+    <script src="~/Scripts/mustache.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    
+    <script src="~/Scripts/tagsinput.js"></script>
+    <script src="~/semantic/out/semantic.js"></script>
+    <script src="~/semantic/out/components/dropdown.min.js"></script>
+
+</body>
+</html>

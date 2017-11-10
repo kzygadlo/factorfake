@@ -1,0 +1,90 @@
+﻿@model notomyk.ViewModel.Filters
+<script type="text/javascript">
+
+        $('.ui.dropdown').dropdown();
+
+</script>
+<div class="row">
+    <div class="col-md-8 col-xs-12 removePadding">
+
+        <div class="newspaperFilter ui multiple search selection dropdown col-xs-12">
+            <input id="newspapersList" name="states" type="hidden">
+            <i class="dropdown icon"></i>
+            <div class="default text"><i class="newspaper icon"></i> Wybierz Gazety</div>
+            <div class="menu">
+                @foreach (var newspaper in Model.Newspapers)
+                {
+                    <div class="item" data-value="@newspaper.tbl_NewspaperID">@newspaper.NewspaperName</div>
+                }
+            </div>
+        </div>
+
+        <div class="tagFilter ui multiple search selection dropdown col-xs-12">
+            <input id="tagsList" name="states" type="hidden">
+            <i class="dropdown icon"></i>
+            <div class="default text"><i class="tags icon"></i> Wybierz Tagi</div>
+            <div class="menu">
+                @foreach (var tag in Model.Categories)
+                {
+                    <div class="item" data-value="@tag.ID">@tag.TagName</div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4 col-xs-12 removePadding">
+        <div class="whatNewsFilter ui floating labeled icon dropdown button timeFilter col-md-12 col-xs-6">
+            <i class="options icon"></i>
+            <span class="text">Wszystkie</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="newspaper icon"></i>
+                    Newsy
+                </div>
+                <div class="divider"></div>
+                <div class="item" data-value="0">
+                    Wszystkie
+                </div>
+                <div class="item" data-value="1">
+                    Top Fakty
+                </div>
+                <div class="item" data-value="2">
+                    Top Fake
+                </div>
+                <div class="item" data-value="3">
+                    Top komentowane
+                </div>
+                <div class="item" data-value="4">
+                    Top odwiedzane
+                </div>
+            </div>
+        </div>
+
+        <div class="ui floating labeled icon dropdown button timeFilter col-md-12 col-xs-6">
+            <i class="wait icon"></i>
+            <span class="text">Od początku</span>
+            <div class="menu">
+                <div class="header">
+                    <i class="wait icon"></i>
+                    Przedział czasowy
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    Dzisiejsze
+                </div>
+                <div class="item">
+                    Z całego tygodnia
+                </div>
+                <div class="item">
+                    Z całego miesiąca
+                </div>
+                <div class="item">
+                    Od początku
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

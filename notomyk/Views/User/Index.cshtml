@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <div class="col-lg-12">
+        <h4>
+            @Html.ActionLink("Manage Your account", "Index", "Manage")
+        </h4>
+        <h4>
+            @Html.ActionLink("Manage User Roles", "Index", "Role")
+        </h4>
+    </div>
+}
+else
+{
+<h2> Hello </h2>
+}

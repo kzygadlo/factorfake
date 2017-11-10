@@ -1,0 +1,72 @@
+﻿@model notomyk.ViewModel.NewsDetail
+@using notomyk.Infrastructure
+@using notomyk.Models
+
+
+<div class="row" style="margin:0px">
+    <div class="leftMenu">
+        <div class="col-lg-12 removePadding" style="margin-bottom:10px">
+            <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" />
+        </div>
+        @*<div class="col-lg-12 removePadding" style="margin:10px 0 0;">
+            <ul class="list-group">
+                <li class="list-group-item">Fakt news: 10</li>
+                <li class="list-group-item">Fake news: 100</li>
+                <li class="list-group-item">Poziom reputacji: 40%</li>
+            </ul>
+        </div>*@
+
+        <div class="newsItem col-lg-12">
+            <ul>
+                @foreach (var lnews in Model.LeftNews)
+                {
+
+                    string title = lnews.Title;
+
+                    if (lnews.Title.Length > 80)
+                    {
+                        title = string.Concat(lnews.Title.Substring(0, 80), "...");
+                    }
+
+                    <li>
+                        <a href="@Url.Action("News", "Main", new {id = lnews.tbl_NewsID})">
+                            <div class="col-lg-12 removePadding">
+                                <div class="img col-lg-8 removePadding">
+                                    <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@lnews.PictureLink" />
+                                </div>
+                                <div class="rating col-lg-4">
+
+                                    <div class="col-lg-6 removePadding">
+                                        |<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-lg-6 removePadding">
+                                        <small>100</small>
+                                    </div>
+
+                                    <div class="col-lg-6 removePadding">
+                                        |<i class="fa fa-comments" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-lg-6 removePadding">
+                                        <small>@lnews.Collection_Comments.Count</small>
+                                    </div>
+
+                                    <div class="col-lg-6 removePadding">
+                                        |<i class="fa fa-television" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-lg-6 removePadding">
+                                        <small>0</small>
+                                    </div>
+                                </div>
+                                <div class="description col-lg-12 removePadding">
+                                    <p><small>Dodano - @GetTimeAgo.CalculateDateDiff(lnews.DateAdd)</small></p>
+                                    <p><small><strong>@title</strong></small></p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>

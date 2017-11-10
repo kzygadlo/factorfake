@@ -1,0 +1,21 @@
+﻿@model notomyk.ViewModel.NewsDetail
+@using notomyk.Infrastructure
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <section class="col-lg-2 hidden-xs hidden-sm hidden-md" style="padding-left:5px; padding-right:5px">
+        @Html.Partial("_LeftMenu")
+    </section>
+
+    <div class="col-lg-7" style="padding-left:5px; padding-right:5px">
+        @Html.Partial("_NewsDetail")
+    </div>
+
+    <section class="col-lg-3" style="padding-left:5px; padding-right:5px">
+        @Html.Action("RightMenu")
+    </section>
+
+
+

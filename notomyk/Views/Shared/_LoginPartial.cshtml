@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li style="padding:5px;" class="hidden-sm hidden-xs">
+                @{
+        var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
+                }
+                <img src="@imgUrl" class="img-circle imgUserLogo" />
+            </li>
+            <li class="hidden-md">
+                @Html.ActionLink("Witaj " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("Register", "Account" )" id="registerLink"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></li>
+        <li><a href="@Url.Action("Login", "Account", new { returnUrl = this.Request.RawUrl})" id="loginLink"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
+    </ul>
+}
+

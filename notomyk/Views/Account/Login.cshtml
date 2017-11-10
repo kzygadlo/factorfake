@@ -1,0 +1,57 @@
+﻿@using notomyk.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Logowanie";
+}
+
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12">
+
+        <div class="main-login main-center">
+            <img class="profile-img" src="~/Images/Utility/favicons_fof/android-icon-192x192.png" alt="">
+            @*<img class="profile-img" src="~/Images/Utility/loginLogo.png" alt="">*@
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Podaj Email" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Podaj hasło" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <label class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    Zapamiętaj mnie.
+                </label>
+                <div class="form-group" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logowanie</button>
+                </div>
+
+            }
+
+        </div>
+        <p class="addAccountLink">
+            @Html.ActionLink("Załóż konto", "Register")
+        </p>
+        <br />
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

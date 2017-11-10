@@ -1,0 +1,19 @@
+﻿@model notomyk.ViewModel.Filters
+@using notomyk.Infrastructure
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="col-lg-9" style="padding-left:5px; padding-right:5px;">
+    <div class="col-lg-12" style="margin:0 0 10px 0;">
+        @Html.Partial("_Filters")
+    </div>
+    @Html.Partial("_NewsList")
+</div>
+
+<section class="col-lg-3" style="padding-left:5px; padding-right:5px;">
+    @Html.Action("RightMenu")
+</section>
+

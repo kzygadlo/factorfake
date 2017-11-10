@@ -1,0 +1,350 @@
+﻿@model notomyk.ViewModel.NewsDetail
+@using notomyk.Infrastructure
+@using notomyk.Models
+
+@{
+    var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
+}
+
+<script id="commentPattern" type="text/template">
+    <li class="singleComment">
+        <div class="comment-box">
+            <div class="panel panel-white post panel-shadow">
+                <div class="col-xs-12 removePadding">
+                    <div class="panel panel-default panel-google-plus" style="border:none;">
+                        <div class="dropdown">
+                            <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Zgłoś</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteComment" data-commentid="{{CommentID}}" data-newsid="{{NewsID}}">Usuń</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-heading">
+                            <img class="img-circle pull-left" src="{{LogoName}}" alt="img" />
+                            <h3>{{UserName}}</h3>
+                            <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="post-description col-xs-12">
+                    <span class="text">{{Comment}}</span>
+                </div>
+
+                <div class="row m0 removePadding">
+                    <div class="col-xs-5" style="padding:0 0 8px 10px">
+                        <div class="commentFakeVote ui right labeled button " tabindex="0">
+                            <div class="ui button BGwhite">
+                                <i class="thumbs outline down red icon"></i>
+                            </div>
+                            <a id="commentFakeValue" class="BGredColorLight ui basic left pointing label">
+                                {{CommentFakeV}}
+                            </a>
+
+                        </div>
+
+                        <div class="commentFaktVote ui left labeled button" tabindex="0">
+                            <a id="commentFaktValue" class="ui basic right pointing label BGgreenColorLight">
+                                {{CommentFaktV}}
+                            </a>
+                            <div class="ui button BGwhite">
+                                <i class="thumbs outline up green icon "></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-7 text-right removePadding">
+                        <a href="#" id="commentContainerJS" class="text-muted" data-commentid="{{CommentID}}"><u>{{RepliesV}}</u></a>
+                        <div id="addReplyBox" class="ui right labeled button" tabindex="0">
+                            <div class="ui button">
+                                <i class="large reply icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="addReply row m0">
+                    <div class="col-xs-12 removePadding">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div class="col-xs-2 col-sm-1 removePadding">
+                                <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+                            </div>
+                            <div class="col-xs-9 col-sm-10 removePadding">
+                                <textarea rows="10" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym komentarzu ?"></textarea>
+                            </div>
+
+                            <div class="col-xs-1 removePadding">
+                                <form class="frmAddReply pull-right">
+                                    <input class="commentID" type="hidden" name="NewsID" value="{{CommentID}}">
+
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-xs-12">
+                                <textarea rows="10" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać odpowiedź."></textarea>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="reply-list">
+
+        </ul>
+    </li>
+</script>
+
+<script id="replyPattern" type="text/template">
+    <li id="{{ReplyID}}" class="singleReply">
+        <div class="row m0">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-11" style="padding:0 0 0 15px">
+                <div class="comment-box">
+                    <div class="panel panel-white post panel-shadow">
+                        <div class="post-heading">
+                            <div class="col-lg-12 post-heading removePadding">
+                                <div class="panel panel-default panel-google-plus" style="border:none;">
+                                    <div class="dropdown">
+                                        <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteReply" data-replyid="{{CommentID}}" data-newsid="{{NewsID}}" style="cursor:pointer">Usuń</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Zgłoś</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <img class="img-circle pull-left" src="{{LogoName}}" alt="x" />
+                                        <h3>{{UserName}}</h3>
+                                        <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="post-description col-xs-12">
+                                <span class="text">{{Comment}}</span>
+                            </div>
+                            <div class="row m0" style="padding:0 0 8px 10px">
+                                <div class="replyFakeVote ui right labeled button " tabindex="0">
+                                    <div class="ui button BGwhite">
+                                        <i class="thumbs outline down red icon"></i>
+                                    </div>
+                                    <a id="replyFakeValue" class="BGredColorLight ui basic left pointing label">
+                                        {{CommentFakeV}}
+                                    </a>
+                                </div>
+
+                                <div class="replyFaktVote ui left labeled button" tabindex="0">
+                                    <a id="replyFaktValue" class="ui basic right pointing label BGgreenColorLight">
+                                        {{CommentFaktV}}
+                                    </a>
+                                    <div class="ui button BGwhite">
+                                        <i class="thumbs outline up green icon "></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</script>
+
+
+
+
+<div id="SingleNews">
+    <div class="list-group-item n1">
+        <div class="row m0">
+            <div class="col-xs-12 removePadding">
+                <div class="col-sm-6 col-xs-12 removePadding" style="padding-left: 10px;">
+                    <div class="fof col-xs-12 removePadding">
+                        <div class="ui labeled button fakt pull-left" tabindex="0">
+                            @if (@Model.WhatVote == 1)
+                            {
+                                <div class="voteFakt ui green button">
+                                    <i class="thumbs outline up icon"></i> Fakt
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="voteFakt ui green button BGgreenColorLight">
+                                    <i class="thumbs outline up icon"></i> Fakt
+                                </div>
+                            }
+
+                            <a class="voteFakt ui basic green left pointing label">
+                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
+                            </a>
+                        </div>
+                        <div class="ui labeled button fake pull-right " tabindex="0">
+                            <a class="voteFake ui basic red right pointing label">
+                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == false).Count()
+                            </a>
+
+                            @if (@Model.WhatVote == -1)
+                            {
+                                <div class="voteFake ui red button">
+                                    <i class="thumbs outline down icon"></i> Fake
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="voteFake ui red button BGredColorLight">
+                                    <i class="thumbs outline down icon"></i> Fake
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 hidden-xs" style="padding:10px 0 10px 0">
+
+                        <div class="ui list">
+                            <div class="item">
+                                <i class="users icon"></i>
+                                <div class="content">
+                                    Semantic UI
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="marker icon"></i>
+                                <div class="content">
+                                    New York, NY
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="mail icon"></i>
+                                <div class="content">
+                                    <a href="mailto:jack@semantic-ui.com">jack@semantic-ui.com</a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="linkify icon"></i>
+                                <div class="content">
+                                    <a href="http://www.semantic-ui.com">semantic-ui.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 visible-xs" style="padding:10px 0 10px 0">
+                        <div class="col-xs-2 removePadding">
+                            <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" />
+                        </div>
+                        <div class="col-xs-10 removePadding">
+                            <div class="ui small five statistics">
+                                <div class="statistic">
+                                    <div class="value">
+                                        <i class="comment outline icon"></i>    22
+                                    </div>
+                                    <div class="label">
+                                        komentarze
+                                    </div>
+                                </div>
+                                <div class="statistic">
+                                    <div class="label">
+                                        3 godziny temu
+                                    </div>
+                                    <div class="value">
+                                        <i class="hourglass empty icon"></i>
+                                    </div>
+                                </div>
+                                <div class="statistic">
+                                    <div class="value">
+                                        <img src="@Url.Content(AppConfig.UserLogoLink(Model.SingleNews.ApplicationUser.Id))" class="img-circle avatar imgUserLogoSmall">
+                                        @*<img src="@Url.Content(AppConfig.UserLogoLink(Model.SingleNews.ApplicationUser.Id))" class="ui circular inline image img-circle">*@
+                                    </div>
+                                    <div class="label">
+                                       anakhin
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>     
+                </div>
+
+                <div class="col-sm-6 col-xs-12" style="padding:0 10px 0 10px">
+                    <img class="img-responsive img-rounded" alt="xxx" src="@Model.SingleNews.PictureLink" />
+                </div>
+            </div>
+            
+
+            <div class="col-xs-12 removePadding" style="padding: 10px;">
+                <div class="col-xs-11 removePadding">
+                    <a href="@Model.SingleNews.ArticleLink"><strong><span class="text" style="color: #2375B9">@Model.SingleNews.Title</span></strong></a>
+                </div>
+                <div class="col-xs-1 removePadding" style="text-align:right">
+                    <div class="ui dropdown">
+                        <i class="dropdown-togle large sidebar icon" data-toggle="dropdown"></i>
+                        <div class="menu left">
+                            <div class="item">Zgłoś</div>
+                            <div class="item">Usuń</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12" style="padding:0 10px 0 10px"><span class="text">@Model.SingleNews.Description</span></div>
+            <div class="col-xs-12 removePadding" style="padding:0 10px 0 5px;">
+                <div class="col-xs-11 removePadding">
+                    <input id="commaDelimitedTags" type="text" value="@Model.CommaSeparatedTags" data-role="tagsinput">
+                </div>
+
+                <div class="col-xs-1" style="text-align:right; padding: 10px 0 0 0">
+                    @if (Request.IsAuthenticated)
+                    {
+
+                        <i class="dropdown-togle large tags icon" data-toggle="dropdown" style="cursor:pointer"></i>
+                        @*<button class="btn btn-default" id="editTags">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>*@
+                    }
+                </div>
+            </div>
+            <div id="addComment" class="col-xs-12">
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="col-xs-2 col-sm-1 removePadding">
+                        <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+                    </div>
+                    <div class="col-xs-9 col-sm-10 removePadding">
+                        <textarea id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym artykule ?"></textarea>
+                    </div>
+                    <div class="col-xs-1 removePadding">
+                        <form class="frmAddComment  pull-right">
+                            <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xs-12 removePadding" style="padding-right:10px;">
+                        <textarea id="frmCommentText" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                    </div>
+                    <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="comments-container col-lg-12 removePadding">
+        @*Comments container*@
+        @if (Model.SingleNews.Collection_Comments.Count > 0)
+        {
+            <div class="sorting col-lg-12 list-group-item"><c class="text-muted">Sortuj wg: </c><a href="#">daty dodania  | </a><a href="#">reputacji autorów | </a><a href="#">oceny </a></div>
+        }
+        <ul id="commentsList" class="comments-list"></ul>
+    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+</div>

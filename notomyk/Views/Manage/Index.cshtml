@@ -1,0 +1,57 @@
+﻿@model notomyk.Models.IndexViewModel
+@{
+    ViewBag.Title = "Zarządzanie kontem";
+}
+
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="main-login main-center">
+
+                @if (User.Identity.GetUserName() != null)
+                {
+                    var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
+                    <img class="profile-img img-circle" src="@imgUrl" alt="" height="250" width="250">
+                }
+
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="form-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary btn-lg btn-block login-button">
+                                Zmień zdjęcie
+                                <input type="file"
+                                       style="display: none;"
+                                       name="file" id="files"
+                                       onchange="this.form.submit()">
+                            </span>
+                        </label>
+                    </div>
+
+                    <p class="text-success">@ViewBag.StatusMessage</p>
+
+                }
+                <p class="addAccountLink">
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Zmień hasło", "ChangePassword")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Utwórz", "SetPassword")
+                    }
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</div>

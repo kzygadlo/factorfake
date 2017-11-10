@@ -1,0 +1,236 @@
+﻿/*--------------------------------------------------------COMMENTS ----------------------------------------------------*/
+
+/*single Comment*/
+
+.singleComment .panel {
+    margin-bottom: 1px;
+    border-radius: 0px;
+    border: 1px solid #ddd;
+}
+
+
+.post .post-heading .avatar {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin-right: 15px;
+}
+
+
+
+.post .post-heading .meta .title {
+    margin-bottom: 0;
+}
+
+    .post .post-heading .meta .title a {
+        color: black;
+    }
+
+        .post .post-heading .meta .title a:hover {
+            color: #aaaaaa;
+        }
+
+.post .post-heading .meta .time {
+    margin-top: 8px;
+    color: #999;
+}
+
+
+
+.post .post-description {
+    padding: 10px;
+}
+
+    .post .post-description p {
+        font-size: 14px;
+    }
+
+    .post .post-description .stats .stat-item {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+        .post .post-description .stats .stat-item .icon {
+            margin-right: 8px;
+        }
+
+#commentButtonBox {
+    margin-right: 0px;
+}
+
+.singleComment #commentContainerJS {
+    margin-top: 10px;
+}
+
+/*--------------------------------------------------------ENDCOMMENTS ----------------------------------------------------*/
+
+
+/*----------------------HASH TAG --------------------------*/
+#hashtag {
+    /*border-left: 10px solid #2375B9;*/
+    padding: 3px 0 0 10px;
+    color: #2375B9;
+}
+
+#hashtag2 {
+    /*border-left: 5px solid #2375B9;*/
+    padding: 0 0 3px 10px;
+    color: #2375B9;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+    #hashtag2 span {
+        font-size: 10px !important;
+    }
+
+.sorting {
+    text-align: right;
+    padding: 3px 10px 3px 10px !important;
+    background-color: #f5f5f5;
+}
+
+
+#addComment {
+    padding: 10px 10px 0 10px;
+}
+
+    #addComment button {
+    }
+/*--------------------END HASH TAG ------------------------*/
+
+/*-----------------------start comment ---------------------*/
+.panel-google-plus {
+    position: relative;
+    /*border-radius: 0px;*/
+    /*border: 1px solid rgb(216, 216, 216);*/
+    font-family: 'Roboto', sans-serif;
+}
+
+    .panel-google-plus > .dropdown {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+    }
+
+        .panel-google-plus > .dropdown > span > span {
+            font-size: 10px;
+        }
+
+        .panel-google-plus > .dropdown > .dropdown-menu {
+            left: initial;
+            right: 0px;
+            border-radius: 2px;
+        }
+
+    .panel-google-plus > .panel-heading {
+        background-color: rgb(255, 255, 255);
+        border-width: 0px;
+        padding: 10px;
+    }
+
+
+        .panel-google-plus > .panel-heading > img {
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .panel-google-plus > .panel-heading > h3 {
+            margin: 0px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .panel-google-plus > .panel-heading > h5 {
+            color: rgb(153, 153, 153);
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+}
+
+@media (min-width: 992px) {
+    .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+        width: auto;
+    }
+}
+/*------------------------end comment--------------------------------------------------*/
+
+
+/* news detail */
+
+.fof .button {
+    font-size: 14px !important;
+}
+
+
+
+
+.bootstrap-tagsinput .label {
+    font-size: 12px !important;
+}
+
+#FaktTag {
+    background-color: #5cb85c !important;
+    margin: 0 !important;
+}
+
+#FakeTag {
+    background-color: #d9534f !important;
+    margin: 0 !important;
+}
+/*end news detail*/
+
+
+
+.defaultContainer {
+    padding: 0 5px 0 5px;
+}
+
+    .defaultContainer > div {
+        background-color: #f7f7f7;
+    }
+
+
+#addReplyBox .button {
+    padding-right: 0;
+}
+
+
+.singleComment .commentFaktVote .button,
+.singleReply .replyFaktVote .button {
+    border-top: 1px solid rgba(34,36,38,.15) !important;
+    border-right: 1px solid rgba(34,36,38,.15) !important;
+    border-bottom: 1px solid rgba(34,36,38,.15) !important;
+}
+
+
+.singleComment .commentFakeVote .button,
+.singleReply .replyFakeVote .button {
+    border-top: 1px solid rgba(34,36,38,.15) !important;
+    border-left: 1px solid rgba(34,36,38,.15) !important;
+    border-bottom: 1px solid rgba(34,36,38,.15) !important;
+}
+
+.singleComment .commentFaktVote .button,
+.singleComment .replyFaktVote .button {
+    padding-right: 6px;
+    padding-left: 12px;
+    border-left: none;
+}
+
+.singleComment .commentFakeVote .button,
+.singleComment .commentFakeVote .button,
+.singleReply .replyFaktVote .button,
+.singleReply .replyFakeVote .button {
+    padding-right: 8px;
+    padding-left: 10px;
+}
+
+.singleComment #addReplyBox .button {
+    background-color: white;
+    padding-right: 8px;
+    color: black;
+}
