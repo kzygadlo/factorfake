@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" />
 
-    
-
     <link rel="apple-touch-icon" sizes="57x57" href="~/Images/Utility/favicons_fof/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="~/Images/Utility/favicons_fof/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="~/Images/Utility/favicons_fof/apple-icon-72x72.png">
@@ -31,7 +29,6 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    @*<link rel="stylesheet" href="~/Content/menu.carousel.css">*@
     <link rel="stylesheet" href="~/Content/tagsinput.css" />
     <link rel="stylesheet" href="~/Content/CustomStyle.css?v={random number/string}">
     <link rel="stylesheet" href="~/Content/CustomStyleNewsDetails.css?v={random number/string}">
@@ -45,7 +42,7 @@
                 <button type="button" class="navButton navbar-toggle collapsed left" data-toggle="collapse" data-target="#menu">
                     <i class="sidebar icon"></i>
                 </button>
-                <a class="navbar-brand" style="padding: 14px 0 0 0" href="@Url.Action("Index", "Main")"><img src="~/Images/Utility/fflogo.png" style="height:30px" class="ffLogo" /></a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Main")"><img src="~/Images/Utility/fflogo.png" style="height:30px" class="ffLogo" /></a>
                 @{
                     var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
                 }
@@ -95,8 +92,6 @@
                 <div style="margin-right:30px">
                     @Html.Partial("_LoginPartial")
                 </div>
-
-
             </div>
 
             <div class="collapse navbar-collapse hidden-lg" id="search">
@@ -112,18 +107,14 @@
         </div>
     </nav>
 
-
     <div class="mainContainer removePadding">
         @RenderBody()
     </div>
 
     <footer class="nb-footer">
         <div class="col-lg-12 about">
-
             <p>Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności.</p>
-
         </div>
-
 
         <div class="copyright col-lg-12">
             <img src="~/Images/Utility/ffslogodark.png" style="height:25px" /><span>&nbsp;Copyright &copy; 2017 Fakt or Fake.</span>
@@ -135,19 +126,14 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-
-    @*<script src="~/Scripts/jqmeter.min.js"></script>
-    <script src="~/Scripts/grasp_mobile_progress_circle.js"></script>*@
 
     <script src="~/Scripts/CustomScripts.js"></script>
     <script src="~/Scripts/CustomScriptsMain.js"></script>
     <script src="~/Scripts/CustomScriptNewsDetails.js"></script>
     <script src="~/Scripts/CustomScriptComments.js"></script>
     <script src="~/Scripts/CustomScriptsVoting.js"></script>
-
 
     <script src="~/Scripts/mustache.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>

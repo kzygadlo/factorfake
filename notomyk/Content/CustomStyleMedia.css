@@ -11,6 +11,10 @@
     .mainContainer {
         margin-top: 65px;
     }
+
+    .navbar-brand {
+        padding: 13px 0 0 0;
+    }
 }
 
 
@@ -40,6 +44,10 @@
 
     .navbar-header .ffLogo {
         margin-right: 20px;
+    }
+
+    .navbar-brand {
+        padding: 13px 0 0 0;
     }
 }
 

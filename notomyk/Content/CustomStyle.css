@@ -449,6 +449,18 @@ ul, li {
     margin-left: 10px;
 }
 
+.navbar-brand {
+    padding: 10px 15px;
+}
+
+.dropdown-menu {
+    min-width: initial;
+    padding: 3px 10px;
+}
+
+    .dropdown-menu > li > a {
+       padding: 3px 5px;
+    }
 /*---------------------------------------------------------NAV END-----------------------------------------------------------*/
 
 /*---------------------------------------------------------FOOTER------------------------------------------------------------*/
@@ -740,3 +752,23 @@ input::-webkit-input-placeholder {
 /*----------------end top filters-------------------*/
 
 
+.statisticXS {
+    padding: 15px 0 10px 0;
+}
+
+    .statisticXS > div {
+        box-shadow: 0 0 0 1px #F8F8F8 inset, 0 0 0 1px #CCCCCC;
+        width: calc(20% - 5px);
+        height: calc(20vw - 14px);
+        margin-right: 5px;
+    }
+
+    .statisticXS .stat {
+        padding: 10px 0 10px 0;
+        background: #eee;
+        color: #444;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        position: relative;
+    }

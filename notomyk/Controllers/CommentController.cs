@@ -167,10 +167,12 @@ namespace notomyk.Controllers
             {
                 using (NTMContext db = new NTMContext())
                 {
-                    var comment = new tbl_Comment { tbl_CommentID = commentID };
+                    var comment = db.Comment.Where(c => c.tbl_CommentID == commentID).FirstOrDefault();
 
-                    db.Entry(comment).State = EntityState.Deleted;
+                    comment.IsActive = false;
+                    //db.Entry(comment).State = EntityState.Deleted;
                     db.SaveChanges();
+
                     return Json(new { Success = true });
                 }
             }

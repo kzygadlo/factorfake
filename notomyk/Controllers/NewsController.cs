@@ -156,11 +156,13 @@ namespace notomyk.Controllers
         {
             using (NTMContext db = new NTMContext())
             {
-                var news = new tbl_News { tbl_NewsID = newsID };
+                //var news = new tbl_News { tbl_NewsID = newsID };
 
-                db.Entry(news).State = EntityState.Deleted;
+                var newsToDelete = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
+                newsToDelete.IsActive = false;
+
+                //db.Entry(news).State = EntityState.Deleted;
                 db.SaveChanges();
-
                 return RedirectToAction("Index", "Main");
             }
         }
