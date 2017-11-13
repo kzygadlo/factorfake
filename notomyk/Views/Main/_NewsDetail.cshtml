@@ -229,6 +229,41 @@
                             <p><small>kiedy</small></p>
                         </div>
                     </div>
+                    <div class="col-xs-12 hidden-xs removePadding">
+                        <div class="ui cards">
+                            <div class="card">
+                                <div class="content">
+                                    <img class="right floated mini ui image img-circle" src="~/Images/UserIcons/188126b3-a692-4364-8a91-0c9fec2177a2.png">
+                                    <div class="header">
+                                        @Model.SingleNews.ApplicationUser.UserName
+                                    </div>
+                                    <div class="meta">
+                                        <i class="calendar restore icon"></i><small>Dodano: 5 godzin temu</small>
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <div class="ui three buttons">
+                                        <div class="ui compact menu col-xs-8">
+                                            <x class="item">
+                                                <i class="icon mail"></i> Komentarzy
+                                                <div class="floating ui red label">@Model.SingleNews.Collection_Comments.Count()</div>
+                                            </x>
+                                            <x class="item">
+                                                <i class="icon tv"></i> Odwiedzin
+                                                <div class="floating ui teal label">@Model.SingleNews.Visitors</div>
+                                            </x>
+                                        </div>
+                                        <button class="ui facebook button col-xs-4">
+                                            <i class="share alternate icon"></i>
+                                            Facebook
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="col-sm-6 col-xs-12" style="padding:0 10px 0 10px">

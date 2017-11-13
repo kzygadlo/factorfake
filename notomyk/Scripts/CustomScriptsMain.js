@@ -1,4 +1,5 @@
-﻿//Scripts for List of News page [index]
+﻿
+//Scripts for List of News page [index]
 
 $(document).ready(function () {
 

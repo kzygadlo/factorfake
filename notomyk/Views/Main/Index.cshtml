@@ -7,7 +7,11 @@
 
 
 <div class="col-lg-9" style="padding-left:5px; padding-right:5px;">
-    <div class="col-lg-12" style="margin:0 0 10px 0;">
+    <div class="col-xs-12 visible-xs removePadding" style="margin-bottom:-5px;">
+        @Html.Partial("_RightMenuForum")
+    </div>
+    <div class="col-xs-12" style="padding: 0 14px 10px 14px">
+
         @Html.Partial("_Filters")
     </div>
     @Html.Partial("_NewsList")

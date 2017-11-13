@@ -7,32 +7,13 @@
 
 <div class="row">
     <div class="col-md-8 col-xs-12 removePadding">
-
-        <div class="newspaperFilter ui multiple search selection dropdown col-xs-12">
-            <input id="newspapersList" name="states" type="hidden">
-            <i class="dropdown icon"></i>
-            <div class="default text"><i class="newspaper icon"></i> Wybierz Gazety</div>
-            <div class="menu">
-                @foreach (var newspaper in Model.Newspapers)
-                {
-                    <div class="item" data-value="@newspaper.tbl_NewspaperID">@newspaper.NewspaperName</div>
-                }
-
-            </div>
+        <div class="hidden-xs">
+            @Html.Partial("_FilterLG")
         </div>
-
-        <div class="tagFilter ui multiple search selection dropdown col-xs-12">
-            <input id="tagsList" name="states" type="hidden">
-            <i class="dropdown icon"></i>
-            <div class="default text"><i class="tags icon"></i> Wybierz Tagi</div>
-            <div class="menu">
-                @foreach (var tag in Model.Categories)
-                {
-                    <div class="item" data-value="@tag.ID">@tag.TagName</div>
-                }
-            </div>
+        <div class="visible-xs">
+            @Html.Partial("_FilterXS")
         </div>
-
+       
     </div>
 
 

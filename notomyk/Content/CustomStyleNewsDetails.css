@@ -2,6 +2,34 @@
 
 /*single Comment*/
 
+
+#SingleNews .cards {
+    margin-top: 0px;
+}
+
+#SingleNews .card .content {
+    padding: 10px 0 10px 0;
+    border-top: 1px solid rgba(0,0,0,.05) !important;
+}
+
+#SingleNews .card .compact {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+
+#SingleNews .card .extra {
+    padding-top: 15px;
+}
+
+#SingleNews .card {
+    width: 100%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    /*margin-top: 10px;
+border: none;*/
+}
+
 .singleComment .panel {
     margin-bottom: 1px;
     border-radius: 0px;
