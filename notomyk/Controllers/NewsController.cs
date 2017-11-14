@@ -71,7 +71,7 @@ namespace notomyk.Controllers
                         var addNewspaper = new tbl_Newspaper();
                         addNewspaper.NewspaperLink = homeUrl;
 
-                        addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? metaDataFromUrl.SiteName : homeUrl;
+                        addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? homeUrl: metaDataFromUrl.SiteName;
                         addNewspaper.NewspaperIconLink = "default.jpg";
                         db.Newspaper.Add(addNewspaper);
                         db.SaveChanges();
@@ -85,7 +85,7 @@ namespace notomyk.Controllers
                     news.ArticleLink = newN.UrlLink;
                     news.DateAdd = DateTime.UtcNow;
                     news.UserId = User.Identity.GetUserId();
-                    news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? MyEncoding.ReplaceSign(metaDataFromUrl.Title) : metaDataFromUrl.SiteName;
+                    news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : MyEncoding.ReplaceSign(metaDataFromUrl.Title);
                     news.Description = MyEncoding.ReplaceSign(metaDataFromUrl.Description);
                     news.PictureLink = metaDataFromUrl.ImageUrl;
 

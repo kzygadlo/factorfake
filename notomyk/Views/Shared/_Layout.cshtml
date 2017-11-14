@@ -95,14 +95,23 @@
             </div>
 
             <div class="collapse navbar-collapse hidden-lg" id="search">
-                <form class="mobile_search hidden-md hidden-lg" role="search" action="/" method="GET">
+             
+                <form id="frmAddNews" class="input-group mobile_search hidden-md hidden-lg" method="post" action="@Url.Action("Add","News")">
+                    <input name="UrlLink" type="text" class="form-control removeRadius" placeholder="Wklej link.." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-success removeRadius" type="submit" style="background-color:#48CFAD; border-color:#48CFAD">Dodaj</button>
+                    </span>
+                </form>
+
+                @*<form class="mobile_search hidden-md hidden-lg" role="search" action="/" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Wklej link..." />
                         <span class="input-group-btn">
                             <button class="btn btn-success" type="button">Dodaj</button>
                         </span>
                     </div>
-                </form>
+                </form>*@
+
             </div>
         </div>
     </nav>

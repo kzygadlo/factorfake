@@ -14,13 +14,11 @@
         commentsVoting(true, $this);
     });
 
-
     $(document).on('click', '.commentFakeVote', function () {
         $this = $(this).closest('.singleComment')
         //var $commentID = $(this).closest('.singleComment').find('#commentContainerJS').data('commentid');
         commentsVoting(false, $this);
     });
-
 
     $(document).on('click', '.replyFaktVote', function () {
         $this = $(this).closest('.singleReply')
@@ -28,17 +26,12 @@
         replyVoting(true, $this);
     });
 
-
     $(document).on('click', '.replyFakeVote', function () {
         $this = $(this).closest('.singleReply')
         //var $commentID = $(this).closest('.singleComment').find('#commentContainerJS').data('commentid');
         replyVoting(false, $this);
     });
-
-
 });
-
-
 
 
 function newsVoting(whatVote) {

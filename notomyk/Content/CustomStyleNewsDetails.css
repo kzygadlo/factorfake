@@ -2,13 +2,21 @@
 
 /*single Comment*/
 
+#SingleNews .newspaperLogo {
+    margin-left:0px;
+}
 
 #SingleNews .cards {
     margin-top: 0px;
+    
 }
 
-#SingleNews .card .content {
-    padding: 10px 0 10px 0;
+.ui.mini.image{
+    width: 45px;
+}
+
+#SingleNews .statInfo {
+    padding: 10px 0 2px 0;
     border-top: 1px solid rgba(0,0,0,.05) !important;
 }
 
@@ -18,8 +26,8 @@
 }
 
 
-#SingleNews .card .extra {
-    padding-top: 15px;
+#SingleNews .statButtons {
+    padding: 12px 0 10px 0;
 }
 
 #SingleNews .card {

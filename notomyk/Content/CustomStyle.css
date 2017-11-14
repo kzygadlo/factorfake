@@ -11,7 +11,7 @@
 }
 
 .NTMavatar {
-    height: 28px !important;
+    height: 30px !important;
     margin: 1px 0 1px 0;
 }
 
@@ -105,6 +105,9 @@ small {
     color: #48CFAD;
 }
 
+.WhiteC {
+    color:white;
+}
 
 .greyColor {
     color: #aaaaaa;
@@ -301,8 +304,13 @@ small {
         color: #333;
     }
 
+    .rightTable .pull-left .image {
+        margin-top: 12px;
+    }
+
+
 .rightList .post .post-heading {
-    padding: 2px 2px;
+    padding: 0px 2px;
     height: 34px;
     background-color: #f5f5f5;
     margin-bottom: 1px;
@@ -318,8 +326,9 @@ small {
     }
 
     .rightList .post .post-heading .avatar {
-        width: 30px;
-        height: 30px;
+        padding-top:1px;
+        width: 32px;
+        height: 32px;
         display: block;
         margin-right: 15px;
     }
@@ -338,6 +347,7 @@ small {
         margin: 0;
         color: #555 !important;
     }
+
 
 /*reputation stars*/
 span.stars, span.stars span {
@@ -459,7 +469,7 @@ ul, li {
 }
 
     .dropdown-menu > li > a {
-       padding: 3px 5px;
+        padding: 3px 5px;
     }
 /*---------------------------------------------------------NAV END-----------------------------------------------------------*/
 
