@@ -304,7 +304,7 @@
 
     <div class="comments-container col-lg-12 removePadding">
         @*Comments container*@
-        @if (Model.SingleNews.Collection_Comments.Count > 0)
+        @if (Model.SingleNews.Collection_Comments.Where(c => c.Parent == null && c.IsActive == true).Count() > 0)
         {
             <div class="sorting col-lg-12 list-group-item"><c class="text-muted">Sortuj wg: </c><a href="#">daty dodania  | </a><a href="#">reputacji autorów | </a><a href="#">oceny </a></div>
         }

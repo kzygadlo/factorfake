@@ -359,6 +359,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\CustomStyle.css" />
+    <Content Include="Content\CustomStyleForum.css" />
     <Content Include="Content\CustomStyleMedia.css" />
     <Content Include="Content\CustomStyleNewsDetails.css" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
@@ -761,7 +762,7 @@
     <Content Include="Views\User\UserDetails.cshtml" />
     <Content Include="Views\User\_UserCard.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
-    <Content Include="Views\Forum\_LeftPanel.cshtml" />
+    <Content Include="Views\Forum\_Post.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />

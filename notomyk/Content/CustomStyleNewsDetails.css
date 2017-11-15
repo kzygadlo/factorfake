@@ -20,7 +20,8 @@
     border-top: 1px solid rgba(0,0,0,.05) !important;
 }
 
-#SingleNews .card .compact {
+#SingleNews .card .compact,
+#SinglePost .card .compact {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
 }
@@ -30,7 +31,8 @@
     padding: 12px 0 10px 0;
 }
 
-#SingleNews .card {
+#SingleNews .card,
+#SinglePost .card {
     width: 100%;
     box-shadow: none;
     -webkit-box-shadow: none;

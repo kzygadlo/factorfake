@@ -1,0 +1,13 @@
+﻿#SinglePost .postDetails {
+     border-top: 1px solid rgba(0,0,0,.05) !important;
+    border-bottom: 1px solid rgba(0,0,0,.05) !important;
+
+}
+
+#addPostComment {
+    padding: 10px 0 0 0;
+     border-top: 1px solid rgba(0,0,0,.05) !important;
+}
+#SinglePost .card>.extra {
+    border:none !important;
+}

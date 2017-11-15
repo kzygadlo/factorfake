@@ -2,16 +2,12 @@
 @{
     ViewBag.Title = "Forum";
 }
-<div class="col-lg-12">
-    
-    
-    
+<div class="post col-md-9 col-xs-12" style="padding: 0 5px 0 5px">    
+    @Html.Partial("_Post")    
 </div>
 
-@*<div class="col-lg-6">
-    ntm
-</div>
-
-<section class="col-lg-3" style="padding-left:5px; padding-right:5px">
+<section class="col-md-3" style="padding: 0 5px 0 5px">
     @Html.Action("RightMenu", "Main")
-</section>*@
+</section>
+
+

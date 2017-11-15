@@ -1,0 +1,74 @@
+﻿<div id="SinglePost">
+    <div class="list-group-item n1">
+        <div class="row m0">
+            <div class="postDetails col-xs-12 removePadding">
+
+                <div class="ui cards">
+                    <div class="card">
+                        <div class="statInfo content">
+                            <img class="userLogoNews left floated mini ui image" style="margin:0 10px 0 0;" src="~/Images/Utility/favicons_fof/android-icon-144x144.png">
+                            <div class="header" style="margin-top:1px">
+                                faktorfake
+                            </div>
+                            <div class="meta">
+                                <i class="calendar restore icon"></i><small>Dodano: 5 godzin temu</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12" style="padding:10px 10px 10px 10px">
+                <h2>FaktOrFake - przeczytaj.</h2>
+            </div>
+            <div class="col-xs-12" style="padding:0 10px 10px 10px">
+                <p>
+                    Paltańskiej policji, procederem prania brudnych pieniędzy, korupcją oraz praktykami przyznawania unijnego obywatelstwa na wyspie. Wezwał również do "pełnego zaangażowania" Europolu w śledztwo w sprawie śmierci dziennikarki Galizii.
+                    Europosłowie zauważają, że niezależności służb ochrony porządku publicznego i wymiaru sprawiedliwości na Malcie zagrażają działania jednostek, które usiłują wpływać na polityczne procesy decyzyjne pod kątem swoich interesów.
+                    Na podstawie raportów Europolu, organizacji Reporterzy bez Granic i komisji PE ds. Panama Papers Parlament Europejski wysuwa wniosek, że ostatnie wydarzenia na Malcie
+                </p>
+                <p><strong>Faktorfake.pl</strong></p>
+                <p><strong>Faktorfake.pl</strong></p>
+                <p><strong>Faktorfake.pl</strong></p>
+            </div>
+
+
+            <div id="addPostComment" class="col-xs-12">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div class="col-xs-2 col-sm-1 removePadding">
+                            <img src="~/Images/UserIcons/ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+                        </div>
+                        <div class="col-xs-9 col-sm-10 removePadding">
+                            <textarea id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym poście ?"></textarea>
+                        </div>
+                        <div class="col-xs-1 removePadding">
+                            <form class="frmAddComment  pull-right">
+                                <input class="frmNewsID" type="hidden" name="NewsID" value=11>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-xs-12 removePadding" style="padding-right:10px;">
+                            <textarea id="frmCommentText" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                        </div>
+                        <input class="frmNewsID" type="hidden" name="NewsID" value=11>
+                    }
+                </div>
+        </div>
+    </div>
+
+    <div class="postCommentContainer col-lg-12 removePadding">
+        @*Comments container*@
+
+       <div class="sorting col-lg-12 list-group-item"><c class="text-muted">Sortuj wg: </c><a href="#">daty dodania  | </a><a href="#">reputacji autorów | </a><a href="#">oceny </a></div>
+
+        <ul id="commentsList" class="comments-list"></ul>
+    </div>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+</div>
