@@ -176,7 +176,6 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ReplyController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -362,6 +361,7 @@
     <Content Include="Content\CustomStyleForum.css" />
     <Content Include="Content\CustomStyleMedia.css" />
     <Content Include="Content\CustomStyleNewsDetails.css" />
+    <Content Include="Content\CustomStyleRightMenu.css" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />

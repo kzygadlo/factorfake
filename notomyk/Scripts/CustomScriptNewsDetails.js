@@ -1,10 +1,9 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     var $fakt = $('#voteFakt').data('value');
     var $fake = $('#voteFake').data('value');
     var $percentage = Math.round($fakt / ($fakt + $fake) * 100);
-    
+
     if ($percentage > 50) {
         var $color = "#5cb85c";
         var $speed = 1000;
@@ -45,3 +44,4 @@ function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
+

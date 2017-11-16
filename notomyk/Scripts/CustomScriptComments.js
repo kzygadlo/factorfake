@@ -143,9 +143,6 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
 };
 
 
-
-
-
 //Remove comment
 $(document).ready(function () {
     $(document).on('click', '.DeleteComment', function (event) {
@@ -174,33 +171,6 @@ $(document).ready(function () {
     });
 });
 
-
-//Remove reply
-$(document).ready(function () {
-    $(document).on('click', '.DeleteReply', function (event) {
-        event.preventDefault();
-        //event.stopPropagation();
-        var $entReply = $(this);
-        var ReplyID = $entReply.data('replyid')
-
-        $.ajax({
-            url: '/Reply/Remove',
-            type: 'POST',
-            //timeout: 3000,
-            data: {
-                replyID: ReplyID
-            },
-            success: function () {
-                $entReply.closest(".singleReply").fadeOut(600, function () {
-                    $entReply.closest(".singleReply").remove();
-                });
-            },
-            error: function () {
-                alert("nie mozna usunac komentarza");
-            }
-        });
-    });
-});
 
 
 

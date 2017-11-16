@@ -250,13 +250,13 @@
                     <a href="@Model.SingleNews.ArticleLink"><strong><span class="text" style="color: #2375B9">@Model.SingleNews.Title</span></strong></a>
                 </div>
                 <div class="col-xs-1 removePadding" style="text-align:right">
-                    <div class="ui dropdown">
-                        <i class="dropdown-togle large sidebar icon" data-toggle="dropdown"></i>
-                        <div class="menu left">
-                            <div class="item">Zgłoś</div>
-                            <div class="item">Usuń</div>
+                          <div class="ui dropdown">
+                            <i class="dropdown-togle large sidebar icon" data-toggle="dropdown"></i>
+                            <div class="menu left">
+                                <div class="item">Zgłoś</div>
+                                <div class="deleteNews item">Usuń</div>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
 
@@ -293,7 +293,7 @@
                 }
                 else
                 {
-                    <div class="col-xs-12 removePadding" style="padding-right:10px;">
+                    <div class="col-xs-12 removePadding">
                         <textarea id="frmCommentText" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
                     </div>
                     <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>

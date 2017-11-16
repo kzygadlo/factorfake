@@ -1,0 +1,44 @@
+﻿.rightTable {
+    margin-bottom: 10px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+    .rightTable .nav > li > a {
+        padding: 5px 5px 5px 5px;
+        border-radius: 4px 4px 0px 0px;
+    }
+
+    .rightTable .nav > li.active > a {
+        color: #333;
+        background-color: #eee;
+    }
+
+    .rightTable .nav > li > a:hover {
+        color: white;
+        background-color: rgb(156,156,156);
+    }
+
+    .rightTable .nav > li > a {
+        color: #333;
+    }
+
+    .rightTable .pull-left .image {
+        margin-top: 12px;
+    }
+
+    .rightTable.news a {
+    background-color:#f5f5f5;
+    }
+
+    .rightTable.news a:hover {
+    background-color:white
+    }
+
+    .rightTable .singleUser {
+    background-color:#f5f5f5;
+    }
+
+    .rightTable .singleUser:hover {
+    background-color:white;
+    }

@@ -3,6 +3,9 @@
 
 /*---------------------to override------------------------*/
 
+.ui.list .item > .content {
+    font-size: 12px !important;
+}
 
 .ui.green.label, .ui.green.labels .label {
     background-color: #5cb85c !important;
@@ -279,34 +282,7 @@ small {
     text-align: left;
 }
 
-.rightTable {
-    margin-bottom: 10px;
-    padding-right: 0;
-    padding-left: 0;
-}
 
-    .rightTable .nav > li > a {
-        padding: 5px 5px 5px 5px;
-        border-radius: 4px 4px 0px 0px;
-    }
-
-    .rightTable .nav > li.active > a {
-        color: #333;
-        background-color: #eee;
-    }
-
-    .rightTable .nav > li > a:hover {
-        color: white;
-        background-color: rgb(156,156,156);
-    }
-
-    .rightTable .nav > li > a {
-        color: #333;
-    }
-
-    .rightTable .pull-left .image {
-        margin-top: 12px;
-    }
 
 
 .rightList .post .post-heading {

@@ -64,14 +64,14 @@ namespace notomyk.Controllers
                     {
                         return RedirectToAction("News", "Main", new { id = newsID });
                     }
-                    
+
                     var newspaperId = db.Newspaper.Where(n => n.NewspaperLink == homeUrl).Select(n => n.tbl_NewspaperID).FirstOrDefault();
                     if (newspaperId == 0)
                     {
                         var addNewspaper = new tbl_Newspaper();
                         addNewspaper.NewspaperLink = homeUrl;
 
-                        addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? homeUrl: metaDataFromUrl.SiteName;
+                        addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? homeUrl : metaDataFromUrl.SiteName;
                         addNewspaper.NewspaperIconLink = "default.jpg";
                         db.Newspaper.Add(addNewspaper);
                         db.SaveChanges();
@@ -89,7 +89,7 @@ namespace notomyk.Controllers
                     news.Description = MyEncoding.ReplaceSign(metaDataFromUrl.Description);
                     news.PictureLink = metaDataFromUrl.ImageUrl;
 
-                    db.News.Add(news);                    
+                    db.News.Add(news);
 
                     var userName = User.Identity.GetUserName();
                     var visitorName = db.Users.FirstOrDefault(u => u.UserName == userName);
@@ -156,13 +156,12 @@ namespace notomyk.Controllers
         {
             using (NTMContext db = new NTMContext())
             {
-                //var news = new tbl_News { tbl_NewsID = newsID };
 
                 var newsToDelete = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
                 newsToDelete.IsActive = false;
 
-                //db.Entry(news).State = EntityState.Deleted;
                 db.SaveChanges();
+
                 return RedirectToAction("Index", "Main");
             }
         }

@@ -3,6 +3,8 @@
 
 $(document).ready(function () {
 
+    $('.ui.rating').rating();
+
     getListOfNews();
     $('.ui.dropdown').dropdown();
     $('#search-select').dropdown();
