@@ -33,7 +33,7 @@
             </div>
 
 
-            <div id="" class="col-xs-12">
+            <div id="" class="col-xs-12 removePadding">
                     @if (Request.IsAuthenticated)
                     {
                         <div class="col-xs-2 col-sm-1 removePadding">
@@ -43,8 +43,8 @@
                             <textarea id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym poście ?"></textarea>
                         </div>
                         <div class="col-xs-1 removePadding">
-                            <form class=""  pull-right">
-                                <input class="frmNewsID" type="hidden" name="NewsID" value=11>
+                            <form class="pull-right">
+                                <input class=" frmnewsid" type="hidden" name="NewsID" value=11>
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>

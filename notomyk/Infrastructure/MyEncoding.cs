@@ -9,14 +9,17 @@ namespace notomyk.Infrastructure
     {
         public static string ReplaceSign(string input)
         {
-
-            if (input.IndexOf("&#34;") > 0)
+            if (input != null)
             {
-                input = input.Replace("&#34;", "\"");
-            }
-            else
-            {
-                input = input.Replace("&quot;", "\"");
+                if (input.IndexOf("&#34;") > 0)
+                {
+                    input = input.Replace("&#34;", "\"");
+                }
+                else
+                {
+                    input = input.Replace("&quot;", "\"");
+                }           
+            
             }
             
             return input;

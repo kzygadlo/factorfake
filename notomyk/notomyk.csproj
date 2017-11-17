@@ -376,38 +376,53 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Images\Logos\250\default.jpg" />
+    <Content Include="Images\Logos\250\logo_bankier.jpg" />
+    <Content Include="Images\Logos\250\logo_dziennik.jpg" />
     <Content Include="Images\Logos\250\logo_fakt.jpg" />
     <Content Include="Images\Logos\250\logo_gwroclawska.jpg" />
     <Content Include="Images\Logos\250\logo_interia.jpg" />
     <Content Include="Images\Logos\250\logo_interiafacet.jpg" />
     <Content Include="Images\Logos\250\logo_interiakobieta.jpg" />
     <Content Include="Images\Logos\250\logo_interiamoto.jpg" />
+    <Content Include="Images\Logos\250\logo_money.jpg" />
+    <Content Include="Images\Logos\250\logo_natemat.jpg" />
     <Content Include="Images\Logos\250\logo_newsweek.jpg" />
     <Content Include="Images\Logos\250\logo_niezalezna.jpg" />
     <Content Include="Images\Logos\250\logo_onet.jpg" />
     <Content Include="Images\Logos\250\logo_radioZet.jpg" />
+    <Content Include="Images\Logos\250\logo_rp.jpg" />
     <Content Include="Images\Logos\250\logo_se.jpg" />
     <Content Include="Images\Logos\250\logo_tvn.jpg" />
     <Content Include="Images\Logos\250\logo_tvn24.jpg" />
     <Content Include="Images\Logos\250\logo_tvpinfo.jpg" />
     <Content Include="Images\Logos\250\logo_wgospodarce.jpg" />
+    <Content Include="Images\Logos\250\logo_wirtualnemedia.jpg" />
     <Content Include="Images\Logos\250\logo_wp.jpg" />
     <Content Include="Images\Logos\250\logo_wpolityce.jpg" />
     <Content Include="Images\Logos\250\logo_wprost.jpg" />
     <Content Include="Images\Logos\250\logo_wyborcza.jpg" />
     <Content Include="Images\Logos\icons\default.jpg" />
+    <Content Include="Images\Logos\icons\logo_bankier.jpg" />
+    <Content Include="Images\Logos\icons\logo_dziennik.jpg" />
     <Content Include="Images\Logos\icons\logo_fakt.jpg" />
     <Content Include="Images\Logos\icons\logo_gwroclawska.jpg" />
     <Content Include="Images\Logos\icons\logo_interia.jpg" />
     <Content Include="Images\Logos\icons\logo_interiafacet.jpg" />
     <Content Include="Images\Logos\icons\logo_interiakobieta.jpg" />
+    <Content Include="Images\Logos\icons\logo_interiamoto.jpg" />
+    <Content Include="Images\Logos\icons\logo_money.jpg" />
+    <Content Include="Images\Logos\icons\logo_natemat.jpg" />
     <Content Include="Images\Logos\icons\logo_newsweek.jpg" />
     <Content Include="Images\Logos\icons\logo_niezalezna.jpg" />
     <Content Include="Images\Logos\icons\logo_onet.jpg" />
+    <Content Include="Images\Logos\icons\logo_radioZet.jpg" />
+    <Content Include="Images\Logos\icons\logo_rp.jpg" />
     <Content Include="Images\Logos\icons\logo_se.jpg" />
     <Content Include="Images\Logos\icons\logo_tvn.jpg" />
     <Content Include="Images\Logos\icons\logo_tvn24.jpg" />
+    <Content Include="Images\Logos\icons\logo_tvpinfo.jpg" />
     <Content Include="Images\Logos\icons\logo_wgospodarce.jpg" />
+    <Content Include="Images\Logos\icons\logo_wirtualnemedia.jpg" />
     <Content Include="Images\Logos\icons\logo_wp.jpg" />
     <Content Include="Images\Logos\icons\logo_wpolityce.jpg" />
     <Content Include="Images\Logos\icons\logo_wprost.jpg" />
@@ -490,6 +505,13 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\faktorfake.hostingasp.pl - Web Deploy %282%29.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -719,13 +741,6 @@
     <Content Include="semantic\tasks\rtl\watch.js" />
     <Content Include="semantic\tasks\version.js" />
     <Content Include="semantic\tasks\watch.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />

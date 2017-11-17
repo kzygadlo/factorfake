@@ -9,7 +9,7 @@
 <div class="rightTable col-xs-12">
     <ul class="nav nav-pills">
         <li class="active">
-            <a href="#1b" data-toggle="tab"><small><strong>Reputacja</strong></small></a>
+            <a href="#1b" data-toggle="tab"><small><strong><i class="trophy outline orange icon"></i>Reputacja</strong></small></a>
         </li>
         <li>
             <a href="#2b" data-toggle="tab"><small><strong>Ilosc Komentarzy</strong></small></a>
@@ -42,258 +42,76 @@
 
             }
         </div>
+        <div id="2b" class="tab-pane">
+            brak wynikow 2
+        </div>
+        <div id="2b" class="tab-pane">
+            brak wynikow 2
+        </div>
     </div>
 </div>
 
-<div class="rightTable news ui middle aligned divided list col-xs-12">
-
-    @foreach (var News in Model.FaktNews)
-    {
-        var TitleString = News.Title;
-        var Rating = News.VoteLogs.Where(n => n.Vote == true).Count() - News.VoteLogs.Where(n => n.Vote == false).Count();
-
-        if (News.Title.Length > 40)
-        {
-            TitleString = string.Concat(News.Title.Substring(0, 40), "...");
-        }
-
-        <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px">
-            <div class="right floated content">
-                <span class="ui green basic label">+ @Rating</span>
-            </div>
-            <i class="icon" style="width:35px; height:35px; padding:0">
-                <img class="ui avatar image" src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" style="width:35px;height:35px;">
-            </i>
-            <div class="content">
-
-                <div class="header" style="padding:0 0 3px 5px">@TitleString</div>
-                <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
-            </div>
-        </a>
-    }
 
 
-</div>
-
-
-
-
-@*<div class="rightTable col-xs-12">
-        <ul class="nav nav-pills">
-            <li class="active">
-                <a href="#1a" data-toggle="tab"><i class="fa fa-fire" style="color: orange"></i><small><strong> Fakt</strong></small></a>
-            </li>
-            <li>
-                <a href="#2a" data-toggle="tab"><i class="fa fa-fire" style="color: orange"></i><small><strong> Fake</strong></small></a>
-            </li>
-            <li>
-                <a href="#3a" data-toggle="tab"><small><strong>Komentarze</strong></small></a>
-            </li>
-            <li>
-                <a href="#4a" data-toggle="tab"><small><strong>Wyświetlenia</strong></small></a>
-            </li>
-        </ul>
-
-        <div class="tab-content clearfix">
-            <div class="tab-pane active" id="1a">
-                <div class="rightList">
-
-                    @foreach (var News in Model.FaktNews)
-                    {
-                        var TitleString = News.Title;
-                        var Rating = News.VoteLogs.Where(n => n.Vote == true).Count() - News.VoteLogs.Where(n => n.Vote == false).Count();
-
-                        if (News.Title.Length > 28)
-                        {
-                            TitleString = string.Concat(News.Title.Substring(0, 28), "...");
-                        }
-                        <div class="post">
-                            <a href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" class="avatar img-circle" alt="">
-                                    </div>
-                                    <div class="pull-left meta">
-
-                                        <div class="title h5">
-                                            <div style="height:17px">
-                                                <small class=""><strong>@TitleString</strong></small>
-                                            </div>
-                                            <div style="height:17px">
-                                                <small class="text-muted">@GetTimeAgo.CalculateDateDiff(News.DateAdd)</small>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="pull-right meta">
-                                        <div>
-
-                                            <span class="ui green basic label">+ @Rating</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    }
-
-                </div>
-            </div>
-            <div class="tab-pane" id="2a">
-                <div class="tab-pane active" id="2a">
-                    <div class="rightList">
-                        @foreach (var News in Model.FakeNews)
-                        {
-
-                            var TitleString = News.Title;
-                            var Rating = News.VoteLogs.Where(n => n.Vote == false).Count() - News.VoteLogs.Where(n => n.Vote == true).Count();
-
-                            if (News.Title.Length > 30)
-                            {
-                                TitleString = string.Concat(News.Title.Substring(0, 28), "...");
-                            }
-                            <div class="post">
-                                <a href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})">
-                                    <div class="post-heading">
-                                        <div class="pull-left image">
-                                            <img src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" class="avatar  img-circle" alt="">
-                                        </div>
-                                        <div class="pull-left meta">
-
-                                            <div class="title h5">
-                                                <div style="height:17px">
-                                                    <small class=""><strong>@TitleString</strong></small>
-                                                </div>
-                                                <div style="height:17px">
-                                                    <small class="text-muted">@GetTimeAgo.CalculateDateDiff(News.DateAdd)</small>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="pull-right meta">
-                                            <div>
-                                                <span class="ui red basic label">- @Rating</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="3a">
-                <div class="rightList">
-                    @foreach (var News in Model.CommentedNews)
-                    {
-
-                        var TitleString = News.Title;
-
-                        if (News.Title.Length > 30)
-                        {
-                            TitleString = string.Concat(News.Title.Substring(0, 28), "...");
-                        }
-                        <div class="post">
-                            <a href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" class="avatar  img-circle" alt="">
-                                    </div>
-                                    <div class="pull-left meta">
-
-                                        <div class="title h5">
-                                            <div style="height:17px">
-                                                <small class=""><strong>@TitleString</strong></small>
-                                            </div>
-                                            <div style="height:17px">
-                                                <small class="text-muted">@GetTimeAgo.CalculateDateDiff(News.DateAdd)</small>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="pull-right meta">
-                                        <div>
-                                            <span class="ui blue basic label">@News.Collection_Comments.Count</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    }
-                </div>
-
-            </div>
-            <div class="tab-pane" id="4a">
-                <div class="rightList">
-                    @foreach (var News in Model.VisitedNews)
-                    {
-
-                        var TitleString = News.Title;
-
-                        if (News.Title.Length > 30)
-                        {
-                            TitleString = string.Concat(News.Title.Substring(0, 28), "...");
-                        }
-                        <div class="post">
-                            <a href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})">
-                                <div class="post-heading">
-                                    <div class="pull-left image">
-                                        <img src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" class="avatar  img-circle" alt="">
-                                    </div>
-                                    <div class="pull-left meta">
-
-                                        <div class="title h5">
-                                            <div style="height:17px">
-                                                <small class=""><strong>@TitleString</strong></small>
-                                            </div>
-                                            <div style="height:17px">
-                                                <small class="text-muted">@GetTimeAgo.CalculateDateDiff(News.DateAdd)</small>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="pull-right meta">
-                                        <div>
-                                            <span class="ui grey basic label">@News.Visitors</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-@*<div class="tab-content clearfix">
-    <div class="tab-pane active" id="1b">
-        <div class="rightList">
-            @foreach (var User in Model.UsersRep)
+<div class="rightTable col-xs-12">
+    <ul class="nav nav-pills">
+        <li class="active">
+            <a href="#1c" data-toggle="tab"><small><strong><i class="fire outline icon orange"></i>Fakt</strong></small></a>
+        </li>
+        <li>
+            <a href="#2c" data-toggle="tab"><small><strong><i class="fire outline icon orange"></i>Fake</strong></small></a>
+        </li>
+        <li>
+            <a href="#3c" data-toggle="tab"><small><strong>Komentarze</strong></small></a>
+        </li>
+        <li>
+            <a href="#4c" data-toggle="tab"><small><strong>Wizyty</strong></small></a>
+        </li>
+    </ul>
+    <div class="tab-content clearfix">
+        <div id="1c" class="news ui middle aligned divided list tab-pane active">
+            @foreach (var News in Model.FaktNews)
             {
+                var TitleString = News.Title;
+                var Rating = News.VoteLogs.Where(n => n.Vote == true).Count() - News.VoteLogs.Where(n => n.Vote == false).Count();
 
-                var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Id));
+                if (News.Title.Length > 40)
+                {
+                    TitleString = string.Concat(News.Title.Substring(0, 40), "...");
+                }
 
-                <div class="post">
-                    <div class="post-heading">
-                        <div class="pull-left meta item">
-                            <i class="icon"><img src="~/Images/UserIcons/ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" height="40" width="40" class="avatar img-circle" alt=""></i>
-                            <div class="content">
+                <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
+                    <div class="right floated content">
 
-                                <div class="description"><strong>test</strong></div>
-
-                            </div>
+                        <span class="ui green basic pull-right label" style="margin-right:5px">+ @Rating</span>
+                        <div>
+                            <i class="ui tag label" style="margin-top:3px; background-color:#c6c5c5">Nowy</i>
                         </div>
-                        <div class="pull-right meta">
-                            <div>
-                                <span class="ui orange basic label">@User.tbl_Comment.Count</span>
 
-                            </div>
-                        </div>
                     </div>
-                </div>
+
+                    <i class="icon" style="width:35px; height:35px; padding:0">
+                        <img class="ui avatar image" src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" style="width:35px;height:35px;">
+                    </i>
+                    <div class="content">
+
+                        <div class="header" style="padding:0 0 3px 5px">@TitleString</div>
+                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                    </div>
+                </a>
             }
         </div>
-    </div>*@
-@*</div>*@
+        <div id="2c" class="tab-pane">
+            brak wynikow 2
+        </div>
+
+        <div id="3c" class="tab-pane">
+            brak wynikow 3
+        </div>
+
+        <div id="4c" class="tab-pane">
+            brak wynikow 4
+        </div>
+    </div>
+</div>
 
