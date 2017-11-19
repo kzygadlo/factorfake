@@ -32,6 +32,10 @@ namespace notomyk.Controllers
                 using (NTMContext db = new NTMContext())
                 {
 
+                    if (!Request.IsAuthenticated) {
+                        ViewBag.popupMsg = "zaloguj sie";
+                    }
+
                     var CommentsList = db.Comment.Include(c => c.Children)
                                           .Where(c => c.tbl_NewsID == newsID && c.Parenttbl_CommentID == null && c.IsActive == true)
                                           .Select(s => new

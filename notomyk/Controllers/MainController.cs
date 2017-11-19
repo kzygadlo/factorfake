@@ -142,6 +142,10 @@ namespace notomyk.Controllers
 
         public ActionResult News(int ID)
         {
+            if (!Request.IsAuthenticated)
+            {
+                ViewBag.popupMsg = "Musisz byc zalogowany aby oddać głos.";
+            }
 
             ViewBag.NewsID = ID;
 
