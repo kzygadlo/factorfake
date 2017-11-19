@@ -1,0 +1,4 @@
+﻿<appSettings>
+  <add key="Email" value="faktorfejk@gmail.com"/>
+  <add key="Password" value="xxx"/>
+</appSettings>
