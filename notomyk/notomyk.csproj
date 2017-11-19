@@ -352,7 +352,6 @@
     <Compile Include="ViewModel\RightMenuModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="appP.config" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -507,7 +506,7 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Web.config" />
-    <Content Include="appP.fake" />
+    <Content Include="appPriv.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
