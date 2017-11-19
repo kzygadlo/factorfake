@@ -352,6 +352,7 @@
     <Compile Include="ViewModel\RightMenuModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="appP.config" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
