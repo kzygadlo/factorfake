@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="row m0 removePadding">
-                    <div class="col-xs-5" style="padding:0 0 8px 10px" >
+                    <div class="col-xs-5" style="padding:0 0 8px 10px">
                         <div class="commentFakeVote ui right labeled button " tabindex="0" title="@ViewBag.popupMsg">
                             <div class="ui button BGwhite">
                                 <i class="thumbs outline down red icon"></i>
@@ -113,8 +113,8 @@
                                     <div class="dropdown">
                                         <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteReply" data-replyid="{{CommentID}}" data-newsid="{{NewsID}}" style="cursor:pointer">Usuń</a></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Zgłoś</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteReply" data-replyid="{{CommentID}}" data-newsid="{{NewsID}}" style="cursor:pointer">Usuń</a></li>
                                         </ul>
                                     </div>
                                     <div class="panel-heading">
@@ -180,6 +180,9 @@
                             <a class="voteFakt ui basic green left pointing label">
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
                             </a>
+                            @*<a class="voteFakt ui basic green left pointing label">
+                                <i class="ui basic loading button" style="margin:0 5px 0 5px;padding:0"></i>
+                            </a>*@
                         </div>
                         <div class="ui labeled button fake pull-right " tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
                             <a class="voteFake ui basic red right pointing label">
@@ -231,8 +234,6 @@
                                             <i class="share alternate icon"></i>
                                             Facebook
                                         </button>
-                                       
-
                                     </div>
                                 </div>
                             </div>
@@ -252,13 +253,18 @@
                     <a href="@Model.SingleNews.ArticleLink"><strong><span class="text" style="color: #2375B9">@Model.SingleNews.Title</span></strong></a>
                 </div>
                 <div class="col-xs-1 removePadding" style="text-align:right">
-                          <div class="ui dropdown">
-                            <i class="dropdown-togle large sidebar icon" data-toggle="dropdown"></i>
-                            <div class="menu left">
-                                <div class="item">Zgłoś</div>
-                                <div class="deleteNews item">Usuń</div>
-                            </div>
+                    <div class="ui dropdown">
+                        <i class="dropdown-togle large sidebar icon" data-toggle="dropdown"></i>
+                        <div class="menu left">
+                            <div class="item">Zgłoś</div>
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                            {
+                                <div class="deleteNews item" data-newsid="@Model.SingleNews.tbl_NewsID">Usuń</div>
+                            }
+
                         </div>
+                    </div>
                 </div>
             </div>
 

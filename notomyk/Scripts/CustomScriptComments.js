@@ -149,7 +149,6 @@ $(document).ready(function () {
         event.preventDefault();
         //event.stopPropagation();
         var $entComm = $(this);
-        var NewsID = $entComm.data('newsid')
         var CommentID = $entComm.data('commentid')
 
         $.ajax({
@@ -159,10 +158,16 @@ $(document).ready(function () {
             data: {
                 commentID: CommentID
             },
-            success: function () {
-                $entComm.closest(".singleComment").fadeOut(600, function () {
-                    $entComm.closest(".singleComment").remove();
-                });
+            success: function (response) {
+                if (response.Success == false) {
+                    alert(response.ResultMsg);
+                }
+                else {
+                    $entComm.closest(".singleComment").fadeOut(600, function () {
+                        $entComm.closest(".singleComment").remove();
+                    });
+                }
+               
             },
             error: function () {
                 alert("nie mozna usunac komentarza");
@@ -170,6 +175,41 @@ $(document).ready(function () {
         });
     });
 });
+
+
+//Remove reply
+$(document).ready(function () {
+    $(document).on('click', '.DeleteReply', function (event) {
+        event.preventDefault();
+        //event.stopPropagation();
+        var $entComm = $(this);
+        var CommentID = $entComm.data('replyid')
+
+        $.ajax({
+            url: '/Comment/Remove',
+            type: 'POST',
+            //timeout: 3000,
+            data: {
+                commentID: CommentID
+            },
+            success: function (response) {
+                if (response.Success == false) {
+                    alert(response.ResultMsg);
+                }
+                else {
+                    $entComm.closest(".singleReply").fadeOut(600, function () {
+                        $entComm.closest(".singleReply").remove();
+                    });
+                }
+
+            },
+            error: function () {
+                alert("nie mozna usunac komentarza");
+            }
+        });
+    });
+});
+
 
 
 

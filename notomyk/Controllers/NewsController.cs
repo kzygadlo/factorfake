@@ -31,22 +31,22 @@ namespace notomyk.Controllers
             }
         }
 
-        public ActionResult Get(int newsID)
-        {
-            try
-            {
-                using (NTMContext db = new NTMContext())
-                {
-                    var CommentsList = db.Comment.Where(c => c.tbl_NewsID == newsID).ToList();
+        //public ActionResult Get(int newsID)
+        //{
+        //    try
+        //    {
+        //        using (NTMContext db = new NTMContext())
+        //        {
+        //            var CommentsList = db.Comment.Where(c => c.tbl_NewsID == newsID).ToList();
 
-                    return Json(CommentsList);
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = ex.Message });
-            }
-        }
+        //            return Json(CommentsList);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = ex.Message });
+        //    }
+        //}
 
         [HttpPost]
         public ActionResult Add(NewNews newN)
@@ -152,18 +152,24 @@ namespace notomyk.Controllers
         }
 
         [HttpPost]
-        public ActionResult Remove(int newsID)
+        public JsonResult Remove(int newsID)
         {
-            using (NTMContext db = new NTMContext())
+            if (myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()))
             {
+                using (NTMContext db = new NTMContext())
+                {
 
-                var newsToDelete = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
-                newsToDelete.IsActive = false;
+                    var newsToDelete = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
+                    newsToDelete.IsActive = false;
 
-                db.SaveChanges();
+                    db.SaveChanges();
 
-                return RedirectToAction("Index", "Main");
+                    RedirectToAction("Index", "Main");
+
+                    return Json(new { Success = true, redirectUrl = Url.Action("Index","Main") });
+                }
             }
+            return Json(new { Success = false, ResultMsg = "Nie masz uprawnień aby usunąć tego newsa." });
         }
 
     }

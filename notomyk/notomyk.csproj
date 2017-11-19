@@ -187,6 +187,8 @@
     </Compile>
     <Compile Include="Infrastructure\AppConfig.cs" />
     <Compile Include="Infrastructure\MyEncoding.cs" />
+    <Compile Include="Infrastructure\myNews.cs" />
+    <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
     <Compile Include="Infrastructure\Rating.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />

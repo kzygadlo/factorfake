@@ -23,6 +23,7 @@ namespace notomyk.Controllers
         {
             var newspaperList = (from n in db.Newspaper
                                  where n.Colection_Newses.Count > 0
+
                                  orderby n.NewspaperName ascending
                                  select n).ToList();
 
@@ -100,7 +101,7 @@ namespace notomyk.Controllers
 
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
         {
-            var result = db.News.AsQueryable();
+            var result = db.News.Where(n => n.IsActive == true).AsQueryable();
             int value = Convert.ToInt32(ConfigurationManager.AppSettings["VotingRate"].ToString());
 
             if (filter != null)
@@ -158,15 +159,19 @@ namespace notomyk.Controllers
                 whatVote = isVoted.Vote ? 1 : -1;
             }
 
-            tbl_News singleNews = (from x in db.News
-                                   where x.tbl_NewsID == ID
-                                   select x).First();
 
+            var singleNews = db.News.Where(n => n.tbl_NewsID == ID && n.IsActive == true).FirstOrDefault();
 
-            ICollection<tbl_News> leftNews = (from x in db.News
-                                              where x.tbl_NewspaperID == singleNews.tbl_NewspaperID
-                                              orderby x.DateAdd descending
-                                              select x).Take(5).ToList();
+            if (singleNews == null)
+            {
+                return RedirectToAction("Index", "Main");
+            }
+
+            var leftNews = db.News
+                .Where(n => n.tbl_NewspaperID == singleNews.tbl_NewspaperID && n.IsActive == true)
+                .OrderByDescending(n => n.DateAdd)
+                .Take(5)
+                .ToList();
 
             ICollection<string> listOfTags = (from t in db.Tag
                                               join e in db.EventTag on t.ID equals e.TagID
@@ -200,9 +205,12 @@ namespace notomyk.Controllers
 
         public ActionResult AllNews()
         {
+
             var AllN = (from x in db.News
+                        where x.IsActive == true
                         orderby x.DateAdd descending
                         select x).ToList();
+
             var vm = new NewsList() { News = AllN };
 
             return View("Index", vm);
@@ -213,27 +221,34 @@ namespace notomyk.Controllers
         public ActionResult RightMenu()
         {
 
-            var faktN = (from x in db.News
-                         where x.VoteLogs.Where(n => n.Vote == true).Count() >= x.VoteLogs.Where(n => n.Vote == false).Count()
-                         orderby ((decimal)(x.VoteLogs.Where(n => n.Vote == true).Count() - x.VoteLogs.Where(n => n.Vote == false).Count())) descending
-                         select x
-                         ).Take(10).ToList();
+            var faktN = db.News
+                .Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() >= n.VoteLogs.Where(v => v.Vote == false).Count())
+                .Where(n => n.IsActive == true)
+                .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == true).Count() - n.VoteLogs.Where(v => v.Vote == false).Count())
+                .Take(10)
+                .ToList();
 
-            var fakeN = (from x in db.News
-                         where x.VoteLogs.Where(n => n.Vote == true).Count() <= x.VoteLogs.Where(n => n.Vote == false).Count()
-                         orderby ((decimal)(x.VoteLogs.Where(n => n.Vote == true).Count() - x.VoteLogs.Where(n => n.Vote == false).Count())) ascending
-                         select x
-                         ).Take(10).ToList();
 
-            var comments = (from x in db.News
-                            orderby x.Collection_Comments.Count descending
-                            select x
-                            ).Take(10).ToList();
+            var fakeN = db.News
+                .Where(n => n.VoteLogs.Where(v => v.Vote == false).Count() >= n.VoteLogs.Where(v => v.Vote == true).Count())
+                .Where(n => n.IsActive == true)
+                .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == false).Count() - n.VoteLogs.Where(v => v.Vote == true).Count())
+                .Take(10)
+                .ToList();
 
-            var visitors = (from x in db.News
-                            orderby x.Visitors descending
-                            select x
-                             ).Take(10).ToList();
+
+            var comments = db.News
+                .Where(n => n.IsActive == true)
+                .OrderByDescending(n => n.Collection_Comments.Count)
+                .Take(10)
+                .ToList();
+
+
+            var visitors = db.News
+                .Where(n => n.IsActive == true)
+                .OrderByDescending(n => n.Visitors)
+                .Take(10)
+                .ToList();
 
             var usersRep = (from x in db.Users
                             orderby x.tbl_Comment.Count descending

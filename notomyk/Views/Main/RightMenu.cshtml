@@ -84,10 +84,12 @@
                     <div class="right floated content">
 
                         <span class="ui green basic pull-right label" style="margin-right:5px">+ @Rating</span>
-                        <div>
-                            <i class="ui tag label" style="margin-top:3px; background-color:#c6c5c5">Nowy</i>
-                        </div>
-
+                        @if (myNews.isNew(News.DateAdd))
+                        {
+                            <div>
+                                <i class="ui tag label" style="margin-top:3px; background-color:#c6c5c5">Nowy</i>
+                            </div>
+                        }   
                     </div>
 
                     <i class="icon" style="width:35px; height:35px; padding:0">
@@ -101,16 +103,106 @@
                 </a>
             }
         </div>
-        <div id="2c" class="tab-pane">
-            brak wynikow 2
+        <div id="2c" class="news ui middle aligned divided list tab-pane" style="margin:0" >
+            @foreach (var News in Model.FakeNews)
+            {
+                var TitleString = News.Title;
+                var Rating = News.VoteLogs.Where(n => n.Vote == false).Count() - News.VoteLogs.Where(n => n.Vote == true).Count();
+
+                if (News.Title.Length > 40)
+                {
+                    TitleString = string.Concat(News.Title.Substring(0, 40), "...");
+                }
+
+                <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
+                    <div class="right floated content">
+
+                        <span class="ui red basic pull-right label" style="margin-right:5px">+ @Rating</span>
+                        @if (myNews.isNew(News.DateAdd))
+                        {
+                            <div>
+                                <i class="ui tag label" style="margin-top:3px; background-color:#c6c5c5">Nowy</i>
+                            </div>
+                        }
+                    </div>
+
+                    <i class="icon" style="width:35px; height:35px; padding:0">
+                        <img class="ui avatar image" src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" style="width:35px;height:35px;">
+                    </i>
+                    <div class="content">
+
+                        <div class="header" style="padding:0 0 3px 5px">@TitleString</div>
+                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                    </div>
+                </a>
+            }
         </div>
 
-        <div id="3c" class="tab-pane">
-            brak wynikow 3
-        </div>
+        <div id="3c" class="news ui middle aligned divided list tab-pane" style="margin:0">
+            @foreach (var News in Model.CommentedNews)
+            {
+                var TitleString = News.Title;
 
-        <div id="4c" class="tab-pane">
-            brak wynikow 4
+                if (News.Title.Length > 40)
+                {
+                    TitleString = string.Concat(News.Title.Substring(0, 40), "...");
+                }
+
+                <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
+                    <div class="right floated content">
+
+                        <span class="ui blue basic pull-right label" style="margin-right:5px">@News.Collection_Comments.Count()</span>
+                        @if (myNews.isNew(News.DateAdd))
+                        {
+                            <div>
+                                <i class="ui tag label" style="margin-top:3px; background-color:#c6c5c5">Nowy</i>
+                            </div>
+                        }
+                    </div>
+
+                    <i class="icon" style="width:35px; height:35px; padding:0">
+                        <img class="ui avatar image" src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" style="width:35px;height:35px;">
+                    </i>
+                    <div class="content">
+
+                        <div class="header" style="padding:0 0 3px 5px">@TitleString</div>
+                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                    </div>
+                </a>
+            }
+        </div>
+        <div id="4c" class="news ui middle aligned divided list tab-pane" style="margin:0">
+            @foreach (var News in Model.VisitedNews)
+            {
+                var TitleString = News.Title;
+
+                if (News.Title.Length > 40)
+                {
+                    TitleString = string.Concat(News.Title.Substring(0, 40), "...");
+                }
+
+                <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
+                    <div class="right floated content">
+
+                        <span class="ui grey basic pull-right label" style="margin-right:5px">@News.Visitors</span>
+                        @if (myNews.isNew(News.DateAdd))
+                        {
+                            <div>
+                                <i class="ui tag label" style="margin-top:3px; background-color:#c6c5c5">Nowy</i>
+                            </div>
+                        }
+                    </div>
+
+                    <i class="icon" style="width:35px; height:35px; padding:0">
+                        <img class="ui avatar image" src="@Url.NewspaperIconPath_ICO(News.Newspaper.NewspaperIconLink)" style="width:35px;height:35px;">
+                    </i>
+                    <div class="content">
+
+                        <div class="header" style="padding:0 0 3px 5px">@TitleString</div>
+                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                    </div>
+                </a>
+            }
         </div>
     </div>
 </div>

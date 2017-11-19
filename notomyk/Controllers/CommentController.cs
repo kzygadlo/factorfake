@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using notomyk.DAL;
 using System.Data.Entity;
+using System.Web.Security;
 
 namespace notomyk.Controllers
 {
@@ -32,7 +33,8 @@ namespace notomyk.Controllers
                 using (NTMContext db = new NTMContext())
                 {
 
-                    if (!Request.IsAuthenticated) {
+                    if (!Request.IsAuthenticated)
+                    {
                         ViewBag.popupMsg = "zaloguj sie";
                     }
 
@@ -74,31 +76,31 @@ namespace notomyk.Controllers
         {
             //try
             //{
-                using (NTMContext db = new NTMContext())
-                {
-                    var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID).Select(
-                        s => new
-                        {
-                            s.tbl_CommentID,
-                            s.Comment,
-                            s.DateAdd,
-                            s.ApplicationUser.Id,
-                            s.ApplicationUser.UserName,
-                            s.VoteCommentLogs
-                        }
-                        ).ToList();
-
-                    return Json(CommentsList.Select(x => new
+            using (NTMContext db = new NTMContext())
+            {
+                var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID).Select(
+                    s => new
                     {
-                        com = x.Comment,
-                        cid = x.tbl_CommentID,
-                        date = GetTimeAgo.CalculateDateDiff(x.DateAdd),
-                        userN = x.UserName,
-                        userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
-                        faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
-                        fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
-                    }), JsonRequestBehavior.AllowGet);
-                }
+                        s.tbl_CommentID,
+                        s.Comment,
+                        s.DateAdd,
+                        s.ApplicationUser.Id,
+                        s.ApplicationUser.UserName,
+                        s.VoteCommentLogs
+                    }
+                    ).ToList();
+
+                return Json(CommentsList.Select(x => new
+                {
+                    com = x.Comment,
+                    cid = x.tbl_CommentID,
+                    date = GetTimeAgo.CalculateDateDiff(x.DateAdd),
+                    userN = x.UserName,
+                    userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
+                    faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
+                    fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
+                }), JsonRequestBehavior.AllowGet);
+            }
             //}
             //catch
             //{
@@ -167,23 +169,30 @@ namespace notomyk.Controllers
         [HttpPost]
         public ActionResult Remove(int commentID)
         {
-            try
+
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator") || myUser.IsCommentAuthor(commentID, User.Identity.GetUserId()))
             {
                 using (NTMContext db = new NTMContext())
                 {
                     var comment = db.Comment.Where(c => c.tbl_CommentID == commentID).FirstOrDefault();
 
                     comment.IsActive = false;
-                    //db.Entry(comment).State = EntityState.Deleted;
                     db.SaveChanges();
 
                     return Json(new { Success = true });
                 }
+
             }
-            catch
+            else
             {
-                return Json(new { Success = false });
+                return Json(new
+                {
+                    Success = false,
+                    ResultMsg = "Nie masz uprawnień aby usunąć ten komentarz."
+                });
             }
+
+
         }
     }
 }
