@@ -14,6 +14,6 @@ namespace notomyk.Models
         public string NewspaperLink { get; set; }
         public string NewspaperIconLink { get; set; }
 
-        public ICollection<tbl_News> Colection_Newses { get; set; }
+        public virtual ICollection<tbl_News> Colection_Newses { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace notomyk.Infrastructure
 {
-    public class MyEncoding
+    public class myEncoding
     {
         public static string ReplaceSign(string input)
         {
@@ -15,13 +15,24 @@ namespace notomyk.Infrastructure
                 {
                     input = input.Replace("&#34;", "\"");
                 }
-                else
+
+                if (input.IndexOf("&#8222;") > 0)
+                {
+                    input = input.Replace("&#8222;", "\"");
+                }
+
+                if (input.IndexOf("&#8221;") > 0)
+                {
+                    input = input.Replace("&#8221;", "\"");
+                }
+
+                if (input.IndexOf("&quot;") > 0)
                 {
                     input = input.Replace("&quot;", "\"");
-                }           
-            
+                }
+
             }
-            
+
             return input;
         }
     }

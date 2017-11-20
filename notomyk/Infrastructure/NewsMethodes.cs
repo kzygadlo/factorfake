@@ -51,6 +51,43 @@ namespace notomyk.Infrastructure
         }
 
 
+        public static bool CheckIfISO_windows_1250(string url)
+        {
+            var web = new HtmlWeb()
+            {
+                PreRequest = request =>
+                {
+                    request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+                    return true;
+                }
+            };
+
+            var document = web.Load(url);
+
+            var metaTags = document.DocumentNode.SelectNodes("//meta");
+
+
+            if (metaTags != null)
+            {
+                int matchCount = 0;
+                foreach (var tag in metaTags)
+                {
+                    var tagCharset = tag.Attributes["charset"];
+
+                    if (tagCharset != null)
+                    {
+                        if (tagCharset.Value.ToLower() == "utf-8")
+                        {
+                            return true;
+                        }
+                    }
+
+                }
+            }
+            return false;
+        }
+
+
 
         public static MetaInformation GetMetaDataFromUrl(string url)
         {
@@ -65,18 +102,14 @@ namespace notomyk.Infrastructure
                 }
             };
 
-            if (CheckIfISO_889_2(url) == true)
-            {
+            HttpDownloader downloadWrapper = new HttpDownloader(url, null, null);
 
-                Encoding iso = Encoding.GetEncoding("iso-8859-2");
 
-                web.AutoDetectEncoding = false;
-                web.OverrideEncoding = iso;
-            }
+            HtmlDocument htmlDocument = new HtmlDocument();
 
-            var document = web.Load(url);
+            htmlDocument.LoadHtml(downloadWrapper.GetPage());
 
-            var metaTags = document.DocumentNode.SelectNodes("//meta");
+            var metaTags = htmlDocument.DocumentNode.SelectNodes("//meta");
 
 
             MetaInformation metaInfo = new MetaInformation();

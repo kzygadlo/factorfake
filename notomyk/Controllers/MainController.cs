@@ -21,15 +21,18 @@ namespace notomyk.Controllers
 
         public ActionResult Index()
         {
-            var newspaperList = (from n in db.Newspaper
-                                 where n.Colection_Newses.Count > 0
 
-                                 orderby n.NewspaperName ascending
-                                 select n).ToList();
+            var newspaperList = db.Newspaper
+                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
+                 .OrderBy(o => o.NewspaperName)
+                 .ToList();
 
-            var tagList = (from t in db.Tag
-                           orderby t.TagVotes descending
-                           select t).ToList();
+            var tagList = db.Tag
+                .OrderByDescending(o => o.ListOfNews.Count).ToList();
+
+            //var tagList2 = (from t in db.Tag
+            //               orderby t.TagVotes descending
+            //               select t).ToList();
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
@@ -63,7 +66,11 @@ namespace notomyk.Controllers
                     x.VoteLogs,
                     x.Visitors,
                     Fakt = x.VoteLogs.Where(v => v.Vote == true).Count(),
-                    Fake = x.VoteLogs.Where(v => v.Vote == false).Count()
+                    Fake = x.VoteLogs.Where(v => v.Vote == false).Count(),
+                    Tags = tagsToViews.ReturnTags(x.EventsTags.OrderByDescending(o => o.Tags.ListOfNews.Count)
+                            .Select(e => e.Tags.TagName)
+                            .Take(5)
+                            .ToList())
                 });
 
                 UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
@@ -78,8 +85,8 @@ namespace notomyk.Controllers
                         urlActionLink = url.Replace("id", x.tbl_NewsID.ToString()),
                         newspaperPictureLink = iconP.Replace("path", x.Newspaper.NewspaperIconLink),
                         newsPictureLink = x.PictureLink,
-                        newsTitle = MyEncoding.ReplaceSign(x.Title),
-                        newsDescription = MyEncoding.ReplaceSign(x.Description),
+                        newsTitle = myEncoding.ReplaceSign(x.Title),
+                        newsDescription = myEncoding.ReplaceSign(x.Description),
                         numberOfVisitors = x.Visitors, //to edit
                         numberOfComments = x.Collection_Comments.Count, //to edit
                         dateAdded = GetTimeAgo.CalculateDateDiff(x.DateAdd),
@@ -88,7 +95,7 @@ namespace notomyk.Controllers
                         faktValue = x.Fakt,
                         fakeValue = x.Fake,
                         remainingRows = filter.Remains,
-                        tagList = "gospodarka | finanse | polityka"
+                        tagList = x.Tags
 
                     }), JsonRequestBehavior.AllowGet);
             }
@@ -102,7 +109,9 @@ namespace notomyk.Controllers
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
         {
             var result = db.News.Where(n => n.IsActive == true).AsQueryable();
-            int value = Convert.ToInt32(ConfigurationManager.AppSettings["VotingRate"].ToString());
+            int votingValue = Convert.ToInt32(ConfigurationManager.AppSettings["FilterVoting"]);
+            int commentValue = Convert.ToInt32(ConfigurationManager.AppSettings["FilterComments"]);
+            int visitorsValue = Convert.ToInt32(ConfigurationManager.AppSettings["FilterVisitors"]);
 
             if (filter != null)
             {
@@ -119,21 +128,37 @@ namespace notomyk.Controllers
                     switch (filter.WhatNews)
                     {
                         case 1: //Top Fakt
-                            result = result.Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() + n.VoteLogs.Where(v => v.Vote == false).Count() >= value
+                            result = result.Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() + n.VoteLogs.Where(v => v.Vote == false).Count() >= votingValue
                                 && (n.VoteLogs.Where(v => v.Vote == false).Count() == 0 || n.VoteLogs.Where(v => v.Vote == true).Count() / n.VoteLogs.Where(v => v.Vote == false).Count() > 2));
                             break;
                         case 2: //Top Fake
-                            result = result.Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() + n.VoteLogs.Where(v => v.Vote == false).Count() >= value
+                            result = result.Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() + n.VoteLogs.Where(v => v.Vote == false).Count() >= votingValue
                                 && (n.VoteLogs.Where(v => v.Vote == true).Count() == 0 || n.VoteLogs.Where(v => v.Vote == false).Count() / n.VoteLogs.Where(v => v.Vote == true).Count() > 2));
                             break;
                         case 3: //Top Comments
-                            result = result.Where(n => n.Collection_Comments.Count > value);
+                            result = result.Where(n => n.Collection_Comments.Count > commentValue).OrderByDescending(o => o.Collection_Comments.Count);
                             break;
                         case 4: //Top Visits
+                            result = result.Where(n => n.Visitors > visitorsValue).OrderByDescending(o => o.Visitors);
+                            break;
+                    }
+                }
+                if (filter.Period != 0)
+                {
+                    switch (filter.Period)
+                    {
+                        case 1: //Today
+                            result = result;
+                            break;
+                        case 2: //Last week
+                            result = result;
+                            break;
+                        case 3: //Last month
                             result = result;
                             break;
                     }
                 }
+
             }
             filter.Remains = result.Count() - 10 - filter.Page * 10;
             result = result.OrderByDescending(r => r.DateAdd).Skip(filter.Page * 10).Take(10);

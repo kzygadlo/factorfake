@@ -186,11 +186,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AppConfig.cs" />
-    <Compile Include="Infrastructure\MyEncoding.cs" />
+    <Compile Include="Infrastructure\HttpDownloader.cs" />
+    <Compile Include="Infrastructure\myEncoding.cs" />
     <Compile Include="Infrastructure\myNews.cs" />
     <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
     <Compile Include="Infrastructure\Rating.cs" />
+    <Compile Include="Infrastructure\tagsToViews.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
     <Compile Include="Migrations\201704272034572_initialcreate.cs" />
     <Compile Include="Migrations\201704272034572_initialcreate.Designer.cs">
@@ -327,6 +329,10 @@
     <Compile Include="Migrations\201711081951203_commentTableRed2.cs" />
     <Compile Include="Migrations\201711081951203_commentTableRed2.Designer.cs">
       <DependentUpon>201711081951203_commentTableRed2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711192250485_virtualPropertyFortblNews.cs" />
+    <Compile Include="Migrations\201711192250485_virtualPropertyFortblNews.Designer.cs">
+      <DependentUpon>201711192250485_virtualPropertyFortblNews.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1295,6 +1301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711081951203_commentTableRed2.resx">
       <DependentUpon>201711081951203_commentTableRed2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711192250485_virtualPropertyFortblNews.resx">
+      <DependentUpon>201711192250485_virtualPropertyFortblNews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

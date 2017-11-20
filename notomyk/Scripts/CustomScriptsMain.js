@@ -80,7 +80,16 @@ function getListOfNews() {
 
                 $.each(result, function (key, val) {
                     var $template = $('#newsPattern').html();
-                    fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, val.tagList, val.faktValue, val.fakeValue);
+
+                    var i;
+                    var $htmlList = '';
+                    for (i = 0; i < val.tagList.length; ++i)
+                    {
+                        $htmlList = $htmlList + '<span class="tag basic label label-info">'+ val.tagList[i] +'</span> ';
+                    }
+
+
+                    fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, $htmlList, val.faktValue, val.fakeValue);
 
                     resultRemaining = val.remainingRows;
                 });
@@ -132,7 +141,7 @@ function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, n
         newsID: newsID,
         tagsList: tags,
         faktTag: FaktTag,
-        fakeTag: FakeTag
+        fakeTag: FakeTag,
     };
 
 

@@ -17,6 +17,7 @@ namespace notomyk.Models
         public List<int> NewspapersList { get; set; }
         public List<string> TagsList { get; set; }
         public int WhatNews { get; set; }
+        public int Period { get; set; }
         public int Page { get; set; }
         public int Remains { get; set; }
     }

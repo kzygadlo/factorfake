@@ -85,8 +85,8 @@ namespace notomyk.Controllers
                     news.ArticleLink = newN.UrlLink;
                     news.DateAdd = DateTime.UtcNow;
                     news.UserId = User.Identity.GetUserId();
-                    news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : MyEncoding.ReplaceSign(metaDataFromUrl.Title);
-                    news.Description = MyEncoding.ReplaceSign(metaDataFromUrl.Description);
+                    news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : myEncoding.ReplaceSign(metaDataFromUrl.Title);
+                    news.Description = myEncoding.ReplaceSign(metaDataFromUrl.Description);
                     news.PictureLink = metaDataFromUrl.ImageUrl;
 
                     db.News.Add(news);
@@ -154,7 +154,8 @@ namespace notomyk.Controllers
         [HttpPost]
         public JsonResult Remove(int newsID)
         {
-            if (myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()))
+            //if (myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()))
+            if(User.IsInRole("Admin"))
             {
                 using (NTMContext db = new NTMContext())
                 {
