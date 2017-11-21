@@ -3,15 +3,14 @@
 /*single Comment*/
 
 #SingleNews .newspaperLogo {
-    margin-left:0px;
+    margin-left: 0px;
 }
 
 #SingleNews .cards {
     margin-top: 0px;
-    
 }
 
-.ui.mini.image{
+.ui.mini.image {
     width: 45px;
 }
 
@@ -129,13 +128,20 @@ border: none;*/
     background-color: #f5f5f5;
 }
 
-
 #addComment {
     padding: 10px 10px 0 10px;
 }
 
     #addComment button {
     }
+
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+.tagBG {
+    background-color: rgb(220, 220, 220);
+}
 /*--------------------END HASH TAG ------------------------*/
 
 /*-----------------------start comment ---------------------*/

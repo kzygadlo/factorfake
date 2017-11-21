@@ -10,12 +10,12 @@ namespace notomyk.Models
 
         public FilterModel()
         {
-            NewspapersList = new List<int>();
-            TagsList = new List<string>();
+            NewspapersList = new List<string>();
+            TagsList = new List<int>();
         }
 
-        public List<int> NewspapersList { get; set; }
-        public List<string> TagsList { get; set; }
+        public List<string> NewspapersList { get; set; }
+        public List<int> TagsList { get; set; }
         public int WhatNews { get; set; }
         public int Period { get; set; }
         public int Page { get; set; }

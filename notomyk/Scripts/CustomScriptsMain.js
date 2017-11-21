@@ -1,6 +1,5 @@
 ﻿
 //Scripts for List of News page [index]
-
 $(document).ready(function () {
 
     $('.ui.rating').rating();
@@ -11,21 +10,36 @@ $(document).ready(function () {
 
     $('.newspaperFilter.ui.dropdown').change(
     function () {
-        $('#newsContainer').find('li').remove();
-        $('#newPageButton').data('id', 0);
-        getListOfNews();
+        beforeFiltering();
+    });
+
+    $('.tagFilter.ui.dropdown').change(
+    function () {
+        beforeFiltering();
     });
 
     $('.whatNewsFilter').dropdown({
         onChange:
             function () {
-                $('#newsContainer').find('li').remove();
-                $('#newPageButton').data('id', 0);
-                getListOfNews();
+                beforeFiltering();
+            }
+    });
+
+    $('.whatPeriodFilter').dropdown({
+        onChange:
+            function () {
+                beforeFiltering();
             }
     });
 });
 
+function beforeFiltering() {
+    $('#newsContainer').find('li').remove();
+    $('#newPageButton').data('id', 0);
+    $('#newPageButton').addClass("hidden");
+    $('#loadingImage').removeClass("hidden");
+    getListOfNews();
+}
 
 //Display first 10 rows
 function getListOfNews() {
@@ -48,6 +62,9 @@ function getListOfNews() {
         var $tagList = $('#tagsList').val();
 
         var $whatNews = $('.whatNewsFilter').dropdown('get value');
+        var $whatPeriod = $('.whatPeriodFilter').dropdown('get value');
+
+
         var $page = $('#newPageButton').data('id');
 
         if ($tagList.length > 0) {
@@ -68,6 +85,7 @@ function getListOfNews() {
             NewspapersList: arrList,
             TagsList: arrListTag,
             WhatNews: $whatNews,
+            Period: $whatPeriod,
             Page: $page
         };
 
@@ -83,11 +101,9 @@ function getListOfNews() {
 
                     var i;
                     var $htmlList = '';
-                    for (i = 0; i < val.tagList.length; ++i)
-                    {
-                        $htmlList = $htmlList + '<span class="tag basic label label-info">'+ val.tagList[i] +'</span> ';
+                    for (i = 0; i < val.tagList.length; ++i) {
+                        $htmlList = $htmlList + '<span class="tag basic label label-info">' + val.tagList[i] + '</span> ';
                     }
-
 
                     fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, $htmlList, val.faktValue, val.fakeValue);
 
@@ -95,21 +111,30 @@ function getListOfNews() {
                 });
 
                 $('#loadingImage').addClass("hidden");
-                $('.addNewPage').fadeIn('slow');
+                $('#newPageButton').fadeIn('slow');
 
                 if (resultRemaining >= 10) {
                     $('#newPageButton').removeClass("hidden");
-                    $('#newPageButton').val("pokaz kolejne 10 z " + resultRemaining + " pozostałych");
+                    $('#newPageButton').val("Pokaż kolejne 10 z " + resultRemaining + " pozostałych.");
                 }
                 else {
                     $('#newPageButton').removeClass("hidden");
-                    $('#newPageButton').val("pokaz kolejne " + resultRemaining + " z " + resultRemaining + " pozostałych");
+                    $('#newPageButton').val("Pokaż kolejne " + resultRemaining + " z " + resultRemaining + " pozostałych.");
                 }
 
-                if (resultRemaining <= 0) {
-                    $('#newPageButton').addClass("hidden");
-
+                if (result.length == 0) {
+                    $('#newPageButton').removeClass("hidden");
+                    $('#newPageButton').val("Brak wyników dla wybranych filtrów.");
                 }
+                else {
+                    if (resultRemaining <= 0) {
+                        $('#newPageButton').addClass("hidden");
+                    }
+                }
+
+
+
+
                 $('#newPageButton').inc('id', 1);
             },
             error: function () {

@@ -8,7 +8,7 @@ namespace notomyk.ViewModel
 {
     public class Filters
     {
-        public List<tbl_Newspaper> Newspapers { get; set; }
+        public List<string> Newspapers { get; set; }
         public List<Tag> Categories { get; set; }
     }
 }

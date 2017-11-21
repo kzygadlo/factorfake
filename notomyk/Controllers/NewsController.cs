@@ -97,7 +97,7 @@ namespace notomyk.Controllers
 
                     db.SaveChanges();
 
-                    NewsMethodes.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
+                    myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
 
                     return RedirectToAction("News", "Main", new { id = news.tbl_NewsID });
                 }

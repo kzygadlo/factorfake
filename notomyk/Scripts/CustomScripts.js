@@ -21,7 +21,16 @@ $(document).ready(function () {
     $(document).on('click',
         '#editTags',
         function (event) {
+
+            var $tInput = $('#SingleNews .bootstrap-tagsinput')
+
             $('#endEditTags').addClass('hidden');
+            if ($tInput.hasClass('tagBG')) {
+                $tInput.removeClass('tagBG');
+            } else {
+                $tInput.addClass('tagBG');
+            }
+            
         });
 });
 

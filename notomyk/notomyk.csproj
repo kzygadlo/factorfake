@@ -189,6 +189,7 @@
     <Compile Include="Infrastructure\HttpDownloader.cs" />
     <Compile Include="Infrastructure\myEncoding.cs" />
     <Compile Include="Infrastructure\myNews.cs" />
+    <Compile Include="Infrastructure\myTags.cs" />
     <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
     <Compile Include="Infrastructure\Rating.cs" />
@@ -336,7 +337,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Commentsx.cs" />
+    <Compile Include="Models\Commentsx-todel.cs" />
     <Compile Include="Models\EventTag.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ForumTopic.cs" />

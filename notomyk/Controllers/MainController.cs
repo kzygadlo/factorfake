@@ -25,14 +25,14 @@ namespace notomyk.Controllers
             var newspaperList = db.Newspaper
                  .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
                  .OrderBy(o => o.NewspaperName)
+                 .Select(s => s.NewspaperName)
+                 .Distinct()
                  .ToList();
 
             var tagList = db.Tag
+                .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true))
                 .OrderByDescending(o => o.ListOfNews.Count).ToList();
 
-            //var tagList2 = (from t in db.Tag
-            //               orderby t.TagVotes descending
-            //               select t).ToList();
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
@@ -44,8 +44,7 @@ namespace notomyk.Controllers
         [HttpPost]
         public JsonResult Get(FilterModel filter)
         {
-            try
-            {
+           
                 var listOfNews = GetNewsList(filter).ToList();
 
                 var finalList = listOfNews.Select(x => new
@@ -98,11 +97,6 @@ namespace notomyk.Controllers
                         tagList = x.Tags
 
                     }), JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return Json(new { success = false });
-            }
 
         }
 
@@ -117,11 +111,11 @@ namespace notomyk.Controllers
             {
                 if (filter.NewspapersList.Count > 0)
                 {
-                    result = result.Where(n => filter.NewspapersList.Contains(n.Newspaper.tbl_NewspaperID));
+                    result = result.Where(n => filter.NewspapersList.Contains(n.Newspaper.NewspaperName));
                 }
                 if (filter.TagsList.Count > 0)
                 {
-                    result = result;
+                    result = result.Where(n => n.EventsTags.Any(a => filter.TagsList.Contains(a.TagID)));
                 }
                 if (filter.WhatNews != 0)
                 {
@@ -143,18 +137,23 @@ namespace notomyk.Controllers
                             break;
                     }
                 }
+
                 if (filter.Period != 0)
                 {
+                    DateTime dateForFilter = new DateTime();
                     switch (filter.Period)
                     {
                         case 1: //Today
-                            result = result;
+                            dateForFilter = DateTime.UtcNow.AddHours(-24);
+                            result = result.Where(n => n.DateAdd > dateForFilter);
                             break;
                         case 2: //Last week
-                            result = result;
+                            dateForFilter = DateTime.UtcNow.AddDays(-7);
+                            result = result.Where(n => n.DateAdd > dateForFilter);
                             break;
                         case 3: //Last month
-                            result = result;
+                            dateForFilter = DateTime.UtcNow.AddMonths(-1);
+                            result = result.Where(n => n.DateAdd > dateForFilter);
                             break;
                     }
                 }
@@ -201,10 +200,9 @@ namespace notomyk.Controllers
             ICollection<string> listOfTags = (from t in db.Tag
                                               join e in db.EventTag on t.ID equals e.TagID
                                               where e.tbl_NewsID == singleNews.tbl_NewsID
-                                              orderby t.TagVotes descending
                                               select t.TagName).ToList();
 
-            string CommaSeparatedTags = NewsMethodes.TagsBuilder(listOfTags);
+            string CommaSeparatedTags = myTags.TagsBuilder(listOfTags);
 
 
             if (Request.Cookies[string.Format("HasVisited:{0}", ID)] == null)

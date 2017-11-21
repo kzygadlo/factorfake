@@ -15,7 +15,7 @@ namespace notomyk.Controllers
 
             if (Request.IsAuthenticated)
             {
-                NewsMethodes.AddTags(newsID, tagsList);
+                myTags.AddTags(newsID, tagsList);
             }
             else
             {
