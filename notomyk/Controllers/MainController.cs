@@ -45,11 +45,11 @@ namespace notomyk.Controllers
         public JsonResult Get(FilterModel filter)
         {
            
-                var listOfNews = GetNewsList(filter).ToList();
+                List<tbl_News> listOfNews = GetNewsList(filter).ToList();
 
                 var finalList = listOfNews.Select(x => new
                 {
-                    x.Collection_Comments,
+                    CommentsNumber = Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + + Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count()),
                     x.ApplicationUser,
                     x.ArticleLink,
                     x.DateAdd,
@@ -86,8 +86,8 @@ namespace notomyk.Controllers
                         newsPictureLink = x.PictureLink,
                         newsTitle = myEncoding.ReplaceSign(x.Title),
                         newsDescription = myEncoding.ReplaceSign(x.Description),
-                        numberOfVisitors = x.Visitors, //to edit
-                        numberOfComments = x.Collection_Comments.Count, //to edit
+                        numberOfVisitors = x.Visitors, 
+                        numberOfComments = x.CommentsNumber, 
                         dateAdded = GetTimeAgo.CalculateDateDiff(x.DateAdd),
                         ratingClass = Rating.RatingClass(x.Fakt, x.Fake),
                         ratingValue = Rating.RatingValue(x.Fakt, x.Fake),
@@ -217,6 +217,10 @@ namespace notomyk.Controllers
 
             var vm = new NewsDetail();
 
+            var commNumber = singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count() + singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count();
+
+            ViewBag.CommNum = commNumber;
+
             vm.SingleNews = singleNews;
             vm.LeftNews = leftNews;
             vm.CommaSeparatedTags = CommaSeparatedTags;
@@ -250,23 +254,20 @@ namespace notomyk.Controllers
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == true).Count() - n.VoteLogs.Where(v => v.Vote == false).Count())
                 .Take(10)
                 .ToList();
-
-
+            
             var fakeN = db.News
                 .Where(n => n.VoteLogs.Where(v => v.Vote == false).Count() >= n.VoteLogs.Where(v => v.Vote == true).Count())
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == false).Count() - n.VoteLogs.Where(v => v.Vote == true).Count())
                 .Take(10)
-                .ToList();
-
-
+                .ToList();           
+            
             var comments = db.News
                 .Where(n => n.IsActive == true)
-                .OrderByDescending(n => n.Collection_Comments.Count)
+                .OrderByDescending(n => n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID == null).Count() + n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID != null && c.Parent.IsActive == true).Count())
                 .Take(10)
                 .ToList();
-
-
+            
             var visitors = db.News
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.Visitors)

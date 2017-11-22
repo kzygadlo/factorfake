@@ -27,7 +27,7 @@ namespace notomyk.Models
         public DateTime DateAdd { get; set; }
 
         public int tbl_NewsID { get; set; }        
-        public tbl_News Newses { get; set; }
+        public virtual tbl_News Newses { get; set; }
 
         [ForeignKey("ApplicationUser")] //as User Id is not present in target table therefore we must indicate to which table 'UserID' is referenced as PK
         public string UserId { get; set; }

@@ -142,16 +142,20 @@
             @foreach (var News in Model.CommentedNews)
             {
                 var TitleString = News.Title;
+                
+                int CommNum = Convert.ToInt32(@News.Collection_Comments.Where(n=> n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + Convert.ToInt32(@News.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count());
 
                 if (News.Title.Length > 40)
                 {
                     TitleString = string.Concat(News.Title.Substring(0, 40), "...");
+                    
+                   
                 }
 
                 <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
                     <div class="right floated content">
 
-                        <span class="ui blue basic pull-right label" style="margin-right:5px">@News.Collection_Comments.Count()</span>
+                        <span class="ui blue basic pull-right label" style="margin-right:5px">@CommNum</span>
                         @if (myNews.isNew(News.DateAdd))
                         {
                             <div>

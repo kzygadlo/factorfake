@@ -204,36 +204,48 @@
 
                         </div>
                     </div>
-                    <div class="col-xs-12 removePadding">
+                    <div class="col-xs-12" style="padding: 0 3px 0 0">
                         <div class="ui cards">
                             <div class="card">
 
                                 <div class="statInfo content">
-                                    <img class="newspaperLogo left floated mini ui image visible-xs" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)">
-                                    <img class="userLogoNews right floated mini ui image img-circle" src="~/Images/UserIcons/188126b3-a692-4364-8a91-0c9fec2177a2.png">
+                                    <img class="newspaperLogo left floated ui image visible-xs" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" height="57" style="margin-right:10px">
+                                    <img class="userLogoNews right floated ui image img-circle" src="@Url.Content(AppConfig.UserLogoLink(Model.SingleNews.ApplicationUser.Id))" height="45" width="45" style="margin-top:5px">
                                     <div class="header">
-                                        @Model.SingleNews.ApplicationUser.UserName
+                                        
                                     </div>
                                     <div class="meta">
-                                        <i class="calendar restore icon"></i><small>Dodano: 5 godzin temu</small>
+                                        <i class="newspaper restore icon"></i><small>News z: <strong><a>@Model.SingleNews.Newspaper.NewspaperLink</a></strong></small>
+                                    </div>
+                                    <div class="meta">
+                                        <i class="user restore icon"></i><small>Dodał: <strong>@Model.SingleNews.ApplicationUser.UserName</strong></small>
+                                    </div>
+                                    <div class="meta">
+                                        <i class="calendar restore icon"></i><small>Kiedy: <strong>@GetTimeAgo.CalculateDateDiff(Model.SingleNews.DateAdd)</strong></small>
                                     </div>
                                 </div>
+
                                 <div class="statButtons extra content">
                                     <div class="ui three buttons">
-                                        <div class="ui compact menu col-xs-8">
+                                        <div class="ui compact menu col-xs-4" style="padding: 0 5px 0 5px">
                                             <x class="item">
                                                 <i class="icon mail"></i> Komentarzy
-                                                <div class="floating ui basic blue label">@Model.SingleNews.Collection_Comments.Where(c => c.IsActive == true).Count()</div>
-                                            </x>
+                                                <div class="floating ui basic blue label">@ViewBag.CommNum</div>
+
+                                        </div>
+                                        <div class="ui compact menu col-xs-4" style="padding: 0 5px 0 5px">
                                             <x class="item">
                                                 <i class="icon tv"></i> Odwiedzin
-                                                <div class="floating ui basic basic grey label">@Model.SingleNews.Visitors</div>
+                                                <div class="floating ui basic grey label">@Model.SingleNews.Visitors</div>
                                             </x>
                                         </div>
-                                        <button class="ui facebook button col-xs-4">
-                                            <i class="share alternate icon"></i>
-                                            Facebook
-                                        </button>
+      
+                                            <button class="ui facebook button col-xs-4">
+                                                <i class="share alternate icon"></i>
+                                                Facebook
+                                            </button>
+                                  
+                                        
                                     </div>
                                 </div>
                             </div>

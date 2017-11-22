@@ -48,7 +48,7 @@ namespace notomyk.Controllers
                                               s.ApplicationUser.Id,
                                               s.ApplicationUser.UserName,
                                               s.VoteCommentLogs,
-                                              children = s.Children.Count()
+                                              children = s.Children.Where(c => c.IsActive == true).Count()
                                           })
                                           .ToList();
 
@@ -78,7 +78,7 @@ namespace notomyk.Controllers
             //{
             using (NTMContext db = new NTMContext())
             {
-                var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID).Select(
+                var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
                     s => new
                     {
                         s.tbl_CommentID,
@@ -88,7 +88,8 @@ namespace notomyk.Controllers
                         s.ApplicationUser.UserName,
                         s.VoteCommentLogs
                     }
-                    ).ToList();
+                    ).OrderBy(o => o.DateAdd)
+                     .ToList();
 
                 return Json(CommentsList.Select(x => new
                 {
