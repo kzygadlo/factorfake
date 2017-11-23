@@ -1,5 +1,50 @@
 ﻿$(document).ready(function () {
 
+
+    //FB.login(function (response) {
+    //    if (response.authResponse) {
+    //        alert('Welcome!  Fetching your information.... ');
+    //        FB.api('/me', function (response) {
+    //            alert('Good to see you, ' + response.name + '.');
+    //            alert('response' + response);
+    //        });
+    //    } else {
+    //        alert('User cancelled login or did not fully authorize.');
+    //    }
+    //}, { scope: 'email' });
+
+      window.fbAsyncInit = function() {
+          FB.init({
+              appId: '288016351717557',
+              cookie     : true,
+              xfbml      : true,
+              version: 'v2.11'
+          });
+      
+          FB.AppEvents.logPageView();   
+      
+      };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    $('#fbButton').click(function () {
+        
+        var $xxx = $('#fbButton').data('url')
+
+        FB.ui({
+            method: 'share',
+            mobile_iframe: true,
+            href: $('#fbButton').data('url')
+        })
+    });
+
     $('.button.fakt').popup({
         on: 'click'
     });
@@ -65,3 +110,4 @@ function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
+

@@ -44,59 +44,59 @@ namespace notomyk.Controllers
         [HttpPost]
         public JsonResult Get(FilterModel filter)
         {
-           
-                List<tbl_News> listOfNews = GetNewsList(filter).ToList();
 
-                var finalList = listOfNews.Select(x => new
+            List<tbl_News> listOfNews = GetNewsList(filter).ToList();
+
+            var finalList = listOfNews.Select(x => new
+            {
+                CommentsNumber = Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + +Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count()),
+                x.ApplicationUser,
+                x.ArticleLink,
+                x.DateAdd,
+                x.Description,
+                x.EventsTags,
+                x.IsActive,
+                x.Newspaper,
+                x.PictureLink,
+                x.tbl_NewsID,
+                x.tbl_NewspaperID,
+                x.Title,
+                x.UserId,
+                x.VoteLogs,
+                x.Visitors,
+                Fakt = x.VoteLogs.Where(v => v.Vote == true).Count(),
+                Fake = x.VoteLogs.Where(v => v.Vote == false).Count(),
+                Tags = tagsToViews.ReturnTags(x.EventsTags.OrderByDescending(o => o.Tags.ListOfNews.Count)
+                        .Select(e => e.Tags.TagName)
+                        .Take(5)
+                        .ToList())
+            });
+
+            UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
+            string url = u.Action("News", "Main", new { ID = "id" });
+
+            UrlHelper p = new UrlHelper(this.ControllerContext.RequestContext);
+            string iconP = p.NewspaperIconPath_250("path");
+
+            return Json(finalList.Select(x => new
                 {
-                    CommentsNumber = Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + + Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count()),
-                    x.ApplicationUser,
-                    x.ArticleLink,
-                    x.DateAdd,
-                    x.Description,
-                    x.EventsTags,
-                    x.IsActive,
-                    x.Newspaper,
-                    x.PictureLink,
-                    x.tbl_NewsID,
-                    x.tbl_NewspaperID,
-                    x.Title,
-                    x.UserId,
-                    x.VoteLogs,
-                    x.Visitors,
-                    Fakt = x.VoteLogs.Where(v => v.Vote == true).Count(),
-                    Fake = x.VoteLogs.Where(v => v.Vote == false).Count(),
-                    Tags = tagsToViews.ReturnTags(x.EventsTags.OrderByDescending(o => o.Tags.ListOfNews.Count)
-                            .Select(e => e.Tags.TagName)
-                            .Take(5)
-                            .ToList())
-                });
+                    newsID = x.tbl_NewsID,
+                    urlActionLink = url.Replace("id", x.tbl_NewsID.ToString()),
+                    newspaperPictureLink = iconP.Replace("path", x.Newspaper.NewspaperIconLink),
+                    newsPictureLink = x.PictureLink,
+                    newsTitle = myEncoding.ReplaceSign(x.Title),
+                    newsDescription = myEncoding.ReplaceSign(x.Description),
+                    numberOfVisitors = x.Visitors,
+                    numberOfComments = x.CommentsNumber,
+                    dateAdded = GetTimeAgo.CalculateDateDiff(x.DateAdd),
+                    ratingClass = Rating.RatingClass(x.Fakt, x.Fake),
+                    ratingValue = Rating.RatingValue(x.Fakt, x.Fake),
+                    faktValue = x.Fakt,
+                    fakeValue = x.Fake,
+                    remainingRows = filter.Remains,
+                    tagList = x.Tags
 
-                UrlHelper u = new UrlHelper(this.ControllerContext.RequestContext);
-                string url = u.Action("News", "Main", new { ID = "id" });
-
-                UrlHelper p = new UrlHelper(this.ControllerContext.RequestContext);
-                string iconP = p.NewspaperIconPath_250("path");
-
-                return Json(finalList.Select(x => new
-                    {
-                        newsID = x.tbl_NewsID,
-                        urlActionLink = url.Replace("id", x.tbl_NewsID.ToString()),
-                        newspaperPictureLink = iconP.Replace("path", x.Newspaper.NewspaperIconLink),
-                        newsPictureLink = x.PictureLink,
-                        newsTitle = myEncoding.ReplaceSign(x.Title),
-                        newsDescription = myEncoding.ReplaceSign(x.Description),
-                        numberOfVisitors = x.Visitors, 
-                        numberOfComments = x.CommentsNumber, 
-                        dateAdded = GetTimeAgo.CalculateDateDiff(x.DateAdd),
-                        ratingClass = Rating.RatingClass(x.Fakt, x.Fake),
-                        ratingValue = Rating.RatingValue(x.Fakt, x.Fake),
-                        faktValue = x.Fakt,
-                        fakeValue = x.Fake,
-                        remainingRows = filter.Remains,
-                        tagList = x.Tags
-
-                    }), JsonRequestBehavior.AllowGet);
+                }), JsonRequestBehavior.AllowGet);
 
         }
 
@@ -217,8 +217,12 @@ namespace notomyk.Controllers
 
             var vm = new NewsDetail();
 
-            var commNumber = singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count() + singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count();
+            var fofUrl1 = "http://www.faktorfake.pl";
+            var fofUrl2 = Url.Action("News", "Main", new { ID = ID });
 
+            ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
+
+            var commNumber = singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count() + singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count();
             ViewBag.CommNum = commNumber;
 
             vm.SingleNews = singleNews;
@@ -254,20 +258,20 @@ namespace notomyk.Controllers
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == true).Count() - n.VoteLogs.Where(v => v.Vote == false).Count())
                 .Take(10)
                 .ToList();
-            
+
             var fakeN = db.News
                 .Where(n => n.VoteLogs.Where(v => v.Vote == false).Count() >= n.VoteLogs.Where(v => v.Vote == true).Count())
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == false).Count() - n.VoteLogs.Where(v => v.Vote == true).Count())
                 .Take(10)
-                .ToList();           
-            
+                .ToList();
+
             var comments = db.News
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID == null).Count() + n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID != null && c.Parent.IsActive == true).Count())
                 .Take(10)
                 .ToList();
-            
+
             var visitors = db.News
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.Visitors)
