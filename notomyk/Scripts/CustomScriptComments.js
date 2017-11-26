@@ -9,7 +9,6 @@
             $(this).closest('.comment-box').find('.addReply').fadeToggle();
         });
 
-
     //Add Comment
     $('.frmAddComment').on('submit', function (event) {
         event.preventDefault();
@@ -85,7 +84,7 @@
             $replyList.fadeToggle();
 
             setTimeout(function () {
-                $replyList.find("li").remove();
+                removeComments($replyList);
             }, 500);
             
             
@@ -212,60 +211,107 @@ $(document).ready(function () {
 
 
 
-
-
-//Get comments for provided newsID
+//Get comments for provided newsID (on open)
 $(document).ready(function () {
     if ($("#SingleNews").length > 0) {
 
-        var $template = $('#commentPattern').html();
-        var $commentList = $("#commentsList");
-
-        function fulfillTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV) {
-
-            var repValue = "";
-
-            if (repV != 0)
-            {
-                repValue = "odpowiedzi: " + repV;
-            }
-
-            var replyVariables =
-            {
-                NewsID: nid,
-                CommentID: cid,
-                Comment: com,
-                Date: date,
-                UserName: userN,
-                LogoName: userL,
-                CommentFaktV: faktV,
-                CommentFakeV: fakeV,
-                RepliesV: repValue
-
-            };
-            var html = Mustache.to_html($template, replyVariables);
-            //$comment.val("");
-            $(html).hide().prependTo($commentList).fadeIn('slow');
-        }
-
-        var NewsID = $(".frmNewsID").val();
-        $.ajax({
-            url: '/Comment/Get',
-            type: "GET",
-            data: { newsID: NewsID },
-            success: function (result) {
-                $.each(result, function (key, val) {
-                    fulfillTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV)
-                });
-            },
-            error: function () {
-                alert("Nie można wyświetlić newsów");
-            }
-        });
+        showComments(0);
     }
 });
 
 
+function showComments(Filter) {
+    $('#loadingImage').removeClass("hidden");
+
+    var $template = $('#commentPattern').html();
+    var $commentList = $("#commentsList");
+
+    function fulfillTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV) {
+
+        var repValue = "";
+        if (repV != 0) {
+            repValue = "odpowiedzi: " + repV;
+        }
+
+        var replyVariables =
+        {
+            NewsID: nid,
+            CommentID: cid,
+            Comment: com,
+            Date: date,
+            UserName: userN,
+            LogoName: userL,
+            CommentFaktV: faktV,
+            CommentFakeV: fakeV,
+            RepliesV: repValue
+        };
+        var html = Mustache.to_html($template, replyVariables);
+        //$comment.val("");
+        $(html).hide().prependTo($commentList).fadeIn('fast');
+    }
+
+    var NewsID = $(".frmNewsID").val();
+    $.ajax({
+        url: '/Comment/Get',
+        type: "GET",
+        data: {
+            newsID: NewsID,
+            filter: Filter
+        },
+        success: function (result) {
+            $('#loadingImage').removeClass("hidden");
+            $.each(result, function (key, val) {
+                fulfillTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV)
+            });
+            $('#loadingImage').addClass("hidden");
+        },
+        error: function () {
+            alert("Nie można wyświetlić newsów");
+        }
+    });
+};
+
+//Remove Comments/Replies
+
+function removeComments(node) {
+    node.find('li').remove();
+};
+
+//Get comments for filter 0 by dates
+$(document).ready(function () {
+    event.preventDefault();
+    $(document).on('click', '#commentSort0', function (event) {
+
+        $commList = $('#commentsList')
+        removeComments($commList);
+        //show loading during retrieving
+        showComments(0);
+    });
+});
+
+//Get comments for filter 1 by reputation
+$(document).ready(function () {
+    event.preventDefault();
+    $(document).on('click', '#commentSort1', function (event) {
+
+        $commList = $('#commentsList')
+        removeComments($commList);
+        //show loading during retrieving
+        showComments(1);
+    });
+});
+
+//Get comments for filter 2 by voting
+$(document).ready(function () {
+    event.preventDefault();
+    $(document).on('click', '#commentSort2', function (event) {
+
+        $commList = $('#commentsList')
+        removeComments($commList);
+        //show loading during retrieving
+        showComments(2);
+    });
+});
 
 
 //Replies toggling

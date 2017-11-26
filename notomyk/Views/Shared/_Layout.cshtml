@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
     <title>FF | Fakt or Fake</title>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="~/semantic/out/semantic.min.css" />    
 
+    <meta property="fb:app_id" content="288016351717557" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@ViewBag.ogTitle" />
+    <meta property="og:image" content="@ViewBag.ogImage" />
+    <meta property="og:description" content="@ViewBag.ogDescription" />
+    <meta property="og:url" content="@ViewBag.fbButtonUrl" />
+
+    <link rel="stylesheet" href="~/semantic/out/semantic.min.css" />  
     <link rel="stylesheet" href="~/semantic/out/components/dropdown.min.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" />
@@ -25,9 +33,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="~/Images/Utility/favicons_fof/favicon-16x16.png">
 
     <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
+
+    @*<meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">*@
 
     <link rel="stylesheet" href="~/Content/tagsinput.css" />
     <link rel="stylesheet" href="~/Content/CustomStyle.css?v={random number/string}">
@@ -35,7 +44,10 @@
     <link rel="stylesheet" href="~/Content/CustomStyleMedia.css?v={random number/string}">
     <link rel="stylesheet" href="~/Content/CustomStyleForum.css?v={random number/string}">
     <link rel="stylesheet" href="~/Content/CustomStyleRightMenu.css?v={random number/string}">
+
+
 </head>
+    
 
 <body class="container">
     <nav class="navbar navbar-inverse navbar-fixed-top row">

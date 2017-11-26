@@ -181,8 +181,8 @@
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
                             </a>
                             @*<a class="voteFakt ui basic green left pointing label">
-                                <i class="ui basic loading button" style="margin:0 5px 0 5px;padding:0"></i>
-                            </a>*@
+                                    <i class="ui basic loading button" style="margin:0 5px 0 5px;padding:0"></i>
+                                </a>*@
                         </div>
                         <div class="ui labeled button fake pull-right " tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
                             <a class="voteFake ui basic red right pointing label">
@@ -212,7 +212,7 @@
                                     <img class="newspaperLogo left floated ui image visible-xs" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" height="57" style="margin-right:10px">
                                     <img class="userLogoNews right floated ui image img-circle" src="@Url.Content(AppConfig.UserLogoLink(Model.SingleNews.ApplicationUser.Id))" height="45" width="45" style="margin-top:5px">
                                     <div class="header">
-                                        
+
                                     </div>
                                     <div class="meta">
                                         <i class="newspaper restore icon"></i><small>News z: <strong><a>@Model.SingleNews.Newspaper.NewspaperLink</a></strong></small>
@@ -239,10 +239,16 @@
                                                 <div class="floating ui basic grey label">@Model.SingleNews.Visitors</div>
                                             </x>
                                         </div>
-                                        <button id="fbButton" class="ui facebook button col-xs-4" data-url="@ViewBag.fbButtonUrl">
-                                            <i class="share alternate icon"></i>
-                                            Facebook
-                                        </button>   
+                                        <div class="fb-share-button"
+                                             data-href="@ViewBag.fbButtonUrl"
+                                             data-layout="button_count"
+                                             data-size="large"
+                                             data-mobile-iframe="true">
+                                        </div>
+                                        @*<button id="fbButton" class="ui facebook button col-xs-4" data-url="@ViewBag.fbButtonUrl">
+                                                <i class="share alternate icon"></i>
+                                                Facebook
+                                            </button>*@
                                     </div>
                                 </div>
                             </div>
@@ -255,8 +261,6 @@
                     <img class="img-responsive img-rounded" alt="xxx" src="@Model.SingleNews.PictureLink" />
                 </div>
             </div>
-
-
             <div class="col-xs-12 removePadding" style="padding: 10px;">
                 <div class="col-xs-11 removePadding">
                     <a href="@Model.SingleNews.ArticleLink"><strong><span class="text" style="color: #2375B9">@Model.SingleNews.Title</span></strong></a>
@@ -278,7 +282,7 @@
             </div>
 
             <div class="col-xs-12" style="padding:0 10px 0 10px"><span class="text">@Model.SingleNews.Description</span></div>
-            
+
             <div class="col-xs-12 removePadding" style="padding:0 10px 0 5px;">
                 <div class="col-xs-11 removePadding">
                     <input id="commaDelimitedTags" type="text" value="@Model.CommaSeparatedTags" data-role="tagsinput">
@@ -295,9 +299,7 @@
                 </div>
             </div>
 
-
-           
-             <div id="addComment" class="col-xs-12">
+            <div id="addComment" class="col-xs-12">
                 @if (Request.IsAuthenticated)
                 {
                     <div class="col-xs-2 col-sm-1 removePadding">
@@ -327,12 +329,27 @@
     </div>
 
     <div class="comments-container col-lg-12 removePadding">
+        <div id="loadingImage" class="ui segment" style="width:100%; box-shadow:none">
+            <div class="ui active inverted dimmer">
+                <div class="ui medium text loader">Wczytywanie</div>
+            </div>
+            <p></p>
+        </div>
         @*Comments container*@
-        @if (Model.SingleNews.Collection_Comments.Where(c => c.Parent == null && c.IsActive == true).Count() > 0)
-        {
-            <div class="sorting col-lg-12 list-group-item"><c class="text-muted">Sortuj wg: </c><a href="#">daty dodania  | </a><a href="#">reputacji autorów | </a><a href="#">oceny </a></div>
-        }
+        @*@if (Model.SingleNews.Collection_Comments.Where(c => c.Parent == null && c.IsActive == true).Count() > 0)
+        {*@
+            <div id="sortingTab" class="sorting col-lg-12 list-group-item">
+                <c class="text-muted">Sortuj wg: </c>
+                <a href="" id="commentSort0">daty dodania  | </a>
+                <a href="" id="commentSort1">reputacji autorów | </a>
+                <a href="" id="commentSort2">oceny </a>
+            </div>
+
+            <div id="" class="sorting col-lg-12 list-group-item" style="text-align:center">
+                <c class="text-muted">Brak komentarzy dla tego artykułu. Bądź pierwszy i skomentuj. </c>
+            </div>
+        @*}*@
         <ul id="commentsList" class="comments-list"></ul>
-    </div>
+        </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
 </div>

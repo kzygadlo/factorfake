@@ -222,6 +222,10 @@ namespace notomyk.Controllers
 
             ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
 
+            ViewBag.ogTitle = "FAKTORFAKE : " + singleNews.Title;
+            ViewBag.ogDescription =  singleNews.Description;
+            ViewBag.ogImage = fofUrl1 + "/Images/Logos/250/" + singleNews.Newspaper.NewspaperIconLink;
+
             var commNumber = singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count() + singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count();
             ViewBag.CommNum = commNumber;
 
