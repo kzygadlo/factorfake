@@ -156,6 +156,22 @@ namespace notomyk.Infrastructure
                                 metaInfo.ImageUrl = string.IsNullOrEmpty(metaInfo.ImageUrl) ? tagContent.Value : metaInfo.ImageUrl;
                                 matchCount++;
                                 break;
+                            case "og:title":
+                                metaInfo.Title = string.IsNullOrEmpty(metaInfo.Title) ? tagContent.Value : metaInfo.Title;
+                                matchCount++;
+                                break;
+                            case "og:description":
+                                metaInfo.Description = string.IsNullOrEmpty(metaInfo.Description) ? tagContent.Value : metaInfo.Description;
+                                matchCount++;
+                                break;
+                            case "og:image":
+                                metaInfo.ImageUrl = string.IsNullOrEmpty(metaInfo.ImageUrl) ? tagContent.Value : metaInfo.ImageUrl;
+                                matchCount++;
+                                break;
+                            case "og:site_name":
+                                metaInfo.SiteName = string.IsNullOrEmpty(metaInfo.SiteName) ? (tagContent.Value).ToString().Replace("www.", "").Replace(".pl", "") : metaInfo.SiteName;
+                                matchCount++;
+                                break;
                         }
                     }
                     else if (tagProperty != null && tagContent != null)

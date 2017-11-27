@@ -1,36 +1,16 @@
-﻿//$(document).ready(function () {
-//    $(".dropdown-toggle").dropdown();
-//});
-
-//$(function () {
-//    $('input, select').on('change', function (event) {
-//        var $element = $(event.target),
-//          $container = $element.closest('.example');
-//        if (!$element.data('tagsinput'))
-//            return;
-//        var val = $element.val();
-//        if (val === null)
-//            val = "null";
-//        $('code', $('pre.val', $container)).html(($.isArray(val) ? JSON.stringify(val) : "\"" + val.replace('"', '\\"') + "\""));
-//        $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
-//    }).trigger('change');
-//});
-
-
+﻿
 $(document).ready(function () {
     $(document).on('click',
         '#editTags',
         function (event) {
 
             var $tInput = $('#SingleNews .bootstrap-tagsinput')
-
             $('#endEditTags').addClass('hidden');
             if ($tInput.hasClass('tagBG')) {
                 $tInput.removeClass('tagBG');
             } else {
                 $tInput.addClass('tagBG');
-            }
-            
+            }            
         });
 });
 
@@ -40,10 +20,7 @@ $(document).ready(function () {
         function (event) {
             $('#editTags').addClass('hidden');
         });
-
-
 });
-
 
 $.fn.clickToggle = function (func1, func2) {
     var funcs = [func1, func2];
@@ -57,20 +34,20 @@ $.fn.clickToggle = function (func1, func2) {
     return this;
 };
 
-
-
-
 var allowEdit = function () {
     $(".bootstrap-tagsinput").find('input').addClass("tagsInput");
     $(".bootstrap-tagsinput > span > span").addClass("tagsSpan");
 
+    $("#editTags").removeClass("tags");
+    $("#editTags").addClass("save");
 };
 
 var endEdit = function () {
-
     $(".bootstrap-tagsinput").find('input').removeClass("tagsInput");
     $(".bootstrap-tagsinput > span >span").removeClass("tagsSpan");
 
+    $("#editTags").removeClass("save");
+    $("#editTags").addClass("tags");
 
     $tagsList = $('#commaDelimitedTags').val();
     $newsID = $('.frmNewsID').val();
@@ -84,11 +61,9 @@ var endEdit = function () {
             tagsList: $tagsList
         },
         error: function () {
-            alert("nie mozna zapisac tagow");
+            //alert("nie mozna zapisac tagow");
         }
     });
-
-
 };
 
 $("#editTags").clickToggle(allowEdit, endEdit);

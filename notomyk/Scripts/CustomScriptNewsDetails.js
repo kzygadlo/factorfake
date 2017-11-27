@@ -1,20 +1,20 @@
 ﻿$(document).ready(function () {
 
-      window.fbAsyncInit = function() {
-          FB.init({
-              appId: '288016351717557',
-              cookie     : true,
-              xfbml      : true,
-              version: 'v2.11'
-          });
-      
-          FB.AppEvents.logPageView();   
-      
-      };
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '288016351717557',
+            cookie: true,
+            xfbml: true,
+            version: 'v2.11'
+        });
 
-    (function(d, s, id){
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
+        if (d.getElementById(id)) { return; }
         js = d.createElement(s); js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
@@ -22,8 +22,6 @@
 
 
     $('#fbButton').click(function () {
-        
-        var $xxx = $('#fbButton').data('url')
 
         FB.ui({
             method: 'share',
@@ -68,15 +66,23 @@
                         window.location.href = response.redirectUrl;
                     }
                     else {
-                        alert(response.ResultMsg);
+                        //alert(response.ResultMsg);
                     }
                 },
                 error: function () {
-                    alert("nie mozna usunac newsa");
+                    //alert("nie mozna usunac newsa");
                 }
             });
         });
     });
+
+    $('.message .close').on('click', function () {
+        $(this)
+          .closest('.message')
+          .transition('fade')
+        ;
+    });
+
 });
 
 

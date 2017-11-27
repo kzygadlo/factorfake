@@ -157,7 +157,7 @@
 </script>
 <div id="fb-root"></div>
 
-<div id="SingleNews">
+<div id="SingleNews" class="first">
     <div class="list-group-item n1">
         <div class="row m0">
             <div class="col-xs-12 removePadding">
@@ -180,9 +180,6 @@
                             <a class="voteFakt ui basic green left pointing label">
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
                             </a>
-                            @*<a class="voteFakt ui basic green left pointing label">
-                                    <i class="ui basic loading button" style="margin:0 5px 0 5px;padding:0"></i>
-                                </a>*@
                         </div>
                         <div class="ui labeled button fake pull-right " tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
                             <a class="voteFake ui basic red right pointing label">
@@ -245,10 +242,6 @@
                                              data-size="large"
                                              data-mobile-iframe="true">
                                         </div>
-                                        @*<button id="fbButton" class="ui facebook button col-xs-4" data-url="@ViewBag.fbButtonUrl">
-                                                <i class="share alternate icon"></i>
-                                                Facebook
-                                            </button>*@
                                     </div>
                                 </div>
                             </div>
@@ -328,28 +321,39 @@
         </div>
     </div>
 
-    <div class="comments-container col-lg-12 removePadding">
-        <div id="loadingImage" class="ui segment" style="width:100%; box-shadow:none">
-            <div class="ui active inverted dimmer">
-                <div class="ui medium text loader">Wczytywanie</div>
-            </div>
-            <p></p>
+    <div id="loadingImage" class="ui segment" style="width:100%; box-shadow:none">
+        <div class="ui active inverted dimmer">
+            <div class="ui medium text loader">Wczytywanie komentarzy.</div>
         </div>
-        @*Comments container*@
-        @*@if (Model.SingleNews.Collection_Comments.Where(c => c.Parent == null && c.IsActive == true).Count() > 0)
-        {*@
-            <div id="sortingTab" class="sorting col-lg-12 list-group-item">
-                <c class="text-muted">Sortuj wg: </c>
-                <a href="" id="commentSort0">daty dodania  | </a>
-                <a href="" id="commentSort1">reputacji autorów | </a>
-                <a href="" id="commentSort2">oceny </a>
+        <p></p>
+    </div>
+    <div id="errorMessageNewsDetail" style="margin-bottom:10px" class="hidden">
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Dodawanie komentarza nie powiodło się.
             </div>
+            <p>
+                Upewnij się, że jesteś zalogowany.
+            </p>
+        </div>
+    </div>
 
-            <div id="" class="sorting col-lg-12 list-group-item" style="text-align:center">
-                <c class="text-muted">Brak komentarzy dla tego artykułu. Bądź pierwszy i skomentuj. </c>
-            </div>
-        @*}*@
+    <div id="sortingTab" class="sorting col-lg-12 list-group-item hidden">
+        <c class="text-muted">Sortuj wg: </c>
+        <a href="#" id="commentSort0">daty dodania  | </a>
+        <a href="#" id="commentSort1">reputacji autorów | </a>
+        <a href="#" id="commentSort2">oceny </a>
+    </div>
+
+    <div id="noResultTab" class="sorting col-lg-12 list-group-item hidden" style="text-align:center">
+        <c class="text-muted">Brak komentarzy dla tego artykułu. Bądź pierwszy i skomentuj. </c>
+    </div>
+    
+    
+    <div class="comments-container col-lg-12 removePadding">   
+        @*Comments container*@
         <ul id="commentsList" class="comments-list"></ul>
-        </div>
+    </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
 </div>

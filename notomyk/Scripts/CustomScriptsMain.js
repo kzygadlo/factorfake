@@ -31,9 +31,34 @@ $(document).ready(function () {
                 beforeFiltering();
             }
     });
+
+    $(function () {
+
+        $(window).bind("resize", function () {
+            console.log($(this).width())
+            if ($(this).width() < 991) {
+                $('.newspaperFilter').removeClass('search');
+                $('.newspaperFilter').find('.search').addClass('hidden');
+                $('.newspaperFilter').find('.sizer').addClass('hidden');
+
+                $('.tagFilter').removeClass('search');
+                $('.tagFilter').find('.search').addClass('hidden');
+                $('.tagFilter').find('.sizer').addClass('hidden');
+            }
+            else {
+                $('.newspaperFilter').addClass('search');
+                $('.newspaperFilter').find('.search').removeClass('hidden');
+                $('.newspaperFilter').find('.sizer').removeClass('hidden');
+
+                $('.tagFilter').addClass('search');
+                $('.tagFilter').find('.search').removeClass('hidden');
+                $('.tagFilter').find('.sizer').removeClass('hidden');
+            }
+        })
+    });
 });
 
-function beforeFiltering() {
+function beforeFiltering(xs) {
     $('#newsContainer').find('li').remove();
     $('#newPageButton').data('id', 0);
     $('#newPageButton').addClass("hidden");
@@ -94,6 +119,7 @@ function getListOfNews() {
             type: "POST",
             data: model,
             success: function (result) {
+
                 $('#loadingImage').removeClass("hidden");
 
                 $.each(result, function (key, val) {
@@ -131,14 +157,10 @@ function getListOfNews() {
                         $('#newPageButton').addClass("hidden");
                     }
                 }
-
-
-
-
                 $('#newPageButton').inc('id', 1);
             },
             error: function () {
-                alert("Nie można wyświetlić newsów.");
+                //alert("Nie można wyświetlić newsów.");
             }
         });
     }

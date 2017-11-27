@@ -388,6 +388,7 @@
     <Content Include="Images\Logos\250\logo_bankier.jpg" />
     <Content Include="Images\Logos\250\logo_dziennik.jpg" />
     <Content Include="Images\Logos\250\logo_fakt.jpg" />
+    <Content Include="Images\Logos\250\logo_gazetapolska.jpg" />
     <Content Include="Images\Logos\250\logo_gwroclawska.jpg" />
     <Content Include="Images\Logos\250\logo_interia.jpg" />
     <Content Include="Images\Logos\250\logo_interiafacet.jpg" />
@@ -399,6 +400,7 @@
     <Content Include="Images\Logos\250\logo_newsweek.jpg" />
     <Content Include="Images\Logos\250\logo_niezalezna.jpg" />
     <Content Include="Images\Logos\250\logo_onet.jpg" />
+    <Content Include="Images\Logos\250\logo_pap.jpg" />
     <Content Include="Images\Logos\250\logo_radioZet.jpg" />
     <Content Include="Images\Logos\250\logo_rp.jpg" />
     <Content Include="Images\Logos\250\logo_se.jpg" />
@@ -415,6 +417,7 @@
     <Content Include="Images\Logos\icons\logo_bankier.jpg" />
     <Content Include="Images\Logos\icons\logo_dziennik.jpg" />
     <Content Include="Images\Logos\icons\logo_fakt.jpg" />
+    <Content Include="Images\Logos\icons\logo_gazetapolska.jpg" />
     <Content Include="Images\Logos\icons\logo_gwroclawska.jpg" />
     <Content Include="Images\Logos\icons\logo_interia.jpg" />
     <Content Include="Images\Logos\icons\logo_interiafacet.jpg" />
@@ -422,9 +425,11 @@
     <Content Include="Images\Logos\icons\logo_interiamoto.jpg" />
     <Content Include="Images\Logos\icons\logo_money.jpg" />
     <Content Include="Images\Logos\icons\logo_natemat.jpg" />
+    <Content Include="Images\Logos\icons\logo_ndie.jpg" />
     <Content Include="Images\Logos\icons\logo_newsweek.jpg" />
     <Content Include="Images\Logos\icons\logo_niezalezna.jpg" />
     <Content Include="Images\Logos\icons\logo_onet.jpg" />
+    <Content Include="Images\Logos\icons\logo_pap.jpg" />
     <Content Include="Images\Logos\icons\logo_radioZet.jpg" />
     <Content Include="Images\Logos\icons\logo_rp.jpg" />
     <Content Include="Images\Logos\icons\logo_se.jpg" />
@@ -1178,8 +1183,6 @@
     <Content Include="Views\Account\BeforeConfirmEmail.cshtml" />
     <Content Include="Views\_Templates\_EmailConfirmation.cshtml" />
     <Content Include="Views\Main\_RightMenuForum.cshtml" />
-    <Content Include="Views\Main\_FilterXS.cshtml" />
-    <Content Include="Views\Main\_FilterLG.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

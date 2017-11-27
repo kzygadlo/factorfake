@@ -27,19 +27,15 @@ namespace notomyk.Controllers
         }
 
         [HttpGet]
-        public JsonResult Get(int newsID, int filter = 0)
+        public JsonResult Get(int newsID, int filter)
         {
-
             using (NTMContext db = new NTMContext())
             {
-
                 if (!Request.IsAuthenticated)
                 {
                     ViewBag.popupMsg = "zaloguj sie";
                 }
-
                 var CFiltered = CommentListFiltered(newsID, filter);
-
                 var CommentsList = CFiltered
                                       .Select(s => new
                                       {
@@ -70,7 +66,6 @@ namespace notomyk.Controllers
         public IQueryable<tbl_Comment> CommentListFiltered(int newsID, int filter)
         {
             var result = db.Comment.Include(i => i.Children).Where(c => c.IsActive == true && c.tbl_NewsID == newsID && c.Parenttbl_CommentID == null).AsQueryable();
-
             switch (filter)
             {
                 case 0: // by date added
@@ -80,7 +75,7 @@ namespace notomyk.Controllers
                     result = result;
                     break;
                 case 2: // by votes
-                    result = result;
+                    result = result.OrderBy(o => o.VoteCommentLogs.Where(v => v.Vote == true).Count() - o.VoteCommentLogs.Where(v => v.Vote == false).Count());
                     break;
                 case 3:
                     break;

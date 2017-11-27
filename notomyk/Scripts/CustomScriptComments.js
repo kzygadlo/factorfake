@@ -13,7 +13,7 @@
     $('.frmAddComment').on('submit', function (event) {
         event.preventDefault();
         var $comment = $('#frmCommentText');
-        var $newsID = $('.frmNewsID').val(); 
+        var $newsID = $('.frmNewsID').val();
         var $template = $('#commentPattern').html();
         var $commentList = $("#commentsList");
 
@@ -23,7 +23,7 @@
     //Add Reply
     $(document).on('submit', '.frmAddReply', function (event) {
         event.preventDefault();
-        
+
         var $comment = $(this).closest('.addReply').find('.message');
         var $newsID = $('.frmNewsID').val();
         var $parentID = $(this).find('.commentID').val();
@@ -58,25 +58,9 @@
 
                 },
                 error: function () {
-                    alert("Nie można wyświetlić komentarzy.");
+                    //alert("Nie można wyświetlić komentarzy.");
                 }
             });
-
-            function fulfillTemplate(rid, rep, date, logoN, userN, faktV, fakeV) {
-                var replyVariables =
-                {
-                    CommentID: rid,
-                    Comment: rep,
-                    Date: date,
-                    LogoName: logoN,
-                    UserName: userN,
-                    CommentFaktV: faktV,
-                    CommentFakeV: fakeV
-                };
-                var html = Mustache.to_html($template, replyVariables);
-
-                $(html).hide().prependTo($replyList).fadeIn('slow');
-            }
 
             $replyList.fadeToggle();
 
@@ -86,13 +70,118 @@
             setTimeout(function () {
                 removeComments($replyList);
             }, 500);
-            
-            
         }
+    });
+
+    //Remove comment
+    $(document).on('click', '.DeleteComment', function (event) {
+        event.preventDefault();
+        //event.stopPropagation();
+        var $entComm = $(this);
+        var CommentID = $entComm.data('commentid')
+
+        $.ajax({
+            url: '/Comment/Remove',
+            type: 'POST',
+            //timeout: 3000,
+            data: {
+                commentID: CommentID
+            },
+            success: function (response) {
+                if (response.Success == false) {
+                    //alert(response.ResultMsg);
+                }
+                else {
+                    $entComm.closest(".singleComment").fadeOut(600, function () {
+                        $entComm.closest(".singleComment").remove();
+                    });
+                }
+
+            },
+            error: function () {
+                //alert("nie mozna usunac komentarza");
+            }
+        });
+    });
+
+    //Remove reply
+    $(document).on('click', '.DeleteReply', function (event) {
+        event.preventDefault();
+        //event.stopPropagation();
+        var $entComm = $(this);
+        var CommentID = $entComm.data('replyid')
+
+        $.ajax({
+            url: '/Comment/Remove',
+            type: 'POST',
+            //timeout: 3000,
+            data: {
+                commentID: CommentID
+            },
+            success: function (response) {
+                if (response.Success == false) {
+                    //alert(response.ResultMsg);
+                }
+                else {
+                    $entComm.closest(".singleReply").fadeOut(600, function () {
+                        $entComm.closest(".singleReply").remove();
+                    });
+                }
+
+            },
+            error: function () {
+                //alert("nie mozna usunac komentarza");
+            }
+        });
+    });
+
+    //Get comments for provided newsID (on open)
+    if ($("#SingleNews").length > 0 && $("#SingleNews").hasClass('first')) {
+        $("#SingleNews").removeClass('first');
+        showComments(0);
+    }
+
+    event.preventDefault();
+
+    $('#commentSort0').click(function () {
+        $commList = $('#commentsList')
+        removeComments($commList);
+        //show loading during retrieving
+        showComments(0);
+    });
+
+    $('#commentSort1').click(function () {
+        $commList = $('#commentsList')
+        removeComments($commList);
+        //show loading during retrieving
+        showComments(1);
+    });
+
+    $('#commentSort2').click(function () {
+        $commList = $('#commentsList')
+        removeComments($commList);
+        //show loading during retrieving
+        showComments(2);
     });
 
 });
 
+
+function fulfillTemplate(rid, rep, date, logoN, userN, faktV, fakeV) {
+    var replyVariables =
+    {
+        CommentID: rid,
+        Comment: rep,
+        Date: date,
+        LogoName: logoN,
+        UserName: userN,
+        CommentFaktV: faktV,
+        CommentFakeV: fakeV
+    };
+    var html = Mustache.to_html($template, replyVariables);
+
+    $(html).hide().prependTo($replyList).fadeIn('slow');
+};
 
 function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
     $.ajax({
@@ -108,11 +197,11 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
             if (response.success == true) {
                 fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID);
             } else {
-                alert("nie mozna dodac komentarza [try catch error]");
+                //alert("nie mozna dodac komentarza [try catch error]");
             }
         },
         error: function () {
-            alert("nie mozna dodac komentarza [ajax error]");
+            //alert("nie mozna dodac komentarza [ajax error]");
         }
     });
 
@@ -132,8 +221,7 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
     };
     var html = Mustache.to_html($template, commentVariables);
 
-    if (parentID != 0 && $wherePrepend.is(":hidden"))
-    {
+    if (parentID != 0 && $wherePrepend.is(":hidden")) {
         $wherePrepend.fadeToggle();
     }
 
@@ -142,82 +230,6 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
 };
 
 
-//Remove comment
-$(document).ready(function () {
-    $(document).on('click', '.DeleteComment', function (event) {
-        event.preventDefault();
-        //event.stopPropagation();
-        var $entComm = $(this);
-        var CommentID = $entComm.data('commentid')
-
-        $.ajax({
-            url: '/Comment/Remove',
-            type: 'POST',
-            //timeout: 3000,
-            data: {
-                commentID: CommentID
-            },
-            success: function (response) {
-                if (response.Success == false) {
-                    alert(response.ResultMsg);
-                }
-                else {
-                    $entComm.closest(".singleComment").fadeOut(600, function () {
-                        $entComm.closest(".singleComment").remove();
-                    });
-                }
-               
-            },
-            error: function () {
-                alert("nie mozna usunac komentarza");
-            }
-        });
-    });
-});
-
-
-//Remove reply
-$(document).ready(function () {
-    $(document).on('click', '.DeleteReply', function (event) {
-        event.preventDefault();
-        //event.stopPropagation();
-        var $entComm = $(this);
-        var CommentID = $entComm.data('replyid')
-
-        $.ajax({
-            url: '/Comment/Remove',
-            type: 'POST',
-            //timeout: 3000,
-            data: {
-                commentID: CommentID
-            },
-            success: function (response) {
-                if (response.Success == false) {
-                    alert(response.ResultMsg);
-                }
-                else {
-                    $entComm.closest(".singleReply").fadeOut(600, function () {
-                        $entComm.closest(".singleReply").remove();
-                    });
-                }
-
-            },
-            error: function () {
-                alert("nie mozna usunac komentarza");
-            }
-        });
-    });
-});
-
-
-
-//Get comments for provided newsID (on open)
-$(document).ready(function () {
-    if ($("#SingleNews").length > 0) {
-
-        showComments(0);
-    }
-});
 
 
 function showComments(Filter) {
@@ -259,63 +271,31 @@ function showComments(Filter) {
             filter: Filter
         },
         success: function (result) {
+
+            $('#sortingTab').addClass("hidden");
+            $('#noResultTab').addClass("hidden");
             $('#loadingImage').removeClass("hidden");
             $.each(result, function (key, val) {
                 fulfillTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV)
             });
+
+            if (result.length == 0) {
+                $('#noResultTab').removeClass("hidden");
+            }
+            else {
+                $('#sortingTab').removeClass("hidden");
+            }
+
             $('#loadingImage').addClass("hidden");
         },
         error: function () {
-            alert("Nie można wyświetlić newsów");
+            //alert("Nie można wyświetlić newsów");
         }
     });
 };
 
 //Remove Comments/Replies
-
 function removeComments(node) {
     node.find('li').remove();
 };
-
-//Get comments for filter 0 by dates
-$(document).ready(function () {
-    event.preventDefault();
-    $(document).on('click', '#commentSort0', function (event) {
-
-        $commList = $('#commentsList')
-        removeComments($commList);
-        //show loading during retrieving
-        showComments(0);
-    });
-});
-
-//Get comments for filter 1 by reputation
-$(document).ready(function () {
-    event.preventDefault();
-    $(document).on('click', '#commentSort1', function (event) {
-
-        $commList = $('#commentsList')
-        removeComments($commList);
-        //show loading during retrieving
-        showComments(1);
-    });
-});
-
-//Get comments for filter 2 by voting
-$(document).ready(function () {
-    event.preventDefault();
-    $(document).on('click', '#commentSort2', function (event) {
-
-        $commList = $('#commentsList')
-        removeComments($commList);
-        //show loading during retrieving
-        showComments(2);
-    });
-});
-
-
-//Replies toggling
-$(document).ready(function () {
-    
-})
 
