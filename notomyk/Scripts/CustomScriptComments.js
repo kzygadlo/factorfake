@@ -127,7 +127,6 @@
                         $entComm.closest(".singleReply").remove();
                     });
                 }
-
             },
             error: function () {
                 //alert("nie mozna usunac komentarza");
@@ -141,29 +140,32 @@
         showComments(0);
     }
 
-    event.preventDefault();
-
-    $('#commentSort0').click(function () {
+    $(document).on("click", "#commentSort0", function (a) {
+        $("#sortingTab").addClass('hidden');
         $commList = $('#commentsList')
         removeComments($commList);
         //show loading during retrieving
         showComments(0);
+        a.preventDefault();
     });
 
-    $('#commentSort1').click(function () {
+    $(document).on("click", "#commentSort1", function (a) {
+        $("#sortingTab").addClass('hidden');
         $commList = $('#commentsList')
         removeComments($commList);
         //show loading during retrieving
         showComments(1);
+        a.preventDefault();
     });
 
-    $('#commentSort2').click(function () {
+    $(document).on("click", "#commentSort2", function (a) {
+        $("#sortingTab").addClass('hidden');
         $commList = $('#commentsList')
         removeComments($commList);
         //show loading during retrieving
         showComments(2);
+        a.preventDefault();
     });
-
 });
 
 
