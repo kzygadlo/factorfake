@@ -58,7 +58,7 @@
 
                 },
                 error: function () {
-                    //alert("Nie można wyświetlić komentarzy.");
+                    ErrorNotifications('Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.')
                 }
             });
 
@@ -89,7 +89,7 @@
             },
             success: function (response) {
                 if (response.Success == false) {
-                    //alert(response.ResultMsg);
+                    ErrorNotifications('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.')
                 }
                 else {
                     $entComm.closest(".singleComment").fadeOut(600, function () {
@@ -99,7 +99,7 @@
 
             },
             error: function () {
-                //alert("nie mozna usunac komentarza");
+                ErrorNotifications('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.')
             }
         });
     });
@@ -120,7 +120,7 @@
             },
             success: function (response) {
                 if (response.Success == false) {
-                    //alert(response.ResultMsg);
+                    ErrorNotifications('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.')
                 }
                 else {
                     $entComm.closest(".singleReply").fadeOut(600, function () {
@@ -129,7 +129,7 @@
                 }
             },
             error: function () {
-                //alert("nie mozna usunac komentarza");
+                ErrorNotifications('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.')
             }
         });
     });
@@ -199,11 +199,11 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
             if (response.success == true) {
                 fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID);
             } else {
-                //alert("nie mozna dodac komentarza [try catch error]");
+                ErrorNotifications('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.')
             }
         },
         error: function () {
-            //alert("nie mozna dodac komentarza [ajax error]");
+            ErrorNotifications('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.')
         }
     });
 
@@ -291,7 +291,7 @@ function showComments(Filter) {
             $('#loadingImage').addClass("hidden");
         },
         error: function () {
-            //alert("Nie można wyświetlić newsów");
+            ErrorNotifications('Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.')
         }
     });
 };

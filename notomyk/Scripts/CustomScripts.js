@@ -10,7 +10,7 @@ $(document).ready(function () {
                 $tInput.removeClass('tagBG');
             } else {
                 $tInput.addClass('tagBG');
-            }            
+            }
         });
 });
 
@@ -61,9 +61,24 @@ var endEdit = function () {
             tagsList: $tagsList
         },
         error: function () {
-            //alert("nie mozna zapisac tagow");
+            ErrorNotifications('Tagowanie.', 'Wystąpił błąd podczas edytowania tagów.')
         }
     });
 };
 
 $("#editTags").clickToggle(allowEdit, endEdit);
+
+
+function ErrorNotifications(errorHeader, errorMessage) {
+    $('.errorMessageNewsDetail').find('.header').text(errorHeader);
+    $('.errorMessageNewsDetail').find('p').text(errorMessage);
+    $('.errorMessageNewsDetail').removeClass('hidden');
+
+    setTimeout(function () {
+        $('.errorMessageNewsDetail').addClass('hidden');
+        $('.errorMessageNewsDetail').find('.header').text('');
+        $('.errorMessageNewsDetail').find('p').text('');
+    }, 3000
+    );
+    
+};

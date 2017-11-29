@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
 
+
+    $("#frmCommentText").MaxLength({
+        MaxLength: 3000,
+        CharacterCountControl: $('#charCounter')
+    });
+
+
     window.fbAsyncInit = function () {
         FB.init({
             appId: '288016351717557',
@@ -66,11 +73,11 @@
                         window.location.href = response.redirectUrl;
                     }
                     else {
-                        //alert(response.ResultMsg);
+                        ErrorNotifications('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.')
                     }
                 },
                 error: function () {
-                    //alert("nie mozna usunac newsa");
+                    ErrorNotifications('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.')
                 }
             });
         });

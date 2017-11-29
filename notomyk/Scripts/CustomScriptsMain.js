@@ -128,7 +128,7 @@ function getListOfNews() {
                     var i;
                     var $htmlList = '';
                     for (i = 0; i < val.tagList.length; ++i) {
-                        $htmlList = $htmlList + '<span class="tag basic label label-info">' + val.tagList[i] + '</span> ';
+                        $htmlList = $htmlList + '<span class="ui teal basic label">' + val.tagList[i] + '</span> ';
                     }
 
                     fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, $htmlList, val.faktValue, val.fakeValue);
@@ -160,7 +160,7 @@ function getListOfNews() {
                 $('#newPageButton').inc('id', 1);
             },
             error: function () {
-                //alert("Nie można wyświetlić newsów.");
+                ErrorNotifications('Newsy.', 'Wystąpił błąd podczas wyświetlania newsów.')
             }
         });
     }

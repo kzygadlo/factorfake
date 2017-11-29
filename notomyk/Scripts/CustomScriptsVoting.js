@@ -85,7 +85,7 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
             votingAction(response.result, $fakt, $fake, $faktValue, $fakeValue);
         },
         error: function () {
-            //alert("nie mozna dodac glosu")
+            ErrorNotifications('Głosowanie.', 'Wystąpił błąd podczas głosowania.')
         }
     });
 };

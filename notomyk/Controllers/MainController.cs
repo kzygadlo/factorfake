@@ -17,11 +17,8 @@ namespace notomyk.Controllers
     public class MainController : Controller
     {
         private NTMContext db = new NTMContext();
-
-
         public ActionResult Index()
         {
-
             var newspaperList = db.Newspaper
                  .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
                  .OrderBy(o => o.NewspaperName)
@@ -33,7 +30,6 @@ namespace notomyk.Controllers
                 .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true))
                 .OrderByDescending(o => o.ListOfNews.Count).ToList();
 
-
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
             vm.Categories = tagList;
@@ -44,7 +40,6 @@ namespace notomyk.Controllers
         [HttpPost]
         public JsonResult Get(FilterModel filter)
         {
-
             List<tbl_News> listOfNews = GetNewsList(filter).ToList();
 
             var finalList = listOfNews.Select(x => new
@@ -97,7 +92,6 @@ namespace notomyk.Controllers
                     tagList = x.Tags
 
                 }), JsonRequestBehavior.AllowGet);
-
         }
 
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
@@ -130,7 +124,7 @@ namespace notomyk.Controllers
                                 && (n.VoteLogs.Where(v => v.Vote == true).Count() == 0 || n.VoteLogs.Where(v => v.Vote == false).Count() / n.VoteLogs.Where(v => v.Vote == true).Count() > 2));
                             break;
                         case 3: //Top Comments
-                            result = result.Where(n => n.Collection_Comments.Count > commentValue).OrderByDescending(o => o.Collection_Comments.Count);
+                            result = result.Where(n => n.Collection_Comments.Where(c => c.IsActive == true).Count() > commentValue).OrderByDescending(o => o.Collection_Comments.Where(c => c.IsActive == true).Count());
                             break;
                         case 4: //Top Visits
                             result = result.Where(n => n.Visitors > visitorsValue).OrderByDescending(o => o.Visitors);
@@ -160,7 +154,13 @@ namespace notomyk.Controllers
 
             }
             filter.Remains = result.Count() - 10 - filter.Page * 10;
-            result = result.OrderByDescending(r => r.DateAdd).Skip(filter.Page * 10).Take(10);
+
+            if (filter.WhatNews == 0)
+            {
+                result = result.OrderByDescending(r => r.DateAdd);
+            }
+
+            result = result.Skip(filter.Page * 10).Take(10);
 
             return result;
         }

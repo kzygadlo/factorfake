@@ -73,7 +73,7 @@
                                 <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
                             </div>
                             <div class="col-xs-9 col-sm-10 removePadding">
-                                <textarea rows="10" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym komentarzu ?"></textarea>
+                                <textarea rows="10" maxlength="3000" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym komentarzu ?"></textarea>
                             </div>
 
                             <div class="col-xs-1 removePadding">
@@ -155,7 +155,7 @@
         </div>
     </li>
 </script>
-<div id="fb-root"></div>
+@*<div id="fb-root"></div>*@
 
 <div id="SingleNews" class="first">
     <div class="list-group-item n1">
@@ -236,7 +236,7 @@
                                                 <div class="floating ui basic grey label">@Model.SingleNews.Visitors</div>
                                             </x>
                                         </div>
-                                        <div class="fb-share-button"
+                                        <div class="fb-share-button col-xs-4"
                                              style="background-color:#4267b2; padding-top:1px"
                                              data-href="@ViewBag.fbButtonUrl"
                                              data-layout="button_count"
@@ -296,13 +296,14 @@
             <div id="addComment" class="col-xs-12">
                 @if (Request.IsAuthenticated)
                 {
-                    <div class="col-xs-2 col-sm-1 removePadding">
+                    <div class="col-xs-2 col-sm-1" style="padding:14px 0 0 0">
                         <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
                     </div>
                     <div class="col-xs-9 col-sm-10 removePadding">
-                        <textarea maxlength="100" id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym artykule ?"></textarea>
+                        <span id="charCounter" class="pull-right" style="font-size:11px"></span>
+                        <textarea maxlength="3000" id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym artykule ?"></textarea>
                     </div>
-                    <div class="col-xs-1 removePadding">
+                    <div class="col-xs-1" style="padding:14px 0 0 0">
                         <form class="frmAddComment  pull-right">
                             <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
                             <button class="btn btn-primary" type="submit">
@@ -314,7 +315,7 @@
                 else
                 {
                     <div class="col-xs-12 removePadding">
-                        <textarea id="frmCommentText" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                        <textarea id="frmCommentTextNoAuth" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
                     </div>
                     <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
                 }
@@ -326,16 +327,19 @@
         <div class="ui active inverted dimmer">
             <div class="ui medium text loader">Wczytywanie komentarzy.</div>
         </div>
-        <p></p>
+        @*<p>
+
+            </p>*@
     </div>
-    <div id="errorMessageNewsDetail" style="margin-bottom:10px" class="hidden">
+
+    <div style="margin-bottom:10px" class="errorMessageNewsDetail hidden">
         <div class="ui negative message">
             <i class="close icon"></i>
             <div class="header">
-                Dodawanie komentarza nie powiodło się.
+
             </div>
             <p>
-                Upewnij się, że jesteś zalogowany.
+
             </p>
         </div>
     </div>
@@ -350,9 +354,9 @@
     <div id="noResultTab" class="sorting col-lg-12 list-group-item hidden" style="text-align:center">
         <c class="text-muted">Brak komentarzy dla tego artykułu. Bądź pierwszy i skomentuj. </c>
     </div>
-    
-    
-    <div class="comments-container col-lg-12 removePadding">   
+
+
+    <div class="comments-container col-lg-12 removePadding">
         @*Comments container*@
         <ul id="commentsList" class="comments-list"></ul>
     </div>
