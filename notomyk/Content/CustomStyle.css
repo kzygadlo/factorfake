@@ -7,6 +7,10 @@
     font-size: 12px !important;
 }
 
+#newsContainer .nIcons .ui.label {
+padding: 5px !important;
+}
+
 .ui.green.label, .ui.green.labels .label {
     background-color: #5cb85c !important;
     border-color: #5cb85c !important;

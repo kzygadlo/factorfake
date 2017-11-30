@@ -53,7 +53,7 @@
                     $(this).closest('li').find('.reply-list').fadeToggle();
 
                     $.each(result, function (key, val) {
-                        fulfillTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV)
+                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList)
                     });
 
                 },
@@ -169,7 +169,7 @@
 });
 
 
-function fulfillTemplate(rid, rep, date, logoN, userN, faktV, fakeV) {
+function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList) {
     var replyVariables =
     {
         CommentID: rid,
@@ -178,7 +178,9 @@ function fulfillTemplate(rid, rep, date, logoN, userN, faktV, fakeV) {
         LogoName: logoN,
         UserName: userN,
         CommentFaktV: faktV,
-        CommentFakeV: fakeV
+        CommentFakeV: fakeV,
+        class1: "outline",
+        class2: "outline"
     };
     var html = Mustache.to_html($template, replyVariables);
 
@@ -219,7 +221,9 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
         UserName: userN,
         LogoName: userL,
         CommentFaktV: 0,
-        CommentFakeV: 0
+        CommentFakeV: 0,
+        class1: "outline",
+        class2: "outline"
     };
     var html = Mustache.to_html($template, commentVariables);
 
@@ -231,20 +235,27 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
     $(html).hide().prependTo($wherePrepend).fadeIn('slow');
 };
 
-
-
-
 function showComments(Filter) {
     $('#loadingImage').removeClass("hidden");
 
     var $template = $('#commentPattern').html();
     var $commentList = $("#commentsList");
 
-    function fulfillTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV) {
+    function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV) {
 
         var repValue = "";
         if (repV != 0) {
             repValue = "odpowiedzi: " + repV;
+        }
+
+        var c1 = "outline";
+        var c2 = "outline";
+
+        if (commV == 0) {
+            c2 = "";
+        }
+        else if (commV == 1) {
+            c1 = "";
         }
 
         var replyVariables =
@@ -257,7 +268,9 @@ function showComments(Filter) {
             LogoName: userL,
             CommentFaktV: faktV,
             CommentFakeV: fakeV,
-            RepliesV: repValue
+            RepliesV: repValue,
+            class1: c1,
+            class2: c2
         };
         var html = Mustache.to_html($template, replyVariables);
         //$comment.val("");
@@ -265,6 +278,8 @@ function showComments(Filter) {
     }
 
     var NewsID = $(".frmNewsID").val();
+
+
     $.ajax({
         url: '/Comment/Get',
         type: "GET",
@@ -278,7 +293,7 @@ function showComments(Filter) {
             $('#noResultTab').addClass("hidden");
             $('#loadingImage').removeClass("hidden");
             $.each(result, function (key, val) {
-                fulfillTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV)
+                fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment)
             });
 
             if (result.length == 0) {

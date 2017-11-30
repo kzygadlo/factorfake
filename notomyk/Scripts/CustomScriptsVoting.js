@@ -43,35 +43,44 @@ function newsVoting(whatVote) {
     var $faktValue = $("a.voteFakt")
     var $fakeValue = $("a.voteFake")
 
-    ajaxVoteRequest(whatVote, true, $newsID, $fakt, $fake, $faktValue, $fakeValue)
+    var $faktClass = "BGgreenColorLight";
+    var $fakeClass = "BGredColorLight";
+
+    ajaxVoteRequest(whatVote, true, $newsID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass)
 };
 
 
 function commentsVoting(whatVote, $this) {
 
     var $commentID = $this.find('#commentContainerJS').data('commentid');
-    var $fakt = $this.find(".commentFaktVote.button")
-    var $fake = $this.find(".commentFakeVote.button")
+    var $fakt = $this.find(".commentFaktVote").find('i');
+    var $fake = $this.find(".commentFakeVote").find('i');
 
     var $faktValue = $this.find("a#commentFaktValue")
     var $fakeValue = $this.find("a#commentFakeValue")
 
-    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue)
+    var $faktClass = "outline";
+    var $fakeClass = "outline";
+
+    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass)
 };
 
 function replyVoting(whatVote, $this) {
 
     var $commentID = $this.find('.DeleteReply').data('replyid');
-    var $fakt = $this.find(".replyFaktVote.button")
-    var $fake = $this.find(".replyFakeVote.button")
+    var $fakt = $this.find(".replyFaktVote").find('i');
+    var $fake = $this.find(".replyFakeVote").find('i');
 
     var $faktValue = $this.find("a#replyFaktValue")
     var $fakeValue = $this.find("a#replyFakeValue")
 
-    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue)
+    var $faktClass = "outline";
+    var $fakeClass = "outline";
+
+    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass)
 };
 
-function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $fakeValue) {
+function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass) {
     $.ajax({
         url: '/Voting/Vote',
         type: 'POST',
@@ -82,7 +91,7 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
             newsVote: whatType
         },
         success: function (response) {
-            votingAction(response.result, $fakt, $fake, $faktValue, $fakeValue);
+            votingAction(response.result, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass);
         },
         error: function () {
             ErrorNotifications('Głosowanie.', 'Wystąpił błąd podczas głosowania.')
@@ -91,11 +100,7 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
 };
 
 
-function votingAction(whatVote, $fakt, $fake, $faktValue, $fakeValue) {
-
-
-    var $faktClass = "BGgreenColorLight";
-    var $fakeClass = "BGredColorLight";
+function votingAction(whatVote, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass) {
 
     switch (whatVote) {
 

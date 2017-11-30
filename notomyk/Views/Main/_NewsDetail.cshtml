@@ -27,7 +27,6 @@
                             <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="post-description col-xs-12">
@@ -38,7 +37,7 @@
                     <div class="col-xs-5" style="padding:0 0 8px 10px">
                         <div class="commentFakeVote ui right labeled button " tabindex="0" title="@ViewBag.popupMsg">
                             <div class="ui button BGwhite">
-                                <i class="thumbs outline down red icon"></i>
+                                <i class="thumbs {{class2}} down red icon"></i>
                             </div>
                             <a id="commentFakeValue" class="ui left pointing label BGredColor BGredColorLight">
                                 {{CommentFakeV}}
@@ -50,7 +49,7 @@
                                 {{CommentFaktV}}
                             </a>
                             <div class="ui button BGwhite" data-content="Add users to your feed">
-                                <i class="thumbs outline up green icon "></i>
+                                <i class="thumbs {{class1}} up green icon "></i>
                             </div>
                         </div>
                     </div>
@@ -121,7 +120,6 @@
                                         <img class="img-circle pull-left" src="{{LogoName}}" alt="x" />
                                         <h3>{{UserName}}</h3>
                                         <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
-
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +130,7 @@
                             <div class="row m0" style="padding:0 0 8px 10px">
                                 <div class="replyFakeVote ui right labeled button " tabindex="0">
                                     <div class="ui button BGwhite" data-content="{{popupMsg}}">
-                                        <i class="thumbs outline down red icon"></i>
+                                        <i class="thumbs {{class2}} down red icon"></i>
                                     </div>
                                     <a id="replyFakeValue" class="BGredColorLight ui basic left pointing label">
                                         {{CommentFakeV}}
@@ -144,7 +142,7 @@
                                         {{CommentFaktV}}
                                     </a>
                                     <div class="ui button BGwhite" data-content="{{popupMsg}}">
-                                        <i class="thumbs outline up green icon "></i>
+                                        <i class="thumbs {{class1}} up green icon "></i>
                                     </div>
                                 </div>
                             </div>

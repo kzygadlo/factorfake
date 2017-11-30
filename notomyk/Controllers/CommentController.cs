@@ -35,6 +35,9 @@ namespace notomyk.Controllers
                 {
                     ViewBag.popupMsg = "zaloguj sie";
                 }
+
+                var uName = User.Identity.GetUserId();
+
                 var CFiltered = CommentListFiltered(newsID, filter);
                 var CommentsList = CFiltered
                                       .Select(s => new
@@ -45,7 +48,8 @@ namespace notomyk.Controllers
                                           s.ApplicationUser.Id,
                                           s.ApplicationUser.UserName,
                                           s.VoteCommentLogs,
-                                          children = s.Children.Where(c => c.IsActive == true).Count()
+                                          children = s.Children.Where(c => c.IsActive == true).Count(),
+                                          voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault()
                                       })
                                       .ToList();
 
@@ -58,9 +62,33 @@ namespace notomyk.Controllers
                     userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
                     faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
                     fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
-                    repliesV = x.children
+                    repliesV = x.children,
+                    voteForComment = ifVoted(x.voted)
                 }), JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public static int ifVoted(VoteCommentLog voted)
+        {
+            int result = 1;
+
+            if (voted != null)
+            {
+                if (voted.Vote == true)
+                {
+                    result = 1;
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+            else
+            {
+                result = -1;
+            }
+
+            return result;
         }
 
         public IQueryable<tbl_Comment> CommentListFiltered(int newsID, int filter)

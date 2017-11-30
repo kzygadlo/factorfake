@@ -402,8 +402,10 @@
     <Content Include="Images\Logos\250\logo_onet.jpg" />
     <Content Include="Images\Logos\250\logo_pap.jpg" />
     <Content Include="Images\Logos\250\logo_radioZet.jpg" />
+    <Content Include="Images\Logos\250\logo_rmffm.jpg" />
     <Content Include="Images\Logos\250\logo_rp.jpg" />
     <Content Include="Images\Logos\250\logo_se.jpg" />
+    <Content Include="Images\Logos\250\logo_tokfm.jpg" />
     <Content Include="Images\Logos\250\logo_tvn.jpg" />
     <Content Include="Images\Logos\250\logo_tvn24.jpg" />
     <Content Include="Images\Logos\250\logo_tvpinfo.jpg" />
@@ -431,8 +433,10 @@
     <Content Include="Images\Logos\icons\logo_onet.jpg" />
     <Content Include="Images\Logos\icons\logo_pap.jpg" />
     <Content Include="Images\Logos\icons\logo_radioZet.jpg" />
+    <Content Include="Images\Logos\icons\logo_rmffm.jpg" />
     <Content Include="Images\Logos\icons\logo_rp.jpg" />
     <Content Include="Images\Logos\icons\logo_se.jpg" />
+    <Content Include="Images\Logos\icons\logo_tokfm.jpg" />
     <Content Include="Images\Logos\icons\logo_tvn.jpg" />
     <Content Include="Images\Logos\icons\logo_tvn24.jpg" />
     <Content Include="Images\Logos\icons\logo_tvpinfo.jpg" />
