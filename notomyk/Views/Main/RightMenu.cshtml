@@ -12,10 +12,10 @@
             <a href="#1b" data-toggle="tab"><small><strong><i class="trophy outline orange icon"></i>Reputacja</strong></small></a>
         </li>
         <li>
-            <a href="#2b" data-toggle="tab"><small><strong>Ilosc Komentarzy</strong></small></a>
+            <a href="#2b" data-toggle="tab"><small><strong>Ilosc Newsow</strong></small></a>
         </li>
         <li>
-            <a href="#3b" data-toggle="tab"><small><strong>Ilosc Newsow</strong></small></a>
+            <a href="#3b" data-toggle="tab"><small><strong>Ilosc Komentarzy</strong></small></a>
         </li>
     </ul>
     <div class="tab-content clearfix">
@@ -43,10 +43,47 @@
             }
         </div>
         <div id="2b" class="tab-pane">
-            brak wynikow 2
+            @foreach (var user in Model.UsersNews)
+            {
+                var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
+
+                <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
+                    <div class="ui relaxed middle aligned  divided list">
+                        <div class="item col-xs-10" style="padding:0 !important">
+                            <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
+                            <div class="content">
+                                <strong>@user.UserName&nbsp;&nbsp;</strong>
+                                <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
+                            </div>
+                        </div>
+                        <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
+                            <span class="ui purple basic label">@user.tbl_News.Count()</span>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-        <div id="2b" class="tab-pane">
-            brak wynikow 2
+        <div id="3b" class="tab-pane">
+            @foreach (var user in Model.UsersComm)
+            {
+                var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
+
+                <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
+                    <div class="ui relaxed middle aligned  divided list">
+                        <div class="item col-xs-10" style="padding:0 !important">
+                            <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
+                            <div class="content">
+                                <strong>@user.UserName&nbsp;&nbsp;</strong>
+                                <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
+                            </div>
+                        </div>
+                        <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
+                            <span class="ui blue basic label">@user.tbl_Comment.Count()</span>
+                        </div>
+                    </div>
+                </div>
+
+            }
         </div>
     </div>
 </div>

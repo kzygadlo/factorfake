@@ -162,6 +162,7 @@ namespace notomyk.Controllers
                         }
 
                         var user = db.Users.Where(u => u.Id == comment.UserId).FirstOrDefault();
+
                         db.Comment.Add(comment);
                         db.SaveChanges();
 

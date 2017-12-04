@@ -31,23 +31,6 @@ namespace notomyk.Controllers
             }
         }
 
-        //public ActionResult Get(int newsID)
-        //{
-        //    try
-        //    {
-        //        using (NTMContext db = new NTMContext())
-        //        {
-        //            var CommentsList = db.Comment.Where(c => c.tbl_NewsID == newsID).ToList();
-
-        //            return Json(CommentsList);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { success = ex.Message });
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult Add(NewNews newN)
         {
@@ -55,51 +38,72 @@ namespace notomyk.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var news = new tbl_News();
-                    var metaDataFromUrl = NewsMethodes.GetMetaDataFromUrl(newN.UrlLink);
-                    var homeUrl = NewsMethodes.GetHomeURL(newN.UrlLink);
 
-                    var newsID = db.News.Where(n => n.ArticleLink == newN.UrlLink).Select(n => n.tbl_NewsID).FirstOrDefault();
-                    if (newsID != 0)
+                    var _uID = User.Identity.GetUserId();
+                    var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
+                    var newsValidator = new addNewsValidator(_User);
+
+                    var valResult = newsValidator.IfExceededNewsNumber();
+
+                    if (valResult == 0)
                     {
-                        return RedirectToAction("News", "Main", new { id = newsID });
-                    }
+                        var news = new tbl_News();
+                        var metaDataFromUrl = NewsMethodes.GetMetaDataFromUrl(newN.UrlLink);
+                        var homeUrl = NewsMethodes.GetHomeURL(newN.UrlLink);
 
-                    var newspaperId = db.Newspaper.Where(n => n.NewspaperLink == homeUrl).Select(n => n.tbl_NewspaperID).FirstOrDefault();
-                    if (newspaperId == 0)
-                    {
-                        var addNewspaper = new tbl_Newspaper();
-                        addNewspaper.NewspaperLink = homeUrl;
+                        var newsID = db.News.Where(n => n.ArticleLink == newN.UrlLink).Select(n => n.tbl_NewsID).FirstOrDefault();
+                        if (newsID != 0)
+                        {
+                            return RedirectToAction("News", "Main", new { id = newsID });
+                        }
 
-                        addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? homeUrl : metaDataFromUrl.SiteName;
-                        addNewspaper.NewspaperIconLink = "default.jpg";
-                        db.Newspaper.Add(addNewspaper);
+                        var newspaperId = db.Newspaper.Where(n => n.NewspaperLink == homeUrl).Select(n => n.tbl_NewspaperID).FirstOrDefault();
+                        if (newspaperId == 0)
+                        {
+                            var addNewspaper = new tbl_Newspaper();
+                            addNewspaper.NewspaperLink = homeUrl;
+
+                            addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? homeUrl : metaDataFromUrl.SiteName;
+                            addNewspaper.NewspaperIconLink = "default.jpg";
+                            db.Newspaper.Add(addNewspaper);
+                            db.SaveChanges();
+                            news.tbl_NewspaperID = addNewspaper.tbl_NewspaperID;
+                        }
+                        else
+                        {
+                            news.tbl_NewspaperID = newspaperId;
+                        }
+
+                        news.ArticleLink = newN.UrlLink;
+                        news.DateAdd = DateTime.UtcNow;
+                        news.UserId = User.Identity.GetUserId();
+                        news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : myEncoding.ReplaceSign(metaDataFromUrl.Title);
+                        news.Description = myEncoding.ReplaceSign(metaDataFromUrl.Description);
+                        news.PictureLink = metaDataFromUrl.ImageUrl;
+
+                        db.News.Add(news);
+
+                        var userName = User.Identity.GetUserName();
+                        var visitorName = db.Users.FirstOrDefault(u => u.UserName == userName);
+                        //visitorName.newsAddedNumber++;
+
                         db.SaveChanges();
-                        news.tbl_NewspaperID = addNewspaper.tbl_NewspaperID;
+
+                        myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
+
+                        newsValidator.NewsAdded();
+
+                        return RedirectToAction("News", "Main", new { id = news.tbl_NewsID });
                     }
                     else
                     {
-                        news.tbl_NewspaperID = newspaperId;
+                        string eMessage = string.Format("Przekroczyłeś dzienną dostępną liczbę dodawanych newsów.\n\n Limit dla Twojej roli {0} wynosi: {1}.", newsValidator.WhatRole, valResult);
+                        if (newsValidator.eConfirmed == false)
+                        {
+                            eMessage += "\n\n Twoje konto nie zostało aktywowane. Po jego aktywowaniu liczba dopuszczalnych newsów się zwiększy.";
+                        }
+                        return RedirectToAction("Index", "Error", new { errorMessage = eMessage });
                     }
-
-                    news.ArticleLink = newN.UrlLink;
-                    news.DateAdd = DateTime.UtcNow;
-                    news.UserId = User.Identity.GetUserId();
-                    news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : myEncoding.ReplaceSign(metaDataFromUrl.Title);
-                    news.Description = myEncoding.ReplaceSign(metaDataFromUrl.Description);
-                    news.PictureLink = metaDataFromUrl.ImageUrl;
-
-                    db.News.Add(news);
-
-                    var userName = User.Identity.GetUserName();
-                    var visitorName = db.Users.FirstOrDefault(u => u.UserName == userName);
-                    //visitorName.newsAddedNumber++;
-
-                    db.SaveChanges();
-
-                    myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
-
-                    return RedirectToAction("News", "Main", new { id = news.tbl_NewsID });
                 }
             }
             else
@@ -155,7 +159,7 @@ namespace notomyk.Controllers
         public JsonResult Remove(int newsID)
         {
             //if (myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()))
-            if(User.IsInRole("Admin"))
+            if (User.IsInRole("Admin"))
             {
                 using (NTMContext db = new NTMContext())
                 {
@@ -167,7 +171,7 @@ namespace notomyk.Controllers
 
                     RedirectToAction("Index", "Main");
 
-                    return Json(new { Success = true, redirectUrl = Url.Action("Index","Main") });
+                    return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
                 }
             }
             return Json(new { Success = false, ResultMsg = "Nie masz uprawnień aby usunąć tego newsa." });

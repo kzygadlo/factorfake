@@ -5,16 +5,17 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System;
 
 namespace notomyk.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        //public int postsNumber { get; set; }
-        //public int newsAddedNumber { get; set; }
-        //public int commentsNumber { get; set; }
-        //public int reputationPoints { get; set; }
+        public int NewsCounter { get; set; }
+        public DateTime? LastNewsAdded { get; set; }
+        public int CommentsCounter { get; set; }
+        public DateTime? LastCommentAdded { get; set; }
 
         public virtual ICollection<VoteLog> VotingLogs { get; set; }
 
