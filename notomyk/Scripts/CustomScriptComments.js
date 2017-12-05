@@ -201,14 +201,13 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
             if (response.success == true) {
                 fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID);
             } else {
-                ErrorNotifications('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.')
+                ErrorNotifications(response.errHeader, response.errMessage);
             }
         },
         error: function () {
             ErrorNotifications('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.')
         }
     });
-
 };
 
 function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $wherePrepend, $comment, newsID, parentID) {

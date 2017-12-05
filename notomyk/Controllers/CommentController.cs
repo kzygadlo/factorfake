@@ -150,31 +150,80 @@ namespace notomyk.Controllers
                 {
                     using (NTMContext db = new NTMContext())
                     {
-                        var comment = new tbl_Comment();
-                        comment.Comment = CommentText;
-                        comment.DateAdd = DateTime.UtcNow;
-                        comment.UserId = User.Identity.GetUserId();
-                        comment.tbl_NewsID = NewsID;
+                        var _uID = User.Identity.GetUserId();
+                        var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
+                        var commentValidator = new addCommentValidator(_User, db);
 
-                        if (parentID != 0)
+                        var valResultN = commentValidator.IfExceededCommentsNumber();
+                        if (valResultN == 0)
                         {
-                            comment.Parenttbl_CommentID = parentID;
+                            var valResultD = commentValidator.WhetherDelayTimeHasPassed();
+
+                            if (valResultD == 0)
+                            {
+                                var comment = new tbl_Comment();
+                                comment.Comment = CommentText;
+                                comment.DateAdd = DateTime.UtcNow;
+                                comment.UserId = _uID;
+                                comment.tbl_NewsID = NewsID;
+
+                                if (parentID != 0)
+                                {
+                                    comment.Parenttbl_CommentID = parentID;
+                                }
+
+                                var user = db.Users.Where(u => u.Id == comment.UserId).FirstOrDefault();
+                                db.Comment.Add(comment);
+                                db.SaveChanges();
+
+                                commentValidator.CommentAdded(_User, db);
+
+                                return Json(new
+                                {
+                                    success = true,
+                                    com = comment.Comment,
+                                    cid = comment.tbl_CommentID,
+                                    date = GetTimeAgo.CalculateDateDiff(comment.DateAdd),
+                                    userN = user.UserName,
+                                    userL = Url.Content(AppConfig.UserLogoLink(user.Id))
+                                });                                
+                            }
+                            else
+                            {
+                                return Json(
+                                    new
+                                    {
+                                        success = false,
+                                        errHeader = string.Format("Filtr anty-spamowy."),
+                                        errMessage = string.Format("Musisz odczekać {0} sekund aby dodać nowy komentarz.", valResultD)
+                                    });
+                                // time dealy 
+                            }
                         }
-
-                        var user = db.Users.Where(u => u.Id == comment.UserId).FirstOrDefault();
-
-                        db.Comment.Add(comment);
-                        db.SaveChanges();
-
-                        return Json(new
+                        else
                         {
-                            success = true,
-                            com = comment.Comment,
-                            cid = comment.tbl_CommentID,
-                            date = GetTimeAgo.CalculateDateDiff(comment.DateAdd),
-                            userN = user.UserName,
-                            userL = Url.Content(AppConfig.UserLogoLink(user.Id))
-                        });
+                            if (commentValidator.EmailConfirmed == true)
+                            {
+                                return Json(
+                                    new
+                                    {
+                                        success = false,
+                                        errHeader = string.Format("Przekroczona dzienna liczba dodanych komentarzy ({0}) dla Twojej roli.", valResultN),
+                                        errMessage = string.Format("Jutro blokada zostanie zdjęta..")
+                                    });
+                            }
+                            else
+                            {
+                                return Json(
+                                        new
+                                        {
+                                            success = false,
+                                            errHeader = string.Format("Przekroczona liczba komentarzy dla Twojej roli."),
+                                            errMessage = string.Format("Aktywuj swoje konto aby móc dodawać większą ilość komentarzy.")
+                                        });
+                            }
+                            // total number of comments exceeded
+                        }
                     }
                 }
             }

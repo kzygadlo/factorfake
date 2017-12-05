@@ -14,29 +14,33 @@ namespace notomyk.Infrastructure
 {
     public class addNewsValidator
     {
-        private NTMContext db = new NTMContext();
-        private ApplicationUser _User = new ApplicationUser();
-        
-        private string _uID;
+
+        ApplicationUser _user = new ApplicationUser();
         public string WhatRole;
-        public bool eConfirmed;
+        int _NewsLimitNumber;
+        public bool EmailConfirmed;
 
-        private int _NewsLimitNumber;
-        private int _NewsDelayInSec;
-
-        private DateTime _CurrentDate;
-
-        public addNewsValidator(ApplicationUser user)
+        public addNewsValidator()
         {
-            _User = user;
-            var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));  
-            WhatRole = um.GetRoles(_User.Id).FirstOrDefault();
-            eConfirmed = _User.EmailConfirmed;
+        
+        }
 
-            if (CheckIfCounterToReset(_User.LastNewsAdded) == true)
+        public addNewsValidator(ApplicationUser user, NTMContext db)
+        {
+            //_User = user;
+            _user.Id = user.Id;
+            EmailConfirmed = user.EmailConfirmed;
+            _user.NewsCounter = user.NewsCounter;
+            _user.LastCommentAdded = DateTime.UtcNow;
+            _user.LastNewsAdded = DateTime.UtcNow;
+
+            var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            WhatRole = um.GetRoles(_user.Id).FirstOrDefault();
+
+
+            if (CheckIfCounterToReset(user.LastNewsAdded) == true)
             {
-                var userToUpdate = db.Users.Where(u => u.Id == _User.Id).FirstOrDefault();
-                userToUpdate.NewsCounter = 0;
+                user.NewsCounter = 0;
                 db.SaveChanges();
             }
         }
@@ -55,7 +59,7 @@ namespace notomyk.Infrastructure
 
         public int IfExceededNewsNumber()
         {
-            if (_User.EmailConfirmed)
+            if (_user.EmailConfirmed)
             {
                 switch (WhatRole)
                 {
@@ -75,18 +79,17 @@ namespace notomyk.Infrastructure
                 _NewsLimitNumber = 1;
             }
 
-            if (_User.NewsCounter < _NewsLimitNumber)
+            if (_user.NewsCounter < _NewsLimitNumber)
             {
                 return 0;
             }
             return _NewsLimitNumber;
         }
 
-        public void NewsAdded()
+        public void NewsAdded(ApplicationUser user, NTMContext db)
         {
-            var userToUpdate = db.Users.Where(u => u.Id == _User.Id).FirstOrDefault();
-            userToUpdate.NewsCounter++;
-            userToUpdate.LastNewsAdded = DateTime.UtcNow;
+            user.NewsCounter++;
+            user.LastNewsAdded = DateTime.UtcNow;
             db.SaveChanges();
         }
       

@@ -38,10 +38,9 @@ namespace notomyk.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
                     var _uID = User.Identity.GetUserId();
                     var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
-                    var newsValidator = new addNewsValidator(_User);
+                    var newsValidator = new addNewsValidator(_User, db);
 
                     var valResult = newsValidator.IfExceededNewsNumber();
 
@@ -83,22 +82,18 @@ namespace notomyk.Controllers
 
                         db.News.Add(news);
 
-                        var userName = User.Identity.GetUserName();
-                        var visitorName = db.Users.FirstOrDefault(u => u.UserName == userName);
-                        //visitorName.newsAddedNumber++;
-
                         db.SaveChanges();
 
                         myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
 
-                        newsValidator.NewsAdded();
+                        newsValidator.NewsAdded(_User,db);
 
                         return RedirectToAction("News", "Main", new { id = news.tbl_NewsID });
                     }
                     else
                     {
                         string eMessage = string.Format("Przekroczyłeś dzienną dostępną liczbę dodawanych newsów.\n\n Limit dla Twojej roli {0} wynosi: {1}.", newsValidator.WhatRole, valResult);
-                        if (newsValidator.eConfirmed == false)
+                        if (newsValidator.EmailConfirmed == false)
                         {
                             eMessage += "\n\n Twoje konto nie zostało aktywowane. Po jego aktywowaniu liczba dopuszczalnych newsów się zwiększy.";
                         }
