@@ -200,6 +200,7 @@ namespace notomyk.Controllers
             ICollection<string> listOfTags = (from t in db.Tag
                                               join e in db.EventTag on t.ID equals e.TagID
                                               where e.tbl_NewsID == singleNews.tbl_NewsID
+                                              orderby t.ListOfNews.Count descending
                                               select t.TagName).ToList();
 
             string CommaSeparatedTags = myTags.TagsBuilder(listOfTags);
@@ -282,9 +283,35 @@ namespace notomyk.Controllers
                 .Take(10)
                 .ToList();
 
-            var usersRep = (from x in db.Users
-                            orderby x.tbl_Comment.Count descending
-                            select x).Take(5).ToList();
+            var userR = (from x in db.Users
+                         orderby x.tbl_Comment.Count descending
+                         select x).Take(5).ToList();
+
+
+            var userRep = userR.Select(u => new
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Pcomments = u.tbl_Comment.Where(c => c.IsActive == true).Count(),
+                Ncomments = u.tbl_Comment.Where(c => c.IsActive == true).Count(),
+                Acomments = u.tbl_Comment.Where(c => c.IsActive == true).Count(),
+                RepPoints = u.tbl_Comment.Where(c => c.IsActive == true).Count()
+            });
+
+            List<UserReputation> uRep = userRep.Select(
+                t => new UserReputation
+                {
+                    Id = t.Id,
+                    UserName = t.UserName,
+                    Pcomments = t.Pcomments,
+                    Ncomments = t.Ncomments,
+                    Acomments = t.Acomments,
+                    RepPoints = t.RepPoints
+                }).ToList();
+
+
+
+
 
             var usersNews = (from x in db.Users
                              orderby x.tbl_News.Count descending
@@ -294,7 +321,7 @@ namespace notomyk.Controllers
                              orderby x.tbl_Comment.Count descending
                              select x).Take(5).ToList();
 
-            var vm = new RightMenuModel() { FakeNews = fakeN, FaktNews = faktN, VisitedNews = visitors, CommentedNews = comments, UsersRep = usersRep, UsersNews = usersNews, UsersComm = usersComm };
+            var vm = new RightMenuModel() { FakeNews = fakeN, FaktNews = faktN, VisitedNews = visitors, CommentedNews = comments, UsersRep = uRep, UsersNews = usersNews, UsersComm = usersComm };
 
             return PartialView(vm);
         }

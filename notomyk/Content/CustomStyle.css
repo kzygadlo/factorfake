@@ -8,7 +8,7 @@
 }
 
 #newsContainer .nIcons .ui.label {
-padding: 5px !important;
+padding: 3px 4px 5px 4px !important;
 }
 
 .ui.green.label, .ui.green.labels .label {
@@ -33,6 +33,20 @@ body {
     /*font-size: 62.5%;*/
     color: #333333;
     font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif !important;
+}
+
+.label-info {
+    background-color: white;
+    color: #5bc0de !important;
+    border: #5bc0de solid thin;
+    padding: 0 4px 1px 4px;
+}
+
+.ui.basic.teal.label {
+    background-color: #fff!important;
+    color: #5bc0de!important;
+    border-color: #5bc0de!important;
+    
 }
 
 small {

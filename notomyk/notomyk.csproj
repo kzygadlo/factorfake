@@ -51,6 +51,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.6.0\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -123,9 +127,6 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
@@ -346,7 +347,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Commentsx-todel.cs" />
     <Compile Include="Models\EventTag.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ForumTopic.cs" />
@@ -359,6 +359,7 @@
     <Compile Include="Models\tbl_News.cs" />
     <Compile Include="Models\tbl_Newspaper.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\UserReputation.cs" />
     <Compile Include="Models\VoteCommentLog.cs" />
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -383,7 +384,6 @@
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\menu.carousel.css" />
     <Content Include="Content\tagsinput.css" />
     <Content Include="Content\TODEL.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

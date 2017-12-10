@@ -67,6 +67,7 @@ namespace notomyk.Models
 
         [Required]
         [Display(Name = "UserName")]
+        [StringLength(20)]
         public string UserName { get; set; }
 
         [Required]

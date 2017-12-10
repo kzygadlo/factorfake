@@ -49,14 +49,13 @@ namespace notomyk.Infrastructure
                     {
                         if (!String.IsNullOrEmpty(tagTrimed))
                         {
-                            singleTag.TagName = tagTrimed;
+                            singleTag.TagName = tagTrimed.ToLower();
                             db.Tag.Add(singleTag);
                             db.SaveChanges();
 
                             tagID = singleTag.ID;
                             AddTagReferenceToNews(newsID, tagID);
                         }
-
                     }
                 }
                 db.SaveChanges();

@@ -34,6 +34,7 @@ $.fn.clickToggle = function (func1, func2) {
     return this;
 };
 
+
 var allowEdit = function () {
     $(".bootstrap-tagsinput").find('input').addClass("tagsInput");
     $(".bootstrap-tagsinput > span > span").addClass("tagsSpan");
