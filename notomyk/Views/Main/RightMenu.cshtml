@@ -25,22 +25,37 @@
             {
                 var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
 
+                int reputation;
+
+                if (user.Acomments > 0)
+                {
+                    reputation = (user.Pcomments / user.Acomments) * 100;
+                }
+                else
+                {
+                    reputation = 0;
+                }
                 <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
                     <div class="ui relaxed middle aligned  divided list">
-                        <div class="item col-xs-10" style="padding:0 !important">
+                        <div class="item col-xs-8" style="padding:0 !important">
                             <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
                             <div class="content">
                                 <strong>@user.UserName&nbsp;&nbsp;</strong>
-                                (
-                                <span class="greenColor"><strong>@user.Pcomments</strong></span>/
-                                <span class="redColor"><strong>@user.Ncomments</strong></span>/
-                                <span>@user.Acomments</span>
-                                )
+                                
+                                @*<span class="greenColor"><strong>@user.Pcomments</strong></span>
+                                <span class="redColor"><strong>@user.Ncomments</strong></span>
+                                <span>@user.Acomments</span>*@
+                                
                             </div>
                         </div>
-
-                        <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
-                            <span class="ui orange basic label">@user.RepPoints</span>
+                        <div class="pull-left meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
+                            <span class="ui basic label">
+                            <span class="greenColor"><strong>@user.Pcomments</strong></span>                            
+                            / <span>@user.Acomments</span>
+                            </span>
+                        </div>
+                        <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">                           
+                            <span class="ui orange basic label">@reputation %</span>
                         </div>
                     </div>
                 </div>

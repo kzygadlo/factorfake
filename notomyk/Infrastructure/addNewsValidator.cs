@@ -59,7 +59,7 @@ namespace notomyk.Infrastructure
 
         public int IfExceededNewsNumber()
         {
-            if (_user.EmailConfirmed)
+            if (EmailConfirmed)
             {
                 switch (WhatRole)
                 {

@@ -292,10 +292,8 @@ namespace notomyk.Controllers
             {
                 Id = u.Id,
                 UserName = u.UserName,
-                Pcomments = u.tbl_Comment.Where(c => c.IsActive == true).Count(),
-                Ncomments = u.tbl_Comment.Where(c => c.IsActive == true).Count(),
-                Acomments = u.tbl_Comment.Where(c => c.IsActive == true).Count(),
-                RepPoints = u.tbl_Comment.Where(c => c.IsActive == true).Count()
+                Pcomments = u.tbl_Comment.Where(c => c.IsActive == true && c.VoteCommentLogs.Any(v => v.Vote == true)).Count(),
+                Acomments = u.tbl_Comment.Where(c => c.IsActive == true).Count()
             });
 
             List<UserReputation> uRep = userRep.Select(
@@ -304,9 +302,7 @@ namespace notomyk.Controllers
                     Id = t.Id,
                     UserName = t.UserName,
                     Pcomments = t.Pcomments,
-                    Ncomments = t.Ncomments,
-                    Acomments = t.Acomments,
-                    RepPoints = t.RepPoints
+                    Acomments = t.Acomments
                 }).ToList();
 
 
