@@ -345,6 +345,10 @@
     <Compile Include="Migrations\201712042013521_newUserColumns.Designer.cs">
       <DependentUpon>201712042013521_newUserColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712121800473_reputationSystem.cs" />
+    <Compile Include="Migrations\201712121800473_reputationSystem.Designer.cs">
+      <DependentUpon>201712121800473_reputationSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EventTag.cs" />
@@ -355,6 +359,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MetaInformation.cs" />
     <Compile Include="Models\ForumPost.cs" />
+    <Compile Include="Models\ReputationLogic.cs" />
     <Compile Include="Models\tbl_Comment.cs" />
     <Compile Include="Models\tbl_News.cs" />
     <Compile Include="Models\tbl_Newspaper.cs" />
@@ -1327,6 +1332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712042013521_newUserColumns.resx">
       <DependentUpon>201712042013521_newUserColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121800473_reputationSystem.resx">
+      <DependentUpon>201712121800473_reputationSystem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -90,7 +90,6 @@ namespace notomyk.Controllers
                     fakeValue = x.Fake,
                     remainingRows = filter.Remains,
                     tagList = x.Tags
-
                 }), JsonRequestBehavior.AllowGet);
         }
 
@@ -283,31 +282,36 @@ namespace notomyk.Controllers
                 .Take(10)
                 .ToList();
 
-            var userR = (from x in db.Users
-                         orderby x.tbl_Comment.Count descending
-                         select x).Take(5).ToList();
+            int MinCommentsForReputation = int.Parse(ConfigurationManager.AppSettings["MinCommentsForReputation"]);
 
-
-            var userRep = userR.Select(u => new
-            {
-                Id = u.Id,
-                UserName = u.UserName,
-                Pcomments = u.tbl_Comment.Where(c => c.IsActive == true && c.VoteCommentLogs.Any(v => v.Vote == true)).Count(),
-                Acomments = u.tbl_Comment.Where(c => c.IsActive == true).Count()
-            });
-
-            List<UserReputation> uRep = userRep.Select(
-                t => new UserReputation
+            var userR = db.Users.Select(
+                o => new UserReputation
                 {
-                    Id = t.Id,
-                    UserName = t.UserName,
-                    Pcomments = t.Pcomments,
-                    Acomments = t.Acomments
-                }).ToList();
+                    Id = o.Id,
+                    UserName = o.UserName,
+                    Pcomments = o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+                    Acomments = o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+                    Reputation = (o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count() == 0 ? 0 : o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count() / (1.0 * o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()))
+                }
+                ).OrderByDescending(o => o.Reputation)
+                .Take(5).ToList();
 
+            //var userRep = userR.Select(u => new
+            //{
+            //    Id = u.Id,
+            //    UserName = u.UserName,
+            //    Pcomments = u.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+            //    Acomments = u.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
+            //});
 
-
-
+            //List<UserReputation> uRep = userRep.Select(
+            //    t => new UserReputation
+            //    {
+            //        Id = t.Id,
+            //        UserName = t.UserName,
+            //        Pcomments = t.Pcomments,
+            //        Acomments = t.Acomments
+            //    }).ToList();
 
             var usersNews = (from x in db.Users
                              orderby x.tbl_News.Count descending
@@ -317,7 +321,7 @@ namespace notomyk.Controllers
                              orderby x.tbl_Comment.Count descending
                              select x).Take(5).ToList();
 
-            var vm = new RightMenuModel() { FakeNews = fakeN, FaktNews = faktN, VisitedNews = visitors, CommentedNews = comments, UsersRep = uRep, UsersNews = usersNews, UsersComm = usersComm };
+            var vm = new RightMenuModel() { FakeNews = fakeN, FaktNews = faktN, VisitedNews = visitors, CommentedNews = comments, UsersRep = userR, UsersNews = usersNews, UsersComm = usersComm };
 
             return PartialView(vm);
         }

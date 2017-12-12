@@ -49,6 +49,21 @@ namespace notomyk.Controllers
                     }
                     else
                     {
+                        if (newsVote == false)
+                        {
+                            var comment = db.Comment.Where(c => c.tbl_CommentID == ID).FirstOrDefault();
+                            if (whatVote)
+                            {
+                                comment.Fakt++;
+                                comment.Fake--;
+                            }
+                            else
+                            {
+                                comment.Fakt--;
+                                comment.Fake++;
+                            }                        
+                        }                        
+
                         isVoted.Vote = whatVote;
                         db.SaveChanges();
                         return Json(new {result = whatVote? 2 : -2 });
@@ -71,6 +86,16 @@ namespace notomyk.Controllers
                         singleVote.tbl_CommentID = ID;
                         singleVote.UserId = currentUserID;
                         singleVote.Vote = whatVote;
+                        var comment = db.Comment.Where(c => c.tbl_CommentID == ID).FirstOrDefault();
+                        if (whatVote)
+                        {
+                            comment.Fakt++;
+                        }
+                        else
+                        {
+                            comment.Fake++;
+                        }
+
                         db.VoteCommentLog.Add(singleVote);
                     }
 
@@ -78,7 +103,6 @@ namespace notomyk.Controllers
                     return Json(new {result = whatVote ? 1 : -1 });
                 }
             }
-            return Json("ok");
         }
     }
 }

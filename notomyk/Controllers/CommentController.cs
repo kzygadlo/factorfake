@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using notomyk.DAL;
 using System.Data.Entity;
 using System.Web.Security;
+using System.Configuration;
 
 namespace notomyk.Controllers
 {
@@ -38,6 +39,8 @@ namespace notomyk.Controllers
 
                 var uName = User.Identity.GetUserId();
 
+                int MinCommentsForReputation = int.Parse(ConfigurationManager.AppSettings["MinCommentsForReputation"]);
+
                 var CFiltered = CommentListFiltered(newsID, filter);
                 var CommentsList = CFiltered
                                       .Select(s => new
@@ -49,7 +52,9 @@ namespace notomyk.Controllers
                                           s.ApplicationUser.UserName,
                                           s.VoteCommentLogs,
                                           children = s.Children.Where(c => c.IsActive == true).Count(),
-                                          voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault()
+                                          voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
+                                          positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+                                          commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
                                       })
                                       .ToList();
 
@@ -60,10 +65,16 @@ namespace notomyk.Controllers
                     date = GetTimeAgo.CalculateDateDiff(x.DateAdd),
                     userN = x.UserName,
                     userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
+                    userPositiveCoummentCount = 1,
+                    userCommentsCount = 10,                    
+                    userReputation = 20,
                     faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
                     fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
                     repliesV = x.children,
-                    voteForComment = ifVoted(x.voted)
+                    voteForComment = ifVoted(x.voted),
+                    positiveCommentsNumber = x.positiveCommentsCount,
+                    allCommentsNumber = x.commentsCount,
+                    reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount)
                 }), JsonRequestBehavior.AllowGet);
             }
         }

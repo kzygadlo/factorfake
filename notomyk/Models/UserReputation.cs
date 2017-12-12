@@ -11,5 +11,6 @@ namespace notomyk.Models
         public string UserName { get; set; }
         public int Pcomments { get; set; }
         public int Acomments { get; set; }
+        public double Reputation { get; set; }
     }
 }

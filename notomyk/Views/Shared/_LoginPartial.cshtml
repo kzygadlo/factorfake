@@ -13,7 +13,15 @@
                 <img src="@imgUrl" class="img-circle imgUserLogo" />
             </li>
             <li class="hidden-md">
-                @Html.ActionLink("Witaj " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @if (User.Identity.GetUserName().Length > 15)
+                {
+                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                }
+                else
+                {
+                    @Html.ActionLink("Witaj " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                }
+                
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
         </ul>

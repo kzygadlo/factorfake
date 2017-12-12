@@ -240,7 +240,7 @@ function showComments(Filter) {
     var $template = $('#commentPattern').html();
     var $commentList = $("#commentsList");
 
-    function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV) {
+    function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV, repPcom, repAcom, repPoins) {
 
         var repValue = "";
         if (repV != 0) {
@@ -269,7 +269,10 @@ function showComments(Filter) {
             CommentFakeV: fakeV,
             RepliesV: repValue,
             class1: c1,
-            class2: c2
+            class2: c2,
+            positiveCount: repPcom,
+            allCount: repAcom,
+            reputationPoints: repPoins
         };
         var html = Mustache.to_html($template, replyVariables);
         //$comment.val("");
@@ -292,7 +295,7 @@ function showComments(Filter) {
             $('#noResultTab').addClass("hidden");
             $('#loadingImage').removeClass("hidden");
             $.each(result, function (key, val) {
-                fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment)
+                fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints)
             });
 
             if (result.length == 0) {

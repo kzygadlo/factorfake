@@ -32,7 +32,6 @@ namespace notomyk.Infrastructure
 
             if (metaTags != null)
             {
-                int matchCount = 0;
                 foreach (var tag in metaTags)
                 {
                     var tagCharset = tag.Attributes["charset"];
@@ -69,7 +68,7 @@ namespace notomyk.Infrastructure
 
             if (metaTags != null)
             {
-                int matchCount = 0;
+
                 foreach (var tag in metaTags)
                 {
                     var tagCharset = tag.Attributes["charset"];

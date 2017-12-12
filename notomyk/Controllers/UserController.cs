@@ -36,7 +36,6 @@ namespace notomyk.Controllers
             {
                 return RedirectToAction("Index", "Main");
             }
-            return RedirectToAction("Index", "Main"); 
         }
 
         public ActionResult UserDetails(string ID)

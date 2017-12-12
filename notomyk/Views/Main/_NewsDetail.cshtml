@@ -24,12 +24,12 @@
                         <div class="panel-heading">
                             <img class="img-circle pull-left" src="{{LogoName}}" alt="img" />
                             <h3>
-                                <span>{{UserName}}</span>
+                                <span style="padding-top: 2px">{{UserName}}</span>
                                 <span class="ui basic label">
-                                    <span class="greenColor"><strong>5</strong></span>
-                                    / <span>10</span>
+                                    <span class="greenColor"><strong>{{positiveCount}}</strong></span>
+                                    / <span>{{allCount}}</span>
                                 </span>
-                                <span class="ui basic label"><i class="fa-trophy orange icon"></i>22 %</span>
+                                <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>
                             </h3>
                             <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
                         </div>
@@ -125,7 +125,14 @@
                                     </div>
                                     <div class="panel-heading">
                                         <img class="img-circle pull-left" src="{{LogoName}}" alt="x" />
-                                        <h3>{{UserName}}</h3>
+                                        <h3>
+                                            <span>{{UserName}}</span>
+                                            <span class="ui basic label">
+                                                <span class="greenColor"><strong>{{positiveCount}}</strong></span>
+                                                / <span>{{allCount}}</span>
+                                            </span>
+                                            <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>
+                                        </h3>
                                         <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
                                     </div>
                                 </div>

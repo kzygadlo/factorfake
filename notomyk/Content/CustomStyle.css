@@ -17,6 +17,11 @@ padding: 3px 4px 5px 4px !important;
     color: #fff !important;
 }
 
+.rightTable .ui.basic.label,
+.comments-list .ui.basic.label {
+height:20px !important;
+}
+
 .NTMavatar {
     height: 30px !important;
     margin: 1px 0 1px 0;

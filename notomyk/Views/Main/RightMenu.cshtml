@@ -25,16 +25,6 @@
             {
                 var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
 
-                int reputation;
-
-                if (user.Acomments > 0)
-                {
-                    reputation = (user.Pcomments / user.Acomments) * 100;
-                }
-                else
-                {
-                    reputation = 0;
-                }
                 <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
                     <div class="ui relaxed middle aligned  divided list">
                         <div class="item col-xs-8" style="padding:0 !important">
@@ -55,7 +45,7 @@
                             </span>
                         </div>
                         <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">                           
-                            <span class="ui orange basic label">@reputation %</span>
+                            <span class="ui orange basic label">@ReputationLogic.ReputationPercentage(user.Pcomments,user.Acomments) %</span>
                         </div>
                     </div>
                 </div>

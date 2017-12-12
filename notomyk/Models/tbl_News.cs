@@ -28,7 +28,7 @@ namespace notomyk.Models
         public int tbl_NewspaperID { get; set; }
         public int Visitors { get; set; }
         public virtual tbl_Newspaper Newspaper { get; set; }
-
+        public bool IsReported { get; set; }
 
         [ForeignKey("ApplicationUser")] //as User Id is not present in target table therefore we must indicate to which table 'UserID' is referenced as PK
         public string UserId { get; set; }

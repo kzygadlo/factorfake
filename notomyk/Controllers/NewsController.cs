@@ -126,7 +126,6 @@ namespace notomyk.Controllers
                 return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("News", "Main", new { id = newsID }) });
             }
 
-            return null;
         }
 
         [HttpPost]
@@ -147,7 +146,6 @@ namespace notomyk.Controllers
                 return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("News", "Main", new { id = newsID }) });
             }
 
-            return null;
         }
 
         [HttpPost]

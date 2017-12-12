@@ -9,7 +9,6 @@ namespace notomyk.Models
     {
         public int ID { get; set; }
         public string TagName { get; set; }
-        public int TagVotes { get; set; }
         public virtual ICollection<EventTag> ListOfNews { get; set; }
     }
         

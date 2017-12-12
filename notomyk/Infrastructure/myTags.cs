@@ -107,7 +107,6 @@ namespace notomyk.Infrastructure
 
         public static string TagsStringForListOfNews(ICollection<string> listOfTags)
         {
-            int counter = 0;
             string result = string.Empty;
 
             foreach (var tag in listOfTags)
