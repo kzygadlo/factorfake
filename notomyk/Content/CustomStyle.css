@@ -18,7 +18,7 @@ padding: 3px 4px 5px 4px !important;
 }
 
 .rightTable .ui.basic.label,
-.comments-list .ui.basic.label {
+.comments-list .panel-heading .ui.basic.label {
 height:20px !important;
 }
 

@@ -53,7 +53,7 @@
                     $(this).closest('li').find('.reply-list').fadeToggle();
 
                     $.each(result, function (key, val) {
-                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList)
+                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints)
                     });
 
                 },
@@ -169,7 +169,7 @@
 });
 
 
-function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList) {
+function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList, repPcom, repAcom, repPoins) {
     var replyVariables =
     {
         CommentID: rid,
@@ -180,7 +180,10 @@ function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $templ
         CommentFaktV: faktV,
         CommentFakeV: fakeV,
         class1: "outline",
-        class2: "outline"
+        class2: "outline",
+        positiveCount: repPcom,
+        allCount: repAcom,
+        reputationPoints: repPoins
     };
     var html = Mustache.to_html($template, replyVariables);
 
@@ -199,7 +202,7 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
         },
         success: function (response) {
             if (response.success == true) {
-                fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID);
+                fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints );
             } else {
                 ErrorNotifications(response.errHeader, response.errMessage);
             }
@@ -210,7 +213,7 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
     });
 };
 
-function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $wherePrepend, $comment, newsID, parentID) {
+function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $wherePrepend, $comment, newsID, parentID, repPcom, repAcom, repPoins) {
     var commentVariables =
     {
         NewsID: newsID,
@@ -222,13 +225,19 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
         CommentFaktV: 0,
         CommentFakeV: 0,
         class1: "outline",
-        class2: "outline"
+        class2: "outline",
+        positiveCount: repPcom,
+        allCount: repAcom,
+        reputationPoints: repPoins
     };
     var html = Mustache.to_html($template, commentVariables);
 
     if (parentID != 0 && $wherePrepend.is(":hidden")) {
         $wherePrepend.fadeToggle();
     }
+
+    $('#noResultTab').addClass("hidden");
+    $('#sortingTab').removeClass("hidden");
 
     $comment.val("");
     $(html).hide().prependTo($wherePrepend).fadeIn('slow');

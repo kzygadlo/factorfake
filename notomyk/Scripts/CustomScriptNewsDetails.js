@@ -3,8 +3,13 @@
 
     $("#frmCommentText").MaxLength({
         MaxLength: 3000,
-        CharacterCountControl: $('#charCounter')
+        CharacterCountControl: $('.charCounter')
     });
+
+    $("#frmReplyText").MaxLength({
+        MaxLength: 3000,
+        CharacterCountControl: $('.charCounterR')
+    });    
 
 
     window.fbAsyncInit = function () {

@@ -27,6 +27,13 @@ namespace notomyk.Infrastructure
 
         public addNewsValidator(ApplicationUser user, NTMContext db)
         {
+
+
+            if (CheckIfCounterToReset(user.LastNewsAdded) == true)
+            {
+                user.NewsCounter = 0;
+                db.SaveChanges();
+            }
             //_User = user;
             _user.Id = user.Id;
             EmailConfirmed = user.EmailConfirmed;
@@ -37,12 +44,6 @@ namespace notomyk.Infrastructure
             var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             WhatRole = um.GetRoles(_user.Id).FirstOrDefault();
 
-
-            if (CheckIfCounterToReset(user.LastNewsAdded) == true)
-            {
-                user.NewsCounter = 0;
-                db.SaveChanges();
-            }
         }
 
         private bool CheckIfCounterToReset(DateTime? nLastAdded)

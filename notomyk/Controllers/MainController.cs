@@ -296,23 +296,6 @@ namespace notomyk.Controllers
                 ).OrderByDescending(o => o.Reputation)
                 .Take(5).ToList();
 
-            //var userRep = userR.Select(u => new
-            //{
-            //    Id = u.Id,
-            //    UserName = u.UserName,
-            //    Pcomments = u.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-            //    Acomments = u.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
-            //});
-
-            //List<UserReputation> uRep = userRep.Select(
-            //    t => new UserReputation
-            //    {
-            //        Id = t.Id,
-            //        UserName = t.UserName,
-            //        Pcomments = t.Pcomments,
-            //        Acomments = t.Acomments
-            //    }).ToList();
-
             var usersNews = (from x in db.Users
                              orderby x.tbl_News.Count descending
                              select x).Take(5).ToList();

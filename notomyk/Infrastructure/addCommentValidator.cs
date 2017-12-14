@@ -25,19 +25,24 @@ namespace notomyk.Infrastructure
 
         public addCommentValidator(ApplicationUser user, NTMContext db)
         {
-            _User.Id = user.Id;
-            EmailConfirmed = user.EmailConfirmed;
-            _User.CommentsCounter = user.CommentsCounter;
-            _User.LastCommentAdded = user.LastCommentAdded;
-
-            var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            WhatRole = um.GetRoles(_User.Id).FirstOrDefault();
 
             if (CheckIfCounterToReset(user.LastCommentAdded) == true)
             {
                 user.CommentsCounter = 0;
                 db.SaveChanges();
             }
+
+            _User.Id = user.Id;
+            EmailConfirmed = user.EmailConfirmed;
+
+
+            _User.CommentsCounter = user.CommentsCounter;
+            _User.LastCommentAdded = user.LastCommentAdded;
+
+            var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            WhatRole = um.GetRoles(_User.Id).FirstOrDefault();
+
+            
         }
 
         private bool CheckIfCounterToReset(DateTime? cLastAdded)

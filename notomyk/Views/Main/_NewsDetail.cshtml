@@ -79,7 +79,8 @@
                                 <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
                             </div>
                             <div class="col-xs-9 col-sm-10 removePadding">
-                                <textarea rows="10" maxlength="3000" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym komentarzu ?"></textarea>
+                                <span class="charCounterR pull-right" style="font-size:11px"></span>
+                                <textarea rows="10" maxlength="3000" id="frmReplyText" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym komentarzu ?"></textarea>
                             </div>
 
                             <div class="col-xs-1 removePadding">
@@ -312,7 +313,7 @@
                         <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
                     </div>
                     <div class="col-xs-9 col-sm-10 removePadding">
-                        <span id="charCounter" class="pull-right" style="font-size:11px"></span>
+                        <span class="charCounter pull-right" style="font-size:11px"></span>
                         <textarea maxlength="3000" id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym artykule ?"></textarea>
                     </div>
                     <div class="col-xs-1" style="padding:14px 0 0 0">
