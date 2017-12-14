@@ -62,24 +62,31 @@ var endEdit = function () {
             tagsList: $tagsList
         },
         error: function () {
-            ErrorNotifications('Tagowanie.', 'Wystąpił błąd podczas edytowania tagów.')
+            eventNotification('Tagowanie.', 'Wystąpił błąd podczas edytowania tagów.', 'negative')
         }
     });
 };
 
 $("#editTags").clickToggle(allowEdit, endEdit);
 
+function eventNotification(notifiationHeader, notificationMessage, whatKind, delay) {
 
-function ErrorNotifications(errorHeader, errorMessage) {
-    $('.errorMessageNewsDetail').find('.header').text(errorHeader);
-    $('.errorMessageNewsDetail').find('p').text(errorMessage);
-    $('.errorMessageNewsDetail').removeClass('hidden');
+    $notificationBox = $('.notificationBox');
+    whatKind = whatKind || 'positive';
+    delay = delay || 3000;
+
+    $('.notificationBox .message').removeClass('positive');
+    $('.notificationBox .message').removeClass('negative');
+
+    $('.notificationBox .message').addClass(whatKind);
+    $notificationBox.find('.header').text(notifiationHeader);
+    $notificationBox.find('p').text(notificationMessage);
+    $notificationBox.removeClass('hidden');
 
     setTimeout(function () {
-        $('.errorMessageNewsDetail').addClass('hidden');
-        $('.errorMessageNewsDetail').find('.header').text('');
-        $('.errorMessageNewsDetail').find('p').text('');
-    }, 3000
+        $notificationBox.addClass('hidden');
+        $notificationBox.find('.header').text('');
+        $notificationBox.find('p').text('');
+    }, delay
     );
-    
 };

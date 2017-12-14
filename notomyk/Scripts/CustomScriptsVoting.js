@@ -94,7 +94,7 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
             votingAction(response.result, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass);
         },
         error: function () {
-            ErrorNotifications('Głosowanie.', 'Wystąpił błąd podczas głosowania.')
+            eventNotification('Głosowanie.', 'Wystąpił błąd podczas głosowania.', 'negative')
         }
     });
 };

@@ -16,7 +16,7 @@
                         <div class="dropdown">
                             <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
                             <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Zgłoś</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="reportComment" data-commentid="{{CommentID}}">Zgłoś</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteComment" data-commentid="{{CommentID}}" data-newsid="{{NewsID}}">Usuń</a></li>
                             </ul>
                         </div>
@@ -120,7 +120,7 @@
                                     <div class="dropdown">
                                         <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Zgłoś</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="reportComment" data-commentid="{{CommentID}}">Zgłoś</a></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteReply" data-replyid="{{CommentID}}" data-newsid="{{NewsID}}" style="cursor:pointer">Usuń</a></li>
                                         </ul>
                                     </div>
@@ -265,7 +265,7 @@
                 </div>
 
                 <div class="col-sm-6 col-xs-12" style="padding:0 10px 0 10px">
-                    <img class="img-responsive img-rounded" alt="xxx" src="@Model.SingleNews.PictureLink" />
+                    <img class="img-responsive img-rounded" alt="" src="@Model.SingleNews.PictureLink" />
                 </div>
             </div>
             <div class="col-xs-12 removePadding" style="padding: 10px;">
@@ -275,12 +275,12 @@
                 <div class="col-xs-1 removePadding" style="text-align:right">
                     <div class="ui dropdown">
                         <i class="dropdown-togle large sidebar icon" data-toggle="dropdown"></i>
-                        <div class="menu left">
-                            <div class="item">Zgłoś</div>
+                        <div class="menu left dropDownParent" data-newsid="@Model.SingleNews.tbl_NewsID">
+                            <div class="reportNews item">Zgłoś</div>
 
                             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                             {
-                                <div class="deleteNews item" data-newsid="@Model.SingleNews.tbl_NewsID">Usuń</div>
+                                <div class="deleteNews item">Usuń</div>
                             }
 
                         </div>
@@ -345,14 +345,12 @@
             </p>*@
     </div>
 
-    <div style="margin-bottom:10px" class="errorMessageNewsDetail hidden">
-        <div class="ui negative message">
+    <div style="margin-bottom:10px" class="notificationBox hidden">
+        <div class="ui message">
             <i class="close icon"></i>
             <div class="header">
-
             </div>
             <p>
-
             </p>
         </div>
     </div>

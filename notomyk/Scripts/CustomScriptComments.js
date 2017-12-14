@@ -58,7 +58,7 @@
 
                 },
                 error: function () {
-                    ErrorNotifications('Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.')
+                    eventNotification('Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.', 'negative')
                 }
             });
 
@@ -89,7 +89,7 @@
             },
             success: function (response) {
                 if (response.Success == false) {
-                    ErrorNotifications('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.')
+                    eventNotification('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
                 }
                 else {
                     $entComm.closest(".singleComment").fadeOut(600, function () {
@@ -99,7 +99,7 @@
 
             },
             error: function () {
-                ErrorNotifications('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.')
+                eventNotification('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
             }
         });
     });
@@ -120,7 +120,7 @@
             },
             success: function (response) {
                 if (response.Success == false) {
-                    ErrorNotifications('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.')
+                    eventNotification('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
                 }
                 else {
                     $entComm.closest(".singleReply").fadeOut(600, function () {
@@ -129,7 +129,7 @@
                 }
             },
             error: function () {
-                ErrorNotifications('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.')
+                eventNotification('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
             }
         });
     });
@@ -204,11 +204,11 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
             if (response.success == true) {
                 fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints );
             } else {
-                ErrorNotifications(response.errHeader, response.errMessage);
+                eventNotification(response.errHeader, response.errMessage, 'negative');
             }
         },
         error: function () {
-            ErrorNotifications('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.')
+            eventNotification('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.', 'negative')
         }
     });
 };
@@ -317,7 +317,7 @@ function showComments(Filter) {
             $('#loadingImage').addClass("hidden");
         },
         error: function () {
-            ErrorNotifications('Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.')
+            eventNotification('Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.', 'negative')
         }
     });
 };
@@ -327,3 +327,33 @@ function removeComments(node) {
     node.find('li').remove();
 };
 
+//Report Comment
+$(document).ready(function () {
+    $(document).on('click', '.reportComment', function (event) {
+        event.preventDefault();
+        //event.stopPropagation();
+        var $Comment = $(this);
+        var CommentID = $Comment.data('commentid')
+
+        $.ajax({
+            url: '/Comment/Report',
+            type: 'POST',
+            //timeout: 3000,
+            data: {
+                commentID: CommentID,
+                ToReport: true
+            },
+            success: function (response) {
+                if (response.Success == true) {
+                    eventNotification('Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.')
+                }
+                else {
+                    eventNotification('Zgłaszanie komentarza.', response.ResultMsg, 'negative')
+                }
+            },
+            error: function () {
+                eventNotification('Zgłaszanie komentarza.', 'Wystąpił błąd', 'negative')
+            }
+        });
+    });
+});

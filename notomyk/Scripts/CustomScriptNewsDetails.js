@@ -64,7 +64,7 @@
             event.preventDefault();
             //event.stopPropagation();
             var $News = $(this);
-            var NewsID = $News.data('newsid')
+            var NewsID = $News.closest('.dropDownParent').data('newsid')
 
             $.ajax({
                 url: '/News/Remove',
@@ -78,15 +78,46 @@
                         window.location.href = response.redirectUrl;
                     }
                     else {
-                        ErrorNotifications('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.')
+                        eventNotification('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.', 'negative')
                     }
                 },
                 error: function () {
-                    ErrorNotifications('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.')
+                    eventNotification('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.', 'negative')
                 }
             });
         });
     });
+
+    $(document).ready(function () {
+        $(document).on('click', '.reportNews', function (event) {
+            event.preventDefault();
+            //event.stopPropagation();
+            var $News = $(this);
+            var NewsID = $News.closest('.dropDownParent').data('newsid')
+
+            $.ajax({
+                url: '/News/Report',
+                type: 'POST',
+                //timeout: 3000,
+                data: {
+                    newsID: NewsID,
+                    ToReport: true
+                },
+                success: function (response) {
+                    if (response.Success == true) {
+                        eventNotification('Zgłaszanie newsów.', 'News został zgłoszony do moderacji.')
+                    }
+                    else {
+                        eventNotification('Zgłaszanie newsów.', response.ResultMsg, 'negative')
+                    }
+                },
+                error: function () {
+                    eventNotification('Zgłaszanie newsów.', 'Wystąpił błąd', 'negative')
+                }
+            });
+        });
+    });
+
 
     $('.message .close').on('click', function () {
         $(this)

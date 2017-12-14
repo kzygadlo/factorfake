@@ -277,5 +277,30 @@ namespace notomyk.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult Report(int commentID, bool ToReport)
+        {
+            if (Request.IsAuthenticated)
+            {
+                var comment = db.Comment.Where(c => c.tbl_CommentID == commentID).FirstOrDefault();
+                comment.IsReported = ToReport;
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    Success = true,
+                    ResultMsg = "Komentarz został zgłoszony."
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    Success = false,
+                    ResultMsg = "Tylko zalogowani użytkownicy mogą zgłaszać komentarze."
+                });
+            }
+        }
     }
 }

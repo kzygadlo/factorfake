@@ -160,7 +160,7 @@ function getListOfNews() {
                 $('#newPageButton').inc('id', 1);
             },
             error: function () {
-                ErrorNotifications('Newsy.', 'Wystąpił błąd podczas wyświetlania newsów.')
+                eventNotification('Newsy.', 'Wystąpił błąd podczas wyświetlania newsów.', 'negative')
             }
         });
     }

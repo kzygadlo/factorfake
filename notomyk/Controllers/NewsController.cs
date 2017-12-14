@@ -86,7 +86,7 @@ namespace notomyk.Controllers
 
                         myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
 
-                        newsValidator.NewsAdded(_User,db);
+                        newsValidator.NewsAdded(_User, db);
 
                         return RedirectToAction("News", "Main", new { id = news.tbl_NewsID });
                     }
@@ -167,9 +167,38 @@ namespace notomyk.Controllers
                     return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
                 }
             }
-            return Json(new { Success = false, ResultMsg = "Nie masz uprawnień aby usunąć tego newsa." });
+            return Json(new
+            {
+                Success = false,
+                ResultMsg = "Nie masz uprawnień aby usunąć tego newsa."
+            });
         }
 
+        [HttpPost]
+        public JsonResult Report(int newsID, bool ToReport)
+        {
+            if (Request.IsAuthenticated)
+            {
+                var news = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
+                news.IsReported = ToReport;
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    Success = true,
+                    ResultMsg = "News został zgłoszony."
+                });
+
+            }
+            else
+            {
+                return Json(new
+                {
+                    Success = false,
+                    ResultMsg = "Tylko zalogowani użytkownicy mogą zgłaszać newsy."
+                });
+            }
+        }
     }
 }
 
