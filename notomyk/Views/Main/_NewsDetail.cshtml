@@ -17,19 +17,25 @@
                             <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
                             <ul class="dropdown-menu" role="menu">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="reportComment" data-commentid="{{CommentID}}">Zgłoś</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteComment" data-commentid="{{CommentID}}" data-newsid="{{NewsID}}">Usuń</a></li>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteComment" data-commentid="{{CommentID}}" data-newsid="{{NewsID}}">Usuń</a></li>
+
+                                }
                             </ul>
                         </div>
 
                         <div class="panel-heading">
                             <img class="img-circle pull-left" src="{{LogoName}}" alt="img" />
                             <h3>
-                                <span style="padding-top: 2px">{{UserName}}</span>
+                                <span>{{UserName}}</span>
                                 <span class="ui basic label">
                                     <span class="greenColor"><strong>{{positiveCount}}</strong></span>
                                     / <span>{{allCount}}</span>
                                 </span>
                                 <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>
+                                <span class="ui basic label {{faktClass}}">uważa za <span class="greenColor">Fakt</span></span>
+                                <span class="ui basic label {{fakeClass}}">uważa za <span class="redColor">Fake</span></span>
                             </h3>
                             <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
                         </div>
@@ -74,7 +80,7 @@
                 <div class="addReply row m0">
                     <div class="col-xs-12 removePadding">
                         @if (Request.IsAuthenticated)
-                        {
+                        { 
                             <div class="col-xs-2 col-sm-1 removePadding">
                                 <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
                             </div>
@@ -225,7 +231,7 @@
 
                                     </div>
                                     <div class="meta">
-                                        <i class="newspaper restore icon"></i><small>News z: <strong><a>@Model.SingleNews.Newspaper.NewspaperLink</a></strong></small>
+                                        <i class="newspaper restore icon"></i><small>News z: <strong><a href="http://@Model.SingleNews.Newspaper.NewspaperLink">@Model.SingleNews.Newspaper.NewspaperLink</a></strong></small>
                                     </div>
                                     <div class="meta">
                                         <i class="user restore icon"></i><small>Dodał: <strong>@Model.SingleNews.ApplicationUser.UserName</strong></small>

@@ -32,5 +32,7 @@ namespace notomyk.DAL
         public DbSet<EventTag> EventTag { get; set; }
         public DbSet<VoteLog> VoteLog { get; set; }
         public DbSet<VoteCommentLog> VoteCommentLog { get; set; }
+        public DbSet<ForumTopic> ForumTopic { get; set; }
+        public DbSet<ForumCategory> ForumCategory { get; set; }
     }
 }

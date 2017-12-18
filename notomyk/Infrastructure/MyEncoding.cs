@@ -31,6 +31,16 @@ namespace notomyk.Infrastructure
                     input = input.Replace("&quot;", "\"");
                 }
 
+                if (input.IndexOf("&#347;") > 0)
+                {
+                    input = input.Replace("&#347;", "ś");
+                }
+
+                if (input.IndexOf("&#346;") > 0)
+                {
+                    input = input.Replace("&#346;", "Ś");
+                }
+
             }
 
             return input;

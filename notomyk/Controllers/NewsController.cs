@@ -78,7 +78,15 @@ namespace notomyk.Controllers
                         news.UserId = User.Identity.GetUserId();
                         news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : myEncoding.ReplaceSign(metaDataFromUrl.Title);
                         news.Description = myEncoding.ReplaceSign(metaDataFromUrl.Description);
-                        news.PictureLink = metaDataFromUrl.ImageUrl;
+                       
+                        if (string.IsNullOrEmpty(metaDataFromUrl.ImageUrl))
+                        {
+                            news.PictureLink = "/Images/Utility/defaultImage.jpg";
+                        }
+                        else
+                        {
+                            news.PictureLink = metaDataFromUrl.ImageUrl;
+                        }                        
 
                         db.News.Add(news);
 
@@ -170,7 +178,7 @@ namespace notomyk.Controllers
             return Json(new
             {
                 Success = false,
-                ResultMsg = "Nie masz uprawnień aby usunąć tego newsa."
+                errMessage = "Nie masz uprawnień aby usunąć tego newsa."
             });
         }
 
@@ -186,7 +194,7 @@ namespace notomyk.Controllers
                 return Json(new
                 {
                     Success = true,
-                    ResultMsg = "News został zgłoszony."
+                    errMessage = "News został zgłoszony."
                 });
 
             }
@@ -195,7 +203,7 @@ namespace notomyk.Controllers
                 return Json(new
                 {
                     Success = false,
-                    ResultMsg = "Tylko zalogowani użytkownicy mogą zgłaszać newsy."
+                    errMessage = "Tylko zalogowani użytkownicy mogą zgłaszać newsy."
                 });
             }
         }

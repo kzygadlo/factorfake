@@ -120,11 +120,11 @@ small {
 }
 
 .greenColor {
-    color: #5cb85c;
+    color: #5cb85c !important; 
 }
 
 .redColor {
-    color: #d9534f;
+    color: #d9534f !important;
 }
 
 .ffColor {
@@ -132,7 +132,7 @@ small {
 }
 
 .WhiteC {
-    color:white;
+    color:white !important;
 }
 
 .greyColor {

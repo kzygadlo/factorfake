@@ -349,10 +349,19 @@
     <Compile Include="Migrations\201712121800473_reputationSystem.Designer.cs">
       <DependentUpon>201712121800473_reputationSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712181805189_forumTable1.cs" />
+    <Compile Include="Migrations\201712181805189_forumTable1.Designer.cs">
+      <DependentUpon>201712181805189_forumTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712182040282_forumTables2.cs" />
+    <Compile Include="Migrations\201712182040282_forumTables2.Designer.cs">
+      <DependentUpon>201712182040282_forumTables2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EventTag.cs" />
     <Compile Include="Models\FilterModel.cs" />
+    <Compile Include="Models\ForumCategory.cs" />
     <Compile Include="Models\ForumTopic.cs" />
     <Compile Include="Models\GetTimeAgo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -369,6 +378,7 @@
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\AddForumTopic.cs" />
     <Compile Include="ViewModel\Filters.cs" />
     <Compile Include="ViewModel\NewNews.cs" />
     <Compile Include="ViewModel\NewsDetail.cs" />
@@ -463,6 +473,7 @@
     <Content Include="Images\UserIcons\188126b3-a692-4364-8a91-0c9fec2177a2.png" />
     <Content Include="Images\UserIcons\ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" />
     <Content Include="Images\UserIcons\user_icon_default.jpg" />
+    <Content Include="Images\Utility\defaultImage.jpg" />
     <Content Include="Images\Utility\favicon.png" />
     <Content Include="Images\Utility\favicons_fof\android-icon-144x144.png" />
     <Content Include="Images\Utility\favicons_fof\android-icon-192x192.png" />
@@ -499,6 +510,7 @@
     <Content Include="Images\Utility\stars.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScriptForum.js" />
     <Content Include="Scripts\CustomScriptComments.js" />
     <Content Include="Scripts\CustomScriptNewsDetails.js" />
     <Content Include="Scripts\CustomScriptsVoting.js" />
@@ -542,6 +554,7 @@
     <Content Include="Web.config" />
     <Content Include="appPriv.config" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Forum\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1335,6 +1348,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712121800473_reputationSystem.resx">
       <DependentUpon>201712121800473_reputationSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712181805189_forumTable1.resx">
+      <DependentUpon>201712181805189_forumTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712182040282_forumTables2.resx">
+      <DependentUpon>201712182040282_forumTables2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

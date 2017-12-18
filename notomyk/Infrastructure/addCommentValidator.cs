@@ -35,14 +35,11 @@ namespace notomyk.Infrastructure
             _User.Id = user.Id;
             EmailConfirmed = user.EmailConfirmed;
 
-
             _User.CommentsCounter = user.CommentsCounter;
             _User.LastCommentAdded = user.LastCommentAdded;
 
             var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            WhatRole = um.GetRoles(_User.Id).FirstOrDefault();
-
-            
+            WhatRole = um.GetRoles(_User.Id).FirstOrDefault();            
         }
 
         private bool CheckIfCounterToReset(DateTime? cLastAdded)
@@ -96,7 +93,7 @@ namespace notomyk.Infrastructure
                 case "Moderator":
                     _CommentsTimeDelay = double.Parse(ConfigurationManager.AppSettings["CommentsAddDelayModerator"]);
                     break;
-                case "User":
+                default:
                     _CommentsTimeDelay = double.Parse(ConfigurationManager.AppSettings["CommentsAddDelayUser"]);
                     break;
             }

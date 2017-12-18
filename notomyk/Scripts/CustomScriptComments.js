@@ -88,13 +88,14 @@
                 commentID: CommentID
             },
             success: function (response) {
-                if (response.Success == false) {
-                    eventNotification('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
-                }
-                else {
+                if (response.success == true) {
                     $entComm.closest(".singleComment").fadeOut(600, function () {
                         $entComm.closest(".singleComment").remove();
                     });
+                    
+                }
+                else {
+                    eventNotification(response.errHeader, response.errMessage, 'negative')
                 }
 
             },
@@ -119,13 +120,13 @@
                 commentID: CommentID
             },
             success: function (response) {
-                if (response.Success == false) {
-                    eventNotification('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
-                }
-                else {
+                if (response.success == true) {
                     $entComm.closest(".singleReply").fadeOut(600, function () {
                         $entComm.closest(".singleReply").remove();
                     });
+                }
+                else {
+                    eventNotification(response.errHeader, response.errMessage, 'negative')
                 }
             },
             error: function () {
@@ -348,7 +349,7 @@ $(document).ready(function () {
                     eventNotification('Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.')
                 }
                 else {
-                    eventNotification('Zgłaszanie komentarza.', response.ResultMsg, 'negative')
+                    eventNotification('Zgłaszanie komentarza.', response.errMessage, 'negative')
                 }
             },
             error: function () {

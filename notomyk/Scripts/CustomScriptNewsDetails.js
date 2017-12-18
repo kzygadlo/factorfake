@@ -9,7 +9,7 @@
     $("#frmReplyText").MaxLength({
         MaxLength: 3000,
         CharacterCountControl: $('.charCounterR')
-    });    
+    });
 
 
     window.fbAsyncInit = function () {
@@ -108,7 +108,7 @@
                         eventNotification('Zgłaszanie newsów.', 'News został zgłoszony do moderacji.')
                     }
                     else {
-                        eventNotification('Zgłaszanie newsów.', response.ResultMsg, 'negative')
+                        eventNotification('Zgłaszanie newsów.', response.errMessage, 'negative')
                     }
                 },
                 error: function () {

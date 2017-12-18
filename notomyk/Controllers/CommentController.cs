@@ -53,7 +53,8 @@ namespace notomyk.Controllers
                                           children = s.Children.Where(c => c.IsActive == true).Count(),
                                           voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
                                           positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                                          commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
+                                          commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+                                          whatVoteForNews = s.ApplicationUser.VotingLogs.Where(n => n.tbl_NewsID == newsID).Select(x => x.Vote).FirstOrDefault()
                                       })
                                       .ToList();
 
@@ -65,7 +66,7 @@ namespace notomyk.Controllers
                     userN = x.UserName,
                     userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
                     userPositiveCoummentCount = 1,
-                    userCommentsCount = 10,                    
+                    userCommentsCount = 10,
                     userReputation = 20,
                     faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
                     fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
@@ -73,7 +74,8 @@ namespace notomyk.Controllers
                     voteForComment = ifVoted(x.voted),
                     positiveCommentsNumber = x.positiveCommentsCount,
                     allCommentsNumber = x.commentsCount,
-                    reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount)
+                    reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount),
+                    whatVote = x.whatVoteForNews
                 }), JsonRequestBehavior.AllowGet);
             }
         }
@@ -125,7 +127,7 @@ namespace notomyk.Controllers
         {
             using (NTMContext db = new NTMContext())
             {
-                
+
                 var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
                     s => new
                     {
@@ -136,7 +138,7 @@ namespace notomyk.Controllers
                         s.ApplicationUser.UserName,
                         s.VoteCommentLogs,
                         positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                        commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()                                      
+                        commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
                     }
                     ).OrderBy(o => o.DateAdd)
                      .ToList();
@@ -205,7 +207,7 @@ namespace notomyk.Controllers
                                     positiveCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
                                     allCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
                                     reputationPoints = ReputationLogic.ReputationPercentage(comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(), comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count())
-                                });                                
+                                });
                             }
                             else
                             {
@@ -265,15 +267,16 @@ namespace notomyk.Controllers
                     comment.IsActive = false;
                     db.SaveChanges();
 
-                    return Json(new { Success = true });
+                    return Json(new { success = true });
                 }
             }
             else
             {
                 return Json(new
                 {
-                    Success = false,
-                    ResultMsg = "Nie masz uprawnień aby usunąć ten komentarz."
+                    success = false,
+                    errHeader = string.Format("Usuwanie komentarza."),
+                    errMessage = string.Format("Nie masz uprawnień aby usunąć ten komentarz. Tylko moderatorzy oraz autorzy komentarza mogą go usunąć.")
                 });
             }
         }
@@ -290,7 +293,7 @@ namespace notomyk.Controllers
                 return Json(new
                 {
                     Success = true,
-                    ResultMsg = "Komentarz został zgłoszony."
+                    errMessage = "Komentarz został zgłoszony."
                 });
             }
             else
@@ -298,7 +301,7 @@ namespace notomyk.Controllers
                 return Json(new
                 {
                     Success = false,
-                    ResultMsg = "Tylko zalogowani użytkownicy mogą zgłaszać komentarze."
+                    errMessage = "Tylko zalogowani użytkownicy mogą zgłaszać komentarze."
                 });
             }
         }
