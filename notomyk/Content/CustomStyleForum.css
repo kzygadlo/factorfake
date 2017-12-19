@@ -1,24 +1,42 @@
-﻿#SinglePost .postDetails{
-     border-top: 1px solid rgba(0,0,0,.05) !important;
-    border-bottom: 1px solid rgba(0,0,0,.05) !important;
-
+﻿.forum > div {
+    margin: 10px 0 20px 0;
 }
 
-#SingleError .postDetails{
-     border-top: 1px solid rgba(0,0,0,.05) !important;
+.forum .ui.list {
+    margin: 5px 0 5px 5px !important;
+}
+
+.ui.list .item > .header.content {
+    font-size: 16px !important;
+}
+
+.forum .postTitle,
+.rightMenuPostTitle {
+    color: #4183c4 !important;
+}
+
+
+#SinglePost .postDetails {
+    border-top: 1px solid rgba(0,0,0,.05) !important;
+    border-bottom: 1px solid rgba(0,0,0,.05) !important;
+}
+
+#SingleError .postDetails {
+    border-top: 1px solid rgba(0,0,0,.05) !important;
     border-bottom: 1px solid rgba(0,0,0,.05) !important;
 }
 
 
 #addPostComment {
     padding: 10px 0 0 0;
-     border-top: 1px solid rgba(0,0,0,.05) !important;
+    border-top: 1px solid rgba(0,0,0,.05) !important;
 }
-#SinglePost .card>.extra {
-    border:none !important;
+
+#SinglePost .card > .extra {
+    border: none !important;
 }
 
 
-#SingleError .card>.extra {
-    border:none !important;
+#SingleError .card > .extra {
+    border: none !important;
 }

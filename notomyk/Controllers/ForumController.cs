@@ -19,17 +19,21 @@ namespace notomyk.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Add()
+        public ActionResult Topic(int ID)
         {
-            var AddComment = new AddForumTopic();
-            AddComment.Categories = db.ForumCategory.ToList();
+            var singleTopic = db.ForumTopic.Where(t => t.ID == ID).FirstOrDefault();
+            return View(singleTopic);
+        }
 
-            return View(AddComment);        
+        [HttpGet]
+        public ActionResult Add(int category = 1)
+        {
+            ViewBag.catID = category;
+            return View();        
         }
 
         [HttpPost]
-        public JsonResult Add(int catID, string sub, string desc)
+        public ActionResult Add(int catID, string sub, string desc)
         {
             if (Request.IsAuthenticated)
             {
@@ -39,25 +43,15 @@ namespace notomyk.Controllers
                 newTopic.DateAdd = DateTime.UtcNow;
                 newTopic.UserId = User.Identity.GetUserId();
                 newTopic.Subject = sub;
-                newTopic.Description = desc;
+                newTopic.Description = HttpUtility.HtmlDecode(desc);
                 db.ForumTopic.Add(newTopic);
                 db.SaveChanges();
 
-                return Json(new
-                {
-                    success = true,
-                    errHeader = string.Format("Wpis został dodany."),
-                    errMessage = string.Format(string.Format("Kagegoria: {0}, Tytuł: {1}", category.CategoryName, sub))
-                });
+                return RedirectToAction("Topic", "Forum", new { ID = newTopic.ID });
             }
             else
             {
-                return Json(new
-                {
-                    success = false,
-                    errHeader = string.Format("Dodawanie Wpisu."),
-                    errMessage = string.Format("Nie masz uprawnień aby umieścić nowy wpis.")
-                }); 
+                return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Add", "Forum") });
             }            
             
         }

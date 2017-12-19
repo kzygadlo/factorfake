@@ -1,33 +1,22 @@
-﻿@model notomyk.ViewModel.AddForumTopic
+﻿<div class="post col-md-9 col-xs-12" style="padding: 0 5px 0 5px">
+    @if (Request.IsAuthenticated)
+    {
 
-<div class="post col-md-9 col-xs-12" style="padding: 0 5px 0 5px">
-    <div class="col-xs-12 removePadding">
-        <div id="" class="col-xs-12 removePadding">
-            @if (Request.IsAuthenticated)
-            {
-                <div class="col-xs-2 col-sm-1 removePadding">
-                    <img src="~/Images/UserIcons/ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
-                </div>
-                <div class="col-xs-9 col-sm-10 removePadding">
-                    <textarea id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 340px; overflow: hidden;" placeholder="Co uważasz o tym poście ?"></textarea>
-                </div>
-                <div class="col-xs-1 removePadding">
-                    <form class="pull-right">
-                        <button id="addTopic" class="btn btn-primary" type="submit">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </div>
-            }
-            else
-            {
-                <div class="col-xs-12 removePadding">
-                    <textarea class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać wpis."></textarea>
-                </div>
-            }
-        </div>
+        <form id="addArticleForm" action="/Forum/Add" method="post">
+            <input id="forumCategoryID" name="catID" type="hidden" value="@ViewBag.catID">
 
-    </div>
+            <label>Temat:</label>
+            <textarea id="topicSubject" name="sub" style="width:100%"></textarea>
+            <label>Tresc:</label>
+
+            <div>
+                <textarea id="topicDescription" name="desc" style="width:100%"></textarea>
+            </div>
+
+            <input type="submit" id="addArticle" value="Dodaj" onclientclick="tinyMCE.triggerSave(false,true);" />
+        </form>
+    }
+
 </div>
 
 <section class="col-md-3" style="padding: 0 5px 0 5px">

@@ -1,15 +1,23 @@
 ﻿$(document).ready(function () {
 
+    tinymce.init({
+        selector: "#topicDescription",
+        encoding: "xml"
+    });
 
     //Add Topic
-    $('.frmAddComment').on('submit', function (event) {
-        event.preventDefault();
-        var $catID = $('.frmNewsID').val();
-        var $subject = $('#frmCommentText');
-        var $subject = $("#commentsList");
+    //$("#addArticle").click(function () {
 
-        ajaxAddComment($comment, $newsID, 0, $template, $commentList)
-    });
+    //    tinyMCE.triggerSave(true, true);
+
+    //    event.preventDefault();
+    //    var $catID = $('#forumCategoryID').val();
+    //    var $subject = $('#topicSubject').val();
+    //    var $description = $('#topicDescription').val();
+
+    //    ajaxAddTopic($catID, $subject, $description)
+    //});
+
 });
 
 function ajaxAddTopic($catID, $sub, $desc) {

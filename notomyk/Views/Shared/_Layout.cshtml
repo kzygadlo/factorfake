@@ -84,7 +84,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="@Url.Action("Index", "Main")">  Start <span class="sr-only">(current)</span></a></li>
                     <li><a href="@Url.Action("Index", "Main")">  Poczekalnia</a></li>
-                    <li><a href="@Url.Action("Add", "Forum")">  AddTopic</a></li>
+                    <li><a href="@Url.Action("Index", "Forum")">  Forum</a></li>
                     <li class="navbar-form navbar-right hidden-sm hidden-xs" role="search" action="/" method="GET">
                         <div>
                             @if (Request.IsAuthenticated)
@@ -162,12 +162,14 @@
     <script src="~/Scripts/CustomScriptNewsDetails.js"></script>
     <script src="~/Scripts/CustomScriptComments.js"></script>
     <script src="~/Scripts/CustomScriptsVoting.js"></script>
+    <script src="~/Scripts/CustomScriptForum.js"></script>
 
     <script src="~/Scripts/mustache.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
 
     <script src="~/Scripts/CustomScriptsValidation.js"></script>
     <script src="~/Scripts/tagsinput.js"></script>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 
     <script src="~/Scripts/ThreeLines.js"></script>
 

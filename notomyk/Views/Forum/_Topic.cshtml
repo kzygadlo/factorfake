@@ -1,0 +1,42 @@
+﻿@model notomyk.Models.ForumTopic
+
+<div id="SinglePost">
+    <div class="list-group-item n1">
+        <div class="row m0">
+            <div class="postDetails col-xs-12 removePadding">
+
+                <div class="ui cards">
+                    <div class="card">
+                        <div class="statInfo content">
+                            <img class="userLogoNews left floated mini ui image" style="margin:0 10px 0 0;" src="~/Images/Utility/favicons_fof/android-icon-144x144.png">
+                            <div class="header" style="margin-top:1px">
+                                faktorfake
+                            </div>
+                            <div class="meta">
+                                <i class="calendar restore icon"></i><small>Dodano: 5 godzin temu</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12" style="padding:10px 10px 10px 10px">
+                <h2>
+                    @Model.Subject
+                </h2>
+            </div>
+            <br />
+
+            <div class="col-xs-12" style="padding:0 10px 10px 10px">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+    </div>
+
+    <div class="postCommentContainer col-lg-12 removePadding">
+        <ul id="commentsList" class="comments-list"></ul>
+    </div>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+</div>
+
