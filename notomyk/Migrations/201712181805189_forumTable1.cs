@@ -16,15 +16,6 @@ namespace notomyk.Migrations
                     })
                 .PrimaryKey(t => t.ID);
 
-
-            string Sql1 = @"
-insert into dbo.ForumCategories
-values ('Ogloszenia'),
-('Bledy'),
-('Pomysly')";
-
-            Sql(Sql1);
-            
             CreateTable(
                 "dbo.ForumTopics",
                 c => new

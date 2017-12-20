@@ -14,6 +14,8 @@ namespace notomyk.Models
 
         public int ID { get; set; }
         public string CategoryName { get; set; }
+        public string IconClass { get; set; }
+        public int? Order { get; set; }
         
         public virtual ICollection<ForumTopic> ForumTopics { get; set; }
     }

@@ -1,19 +1,27 @@
 ﻿@model notomyk.Models.ForumTopic
+@using notomyk.Models
 
 <div id="SinglePost">
+
+
     <div class="list-group-item n1">
         <div class="row m0">
             <div class="postDetails col-xs-12 removePadding">
 
+@{
+    var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));    
+}
+
+
                 <div class="ui cards">
                     <div class="card">
                         <div class="statInfo content">
-                            <img class="userLogoNews left floated mini ui image" style="margin:0 10px 0 0;" src="~/Images/Utility/favicons_fof/android-icon-144x144.png">
+                            <img class="userLogoNews left floated mini ui image" style="margin:0 10px 0 0;" src="@imgUrl">
                             <div class="header" style="margin-top:1px">
                                 faktorfake
                             </div>
                             <div class="meta">
-                                <i class="calendar restore icon"></i><small>Dodano: 5 godzin temu</small>
+                                <i class="calendar restore icon"></i><small>Dodano: @GetTimeAgo.CalculateDateDiff(Model.DateAdd)</small>
                             </div>
                         </div>
                     </div>

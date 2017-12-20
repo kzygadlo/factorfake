@@ -16,7 +16,12 @@ namespace notomyk.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            ForumMain model = new ForumMain();
+
+            model.Categories = db.ForumCategory.OrderBy(o => o.Order).ToList();
+            model.Topics = db.ForumTopic.OrderBy(o => o.DateAdd).ToList();
+
+            return View(model);
         }
 
         public ActionResult Topic(int ID)
@@ -26,10 +31,16 @@ namespace notomyk.Controllers
         }
 
         [HttpGet]
-        public ActionResult Add(int category = 1)
+        public ActionResult Add(int category)
         {
-            ViewBag.catID = category;
-            return View();        
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                ViewBag.catID = category;
+                return View();    
+            }
+            else {
+                return RedirectToAction("Index", "Error", new { errorMessage = "Obecnie tylko moderatorzy mogą dodawać artykuły na forum." });
+            }                
         }
 
         [HttpPost]

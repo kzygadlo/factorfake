@@ -305,11 +305,28 @@ namespace notomyk.Controllers
                              orderby x.tbl_Comment.Count descending
                              select x).Take(5).ToList();
 
-            var vm = new RightMenuModel() { FakeNews = fakeN, FaktNews = faktN, VisitedNews = visitors, CommentedNews = comments, UsersRep = userR, UsersNews = usersNews, UsersComm = usersComm };
+            
+
+            var vm = new RightMenuModel() { 
+                FakeNews = fakeN, 
+                FaktNews = faktN, 
+                VisitedNews = visitors, 
+                CommentedNews = comments, 
+                UsersRep = userR, 
+                UsersNews = usersNews, 
+                UsersComm = usersComm 
+            };
 
             return PartialView(vm);
         }
 
+        [ChildActionOnly]
+        public ActionResult RightMenuForum()
+        {
+            RightMenuForum model = new RightMenuForum(); 
+            model.Topics = db.ForumTopic.Where(t => t.OnMainPage != null).OrderBy(o => o.OnMainPage).ToList();
 
+            return PartialView(model);
+        }
     }
 }

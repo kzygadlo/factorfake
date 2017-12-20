@@ -20,6 +20,7 @@ namespace notomyk.Models
         public bool IsActive { get; set; }
         public int Visitors { get; set; }
         public bool IsReported { get; set; }
+        public int? OnMainPage { get; set; }
 
         [ForeignKey("ApplicationUser")] //as User Id is not present in target table therefore we must indicate to which table 'UserID' is referenced as PK        public string UserId { get; set; }
         public string UserId { get; set; }

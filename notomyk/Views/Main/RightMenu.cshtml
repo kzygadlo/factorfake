@@ -2,7 +2,7 @@
 @using notomyk.Models;
 
 <div class="hidden-xs">
-    @Html.Partial("_RightMenuForum")
+    @Html.Action("RightMenuForum")
 </div>
 
 
@@ -31,11 +31,6 @@
                             <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
                             <div class="content">
                                 <strong>@user.UserName&nbsp;&nbsp;</strong>
-                                
-                                @*<span class="greenColor"><strong>@user.Pcomments</strong></span>
-                                <span class="redColor"><strong>@user.Ncomments</strong></span>
-                                <span>@user.Acomments</span>*@
-                                
                             </div>
                         </div>
                         <div class="pull-left meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">

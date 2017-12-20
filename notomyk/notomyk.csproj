@@ -357,6 +357,14 @@
     <Compile Include="Migrations\201712182040282_forumTables2.Designer.cs">
       <DependentUpon>201712182040282_forumTables2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712201842018_forumMainPage.cs" />
+    <Compile Include="Migrations\201712201842018_forumMainPage.Designer.cs">
+      <DependentUpon>201712201842018_forumMainPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712202042043_forumCategory.cs" />
+    <Compile Include="Migrations\201712202042043_forumCategory.Designer.cs">
+      <DependentUpon>201712202042043_forumCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EventTag.cs" />
@@ -380,9 +388,11 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AddForumTopic.cs" />
     <Compile Include="ViewModel\Filters.cs" />
+    <Compile Include="ViewModel\ForumMain.cs" />
     <Compile Include="ViewModel\NewNews.cs" />
     <Compile Include="ViewModel\NewsDetail.cs" />
     <Compile Include="ViewModel\NewsList.cs" />
+    <Compile Include="ViewModel\RightMenuForum.cs" />
     <Compile Include="ViewModel\RightMenuModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1366,7 +1376,7 @@
     <Content Include="Views\Main\_Filters.cshtml" />
     <Content Include="Views\Account\BeforeConfirmEmail.cshtml" />
     <Content Include="Views\_Templates\_EmailConfirmation.cshtml" />
-    <Content Include="Views\Main\_RightMenuForum.cshtml" />
+    <Content Include="Views\Main\RightMenuForum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1505,6 +1515,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712182040282_forumTables2.resx">
       <DependentUpon>201712182040282_forumTables2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712201842018_forumMainPage.resx">
+      <DependentUpon>201712201842018_forumMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712202042043_forumCategory.resx">
+      <DependentUpon>201712202042043_forumCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
