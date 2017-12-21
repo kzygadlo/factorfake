@@ -40,15 +40,27 @@
                                             <div class="title h5">
                                                 <div style="height:17px">
                                                     <small class="postTitle"><strong>@topic.Subject</strong></small>
+                                                    @{
+                                                        if (@topic.OnMainPage != null)
+                                                        {
+                                                            <i class="empty star yellow icon"></i>
+                                                        }
+                                                    }
                                                 </div>
                                                 <div style="height:17px">
                                                     <small class="text-muted">Dodano: @GetTimeAgo.CalculateDateDiff(topic.DateAdd)</small>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="pull-right meta">
                                             <div>
-                                                <span class="ui blue basic label">1520</span>
+                                                <span class="fText hidden-xs">wizyt: </span><span class="ui grey basic label">200</span>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right meta">
+                                            <div>
+                                                <span class="fText hidden-xs">odpowiedzi: </span><span class="ui blue basic label">30</span>
                                             </div>
                                         </div>
                                     </div>

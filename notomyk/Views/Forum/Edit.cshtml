@@ -1,0 +1,27 @@
+﻿@model notomyk.Models.ForumTopic
+
+<div class="post col-md-9 col-xs-12" style="padding: 0 5px 0 5px">
+    @if (Request.IsAuthenticated)
+    {
+
+        <form id="addArticleForm" action="/Forum/Edit" method="post">
+            <input id="topicID" name="ID" type="hidden" value="@Model.ID">
+            <input id="forumCategoryID" name="catID" type="hidden" value="@Model.ForumCategory.ID">
+
+            <label>Temat:</label>
+            <textarea id="topicSubject" name="sub" style="width:100%">@Model.Subject</textarea>
+            <label>Tresc:</label>
+
+            <div>
+                <textarea id="topicDescription" name="desc" style="width:100%">@Model.Description</textarea>
+            </div>
+
+            <input type="submit" id="addArticle" value="Edytuj" onclientclick="tinyMCE.triggerSave(false,true);" />
+        </form>
+    }
+
+</div>
+
+<section class="col-md-3" style="padding: 0 5px 0 5px">
+    @Html.Action("RightMenu", "Main")
+</section>

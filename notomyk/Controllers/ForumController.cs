@@ -19,7 +19,7 @@ namespace notomyk.Controllers
             ForumMain model = new ForumMain();
 
             model.Categories = db.ForumCategory.OrderBy(o => o.Order).ToList();
-            model.Topics = db.ForumTopic.OrderBy(o => o.DateAdd).ToList();
+            model.Topics = db.ForumTopic.Where(t => t.IsActive == true).OrderBy(o => o.DateAdd).ToList();
 
             return View(model);
         }
@@ -36,11 +36,12 @@ namespace notomyk.Controllers
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
                 ViewBag.catID = category;
-                return View();    
+                return View();
             }
-            else {
+            else
+            {
                 return RedirectToAction("Index", "Error", new { errorMessage = "Obecnie tylko moderatorzy mogą dodawać artykuły na forum." });
-            }                
+            }
         }
 
         [HttpPost]
@@ -55,7 +56,9 @@ namespace notomyk.Controllers
                 newTopic.UserId = User.Identity.GetUserId();
                 newTopic.Subject = sub;
                 newTopic.Description = HttpUtility.HtmlDecode(desc);
+
                 db.ForumTopic.Add(newTopic);
+
                 db.SaveChanges();
 
                 return RedirectToAction("Topic", "Forum", new { ID = newTopic.ID });
@@ -63,13 +66,59 @@ namespace notomyk.Controllers
             else
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Add", "Forum") });
-            }            
-            
+            }
+
         }
 
-        public ActionResult Post(int id)
+        [HttpGet]
+        public ActionResult Edit(int ID)
         {
-            return View("Index");
+            var model = db.ForumTopic.Where(t => t.ID == ID).FirstOrDefault();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int ID, int catID, string sub, string desc)
+        {
+            if (Request.IsAuthenticated)
+            {
+                var singleTopic = db.ForumTopic.Where(t => t.ID == ID).FirstOrDefault();
+
+                singleTopic.ForumCategory.ID = catID;
+                singleTopic.Subject = sub;
+                singleTopic.Description = HttpUtility.HtmlDecode(desc);
+
+                db.SaveChanges();
+                return RedirectToAction("Topic", "Forum", new { ID = singleTopic.ID });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Remove(int ID)
+        {
+            if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                {
+                    var article = db.ForumTopic.Where(t => t.ID == ID).FirstOrDefault();
+                    article.IsActive = false;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", "Forum");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Error", new { errorMessage = "Obecnie tylko moderatorzy mogą usuwać artykuły na forum." });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
     }
 }

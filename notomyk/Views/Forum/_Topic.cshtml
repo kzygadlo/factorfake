@@ -6,13 +6,23 @@
 
     <div class="list-group-item n1">
         <div class="row m0">
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                <div class="right floated content" style="text-align:right">
+                    <a href="@Url.Action("Edit", "Forum", new { ID = @Model.ID})">
+                        <div class="ui button">Edytuj</div>
+                    </a>
+                    <a href="@Url.Action("Remove", "Forum", new { ID = @Model.ID})">
+                        <div class="ui button">Usuń</div>
+                    </a>
+                </div>
+                
+            }
             <div class="postDetails col-xs-12 removePadding">
 
-@{
-    var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));    
-}
-
-
+                @{
+                    var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));
+                }
                 <div class="ui cards">
                     <div class="card">
                         <div class="statInfo content">
@@ -23,8 +33,11 @@
                             <div class="meta">
                                 <i class="calendar restore icon"></i><small>Dodano: @GetTimeAgo.CalculateDateDiff(Model.DateAdd)</small>
                             </div>
+
                         </div>
+                        
                     </div>
+
                 </div>
 
             </div>
@@ -38,6 +51,7 @@
             <div class="col-xs-12" style="padding:0 10px 10px 10px">
                 @Html.Raw(Model.Description)
             </div>
+            
         </div>
     </div>
 
@@ -47,4 +61,3 @@
 
     <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
 </div>
-

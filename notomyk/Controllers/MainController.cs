@@ -324,7 +324,7 @@ namespace notomyk.Controllers
         public ActionResult RightMenuForum()
         {
             RightMenuForum model = new RightMenuForum(); 
-            model.Topics = db.ForumTopic.Where(t => t.OnMainPage != null).OrderBy(o => o.OnMainPage).ToList();
+            model.Topics = db.ForumTopic.Where(t => t.OnMainPage != null && t.IsActive == true).OrderBy(o => o.OnMainPage).ToList();
 
             return PartialView(model);
         }
