@@ -20,7 +20,11 @@ color: #333333;
 font-size: 12px;
 }
 
-#SinglePost .postDetails {
+#SingleTopic {
+margin-bottom:10px;
+}
+
+#SingleTopic .postDetails {
     border-top: 1px solid rgba(0,0,0,.05) !important;
     border-bottom: 1px solid rgba(0,0,0,.05) !important;
 }
@@ -30,13 +34,18 @@ font-size: 12px;
     border-bottom: 1px solid rgba(0,0,0,.05) !important;
 }
 
+#SingleTopic #addTopicComment {
+    /*background-color: yellow;*/
+    background-color: #fff;
+
+}
 
 #addPostComment {
     padding: 10px 0 0 0;
     border-top: 1px solid rgba(0,0,0,.05) !important;
 }
 
-#SinglePost .card > .extra {
+#SingleTopic .card > .extra {
     border: none !important;
 }
 
@@ -44,3 +53,5 @@ font-size: 12px;
 #SingleError .card > .extra {
     border: none !important;
 }
+
+

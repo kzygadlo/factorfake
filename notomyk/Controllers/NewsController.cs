@@ -85,7 +85,7 @@ namespace notomyk.Controllers
                         }
                         else
                         {
-                            news.PictureLink = metaDataFromUrl.ImageUrl;
+                            news.PictureLink = myImageSave.Link(metaDataFromUrl.ImageUrl.ToString());
                         }                        
 
                         db.News.Add(news);

@@ -1,0 +1,33 @@
+﻿<div id="loadingImage" class="ui segment" style="width:100%; box-shadow:none">
+    <div class="ui active inverted dimmer">
+        <div class="ui medium text loader">Wczytywanie komentarzy.</div>
+    </div>
+</div>
+
+<div style="margin-bottom:10px" class="notificationBox hidden">
+    <div class="ui message">
+        <i class="close icon"></i>
+        <div class="header">
+        </div>
+        <p>
+        </p>
+    </div>
+</div>
+
+<div id="sortingTab" class="sorting col-lg-12 list-group-item hidden">
+    <c class="text-muted">Sortuj wg: </c>
+    <a href="#" id="commentSort0">daty dodania  | </a>
+    <a href="#" id="commentSort1">reputacji autorów | </a>
+    <a href="#" id="commentSort2">oceny </a>
+</div>
+
+<div id="noResultTab" class="sorting col-lg-12 list-group-item hidden" style="text-align:center">
+    <c class="text-muted">Brak komentarzy dla tego artykułu. Bądź pierwszy i skomentuj. </c>
+</div>
+
+
+<div class="comments-container col-lg-12 removePadding">
+    @*Comments container*@
+    <ul id="commentsList" class="comments-list"></ul>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>

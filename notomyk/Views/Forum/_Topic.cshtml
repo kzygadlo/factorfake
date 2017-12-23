@@ -1,9 +1,7 @@
 ﻿@model notomyk.Models.ForumTopic
 @using notomyk.Models
 
-<div id="SinglePost">
-
-
+<div id="SingleTopic">
     <div class="list-group-item n1">
         <div class="row m0">
             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
@@ -16,7 +14,7 @@
                         <div class="ui button">Usuń</div>
                     </a>
                 </div>
-                
+
             }
             <div class="postDetails col-xs-12 removePadding">
 
@@ -35,7 +33,7 @@
                             </div>
 
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -51,13 +49,35 @@
             <div class="col-xs-12" style="padding:0 10px 10px 10px">
                 @Html.Raw(Model.Description)
             </div>
-            
-        </div>
-    </div>
-
-    <div class="postCommentContainer col-lg-12 removePadding">
-        <ul id="commentsList" class="comments-list"></ul>
-    </div>
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <div id="addTopicComment" class="col-xs-12 removePadding">
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="col-xs-2 col-sm-1" style="padding:14px 0 0 0">
+                        <img src="~/Images/UserIcons/user_icon_default.jpg" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+                    </div>
+                    <div class="col-xs-9 col-sm-10 removePadding">
+                        <span class="charCounter pull-right" style="font-size:11px"></span>
+                        <textarea maxlength="3000" id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym artykule ?"></textarea>
+                    </div>
+                    <div class="col-xs-1" style="padding:14px 0 0 0">
+                        <form class="frmAddComment  pull-right">
+                            <input class="frmNewsID" type="hidden" name="NewsID" value="">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xs-12 removePadding">
+                        <textarea id="frmCommentTextNoAuth" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                    </div>
+                }
+            </div>
+        </div>        
+    </div>    
 </div>
+
+
+@Html.Partial("~/Views/Main/_GenericComment.cshtml")
