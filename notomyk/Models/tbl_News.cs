@@ -16,14 +16,14 @@ namespace notomyk.Models
 
         [Key]
         public int tbl_NewsID { get; set; } /*PK*/
-        [Required]
+        [Required(ErrorMessage = "Tytuł nie może być pusty.")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Link do artykułu nie może być pusty.")]
         public string ArticleLink { get; set; }
         public string PictureLink { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateAdd { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Komentarz nie może być pusty.")]
         public string Description { get; set; }
         public int tbl_NewspaperID { get; set; }
         public int Visitors { get; set; }

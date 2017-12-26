@@ -183,7 +183,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\ForumCommentController.cs" />
+    <Compile Include="Controllers\ForumPostController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\MainController.cs" />
@@ -375,6 +375,18 @@
     <Compile Include="Migrations\201712202042043_forumCategory.cs" />
     <Compile Include="Migrations\201712202042043_forumCategory.Designer.cs">
       <DependentUpon>201712202042043_forumCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712252031561_forum5.cs" />
+    <Compile Include="Migrations\201712252031561_forum5.Designer.cs">
+      <DependentUpon>201712252031561_forum5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712261309457_errorPictureLink.cs" />
+    <Compile Include="Migrations\201712261309457_errorPictureLink.Designer.cs">
+      <DependentUpon>201712261309457_errorPictureLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712261910358_isReportedPost.cs" />
+    <Compile Include="Migrations\201712261910358_isReportedPost.Designer.cs">
+      <DependentUpon>201712261910358_isReportedPost.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -735,6 +747,7 @@
     <Content Include="Views\Forum\Topic.cshtml" />
     <Content Include="Views\Forum\Edit.cshtml" />
     <Content Include="Views\Main\_GenericComment.cshtml" />
+    <Content Include="Views\Forum\_ForumPostTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1541,6 +1554,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712202042043_forumCategory.resx">
       <DependentUpon>201712202042043_forumCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712252031561_forum5.resx">
+      <DependentUpon>201712252031561_forum5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712261309457_errorPictureLink.resx">
+      <DependentUpon>201712261309457_errorPictureLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712261910358_isReportedPost.resx">
+      <DependentUpon>201712261910358_isReportedPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

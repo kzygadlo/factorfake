@@ -34,5 +34,18 @@ namespace notomyk.Infrastructure
             return false;
         }
 
+        public static bool IsPostAuthor(int postID, string userID)
+        {
+            using (NTMContext db = new NTMContext())
+            {
+
+                if (db.ForumPost.Any(p => p.ID == postID && p.ApplicationUser.Id == userID))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
