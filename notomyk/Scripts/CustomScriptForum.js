@@ -5,6 +5,46 @@
         encoding: "xml"
     });
 
+    //Show PostReplies
+    $(document).on('click', '#PostContainerJS', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        var $parentID = $(this).data('postid')
+        var $template = $('#replyPostPattern').html();
+        var $replyList = $(this).closest('.singleComment').find('.reply-list');
+
+        if ($replyList.is(":hidden")) {
+
+            $.ajax({
+                url: '/ForumPost/GetReplies',
+                type: "GET",
+                data: { parentID: $parentID },
+                success: function (result) {
+
+                    $(this).closest('li').find('.reply-list').fadeToggle();
+
+                    $.each(result, function (key, val) {
+                        fulfillPostReplyTemplate(val.postID, val.post, val.dateAdd, val.logoName, val.userName, $template, $replyList)
+                    });
+
+                },
+                error: function () {
+                    eventNotification('Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.', 'negative')
+                }
+            });
+
+            $replyList.fadeToggle();
+
+        } else {
+            $replyList.fadeToggle();
+
+            setTimeout(function () {
+                removeComments($replyList);
+            }, 500);
+        }
+    });
+
     //Show reply form
     $(document).on('click',
         '#addReplyBox',
@@ -75,6 +115,36 @@
         });
     });
 
+    //Remove reply
+    $(document).on('click', '.deletePostReply', function (event) {
+        event.preventDefault();
+        //event.stopPropagation();
+        var $entComm = $(this);
+        var PostID = $entComm.data('postid')
+
+        $.ajax({
+            url: '/ForumPost/Remove',
+            type: 'POST',
+            //timeout: 3000,
+            data: {
+                postID: PostID
+            },
+            success: function (response) {
+                if (response.success == true) {
+                    $entComm.closest(".singleReply").fadeOut(600, function () {
+                        $entComm.closest(".singleReply").remove();
+                    });
+                }
+                else {
+                    eventNotification(response.errHeader, response.errMessage, 'negative')
+                }
+            },
+            error: function () {
+                eventNotification('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
+            }
+        });
+    });
+
     //Remove post
     $(document).on('click', '.deletePost', function (event) {
         event.preventDefault();
@@ -108,6 +178,27 @@
     });
 });
 
+function fulfillPostReplyTemplate(postID, post, dateAdd, logoName, userName, $template, $replyList) {
+    var replyVariables =
+    {
+        PostID: postID,
+        Post: post,
+        DateAdd: dateAdd,
+        UserLogo: logoName,
+        UserName: userName,
+        //CommentFaktV: faktV,
+        //CommentFakeV: fakeV,
+        //class1: "outline",
+        //class2: "outline",
+        //positiveCount: repPcom,
+        //allCount: repAcom,
+        //reputationPoints: repPoins
+    };
+    var html = Mustache.to_html($template, replyVariables);
+
+    $(html).hide().prependTo($replyList).fadeIn('slow');
+};
+
 function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend) {
     $.ajax({
         url: '/ForumPost/Add',
@@ -115,12 +206,12 @@ function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend) {
         //timeout: 3000,
         data: {
             TopicID: topicID,
-            CommentText: $comment.val(),            
+            CommentText: $comment.val(),
             ParentID: parentID
         },
         success: function (response) {
             if (response.success == true) {
-                fulfillPostCommentTemplate(response.postID, response.post, response.dateAdd, response.userName, response.userLogoLink, $template, $wherePrepend, $comment,  parentID);
+                fulfillPostCommentTemplate(response.postID, response.post, response.dateAdd, response.userName, response.userLogoLink, $template, $wherePrepend, $comment, parentID);
             } else {
                 eventNotification(response.errHeader, response.errMessage, 'negative');
             }
@@ -190,12 +281,12 @@ function showPosts(Filter) {
     var $template = $('#forumPostTemplate').html();
     var $commentList = $("#commentsList");
 
-    function fulfillCommTemplate(postID, post, date, userN, userL) {
+    function fulfillCommTemplate(postID, post, date, userN, userL, repV) {
 
-        //var repValue = "";
-        //if (repV != 0) {
-        //    repValue = "odpowiedzi: " + repV;
-        //}
+        var repValue = "";
+        if (repV != 0) {
+            repValue = "odpowiedzi: " + repV;
+        }
 
         //var c1 = "outline";
         //var c2 = "outline";
@@ -213,7 +304,8 @@ function showPosts(Filter) {
             Post: post,
             DateAdd: date,
             UserName: userN,
-            UserLogo: userL
+            UserLogo: userL,
+            RepliesV: repValue
         };
         var html = Mustache.to_html($template, replyVariables);
         //$comment.val("");
@@ -237,7 +329,7 @@ function showPosts(Filter) {
             $('#loadingImage').removeClass("hidden");
 
             $.each(result, function (key, val) {
-                fulfillCommTemplate(val.postID, val.post, val.dateAdd, val.userName, val.userLogoLink)
+                fulfillCommTemplate(val.postID, val.post, val.dateAdd, val.userName, val.userLogoLink, val.repliesNumber)
             });
 
             if (result.length == 0) {

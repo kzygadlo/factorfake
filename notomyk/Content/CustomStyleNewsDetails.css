@@ -96,7 +96,8 @@ border: none;*/
     margin-right: 0px;
 }
 
-.singleComment #commentContainerJS {
+.singleComment #commentContainerJS,
+.singleComment #PostContainerJS {
     margin-top: 10px;
 }
 

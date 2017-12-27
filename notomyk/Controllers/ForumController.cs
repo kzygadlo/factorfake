@@ -86,6 +86,7 @@ namespace notomyk.Controllers
 
                 singleTopic.ForumCategory.ID = catID;
                 singleTopic.Subject = sub;
+                
                 singleTopic.Description = HttpUtility.HtmlDecode(desc);
 
                 db.SaveChanges();

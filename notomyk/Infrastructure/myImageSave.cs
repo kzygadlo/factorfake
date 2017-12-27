@@ -38,7 +38,7 @@ namespace notomyk.Infrastructure
             else
             {
                 return false;
-            }            
+            }
         }
 
         private static string SaveImage(string link)
@@ -55,12 +55,22 @@ namespace notomyk.Infrastructure
 
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile(link, _fullPath);
+                client.DownloadFile(LinkValidator(link), directory + _imgName);
             }
 
-            _pathToReturn = _path.Replace("~","") + _imgName;
+            _pathToReturn = _path.Replace("~", "") + _imgName;
 
             return _pathToReturn;
+        }
+
+        private static string LinkValidator(string link)
+        {
+            if (link.Substring(0, 4) != "http")
+            {
+                link = "http:" + link;
+            }
+
+            return link;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace notomyk.Controllers
         public JsonResult Get(int TopicID, int? filter)
         {
             var userID = User.Identity.GetUserId();
-            var postList = db.ForumPost.Where(x => x.Topic.ID == TopicID).ToList();
+            var postList = db.ForumPost.Where(x => x.Topic.ID == TopicID && x.IsActive == true && x.Parent == null).ToList();
 
             return Json(postList.Select(x => new
             {
@@ -27,12 +27,13 @@ namespace notomyk.Controllers
                 post = x.Content,
                 dateAdd = GetTimeAgo.CalculateDateDiff(x.DateAdd),
                 userName = x.ApplicationUser.UserName,
-                userLogoLink = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id))
+                userLogoLink = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id)),
+                repliesNumber = x.Children.Where(c => c.IsActive == true).Count()
             }), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Add(int TopicID, string CommentText, int ParentID)
+        public ActionResult Add(int TopicID, string CommentText, int ParentID = 0)
         {
             if (Request.IsAuthenticated)
             {
@@ -46,6 +47,12 @@ namespace notomyk.Controllers
                 post.Content = CommentText;
                 post.DateAdd = DateTime.UtcNow;
                 post.DateModify = DateTime.UtcNow;
+
+                if (ParentID != 0)
+                {
+                    var parent = db.ForumPost.Where(p => p.ID == ParentID).FirstOrDefault();
+                    post.Parent = parent;
+                }
 
                 db.ForumPost.Add(post);
                 db.SaveChanges();
@@ -119,6 +126,20 @@ namespace notomyk.Controllers
                     errMessage = "Tylko zalogowani użytkownicy mogą zgłaszać komentarze."
                 });
             }
+        }
+
+        [HttpGet]
+        public JsonResult GetReplies(int parentID)
+        {
+            var replies = db.ForumPost.Where(p => p.IsActive == true && p.Parent.ID == parentID).ToList();
+
+            return Json(replies.Select(x => new { 
+                        postID = x.ID,
+                        post = x.Content,
+                        dateAdd = GetTimeAgo.CalculateDateDiff(x.DateAdd),
+                        logoName = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id)),
+                        userName = x.ApplicationUser.UserName
+            }), JsonRequestBehavior.AllowGet);
         }
     }
 }

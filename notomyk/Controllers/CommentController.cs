@@ -125,38 +125,36 @@ namespace notomyk.Controllers
 
         public JsonResult GetReplies(int parentID)
         {
-            using (NTMContext db = new NTMContext())
-            {
 
-                var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
-                    s => new
-                    {
-                        s.tbl_CommentID,
-                        s.Comment,
-                        s.DateAdd,
-                        s.ApplicationUser.Id,
-                        s.ApplicationUser.UserName,
-                        s.VoteCommentLogs,
-                        positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                        commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
-                    }
-                    ).OrderBy(o => o.DateAdd)
-                     .ToList();
-
-                return Json(CommentsList.Select(x => new
+            var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
+                s => new
                 {
-                    com = x.Comment,
-                    cid = x.tbl_CommentID,
-                    date = GetTimeAgo.CalculateDateDiff(x.DateAdd),
-                    userN = x.UserName,
-                    userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
-                    faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
-                    fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
-                    positiveCommentsNumber = x.positiveCommentsCount,
-                    allCommentsNumber = x.commentsCount,
-                    reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount)
-                }), JsonRequestBehavior.AllowGet);
-            }
+                    s.tbl_CommentID,
+                    s.Comment,
+                    s.DateAdd,
+                    s.ApplicationUser.Id,
+                    s.ApplicationUser.UserName,
+                    s.VoteCommentLogs,
+                    positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+                    commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
+                }
+                ).OrderBy(o => o.DateAdd)
+                 .ToList();
+
+            return Json(CommentsList.Select(x => new
+            {
+                com = x.Comment,
+                cid = x.tbl_CommentID,
+                date = GetTimeAgo.CalculateDateDiff(x.DateAdd),
+                userN = x.UserName,
+                userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
+                faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
+                fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
+                positiveCommentsNumber = x.positiveCommentsCount,
+                allCommentsNumber = x.commentsCount,
+                reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount)
+            }), JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]

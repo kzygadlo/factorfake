@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="col-xs-7 text-right removePadding">
-                        <a href="#" id="commentContainerJS" class="text-muted" data-commentid="{{PostID}}"><u>{{RepliesV}}</u></a>
+                        <a href="#" id="PostContainerJS" class="text-muted" data-postid="{{PostID}}"><u>{{RepliesV}}</u></a>
                         <div id="addReplyBox" class="ui right labeled button" tabindex="0">
                             <div class="ui button">
                                 <i class="large reply icon"></i>
@@ -107,7 +107,7 @@
 </script>
 
 <script id="replyPostPattern" type="text/template">
-    <li id="{{ReplyPostID}}" class="singleReply">
+    <li class="singleReply">
         <div class="row m0">
             <div class="col-lg-1"></div>
             <div class="col-lg-11" style="padding:0 0 0 15px">
@@ -120,29 +120,29 @@
                                         <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
                                         <ul class="dropdown-menu" role="menu">
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="reportPost" data-postid="{{PostID}}">Zgłoś</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="deletePostReply" data-replyid="{{PostID}}" data-newsid="{{TopicID}}" style="cursor:pointer">Usuń</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="deletePostReply" data-postid="{{PostID}}" data-newsid="{{TopicID}}" style="cursor:pointer">Usuń</a></li>
                                         </ul>
                                     </div>
                                     <div class="panel-heading">
-                                        <img class="img-circle pull-left" src="{{LogoName}}" alt="x" />
+                                        <img class="img-circle pull-left" src="{{UserLogo}}" alt="" />
                                         <h3>
                                             <span>{{UserName}}</span>
-                                            <span class="ui basic label">
+                                            @*<span class="ui basic label">
                                                 <span class="greenColor"><strong>{{positiveCount}}</strong></span>
                                                 / <span>{{allCount}}</span>
                                             </span>
-                                            <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>
+                                            <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>*@
                                         </h3>
-                                        <h5><span>Opublikowano</span> - <span>{{Date}}</span> </h5>
+                                        <h5><span>Opublikowano</span> - <span>{{DateAdd}}</span> </h5>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="post-description col-xs-12">
-                                <span class="text">{{Comment}}</span>
+                                <span class="text">{{Post}}</span>
                             </div>
                             <div class="row m0" style="padding:0 0 8px 10px">
-                                <div class="replyFakeVote ui right labeled button " tabindex="0">
+                                @*<div class="replyFakeVote ui right labeled button " tabindex="0">
                                     <div class="ui button BGwhite" data-content="{{popupMsg}}">
                                         <i class="thumbs {{class2}} down red icon"></i>
                                     </div>
@@ -158,7 +158,7 @@
                                     <div class="ui button BGwhite" data-content="{{popupMsg}}">
                                         <i class="thumbs {{class1}} up green icon "></i>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>
