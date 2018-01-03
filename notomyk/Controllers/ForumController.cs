@@ -16,10 +16,11 @@ namespace notomyk.Controllers
 
         public ActionResult Index()
         {
-            ForumMain model = new ForumMain();
-
-            model.Categories = db.ForumCategory.OrderBy(o => o.Order).ToList();
-            model.Topics = db.ForumTopic.Where(t => t.IsActive == true).OrderBy(o => o.DateAdd).ToList();
+            var model = new ForumMain()
+            {
+                Categories = db.ForumCategory.OrderBy(o => o.Order).ToList(),
+                Topics = db.ForumTopic.Where(t => t.IsActive == true).OrderBy(o => o.DateAdd).ToList()
+            };
 
             return View(model);
         }
@@ -27,6 +28,17 @@ namespace notomyk.Controllers
         public ActionResult Topic(int ID)
         {
             var singleTopic = db.ForumTopic.Where(t => t.ID == ID).FirstOrDefault();
+
+            if (Request.Cookies[string.Format("HasVisitedTopic:{0}", ID)] == null)
+            {
+                HttpCookie cookie = new HttpCookie(string.Format("HasVisitedTopic:{0}", ID), "true");
+                cookie.Expires = DateTime.UtcNow.AddDays(30);
+                Response.Cookies.Add(cookie);
+
+                singleTopic.Visitors++;
+                db.SaveChanges();
+            }
+            
             return View(singleTopic);
         }
 
@@ -86,7 +98,7 @@ namespace notomyk.Controllers
 
                 singleTopic.ForumCategory.ID = catID;
                 singleTopic.Subject = sub;
-                
+
                 singleTopic.Description = HttpUtility.HtmlDecode(desc);
 
                 db.SaveChanges();

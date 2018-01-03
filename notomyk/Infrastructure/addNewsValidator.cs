@@ -65,19 +65,19 @@ namespace notomyk.Infrastructure
                 switch (WhatRole)
                 {
                     case "Admin":
-                        _NewsLimitNumber = int.Parse(ConfigurationManager.AppSettings["NewsLimitAdmin"]);
+                        _NewsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("NewsLimitAdmin"));
                         break;
                     case "Moderator":
-                        _NewsLimitNumber = int.Parse(ConfigurationManager.AppSettings["NewsLimitModerator"]);
+                        _NewsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("NewsLimitModerator"));
                         break;
                     case "User":
-                        _NewsLimitNumber = int.Parse(ConfigurationManager.AppSettings["NewsLimitUser"]);
+                        _NewsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("NewsLimitUser"));
                         break;
                 }
             }
             else
             {
-                _NewsLimitNumber = 1;
+                _NewsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("NewsLimitNotConfirmed"));
             }
 
             if (_user.NewsCounter < _NewsLimitNumber)

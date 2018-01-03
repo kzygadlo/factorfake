@@ -21,6 +21,8 @@ namespace notomyk.Controllers
             context = new NTMContext();
         }
         // GET: Role
+
+
         public ActionResult Index()
         {
             NTMContext db = new NTMContext();

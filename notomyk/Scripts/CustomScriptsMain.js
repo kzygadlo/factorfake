@@ -1,5 +1,4 @@
 ﻿
-//Scripts for List of News page [index]
 $(document).ready(function () {
 
     $('.ui.rating').rating();
@@ -92,6 +91,10 @@ function getListOfNews() {
 
         var $page = $('#newPageButton').data('id');
 
+        //Main page filtering
+        var $MainPage = $('#MainPage').data('id');
+
+
         if ($tagList.length > 0) {
             var arrListTag = $tagList.split(',');
         }
@@ -111,17 +114,18 @@ function getListOfNews() {
             TagsList: arrListTag,
             WhatNews: $whatNews,
             Period: $whatPeriod,
-            Page: $page
+            Page: $page,
+            MainPage: $MainPage
         };
 
+        $('#newPageButton').val("... wczytywanie ...");
         $.ajax({
             url: '/Main/Get',
             type: "POST",
             data: model,
             success: function (result) {
 
-                $('#loadingImage').removeClass("hidden");
-
+                $('#loadingImage').removeClass("hidden");                
                 $.each(result, function (key, val) {
                     var $template = $('#newsPattern').html();
 

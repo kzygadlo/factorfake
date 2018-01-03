@@ -61,19 +61,19 @@ namespace notomyk.Infrastructure
                 switch (WhatRole)
                 {
                     case "Admin":
-                        _CommentsLimitNumber = int.Parse(ConfigurationManager.AppSettings["CommentsLimitAdmin"]);
+                        _CommentsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("CommentsLimitAdmin"));
                         break;
                     case "Moderator":
-                        _CommentsLimitNumber = int.Parse(ConfigurationManager.AppSettings["CommentsLimitModerator"]);
+                        _CommentsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("CommentsLimitModerator"));
                         break;
                     case "User":
-                        _CommentsLimitNumber = int.Parse(ConfigurationManager.AppSettings["CommentsLimitUser"]);
+                        _CommentsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("CommentsLimitUser"));
                         break;
                 }
             }
             else
             {
-                _CommentsLimitNumber = 1;
+                _CommentsLimitNumber = Convert.ToInt32(GetAppSettingsValue.Value("CommentsLimitNotConfirmed"));
             }
 
             if (_User.CommentsCounter < _CommentsLimitNumber)
@@ -88,13 +88,13 @@ namespace notomyk.Infrastructure
             switch (WhatRole)
             {
                 case "Admin":
-                    _CommentsTimeDelay = double.Parse(ConfigurationManager.AppSettings["CommentsAddDelayAdmin"]);
+                    _CommentsTimeDelay = Convert.ToDouble(GetAppSettingsValue.Value("CommentsAddDelayAdmin"));
                     break;
                 case "Moderator":
-                    _CommentsTimeDelay = double.Parse(ConfigurationManager.AppSettings["CommentsAddDelayModerator"]);
+                    _CommentsTimeDelay = Convert.ToDouble(GetAppSettingsValue.Value("CommentsAddDelayModerator"));
                     break;
                 default:
-                    _CommentsTimeDelay = double.Parse(ConfigurationManager.AppSettings["CommentsAddDelayUser"]);
+                    _CommentsTimeDelay = Convert.ToDouble(GetAppSettingsValue.Value("CommentsAddDelayUser"));
                     break;
             }
 

@@ -7,10 +7,8 @@ using System.Web;
 namespace notomyk.Models
 {
     public static class ReputationLogic
-    {
-        //private static int _minCommentsForReputation = int.Parse(ConfigurationManager.AppSettings["MinCommentsForReputation"]);
+    {       
         private static double _result;
-
 
         public static int ReputationPercentage(int pComments, int aComments)
         {

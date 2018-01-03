@@ -181,6 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForumPostController.cs" />
@@ -202,6 +203,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Infrastructure\AppConfig.cs" />
+    <Compile Include="Infrastructure\GetAppSettingsValue.cs" />
     <Compile Include="Infrastructure\HttpDownloader.cs" />
     <Compile Include="Infrastructure\myEncoding.cs" />
     <Compile Include="Infrastructure\myImageSave.cs" />
@@ -388,8 +390,13 @@
     <Compile Include="Migrations\201712261910358_isReportedPost.Designer.cs">
       <DependentUpon>201712261910358_isReportedPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801031857458_appSettingTable.cs" />
+    <Compile Include="Migrations\201801031857458_appSettingTable.Designer.cs">
+      <DependentUpon>201801031857458_appSettingTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\EventTag.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ForumCategory.cs" />
@@ -410,6 +417,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AddForumTopic.cs" />
+    <Compile Include="ViewModel\AdminModel.cs" />
     <Compile Include="ViewModel\Filters.cs" />
     <Compile Include="ViewModel\ForumMain.cs" />
     <Compile Include="ViewModel\NewNews.cs" />
@@ -539,7 +547,7 @@
     <Content Include="Images\Utility\favicons_fof\ms-icon-150x150.png" />
     <Content Include="Images\Utility\favicons_fof\ms-icon-310x310.png" />
     <Content Include="Images\Utility\favicons_fof\ms-icon-70x70.png" />
-    <Content Include="Images\Utility\fflogo.png" />
+    <Content Include="Images\Utility\fflogo.jpg" />
     <Content Include="Images\Utility\fflslogo.png" />
     <Content Include="Images\Utility\ffslogodark.png" />
     <Content Include="Images\Utility\loading-gif-transparent-4.gif" />
@@ -748,6 +756,10 @@
     <Content Include="Views\Forum\Edit.cshtml" />
     <Content Include="Views\Main\_GenericComment.cshtml" />
     <Content Include="Views\Forum\_ForumPostTemplate.cshtml" />
+    <Content Include="Views\Main\_NewsDetailTemplates.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\UserTable.cshtml" />
+    <Content Include="Views\Admin\_RightMenuAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1563,6 +1575,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712261910358_isReportedPost.resx">
       <DependentUpon>201712261910358_isReportedPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801031857458_appSettingTable.resx">
+      <DependentUpon>201801031857458_appSettingTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

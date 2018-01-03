@@ -56,8 +56,8 @@ function commentsVoting(whatVote, $this) {
     var $fakt = $this.find(".commentFaktVote").find('i');
     var $fake = $this.find(".commentFakeVote").find('i');
 
-    var $faktValue = $this.find("a#commentFaktValue")
-    var $fakeValue = $this.find("a#commentFakeValue")
+    var $faktValue = $this.find(".commentFaktValue")
+    var $fakeValue = $this.find(".commentFakeValue")
 
     var $faktClass = "outline";
     var $fakeClass = "outline";
@@ -71,8 +71,8 @@ function replyVoting(whatVote, $this) {
     var $fakt = $this.find(".replyFaktVote").find('i');
     var $fake = $this.find(".replyFakeVote").find('i');
 
-    var $faktValue = $this.find("a#replyFaktValue")
-    var $fakeValue = $this.find("a#replyFakeValue")
+    var $faktValue = $this.find(".replyFaktValue")
+    var $fakeValue = $this.find(".replyFakeValue")
 
     var $faktClass = "outline";
     var $fakeClass = "outline";

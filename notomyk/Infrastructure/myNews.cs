@@ -13,7 +13,7 @@ namespace notomyk.Infrastructure
             DateTime currentDate = DateTime.UtcNow;
             TimeSpan diff = currentDate - dateAdd;
 
-            if (diff.TotalHours < Convert.ToDouble(ConfigurationManager.AppSettings["NewNewsHours"]))
+            if (diff.TotalHours < Convert.ToDouble(GetAppSettingsValue.Value("NewNewsHours")))
             {
                 return true;
             }

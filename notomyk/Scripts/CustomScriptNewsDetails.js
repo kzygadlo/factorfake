@@ -6,11 +6,7 @@
         CharacterCountControl: $('.charCounter')
     });
 
-    $("#frmReplyText").MaxLength({
-        MaxLength: 3000,
-        CharacterCountControl: $('.charCounterR')
-    });
-
+    
 
     window.fbAsyncInit = function () {
         FB.init({
@@ -47,14 +43,6 @@
     });
 
     $('.button.fake').popup({
-        on: 'click'
-    });
-
-    $('.commentFakeVote').popup({
-        on: 'click'
-    });
-
-    $('.commentFaktVote').popup({
         on: 'click'
     });
 

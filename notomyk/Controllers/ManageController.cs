@@ -77,6 +77,20 @@ namespace notomyk.Controllers
 
             var userId = User.Identity.GetUserId();
 
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Role = "Administrator";
+            }
+            else if (User.IsInRole("Moderator"))
+            {
+                ViewBag.Role = "Moderator";
+            }
+            else
+            {
+                ViewBag.Role = "Użytkownik";
+            }
+
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

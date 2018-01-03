@@ -42,30 +42,82 @@ namespace notomyk.Controllers
                 var Topic = db.ForumTopic.Where(t => t.ID == TopicID).FirstOrDefault();
                 var activeUser = db.Users.Where(u => u.Id == userID).FirstOrDefault();
 
-                post.ApplicationUser = activeUser;
-                post.Topic = Topic;
-                post.Content = CommentText;
-                post.DateAdd = DateTime.UtcNow;
-                post.DateModify = DateTime.UtcNow;
+                var uID = User.Identity.GetUserId();
+                var _User = db.Users.Where(u => u.Id == uID).FirstOrDefault();
 
-                if (ParentID != 0)
+                var postValidator = new addCommentValidator(_User, db);
+                var valResultN = postValidator.IfExceededCommentsNumber();
+
+                if (valResultN == 0)
                 {
-                    var parent = db.ForumPost.Where(p => p.ID == ParentID).FirstOrDefault();
-                    post.Parent = parent;
+                    var valResultD = postValidator.WhetherDelayTimeHasPassed();
+
+                    if (valResultD == 0)
+                    {
+                        post.ApplicationUser = activeUser;
+                        post.Topic = Topic;
+                        post.Content = CommentText;
+                        post.DateAdd = DateTime.UtcNow;
+                        post.DateModify = DateTime.UtcNow;
+
+                        if (ParentID != 0)
+                        {
+                            var parent = db.ForumPost.Where(p => p.ID == ParentID).FirstOrDefault();
+                            post.Parent = parent;
+                        }
+
+                        db.ForumPost.Add(post);
+                        db.SaveChanges();
+
+                        postValidator.CommentAdded(_User, db);
+                    }
+                    else
+                    {
+                        return Json(
+                            new
+                            {
+                                success = false,
+                                errHeader = string.Format("Filtr anty-spamowy."),
+                                errMessage = string.Format("Musisz odczekać {0} sekund aby dodać nowy komentarz.", valResultD)
+                            });
+                        // time dealy 
+                    }
+
+                    return Json(new
+                    {
+                        success = true,
+                        postID = post.ID,
+                        post = post.Content,
+                        dateAdd = GetTimeAgo.CalculateDateDiff(post.DateAdd),
+                        userName = post.ApplicationUser.UserName,
+                        userLogoLink = Url.Content(AppConfig.UserLogoLink(userID))
+                    });
+                }
+                else
+                {
+                    if (postValidator.EmailConfirmed == true)
+                    {
+                        return Json(
+                            new
+                            {
+                                success = false,
+                                errHeader = string.Format("Przekroczona dzienna liczba dodanych komentarzy ({0}) dla Twojej roli.", valResultN),
+                                errMessage = string.Format("Jutro blokada zostanie zdjęta..")
+                            });
+                    }
+                    else
+                    {
+                        return Json(
+                                new
+                                {
+                                    success = false,
+                                    errHeader = string.Format("Przekroczona liczba komentarzy dla Twojej roli."),
+                                    errMessage = string.Format("Aktywuj swoje konto aby móc dodawać większą ilość komentarzy.")
+                                });
+                    }
+                    // total number of comments exceeded
                 }
 
-                db.ForumPost.Add(post);
-                db.SaveChanges();
-
-                return Json(new
-                {
-                    success = true,
-                    postID = post.ID,
-                    post = post.Content,
-                    dateAdd = GetTimeAgo.CalculateDateDiff(post.DateAdd),
-                    userName = post.ApplicationUser.UserName,
-                    userLogoLink = Url.Content(AppConfig.UserLogoLink(userID))
-                });
             }
             else
             {
@@ -133,12 +185,13 @@ namespace notomyk.Controllers
         {
             var replies = db.ForumPost.Where(p => p.IsActive == true && p.Parent.ID == parentID).ToList();
 
-            return Json(replies.Select(x => new { 
-                        postID = x.ID,
-                        post = x.Content,
-                        dateAdd = GetTimeAgo.CalculateDateDiff(x.DateAdd),
-                        logoName = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id)),
-                        userName = x.ApplicationUser.UserName
+            return Json(replies.Select(x => new
+            {
+                postID = x.ID,
+                post = x.Content,
+                dateAdd = GetTimeAgo.CalculateDateDiff(x.DateAdd),
+                logoName = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id)),
+                userName = x.ApplicationUser.UserName
             }), JsonRequestBehavior.AllowGet);
         }
     }

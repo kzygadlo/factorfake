@@ -17,7 +17,7 @@ namespace notomyk.Controllers
     public class MainController : Controller
     {
         private NTMContext db = new NTMContext();
-        public ActionResult Index()
+        public ActionResult Index(bool mainPage = true)
         {
             var newspaperList = db.Newspaper
                  .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
@@ -33,6 +33,8 @@ namespace notomyk.Controllers
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
             vm.Categories = tagList;
+
+            ViewBag.MainPage = mainPage;
 
             return View(vm);
         }
@@ -97,9 +99,9 @@ namespace notomyk.Controllers
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
         {
             var result = db.News.Where(n => n.IsActive == true).AsQueryable();
-            int votingValue = Convert.ToInt32(ConfigurationManager.AppSettings["FilterVoting"]);
-            int commentValue = Convert.ToInt32(ConfigurationManager.AppSettings["FilterComments"]);
-            int visitorsValue = Convert.ToInt32(ConfigurationManager.AppSettings["FilterVisitors"]);
+            int votingValue = Convert.ToInt32(GetAppSettingsValue.Value("FilterVoting"));
+            int commentValue = Convert.ToInt32(GetAppSettingsValue.Value("FilterComments"));
+            int visitorsValue = Convert.ToInt32(GetAppSettingsValue.Value("FilterVisitors"));
 
             if (filter != null)
             {
@@ -151,8 +153,19 @@ namespace notomyk.Controllers
                             break;
                     }
                 }
-
             }
+
+            int numberOfVotes = Convert.ToInt32(GetAppSettingsValue.Value("MinNumberVotes"));
+
+            if (filter.MainPage == true)
+            {
+                result = result.Where(r => r.VoteLogs.Count() >= numberOfVotes);
+            }
+            else
+            {
+                result = result.Where(r => r.VoteLogs.Count() < numberOfVotes);
+            }
+
             filter.Remains = result.Count() - 10 - filter.Page * 10;
 
             if (filter.WhatNews == 0 || filter.WhatNews == 1 || filter.WhatNews == 2)
@@ -283,16 +296,17 @@ namespace notomyk.Controllers
                 .Take(10)
                 .ToList();
 
-            int MinCommentsForReputation = int.Parse(ConfigurationManager.AppSettings["MinCommentsForReputation"]);
+            int MinCommentsForReputation = Convert.ToInt32(GetAppSettingsValue.Value("MinCommentsForReputation"));
 
             var userR = db.Users.Select(
                 o => new UserReputation
                 {
                     Id = o.Id,
                     UserName = o.UserName,
-                    Pcomments = o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                    Acomments = o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                    Reputation = (o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count() == 0 ? 0 : o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count() / (1.0 * o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()))
+                    Pcomments = o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                    Acomments = o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                    Reputation = (o.tbl_Comment.Where(c => c.IsActive == true 
+                        && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() == 0 ? 0 : o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() / (1.0 * o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count()))
                 }
                 ).OrderByDescending(o => o.Reputation)
                 .Take(5).ToList();

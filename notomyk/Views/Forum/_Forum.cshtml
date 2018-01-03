@@ -1,6 +1,5 @@
 ﻿@using notomyk.Models;
 
-
 <div class="forum">
     @foreach (var category in Model.Categories)
     {
@@ -25,11 +24,15 @@
             </div>
             <div class="tab-pane">
                 <div class="rightList">
-                    @foreach (var topic in Model.Topics)
+                    @foreach (var topic in (IEnumerable<ForumTopic>)Model.Topics)
                     {
+                        
+                        
                         if (@topic.ForumCategory.ID == category.ID)
                         {
                             var imgUrl = Url.Content(AppConfig.UserLogoLink(topic.ApplicationUser.Id));
+                            var commentsNmber = topic.Posts.Where(t => t.IsActive == true).Count();
+                            
                             <div class="post">
                                 <a href="@Url.Action("Topic", "Forum", new { ID = topic.ID })">
                                     <div class="post-heading">
@@ -55,12 +58,12 @@
 
                                         <div class="pull-right meta">
                                             <div>
-                                                <span class="fText hidden-xs">wizyt: </span><span class="ui grey basic label">200</span>
+                                                <span class="fText hidden-xs">wizyt: </span><span class="ui grey basic label">@topic.Visitors</span>
                                             </div>
                                         </div>
                                         <div class="pull-right meta">
                                             <div>
-                                                <span class="fText hidden-xs">odpowiedzi: </span><span class="ui blue basic label">30</span>
+                                                <span class="fText hidden-xs">komentarzy: </span><span class="ui blue basic label">@commentsNmber</span>
                                             </div>
                                         </div>
                                     </div>

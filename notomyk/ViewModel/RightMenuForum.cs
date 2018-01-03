@@ -8,6 +8,6 @@ namespace notomyk.ViewModel
 {
     public class RightMenuForum
     {
-        public ICollection<ForumTopic> Topics { get; set; }
+        public IEnumerable<ForumTopic> Topics { get; set; }
     }
 }

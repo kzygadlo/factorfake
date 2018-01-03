@@ -227,9 +227,9 @@ function fulfillPostCommentTemplate(postID, post, date, userN, userL, $template,
     {
         PostID: postID,
         Post: post,
-        DateAdd: date,
+        Date: date,
         UserName: userN,
-        UserLogo: userL
+        LogoName: userL
         //,
         //CommentFaktV: 0,
         //CommentFakeV: 0,
@@ -246,7 +246,7 @@ function fulfillPostCommentTemplate(postID, post, date, userN, userL, $template,
     }
 
     $('#noResultTab').addClass("hidden");
-    $('#sortingTab').removeClass("hidden");
+    //$('#sortingTab').removeClass("hidden");
 
     $comment.val("");
     $(html).hide().prependTo($wherePrepend).fadeIn('slow');
@@ -302,9 +302,9 @@ function showPosts(Filter) {
         {
             PostID: postID,
             Post: post,
-            DateAdd: date,
+            Date: date,
             UserName: userN,
-            UserLogo: userL,
+            LogoName: userL,
             RepliesV: repValue
         };
         var html = Mustache.to_html($template, replyVariables);
@@ -336,7 +336,7 @@ function showPosts(Filter) {
                 $('#noResultTab').removeClass("hidden");
             }
             else {
-                $('#sortingTab').removeClass("hidden");
+                //$('#sortingTab').removeClass("hidden");
             }
 
             $('#loadingImage').addClass("hidden");

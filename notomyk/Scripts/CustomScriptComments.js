@@ -44,6 +44,10 @@
 
         if ($replyList.is(":hidden")) {
 
+            var $replyTextButton = $(this).find('u')
+            var previousCaption = $replyTextButton.text();
+            $replyTextButton.text("...wczytywanie...");
+
             $.ajax({
                 url: '/Comment/GetReplies',
                 type: "GET",
@@ -53,8 +57,18 @@
                     $(this).closest('li').find('.reply-list').fadeToggle();
 
                     $.each(result, function (key, val) {
-                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints)
+                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints, val.voteForComment)
                     });
+                    $replyTextButton.text(previousCaption);
+
+                    $('.replyFakeVote').popup({
+                        on: 'click'
+                    });
+
+                    $('.replyFaktVote').popup({
+                        on: 'click'
+                    });
+
 
                 },
                 error: function () {
@@ -92,7 +106,7 @@
                     $entComm.closest(".singleComment").fadeOut(600, function () {
                         $entComm.closest(".singleComment").remove();
                     });
-                    
+
                 }
                 else {
                     eventNotification(response.errHeader, response.errMessage, 'negative')
@@ -170,7 +184,18 @@
 });
 
 
-function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList, repPcom, repAcom, repPoins) {
+function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList, repPcom, repAcom, repPoins, commV) {
+
+    var c1 = "outline";
+    var c2 = "outline";
+
+    if (commV == 0) {
+        c2 = "";
+    }
+    else if (commV == 1) {
+        c1 = "";
+    }
+
     var replyVariables =
     {
         CommentID: rid,
@@ -180,8 +205,8 @@ function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $templ
         UserName: userN,
         CommentFaktV: faktV,
         CommentFakeV: fakeV,
-        class1: "outline",
-        class2: "outline",
+        class1: c1,
+        class2: c2,
         positiveCount: repPcom,
         allCount: repAcom,
         reputationPoints: repPoins
@@ -203,7 +228,7 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
         },
         success: function (response) {
             if (response.success == true) {
-                fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints );
+                fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints);
             } else {
                 eventNotification(response.errHeader, response.errMessage, 'negative');
             }
@@ -306,6 +331,20 @@ function showComments(Filter) {
             $('#loadingImage').removeClass("hidden");
             $.each(result, function (key, val) {
                 fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints)
+            });
+
+            $('.commentFakeVote').popup({
+                on: 'click'
+            });
+
+            $('.commentFaktVote').popup({
+                on: 'click'
+            });
+
+
+            $("#frmReplyText").MaxLength({
+                MaxLength: 3000,
+                CharacterCountControl: $('.charCounter')
             });
 
             if (result.length == 0) {

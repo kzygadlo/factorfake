@@ -24,6 +24,7 @@ namespace notomyk.Models
 
         [ForeignKey("ApplicationUser")] //as User Id is not present in target table therefore we must indicate to which table 'UserID' is referenced as PK        public string UserId { get; set; }
         public string UserId { get; set; }
+        public virtual ICollection<ForumPost> Posts { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         public virtual ForumCategory ForumCategory { get; set; }

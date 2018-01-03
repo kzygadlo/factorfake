@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <title>FF | Fakt or Fake</title>
-
+    <meta name="description" content="Strona poświęcona weryfikowaniu newsów pod kątem ich wiarygodności bądź tendencyjności." />
+    <meta name="keywords" content="fakt, fact, fejk, fake, news, informacja, wiadomość, gazeta, portal" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -24,7 +25,7 @@
     </script>
 
 
-    <link rel="stylesheet" href="~/semantic/out/semantic.min.css" />  
+    <link rel="stylesheet" href="~/semantic/out/semantic.min.css" />
     <link rel="stylesheet" href="~/semantic/out/components/dropdown.min.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" />
@@ -51,8 +52,8 @@
     <link rel="manifest" href="/manifest.json">
 
     @*<meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">*@
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">*@
 
     <link rel="stylesheet" href="~/Content/tagsinput.css" />
     <link rel="stylesheet" href="~/Content/CustomStyle.css?v={random number/string}">
@@ -63,7 +64,7 @@
 
 
 </head>
-    
+
 
 <body class="container">
     <nav class="navbar navbar-inverse navbar-fixed-top row">
@@ -72,7 +73,7 @@
                 <button type="button" class="navButton navbar-toggle collapsed left" data-toggle="collapse" data-target="#menu">
                     <i class="sidebar icon"></i>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Main")"><img src="~/Images/Utility/fflogo.png" style="height:30px" class="ffLogo" /></a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Main")"><img src="~/Images/Utility/fflogo.jpg" style="height:50px" class="ffLogo" /></a>
                 @{
                     var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
                 }
@@ -94,7 +95,7 @@
             <div class="collapse navbar-collapse" id="menu" style="margin-left:5px; margin-right:5px">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="@Url.Action("Index", "Main")">  Start <span class="sr-only">(current)</span></a></li>
-                    <li><a href="@Url.Action("Index", "Main")">  Poczekalnia</a></li>
+                    <li><a href="@Url.Action("Index", "Main", new { mainPage = false })">  Poczekalnia</a></li>
                     <li><a href="@Url.Action("Index", "Forum")">  Forum</a></li>
                     <li class="navbar-form navbar-right hidden-sm hidden-xs" role="search" action="/" method="GET">
                         <div>
@@ -125,7 +126,7 @@
             </div>
 
             <div class="collapse navbar-collapse hidden-lg" id="search">
-             
+
                 <form id="frmAddNews" class="input-group mobile_search hidden-md hidden-lg" method="post" action="@Url.Action("Add","News")">
                     <input name="UrlLink" type="text" class="form-control removeRadius" placeholder="Wklej link.." />
                     <span class="input-group-btn">
@@ -134,13 +135,13 @@
                 </form>
 
                 @*<form class="mobile_search hidden-md hidden-lg" role="search" action="/" method="GET">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Wklej link..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" type="button">Dodaj</button>
-                        </span>
-                    </div>
-                </form>*@
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Wklej link..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button">Dodaj</button>
+                            </span>
+                        </div>
+                    </form>*@
 
             </div>
         </div>
@@ -151,12 +152,15 @@
     </div>
 
     <footer class="nb-footer">
-        <div class="col-lg-12 about">
+        <div class="col-xs-12 about">
             <p>Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności.</p>
         </div>
 
-        <div class="copyright col-lg-12">
-            <img src="~/Images/Utility/ffslogodark.png" style="height:25px" /><span>&nbsp;Copyright &copy; 2017 Fakt or Fake.</span>
+        <div class="copyright col-xs-12">
+            
+            <div class="col-sm-9 removePadding"><img src="~/Images/Utility/ffslogodark.png" style="height:25px" /><span>&nbsp;Copyright &copy; 2017 Fakt or Fake.</span></div>
+            <div class="col-sm-3" style="text-align:right; padding: 0 5px 0 0;"><span>Kontakt: </span><a href="mailto:administracja@faktorfake.pl">administracja@faktorfake.pl</a></div>            
+            
         </div>
     </footer>
 

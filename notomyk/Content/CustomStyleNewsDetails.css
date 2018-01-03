@@ -2,6 +2,34 @@
 
 /*single Comment*/
 
+.replyBG > div {
+background-color: #fff;
+}
+
+.info .detailsIcon span {
+    /*border: 1px solid #d9534f !important;*/
+    background: none !important;
+    border: none;
+    /*border: 1px solid rgba(34,36,38,.15);*/
+    color: rgba(0,0,0,.87);
+    font-size: 10px !important;
+}
+
+.voteFakt .ui.loader:after {
+    border-color: #5cb85c transparent transparent !important;
+}
+
+.singleComment .commentStatsAbove span {
+    background: none !important;
+    border: none !important;
+}
+
+.singleComment .commentStatsBelow small,
+.rightList .description small,
+.mainDate {
+    color: #7c7b7b !important;
+}
+
 #SingleNews .newspaperLogo {
     margin-left: 0px;
 }
@@ -13,7 +41,6 @@
 .ui.mini.image {
     width: 45px;
 }
-
 
 #SingleNews .statInfo {
     padding: 10px 0 2px 0;
@@ -279,4 +306,8 @@ border: none;*/
     background-color: white;
     padding-right: 8px;
     color: black;
+}
+
+.singleComment .post-heading .avatar {
+    margin: 10px 10px 10px 10px;
 }

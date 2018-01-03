@@ -8,7 +8,7 @@ namespace notomyk.ViewModel
 {
     public class ForumMain
     {
-        public ICollection<ForumCategory> Categories {get;set;}
-        public ICollection<ForumTopic> Topics { get; set; }
+        public IEnumerable<ForumCategory> Categories {get;set;}
+        public IEnumerable<ForumTopic> Topics { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace notomyk.Infrastructure
 
         public static int RatingClass(int Fakt, int Fake)
         {
-            int value = Convert.ToInt32(ConfigurationManager.AppSettings["FilterVoting"]);
+            int value = Convert.ToInt32(GetAppSettingsValue.Value("FilterVoting"));
 
             if (Fakt > Fake)
             {

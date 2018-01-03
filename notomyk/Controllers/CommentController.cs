@@ -19,7 +19,7 @@ namespace notomyk.Controllers
 {
     public class CommentController : Controller
     {
-        private int MinCommentsForReputation = Convert.ToInt16(ConfigurationManager.AppSettings["MinCommentsForReputation"]);
+        private int MinCommentsForReputation = Convert.ToInt32(GetAppSettingsValue.Value("MinCommentsForReputation"));
 
         private NTMContext db = new NTMContext();
 
@@ -52,8 +52,8 @@ namespace notomyk.Controllers
                                           s.VoteCommentLogs,
                                           children = s.Children.Where(c => c.IsActive == true).Count(),
                                           voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
-                                          positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                                          commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
+                                          positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                                          commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
                                           whatVoteForNews = s.ApplicationUser.VotingLogs.Where(n => n.tbl_NewsID == newsID).Select(x => x.Vote).FirstOrDefault()
                                       })
                                       .ToList();
@@ -112,7 +112,7 @@ namespace notomyk.Controllers
                     result = result.OrderBy(o => o.DateAdd);
                     break;
                 case 1: // by author reputation
-                    result = result.OrderBy(o => o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count() == 0 ? 0 : o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count() / (1.0 * o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()));
+                    result = result.OrderBy(o => o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() == 0 ? 0 : o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() / (1.0 * o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count()));
                     break;
                 case 2: // by votes
                     result = result.OrderBy(o => o.VoteCommentLogs.Where(v => v.Vote == true).Count() - o.VoteCommentLogs.Where(v => v.Vote == false).Count());
@@ -125,6 +125,7 @@ namespace notomyk.Controllers
 
         public JsonResult GetReplies(int parentID)
         {
+            var uName = User.Identity.GetUserId();
 
             var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
                 s => new
@@ -135,8 +136,9 @@ namespace notomyk.Controllers
                     s.ApplicationUser.Id,
                     s.ApplicationUser.UserName,
                     s.VoteCommentLogs,
-                    positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                    commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count()
+                    voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
+                    positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                    commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count()
                 }
                 ).OrderBy(o => o.DateAdd)
                  .ToList();
@@ -150,11 +152,11 @@ namespace notomyk.Controllers
                 userL = Url.Content(AppConfig.UserLogoLink(x.Id)),
                 faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
                 fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
+                voteForComment = ifVoted(x.voted),
                 positiveCommentsNumber = x.positiveCommentsCount,
                 allCommentsNumber = x.commentsCount,
                 reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount)
             }), JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
@@ -202,9 +204,9 @@ namespace notomyk.Controllers
                                     date = GetTimeAgo.CalculateDateDiff(comment.DateAdd),
                                     userN = user.UserName,
                                     userL = Url.Content(AppConfig.UserLogoLink(user.Id)),
-                                    positiveCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                                    allCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(),
-                                    reputationPoints = ReputationLogic.ReputationPercentage(comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) > MinCommentsForReputation).Count(), comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) > MinCommentsForReputation).Count())
+                                    positiveCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                                    allCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                                    reputationPoints = ReputationLogic.ReputationPercentage(comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(), comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count())
                                 });
                             }
                             else

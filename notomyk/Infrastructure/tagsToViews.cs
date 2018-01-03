@@ -12,7 +12,7 @@ namespace notomyk.Infrastructure
         public static List<string> ReturnTags(List<string> tags)
         {            
             int counter = 0;
-            int limit = Convert.ToInt16(ConfigurationManager.AppSettings["TagStrignLenght"]);
+            int limit = Convert.ToInt32(GetAppSettingsValue.Value("TagStrignLenght"));
             List<string> finalTags = new List<string>();
 
             foreach (var tag in tags)
