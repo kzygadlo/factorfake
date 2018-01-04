@@ -110,7 +110,7 @@ namespace notomyk.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Nieudana próba logowania.");
                     return View(model);
             }
         }
@@ -188,7 +188,8 @@ namespace notomyk.Controllers
 
                     string confirmationLink = callbackUrl;
 
-                    await UserManager.SendEmailAsync(user.Id, "Potwierdź założenie konta na Fakt or Fake", confirmationLink);
+                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź założenie konta na Fakt or Fake", confirmationLink);
+                    await UserManager.SendEmailAsync(user.Id, "Potwierdź założenie konta na Fakt or Fake", "Potwierdzenie konta nastąpi po kliknięciu w ten link: <a href=\"" + confirmationLink + "\">link</a>");
 
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
                     return RedirectToAction("BeforeConfirmEmail", "Account");
@@ -230,7 +231,8 @@ namespace notomyk.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                //var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -243,6 +245,15 @@ namespace notomyk.Controllers
                 // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account",
+            new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Resetowanie hasła", "Resetowanie hasła nastąpi po kliknięciu w ten link: <a href=\"" + callbackUrl + "\">link</a>");
+                //await UserManager.SendEmailAsync(user.Id, "Resetowanie hasła", "Resetowanie hasła nastąpi po kliknięciu w ten link: <a href=\"" + callbackUrl + "\">link</a>");
+                //await UserManager.SendEmailAsync(user.Id, "Resetowanie hasła", callbackUrl);
+                return View("ForgotPasswordConfirmation");
+
             }
 
             // If we got this far, something failed, redisplay form

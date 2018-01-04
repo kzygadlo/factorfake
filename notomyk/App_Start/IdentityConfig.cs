@@ -35,16 +35,18 @@ namespace notomyk
         void sendMail(IdentityMessage message)
         {
             #region formatter
-            string text = string.Format("W celu aktywacji konta proszę o kliknięcie w następujący link: {0}: {1}", message.Subject, message.Body);
-            string html = "W celu aktywacji konta proszę o kliknięcie w następujący link: <a href=\"" + message.Body + "\">link</a><br/>";
+            string text = message.Body;
+            string html = message.Body;
 
             #endregion
 
             MailMessage msg = new MailMessage();
-            msg.Body = HttpUtility.HtmlEncode("W celu aktywacji konta proszę o kliknięcie w następujący link: <a href=\"" + message.Body + "\">link</a><br/>");
+            //msg.Body = HttpUtility.HtmlEncode("W celu aktywacji konta proszę o kliknięcie w następujący link: <a href=\"" + message.Body + "\">link</a><br/>");
+            msg.Body = msg.Body;
             //msg.Body = CreateBody(message.Body);
             msg.From = new MailAddress(ConfigurationManager.AppSettings["Email"].ToString());
             msg.To.Add(new MailAddress(message.Destination));
+
             msg.Subject = message.Subject;
 
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));

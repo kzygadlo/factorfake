@@ -316,7 +316,7 @@ namespace notomyk.Controllers
                              select x).Take(5).ToList();
 
             var usersComm = (from x in db.Users
-                             orderby x.tbl_Comment.Count descending
+                             orderby x.tbl_Comment.Where(c => c.IsActive == true).Count() descending
                              select x).Take(5).ToList();
 
             
