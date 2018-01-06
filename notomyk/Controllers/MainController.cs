@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using NLog;
 using notomyk.DAL;
 using notomyk.Infrastructure;
 using notomyk.Models;
@@ -17,8 +18,10 @@ namespace notomyk.Controllers
     public class MainController : Controller
     {
         private NTMContext db = new NTMContext();
+        private static Logger FOFlog = LogManager.GetCurrentClassLogger();
         public ActionResult Index(bool mainPage = true)
         {
+              
             var newspaperList = db.Newspaper
                  .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
                  .OrderBy(o => o.NewspaperName)
@@ -184,6 +187,7 @@ namespace notomyk.Controllers
             {
                 ViewBag.popupMsg = "Musisz byc zalogowany aby oddać głos.";
             }
+            
 
             ViewBag.NewsID = ID;
 

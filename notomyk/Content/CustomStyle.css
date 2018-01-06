@@ -40,6 +40,10 @@
     font-weight: bold !important;
 }
 
+textarea {
+  resize: vertical; /* user can resize vertically, but width is fixed */
+}
+
 body {
     image-rendering: -webkit-optimize-contrast;
     padding-top: 40px;

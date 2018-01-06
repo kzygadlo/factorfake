@@ -12,12 +12,14 @@ using System.Web.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using NLog;
 
 namespace notomyk.Controllers
 {
     public class NewsController : Controller
     {
         private NTMContext db = new NTMContext();
+        private static Logger FOFlog = LogManager.GetCurrentClassLogger();
         //GET: Add
         public ActionResult Add()
         {
@@ -36,6 +38,8 @@ namespace notomyk.Controllers
         {
             if (Request.IsAuthenticated)
             {
+                
+
                 if (ModelState.IsValid)
                 {
                     var _uID = User.Identity.GetUserId();
@@ -62,7 +66,7 @@ namespace notomyk.Controllers
                             var addNewspaper = new tbl_Newspaper();
                             addNewspaper.NewspaperLink = homeUrl;
 
-                            addNewspaper.NewspaperName = string.IsNullOrEmpty(metaDataFromUrl.SiteName) ? homeUrl : metaDataFromUrl.SiteName;
+                            addNewspaper.NewspaperName = myNewspaper.GetNewspaperName(homeUrl);
                             addNewspaper.NewspaperIconLink = "default.jpg";
                             db.Newspaper.Add(addNewspaper);
                             db.SaveChanges();
@@ -95,6 +99,8 @@ namespace notomyk.Controllers
                         myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
 
                         newsValidator.NewsAdded(_User, db);
+
+                        FOFlog.Info(string.Format("User: {0} added news ID: {1}", news.ApplicationUser.UserName, news.tbl_NewsID));
 
                         return RedirectToAction("News", "Main", new { id = news.tbl_NewsID });
                     }

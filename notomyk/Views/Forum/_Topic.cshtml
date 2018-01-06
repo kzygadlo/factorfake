@@ -4,7 +4,7 @@
 @Html.Partial("_ForumPostTemplate")
 
 <div id="SingleTopic" class="first">
-    <div class="list-group-item n1">
+    <div class="list-group-item n1" style="padding: 10px">
         <div class="row m0">
             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
@@ -74,7 +74,7 @@
                 else
                 {
                     <div class="col-xs-12 removePadding">
-                        <textarea id="frmCommentTextNoAuth" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                        <textarea id="frmCommentTextNoAuth" readonly rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden; resize:none" placeholder="Zaloguj się aby dodać komentarz."></textarea>
                     </div>
                 }
             </div>

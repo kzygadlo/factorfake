@@ -166,7 +166,7 @@
                 else
                 {
                     <div class="col-xs-12 removePadding">
-                        <textarea id="frmCommentTextNoAuth" rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                        <textarea id="frmCommentTextNoAuth" readonly rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden; resize:none" placeholder="Zaloguj się aby dodać komentarz."></textarea>
                     </div>
                     <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
                 }

@@ -73,18 +73,26 @@
                 <button type="button" class="navButton navbar-toggle collapsed left" data-toggle="collapse" data-target="#menu">
                     <i class="sidebar icon"></i>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Main")"><img src="~/Images/Utility/fflogo.jpg" style="height:50px" class="ffLogo" /></a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Main")">
+                        <img src="~/Images/Utility/fflogo2.png" style="height:38px; padding-top:10px" class="ffLogo" />                             
+                        @*<img src="~/Images/Utility/l1.png" style="height:50px; float:left" class="ffLogo" />*@
+                        @*<img src="~/Images/Utility/l2.png" class="ffLogo" style="margin-top:5px" />*@                    
+                </a>
                 @{
                     var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
                 }
 
                 @if (Request.IsAuthenticated)
                 {
-                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Index", "Manage")"><img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" /></a>
+                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Index", "Manage")">
+                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" style="margin-top:8px"/>
+                    </a>
                 }
                 else
                 {
-                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Login", "Account")"><img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" /></a>
+                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Login", "Account")">
+                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" />
+                    </a>
 
                 }
                 <button type="button" class="plusButton navbar-toggle collapsed" data-toggle="collapse" data-target="#search">

@@ -41,8 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Elmah.Mvc">
       <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
@@ -56,6 +57,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog.Elmah, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.Elmah.4.0\lib\net35\NLog.Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorGenerator.Mvc.2.2.3\lib\net40\RazorGenerator.Mvc.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +76,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -127,9 +142,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -208,10 +220,12 @@
     <Compile Include="Infrastructure\myEncoding.cs" />
     <Compile Include="Infrastructure\myImageSave.cs" />
     <Compile Include="Infrastructure\myNews.cs" />
+    <Compile Include="Infrastructure\myNewspaper.cs" />
     <Compile Include="Infrastructure\myTags.cs" />
     <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
     <Compile Include="Infrastructure\Rating.cs" />
+    <Compile Include="Infrastructure\StringTranslate.cs" />
     <Compile Include="Infrastructure\tagsToViews.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
     <Compile Include="Migrations\201704272034572_initialcreate.cs" />
@@ -521,7 +535,7 @@
     <Content Include="Images\Utility\defaultImage.jpg" />
     <Content Include="Images\Utility\favicon.png" />
     <Content Include="Images\Utility\favicons_fof\android-icon-144x144.png" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-192x192.png" />
+    <Content Include="Images\Utility\favicons_fof\android-icon-192x192.jpg" />
     <Content Include="Images\Utility\favicons_fof\android-icon-36x36.png" />
     <Content Include="Images\Utility\favicons_fof\android-icon-48x48.png" />
     <Content Include="Images\Utility\favicons_fof\android-icon-72x72.png" />
@@ -536,7 +550,6 @@
     <Content Include="Images\Utility\favicons_fof\apple-icon-72x72.png" />
     <Content Include="Images\Utility\favicons_fof\apple-icon-76x76.png" />
     <Content Include="Images\Utility\favicons_fof\apple-icon-precomposed.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon.png" />
     <Content Include="Images\Utility\favicons_fof\browserconfig.xml" />
     <Content Include="Images\Utility\favicons_fof\favicon-16x16.png" />
     <Content Include="Images\Utility\favicons_fof\favicon-32x32.png" />
@@ -548,7 +561,8 @@
     <Content Include="Images\Utility\favicons_fof\ms-icon-310x310.png" />
     <Content Include="Images\Utility\favicons_fof\ms-icon-70x70.png" />
     <Content Include="Images\Utility\fflogo.jpg" />
-    <Content Include="Images\Utility\fflslogo.png" />
+    <Content Include="Images\Utility\fflogo2.png" />
+    <Content Include="Images\Utility\fflslogo2.png" />
     <Content Include="Images\Utility\ffslogodark.png" />
     <Content Include="Images\Utility\loading-gif-transparent-4.gif" />
     <Content Include="Images\Utility\loginLogo.png" />
@@ -760,6 +774,12 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\UserTable.cshtml" />
     <Content Include="Views\Admin\_RightMenuAdmin.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1452,6 +1472,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704291555423_adding references to mvc user table.resx">
       <DependentUpon>201704291555423_adding references to mvc user table.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705041931456_add field to news table.resx">
       <DependentUpon>201705041931456_add field to news table.cs</DependentUpon>

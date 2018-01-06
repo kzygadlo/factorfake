@@ -89,8 +89,7 @@ namespace notomyk.Controllers
             {
                 ViewBag.Role = "Użytkownik";
             }
-
-
+            
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
