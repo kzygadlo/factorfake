@@ -14,6 +14,10 @@ namespace notomyk.Infrastructure
             {
                 return "Użytkownik";
             }
+            else if (userRole == "Admin")
+            {
+                return "Administrator";
+            }
 
             return userRole;
         }

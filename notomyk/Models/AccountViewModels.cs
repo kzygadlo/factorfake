@@ -76,7 +76,7 @@ namespace notomyk.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musi miec conajmniej {2} znakow.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Hasło musi miec conajmniej {2} znakow.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

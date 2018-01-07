@@ -106,7 +106,7 @@ namespace notomyk.Controllers
                     }
                     else
                     {
-                        string eMessage = string.Format("Przekroczyłeś dzienną dostępną liczbę dodawanych newsów.\n\n Limit dla Twojej roli {0} wynosi: {1}.", newsValidator.WhatRole, valResult);
+                        string eMessage = string.Format("Przekroczyłeś dzienną dostępną liczbę dodawanych newsów.\n\n Limit dla Twojej roli {0} wynosi: {1}.", StringTranslate.ReturnRoleName(newsValidator.WhatRole), valResult);
                         if (newsValidator.EmailConfirmed == false)
                         {
                             eMessage += "\n\n Twoje konto nie zostało aktywowane. Po jego aktywowaniu liczba dopuszczalnych newsów się zwiększy.";

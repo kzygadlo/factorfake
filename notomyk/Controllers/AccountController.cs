@@ -194,7 +194,8 @@ namespace notomyk.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
                     return RedirectToAction("BeforeConfirmEmail", "Account");
                 }
-                AddErrors(result);
+                AddLocalizedErrors(result, user);
+                //AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -482,6 +483,33 @@ namespace notomyk.Controllers
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
+            }
+        }
+
+        private void AddLocalizedErrors(IdentityResult result, ApplicationUser user)
+        {
+            foreach (var error in result.Errors)
+            {
+                var localizedError = error;
+                string userName = "";
+                string email = "";
+                if (user != null)
+                {
+                    userName = user.UserName;
+                    email = user.Email;
+                }
+                //password errors
+                localizedError = localizedError.Replace("Passwords must have at least one uppercase ('A'-'Z').", "Hasło musi zawierać co najmniej jedna duża literę (A-Z).");
+                localizedError = localizedError.Replace("Passwords must have at least one digit ('0'-'9').", "Hasło musi zawierać co najmniej jedną cyfę (0-9).");
+                localizedError = localizedError.Replace("Passwords must have at least one lowercase ('a'-'z').", "Hasło musi zawierać co najmniej jedna małą literę (a-z).");
+                localizedError = localizedError.Replace("Passwords must have at least one non letter or digit character.", "Hasło musi zawierać co najmniej jedna litere oraz cyfre.");
+                localizedError = localizedError.Replace("Passwords must have at least one non letter or digit character.", "Hasło musi zawierać co najmniej jedna litere oraz cyfre.");
+                localizedError = localizedError.Replace("Passwords must have at least one non letter or digit character.", "Hasło musi zawierać co najmniej jedna litere oraz cyfre.");
+                //register errors
+                localizedError = localizedError.Replace("Name " + userName + " is already taken.", "Nazwa " + userName + " jest już zajęta.");
+                localizedError = localizedError.Replace("Email '" + email + "' is already taken.", "Email '" + email + "' jest obecnie używany.");
+
+                ModelState.AddModelError("", localizedError);
             }
         }
 
