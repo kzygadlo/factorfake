@@ -14,6 +14,7 @@ using System.Web.Hosting;
 using notomyk.Infrastructure;
 using System.Configuration;
 using System.Web.Security;
+using notomyk.DAL;
 
 namespace notomyk.Controllers
 {
@@ -21,6 +22,7 @@ namespace notomyk.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        NTMContext db = new NTMContext();
 
         #region Account
 
@@ -209,10 +211,28 @@ namespace notomyk.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                //return View("Error");
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.GeneralError });
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+
+
+            if (db.Users.Any(u => u.Id == userId))
+            {
+                var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
+                if (user.EmailConfirmed == true)
+                {
+                    return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.EmailAlreadyConfirmed });
+                }
+                else
+                {
+                    var result = await UserManager.ConfirmEmailAsync(userId, code);
+                    return View(result.Succeeded ? "ConfirmEmail" : "Error");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.UserDoesntExist });
+            }
         }
 
         //
@@ -234,10 +254,15 @@ namespace notomyk.Controllers
             {
                 var user = await UserManager.FindByEmailAsync(model.Email);
                 //var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
+                }
+
+                if (!(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.EmailNotConfirmedForResetingPassword });
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

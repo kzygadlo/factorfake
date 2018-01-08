@@ -75,12 +75,13 @@ namespace notomyk.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Hasło nie może być puste.")]
         [StringLength(100, ErrorMessage = "Hasło musi miec conajmniej {2} znakow.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        //[Required(ErrorMessage = "Hasło nie może być puste.")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "Podane hasla nie sa takie same.")]

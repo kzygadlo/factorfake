@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\ConfirmationController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForumPostController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
@@ -210,11 +211,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
     <Compile Include="Infrastructure\addNewsValidator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Infrastructure\AppConfig.cs" />
+    <Compile Include="Infrastructure\ErrorMessage.cs" />
     <Compile Include="Infrastructure\GetAppSettingsValue.cs" />
     <Compile Include="Infrastructure\HttpDownloader.cs" />
     <Compile Include="Infrastructure\myEncoding.cs" />
@@ -408,9 +411,14 @@
     <Compile Include="Migrations\201801031857458_appSettingTable.Designer.cs">
       <DependentUpon>201801031857458_appSettingTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801082208411_BlackListAndLoginAttemps.cs" />
+    <Compile Include="Migrations\201801082208411_BlackListAndLoginAttemps.Designer.cs">
+      <DependentUpon>201801082208411_BlackListAndLoginAttemps.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\BlackList.cs" />
     <Compile Include="Models\EventTag.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\ForumCategory.cs" />
@@ -780,6 +788,7 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Confirmation\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1599,6 +1608,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801031857458_appSettingTable.resx">
       <DependentUpon>201801031857458_appSettingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801082208411_BlackListAndLoginAttemps.resx">
+      <DependentUpon>201801082208411_BlackListAndLoginAttemps.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

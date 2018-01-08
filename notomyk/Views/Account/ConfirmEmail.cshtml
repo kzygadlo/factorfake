@@ -1,15 +1,24 @@
 ﻿
-<div class="col-xs-12 defaultContainer">
-    <div class="col-xs-12">
-        <div class="main-login main-center">
-            <img class="profile-img" src="~/Images/Utility/favicons_fof/android-icon-192x192.png" alt="">
-            <p>
-                <strong>Twoje konto zostało aktywowane.</strong>
-            <p>Pozdrawiamy - <strong>Fakt or Fake</strong>.</p>
+<div id="SingleConfirmation">
+    <div class="list-group-item n1">
+        <div class="row m0">
+            <div class="col-xs-12 removePadding">
 
-            @Html.ActionLink("Link do logowania", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
 
-            <br />
+                <img class="ui middle aligned tiny image" src="~/Images/Utility/favicons_fof/android-icon-144x144.png" width="30" height="30">
+                <span style="font-size:30px">Twoje konto zostało aktywowane.</span>
+
+                <br />
+                <br />
+
+            </div>
+            <div class="col-xs-12" style="padding:0 10px 10px 10px">
+                <p>
+                    @Html.ActionLink("Link do logowania", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                </p>
+                <p><strong>Pozdrawiamy - faktorfake</strong></p>
+            </div>
+
         </div>
     </div>
 </div>

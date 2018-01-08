@@ -16,6 +16,8 @@ namespace notomyk.Models
         public DateTime? LastNewsAdded { get; set; }
         public int CommentsCounter { get; set; }
         public DateTime? LastCommentAdded { get; set; }
+        public int LoginAttempts { get; set; }
+        public DateTime? LastLoginAttempt { get; set; }
 
         public virtual ICollection<VoteLog> VotingLogs { get; set; }
 

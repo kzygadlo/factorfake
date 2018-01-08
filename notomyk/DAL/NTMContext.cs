@@ -36,5 +36,6 @@ namespace notomyk.DAL
         public DbSet<ForumCategory> ForumCategory { get; set; }
         public DbSet<ForumPost> ForumPost { get; set; }
         public DbSet<AppSettings> AppSettings { get; set; }
+        public DbSet<BlackList> BlackList { get; set; }
     }
 }
