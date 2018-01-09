@@ -53,6 +53,7 @@
             //event.stopPropagation();
             var $News = $(this);
             var NewsID = $News.closest('.dropDownParent').data('newsid')
+            var $whereAppend = $('#SingleNews')
 
             $.ajax({
                 url: '/News/Remove',
@@ -66,22 +67,25 @@
                         window.location.href = response.redirectUrl;
                     }
                     else {
-                        eventNotification('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.', 'negative')
+                        showNotification('negative', 'Usuwanie newsów.', 'Wystąpił błąd podczas usuwania newsów.', $whereAppend)
                     }
                 },
                 error: function () {
-                    eventNotification('Usuwanie newsów .', 'Wystąpił błąd podczas usuwania newsów.', 'negative')
+                    showNotification('negative', 'Usuwanie newsów.', 'Wystąpił błąd podczas usuwania newsów.', $whereAppend)
                 }
             });
         });
     });
 
+
+    //Report news
     $(document).ready(function () {
         $(document).on('click', '.reportNews', function (event) {
             event.preventDefault();
             //event.stopPropagation();
             var $News = $(this);
             var NewsID = $News.closest('.dropDownParent').data('newsid')
+            var $whereAppend = $('#SingleNews')
 
             $.ajax({
                 url: '/News/Report',
@@ -93,14 +97,14 @@
                 },
                 success: function (response) {
                     if (response.Success == true) {
-                        eventNotification('Zgłaszanie newsów.', 'News został zgłoszony do moderacji.')
+                        showNotification('positive', 'Zgłaszanie newsów.', 'News został zgłoszony do moderacji.', $whereAppend)
                     }
                     else {
-                        eventNotification('Zgłaszanie newsów.', response.errMessage, 'negative')
+                        showNotification('negative', 'Zgłaszanie newsów.', response.errMessage, $whereAppend)
                     }
                 },
-                error: function () {
-                    eventNotification('Zgłaszanie newsów.', 'Wystąpił błąd', 'negative')
+                error: function () {                    
+                    showNotification('negative', 'Zgłaszanie newsów.', 'Wystąpił błąd podczas zgłazania newsa.', $whereAppend)
                 }
             });
         });

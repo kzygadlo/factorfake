@@ -68,11 +68,9 @@
                     $('.replyFaktVote').popup({
                         on: 'click'
                     });
-
-
                 },
                 error: function () {
-                    eventNotification('Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.', 'negative')
+                    showNotification('negative', 'Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.', $replyList)
                 }
             });
 
@@ -109,12 +107,13 @@
 
                 }
                 else {
-                    eventNotification(response.errHeader, response.errMessage, 'negative')
+                    showNotification('negative', response.errHeader, response.errMessage, $entComm.closest('.commentBoxJQ'))
                 }
 
             },
             error: function () {
-                eventNotification('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
+                showNotification('negative', 'Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', $entComm.closest('.commentBoxJQ'))
+
             }
         });
     });
@@ -140,11 +139,11 @@
                     });
                 }
                 else {
-                    eventNotification(response.errHeader, response.errMessage, 'negative')
+                    showNotification('negative', response.errHeader, response.errMessage, $entComm.closest('.commentBoxJQ'))
                 }
             },
             error: function () {
-                eventNotification('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
+                showNotification('negative', 'Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', $entComm.closest('.commentBoxJQ'))
             }
         });
     });
@@ -385,14 +384,18 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.Success == true) {
-                    eventNotification('Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.')
+
+                    showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Comment.closest('.commentBoxJQ'))
                 }
                 else {
-                    eventNotification('Zgłaszanie komentarza.', response.errMessage, 'negative')
+                    
+                    showNotification('negative', 'Zgłaszanie komentarza.', response.errMessage, $Comment.closest('.commentBoxJQ'))
                 }
             },
             error: function () {
-                eventNotification('Zgłaszanie komentarza.', 'Wystąpił błąd', 'negative')
+
+
+                showNotification('negative', 'Zgłaszanie komentarza.', 'Wystąpił błąd', $Comment.closest('.commentBoxJQ'))
             }
         });
     });

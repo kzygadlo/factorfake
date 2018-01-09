@@ -164,7 +164,9 @@ function getListOfNews() {
                 $('#newPageButton').inc('id', 1);
             },
             error: function () {
-                eventNotification('Newsy.', 'Wystąpił błąd podczas wyświetlania newsów.', 'negative')
+
+                $whereAppend = $('#newsContainer')
+                showNotification('negative', 'Newsy', 'Wystąpił błąd podczas wyświetlania newsów.', $whereAppend)
             }
         });
     }

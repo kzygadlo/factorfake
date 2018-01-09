@@ -6,95 +6,13 @@
 
 <input id="MainPage" type="hidden" data-id="@ViewBag.MainPage" />
 
-<script id="newsPattern" type="text/template">
-    <li id="{{newsID}}">
-        <a href="{{urlActionLink}}">
-            <div class="event-list">
-                <img alt="img" src="{{newspaperPictureLink}}" class="hidden-xs" />
-                <img id="newsPicture" alt="" src="{{newsPictureLink}}" />
-                <div class="info">
-                    <div class="col-xs-12 removePadding">
-                        <div class="col-sm-10 col-xs-9 hidden-xs" style="height: 46px; padding-top:10px">
+@Html.Partial("_NotificationTemplateJQ")
+@Html.Partial("_SingleNewsTemplate")
 
-                            <strong><span class="p2lines">{{newsTitle}}</span></strong>
-
-                        </div>
-                        <div class="col-sm-10 col-xs-9 visible-xs" style="height: 46px; padding:5px 0 0 8px">
-
-                            <strong><span class="p2lines">{{newsTitle}}</span></strong>
-
-                        </div>
-                        <div class="col-sm-2 col-xs-3 visible-xs" style="height: 46px; padding:5px 5px 0 0; text-align:right;">
-                            <div class="visible-xs">
-                                <img src="{{newspaperPictureLink}}" class="avatar img-circle" width="40" height="40" alt="">
-                            </div>
-                        </div>
-                        <div class="col-sm-2 col-xs-3 hidden-xs" style="height: 46px; padding:5px 0 0 0; text-align:right;">
-
-                            <span id="FakeTag" class="ui red tag label hidden-xs" style="font-size:11px; "></span>
-                            <span id="FaktTag" class="ui green tag label hidden-xs" style="font-size:11px"></span>
-                        </div>
-
-                    </div>
-                    <div class="col-xs-12 hidden-xs" style="height: 46px; padding-top:2px">
-
-                        <span class="p2lines">{{newsDescription}}</span>
-
-                    </div>
-                    <div class="col-xs-12 visible-xs" style="height: 46px; padding-left:8px">
-
-                        <span class="p2lines">{{newsDescription}}</span>
-
-                    </div>
-                    <div class="col-xs-12 removePadding nIcons" style="height: 28px;">
-                        <div id="hashtag2" class="col-sm-6 hidden-xs">
-                            {{{tagsList}}}
-
-                        </div>
-                        <div class="col-sm-6 col-xs-12 removePadding detailsIcon" style="text-align:right;padding-right: 5px;">
-
-                            <span class="ui label hidden-xs">
-                                <i class="desktop icon"></i>
-                                {{numberOfVisitors}}
-                            </span>
-                            <span class="ui label hidden-xs">
-                                <i class="comments outline icon"></i>
-                                {{numberOfComments}}
-                            </span>
-                            <span class="ui label mainDate">
-                                <i class="calendar icon"></i>
-                                {{dateAdded}}
-                            </span>
-                            <span class="ui label">
-                                <i class="thumbs outline green up icon"></i>
-                                {{faktTag}}
-                            </span>
-                            <span class="ui label">
-                                <i class="thumbs outline red down icon"></i>
-                                {{fakeTag}}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </li>
-</script>
 
 <div class="event-list-main col-xs-12 removePadding">
 
-    <div style="margin-bottom:10px" class="notificationBox hidden">
-        <div class="ui message">
-            <i class="close icon"></i>
-            <div class="header">
-            </div>
-            <p>
-            </p>
-        </div>
-    </div>
-
     <ul id="newsContainer" style="margin-bottom:0"></ul>
-
 
     <div id="loadingImage" class="ui segment" style="width:100%; margin-bottom:10px; border:none; box-shadow:none">
         <div class="ui active inverted dimmer">

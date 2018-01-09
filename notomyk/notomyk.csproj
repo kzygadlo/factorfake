@@ -577,6 +577,7 @@
     <Content Include="Images\Utility\stars.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScriptNotification.js" />
     <Content Include="Scripts\CustomScriptForum.js" />
     <Content Include="Scripts\CustomScriptComments.js" />
     <Content Include="Scripts\CustomScriptNewsDetails.js" />
@@ -789,6 +790,8 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Confirmation\Index.cshtml" />
+    <Content Include="Views\Shared\_NotificationTemplateJQ.cshtml" />
+    <Content Include="Views\Main\_SingleNewsTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
