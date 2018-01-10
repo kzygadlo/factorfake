@@ -12,25 +12,26 @@
     //Add Comment
     $('.frmAddComment').on('submit', function (event) {
         event.preventDefault();
+        var $notifBox = $('#SingleNews');
         var $comment = $('#frmCommentText');
         var $newsID = $('.frmNewsID').val();
         var $template = $('#commentPattern').html();
         var $commentList = $("#commentsList");
 
-        ajaxAddComment($comment, $newsID, 0, $template, $commentList)
+        ajaxAddComment($comment, $newsID, 0, $template, $commentList, $notifBox)
     });
 
     //Add Reply
     $(document).on('submit', '.frmAddReply', function (event) {
         event.preventDefault();
-
+        var $notifBox = $(this).closest('.commentBoxJQ');
         var $comment = $(this).closest('.addReply').find('.message');
         var $newsID = $('.frmNewsID').val();
         var $parentID = $(this).find('.commentID').val();
         var $template = $('#replyPattern').html();
         var $replyList = $(this).closest('.singleComment').find('.reply-list');
 
-        ajaxAddComment($comment, $newsID, $parentID, $template, $replyList)
+        ajaxAddComment($comment, $newsID, $parentID, $template, $replyList, $notifBox)
     });
 
     //Show Replies
@@ -215,7 +216,7 @@ function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $templ
     $(html).hide().prependTo($replyList).fadeIn('slow');
 };
 
-function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
+function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend, $whereAppendNotif) {
     $.ajax({
         url: '/Comment/Add',
         type: 'POST',
@@ -229,11 +230,12 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend) {
             if (response.success == true) {
                 fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints);
             } else {
-                eventNotification(response.errHeader, response.errMessage, 'negative');
+
+                showNotification('negative', response.errHeader, response.errMessage, $whereAppendNotif)
             }
         },
         error: function () {
-            eventNotification('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.', 'negative')
+            showNotification('negative', 'Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.', $whereAppendNotif)
         }
     });
 };
@@ -265,7 +267,14 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
     $('#sortingTab').removeClass("hidden");
 
     $comment.val("");
-    $(html).hide().prependTo($wherePrepend).fadeIn('slow');
+
+    if (parentID == 0) {
+        $(html).hide().prependTo($wherePrepend).fadeIn('slow');
+    }
+    else {
+        $(html).hide().appendTo($wherePrepend).fadeIn('slow');
+    }
+    
 };
 
 function showComments(Filter) {
@@ -356,7 +365,7 @@ function showComments(Filter) {
             $('#loadingImage').addClass("hidden");
         },
         error: function () {
-            eventNotification('Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.', 'negative')
+            showNotification('negative', 'Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.', $commentList)
         }
     });
 };

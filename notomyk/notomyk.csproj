@@ -213,6 +213,7 @@
     </Compile>
     <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
+    <Compile Include="Infrastructure\addLoginValidator.cs" />
     <Compile Include="Infrastructure\addNewsValidator.cs">
       <SubType>Code</SubType>
     </Compile>

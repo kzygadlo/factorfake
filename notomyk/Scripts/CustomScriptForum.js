@@ -30,7 +30,7 @@
 
                 },
                 error: function () {
-                    eventNotification('Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.', 'negative')
+                    showNotification('negative', 'Odpowiedzi do komentarzy.', 'Wystąpił błąd podczas pobierania odpowiedzi do komentarzy.', $replyList)
                 }
             });
 
@@ -63,25 +63,26 @@
     //Add Post
     $('.frmAddPostComment').on('submit', function (event) {
         event.preventDefault();
+        var $notifBox = $('#SingleTopic');
         var $comment = $('#frmCommentText');
         var $topicID = $('.frmTopicID').val();
         var $template = $('#forumPostTemplate').html();
         var $commentList = $("#commentsList");
 
-        ajaxAddPost($comment, $topicID, 0, $template, $commentList)
+        ajaxAddPost($comment, $topicID, 0, $template, $commentList, $notifBox)
     });
 
     //Add Reply
     $(document).on('submit', '.frmAddPostReply', function (event) {
         event.preventDefault();
-
+        var $notifBox = $(this).closest('.commentBoxJQ');
         var $post = $(this).closest('.addPostReply').find('.message');
         var $topicID = $('.frmTopicID').val();
         var $parentID = $(this).find('.postID').val();
         var $template = $('#replyPostPattern').html();
         var $replyList = $(this).closest('.singleComment').find('.reply-list');
 
-        ajaxAddPost($post, $topicID, $parentID, $template, $replyList)
+        ajaxAddPost($post, $topicID, $parentID, $template, $replyList, $notifBox)
     });
 
     //Report Post
@@ -102,14 +103,14 @@
                 },
                 success: function (response) {
                     if (response.Success == true) {
-                        eventNotification('Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.')
+                        showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Post.closest('.commentBoxJQ'))
                     }
                     else {
-                        eventNotification('Zgłaszanie komentarza.', response.errMessage, 'negative')
+                        showNotification('negative', 'Zgłaszanie komentarza.', response.errMessage, $Post.closest('.commentBoxJQ'))
                     }
                 },
                 error: function () {
-                    eventNotification('Zgłaszanie komentarza.', 'Wystąpił błąd', 'negative')
+                    showNotification('negative', 'Zgłaszanie komentarza.', 'Wystąpił błąd', $Post.closest('.commentBoxJQ'))
                 }
             });
         });
@@ -136,11 +137,11 @@
                     });
                 }
                 else {
-                    eventNotification(response.errHeader, response.errMessage, 'negative')
+                    showNotification('negative', response.errHeader, response.errMessage, $entComm.closest('.commentBoxJQ'))
                 }
             },
             error: function () {
-                eventNotification('Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
+                showNotification('negative', 'Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', $entComm.closest('.commentBoxJQ'))
             }
         });
     });
@@ -167,12 +168,12 @@
 
                 }
                 else {
-                    eventNotification(response.errHeader, response.errMessage, 'negative')
+                    showNotification('negative', response.errHeader, response.errMessage, $entComm.closest('.commentBoxJQ'))
                 }
 
             },
             error: function () {
-                eventNotification('Usuwanie komentarzy.', 'Wystąpił błąd podczas usuwania komentarza.', 'negative')
+                showNotification('negative', 'Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', $entComm.closest('.commentBoxJQ'))
             }
         });
     });
@@ -183,8 +184,8 @@ function fulfillPostReplyTemplate(postID, post, dateAdd, logoName, userName, $te
     {
         PostID: postID,
         Post: post,
-        DateAdd: dateAdd,
-        UserLogo: logoName,
+        Date: dateAdd,
+        LogoName: logoName,
         UserName: userName,
         //CommentFaktV: faktV,
         //CommentFakeV: fakeV,
@@ -199,7 +200,8 @@ function fulfillPostReplyTemplate(postID, post, dateAdd, logoName, userName, $te
     $(html).hide().prependTo($replyList).fadeIn('slow');
 };
 
-function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend) {
+function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend, $whereAppendNotif) {
+
     $.ajax({
         url: '/ForumPost/Add',
         type: 'POST',
@@ -213,11 +215,11 @@ function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend) {
             if (response.success == true) {
                 fulfillPostCommentTemplate(response.postID, response.post, response.dateAdd, response.userName, response.userLogoLink, $template, $wherePrepend, $comment, parentID);
             } else {
-                eventNotification(response.errHeader, response.errMessage, 'negative');
+                showNotification('negative', response.errHeader, response.errMessage, $whereAppendNotif)
             }
         },
         error: function () {
-            eventNotification('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.', 'negative')
+            showNotification('negative', 'Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.', $whereAppendNotif)
         }
     });
 };
@@ -249,31 +251,16 @@ function fulfillPostCommentTemplate(postID, post, date, userN, userL, $template,
     //$('#sortingTab').removeClass("hidden");
 
     $comment.val("");
-    $(html).hide().prependTo($wherePrepend).fadeIn('slow');
+
+    if (parentID == 0) {
+        $(html).hide().prependTo($wherePrepend).fadeIn('slow');
+    }
+    else {
+        $(html).hide().appendTo($wherePrepend).fadeIn('slow');
+    }
+    
 };
 
-function ajaxAddTopic($catID, $sub, $desc) {
-    $.ajax({
-        url: '/Forum/Add',
-        type: 'POST',
-        //timeout: 3000,
-        data: {
-            catID: $catID,
-            sub: $sub,
-            desc: $desc
-        },
-        success: function (response) {
-            if (response.success == true) {
-                eventNotification(response.errHeader, response.errMessage);
-            } else {
-                eventNotification(response.errHeader, response.errMessage, 'negative');
-            }
-        },
-        error: function () {
-            eventNotification('Dodawanie komentarza.', 'Wystąpił błąd podczas dodawania komentarza.', 'negative')
-        }
-    });
-};
 
 function showPosts(Filter) {
     $('#loadingImage').removeClass("hidden");
@@ -339,10 +326,15 @@ function showPosts(Filter) {
                 //$('#sortingTab').removeClass("hidden");
             }
 
+            $("#frmReplyText").MaxLength({
+                MaxLength: 3000,
+                CharacterCountControl: $('.charCounter')
+            });
+
             $('#loadingImage').addClass("hidden");
         },
         error: function () {
-            eventNotification('Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.', 'negative')
+            showNotification('negative', 'Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.', $commentList)
         }
     });
 };

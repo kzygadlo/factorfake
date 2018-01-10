@@ -9,32 +9,39 @@
     });
 
     $(document).on('click', '.commentFaktVote', function () {
+        $notifBox = $(this).closest('.commentBoxJQ');
         $this = $(this).closest('.singleComment')
         //var $commentID = $(this).closest('.singleComment').find('#commentContainerJS').data('commentid');
-        commentsVoting(true, $this);
+        commentsVoting(true, $this, $notifBox);
     });
 
     $(document).on('click', '.commentFakeVote', function () {
+        $notifBox = $(this).closest('.commentBoxJQ');
         $this = $(this).closest('.singleComment')
         //var $commentID = $(this).closest('.singleComment').find('#commentContainerJS').data('commentid');
-        commentsVoting(false, $this);
+        commentsVoting(false, $this, $notifBox);
     });
 
     $(document).on('click', '.replyFaktVote', function () {
+        $notifBox = $(this).closest('.commentBoxJQ');
+
         $this = $(this).closest('.singleReply')
         //var $commentID = $(this).closest('.singleComment').find('#commentContainerJS').data('commentid');
-        replyVoting(true, $this);
+        replyVoting(true, $this, $notifBox);
     });
 
     $(document).on('click', '.replyFakeVote', function () {
+        $notifBox = $(this).closest('.commentBoxJQ');
         $this = $(this).closest('.singleReply')
         //var $commentID = $(this).closest('.singleComment').find('#commentContainerJS').data('commentid');
-        replyVoting(false, $this);
+        replyVoting(false, $this, $notifBox);
     });
 });
 
 
 function newsVoting(whatVote) {
+
+    var $notifBox = $('#SingleNews');
 
     var $newsID = $('.frmNewsID').val();
     var $fakt = $(".voteFakt.button")
@@ -46,11 +53,11 @@ function newsVoting(whatVote) {
     var $faktClass = "BGgreenColorLight";
     var $fakeClass = "BGredColorLight";
 
-    ajaxVoteRequest(whatVote, true, $newsID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass)
+    ajaxVoteRequest(whatVote, true, $newsID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
 };
 
 
-function commentsVoting(whatVote, $this) {
+function commentsVoting(whatVote, $this, $notifBox) {
 
     var $commentID = $this.find('#commentContainerJS').data('commentid');
     var $fakt = $this.find(".commentFaktVote").find('i');
@@ -62,10 +69,10 @@ function commentsVoting(whatVote, $this) {
     var $faktClass = "outline";
     var $fakeClass = "outline";
 
-    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass)
+    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
 };
 
-function replyVoting(whatVote, $this) {
+function replyVoting(whatVote, $this, $notifBox) {
 
     var $commentID = $this.find('.DeleteReply').data('replyid');
     var $fakt = $this.find(".replyFaktVote").find('i');
@@ -77,10 +84,11 @@ function replyVoting(whatVote, $this) {
     var $faktClass = "outline";
     var $fakeClass = "outline";
 
-    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass)
+    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
 };
 
-function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass) {
+function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox) {
+
     $.ajax({
         url: '/Voting/Vote',
         type: 'POST',
@@ -94,7 +102,7 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
             votingAction(response.result, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass);
         },
         error: function () {
-            eventNotification('Głosowanie.', 'Wystąpił błąd podczas głosowania.', 'negative')
+            showNotification('negative', 'Głosowanie.', 'Wystąpił błąd podczas głosowania.', $notifBox)
         }
     });
 };
