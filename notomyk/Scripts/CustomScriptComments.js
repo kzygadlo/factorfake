@@ -58,7 +58,7 @@
                     $(this).closest('li').find('.reply-list').fadeToggle();
 
                     $.each(result, function (key, val) {
-                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints, val.voteForComment)
+                        fulfillReplyTemplate(val.cid, val.com, val.date, val.userL, val.userN, val.faktV, val.fakeV, $template, $replyList, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints, val.voteForComment, val.reportedClass)
                     });
                     $replyTextButton.text(previousCaption);
 
@@ -101,10 +101,18 @@
                 commentID: CommentID
             },
             success: function (response) {
-                if (response.success == true) {
+
+
+                if (response.success == true && response.childComments == 0) {
                     $entComm.closest(".singleComment").fadeOut(600, function () {
                         $entComm.closest(".singleComment").remove();
                     });
+
+                }
+                else if (response.success == true && response.childComments > 0)
+                {
+                    $entComm.closest(".singleComment").find(".removedMessage").removeClass('hidden');
+                    $entComm.closest(".singleComment").find(".basicMessage").addClass('hidden');
 
                 }
                 else {
@@ -184,7 +192,7 @@
 });
 
 
-function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList, repPcom, repAcom, repPoins, commV) {
+function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList, repPcom, repAcom, repPoins, commV, reportClass) {
 
     var c1 = "outline";
     var c2 = "outline";
@@ -209,7 +217,8 @@ function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $templ
         class2: c2,
         positiveCount: repPcom,
         allCount: repAcom,
-        reputationPoints: repPoins
+        reputationPoints: repPoins,
+        ReportedClass: reportClass
     };
     var html = Mustache.to_html($template, replyVariables);
 
@@ -255,13 +264,16 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
         class2: "outline",
         positiveCount: repPcom,
         allCount: repAcom,
-        reputationPoints: repPoins
+        reputationPoints: repPoins,
+        ReportedClass: "hidden",
+        CommentBasicClass: "",
+        CommentRemovedClass: "hidden"
     };
     var html = Mustache.to_html($template, commentVariables);
 
     if (parentID != 0 && $wherePrepend.is(":hidden")) {
         $wherePrepend.fadeToggle();
-    }
+    }    
 
     $('#noResultTab').addClass("hidden");
     $('#sortingTab').removeClass("hidden");
@@ -274,6 +286,11 @@ function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $whereP
     else {
         $(html).hide().appendTo($wherePrepend).fadeIn('slow');
     }
+
+    $("#frmReplyText").MaxLength({
+        MaxLength: 3000,
+        CharacterCountControl: $('.charCounter')
+    });
     
 };
 
@@ -283,7 +300,7 @@ function showComments(Filter) {
     var $template = $('#commentPattern').html();
     var $commentList = $("#commentsList");
 
-    function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV, repPcom, repAcom, repPoins) {
+    function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV, repPcom, repAcom, repPoins, basicClass, removedClass, reportClass) {
 
         var repValue = "";
         if (repV != 0) {
@@ -315,7 +332,11 @@ function showComments(Filter) {
             class2: c2,
             positiveCount: repPcom,
             allCount: repAcom,
-            reputationPoints: repPoins
+            reputationPoints: repPoins,
+            ReportedClass: reportClass,
+            CommentBasicClass: basicClass,
+            CommentRemovedClass: removedClass
+
         };
         var html = Mustache.to_html($template, replyVariables);
         //$comment.val("");
@@ -338,7 +359,7 @@ function showComments(Filter) {
             $('#noResultTab').addClass("hidden");
             $('#loadingImage').removeClass("hidden");
             $.each(result, function (key, val) {
-                fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints)
+                fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints, val.commentBasicClass, val.commentRemovedClass, val.reportedClass)
             });
 
             $('.commentFakeVote').popup({
@@ -393,8 +414,14 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.Success == true) {
-
-                    showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Comment.closest('.commentBoxJQ'))
+                    if ($Comment.closest('.comment-box').find('.reportSpan').hasClass('hidden')) {
+                        showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Comment.closest('.commentBoxJQ'));
+                        $Comment.closest('.comment-box').find('.reportSpan').removeClass('hidden');
+                    }
+                    else {
+                        showNotification('negative', 'Zgłaszanie komentarza.', 'Komentarz został już zgłoszony.', $Comment.closest('.commentBoxJQ'));
+                    }
+                     
                 }
                 else {
                     

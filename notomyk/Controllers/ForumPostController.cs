@@ -19,7 +19,7 @@ namespace notomyk.Controllers
         public JsonResult Get(int TopicID, int? filter)
         {
             var userID = User.Identity.GetUserId();
-            var postList = db.ForumPost.Where(x => x.Topic.ID == TopicID && x.IsActive == true && x.Parent == null).ToList();
+            var postList = db.ForumPost.Where(x => (x.IsActive == true || x.Children.Count > 0) && x.Topic.ID == TopicID && x.Parent == null).ToList();
 
             return Json(postList.Select(x => new
             {
@@ -28,7 +28,10 @@ namespace notomyk.Controllers
                 dateAdd = GetTimeAgo.CalculateDateDiff(x.DateAdd),
                 userName = x.ApplicationUser.UserName,
                 userLogoLink = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id)),
-                repliesNumber = x.Children.Where(c => c.IsActive == true).Count()
+                repliesNumber = x.Children.Where(c => c.IsActive == true).Count(),
+                commentBasicClass = x.IsActive == true ? "" : "hidden",
+                commentRemovedClass = x.IsActive == true ? "hidden" : "",
+                reportedClass = x.IsReported == true ? "" : "hidden"
             }), JsonRequestBehavior.AllowGet);
         }
 
@@ -191,7 +194,8 @@ namespace notomyk.Controllers
                 post = x.Content,
                 dateAdd = GetTimeAgo.CalculateDateDiff(x.DateAdd),
                 logoName = Url.Content(AppConfig.UserLogoLink(x.ApplicationUser.Id)),
-                userName = x.ApplicationUser.UserName
+                userName = x.ApplicationUser.UserName,
+                reportedClass = x.IsReported == true ? "" : "hidden"
             }), JsonRequestBehavior.AllowGet);
         }
     }

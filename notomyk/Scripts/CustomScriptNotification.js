@@ -26,8 +26,8 @@ function showNotification(whatKind, notificationHeader, notificationMessage, $wh
     };
 
     var html = Mustache.to_html($template, notificationVariables);
-    //$(html).hide().appendTo($whereAppend).fadeIn('slow');
-    $(html).hide().prependTo($whereAppend).fadeIn('slow');
+    $(html).hide().appendTo($whereAppend).fadeIn('slow');
+    //$(html).hide().prependTo($whereAppend).fadeIn('slow');
 
     $('.message .close').on('click', function () {
         $(this)
@@ -35,10 +35,11 @@ function showNotification(whatKind, notificationHeader, notificationMessage, $wh
           .transition('fade')
         ;
     });
+    $('.notificationBox').focus();
 
     setTimeout(function () {
-            $('.notificationBox').remove();
-        }, delay
+        $('.notificationBox').remove();
+    }, delay
     );
 };
 

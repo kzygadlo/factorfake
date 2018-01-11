@@ -9,13 +9,13 @@ namespace notomyk.Infrastructure
 {
     public static class GetAppSettingsValue
     {
+        private static NTMContext _db = null;
+        private static AppSettings _appS = null;
         static GetAppSettingsValue()
         {
             _appS = new AppSettings();
-        }
-
-        private static NTMContext _db = new NTMContext();
-        private static AppSettings _appS = new AppSettings();
+            _db = new NTMContext();
+        }   
 
         public static string Value(string Key)
         {

@@ -14,10 +14,13 @@
                                 <i data-toggle="dropdown" class="dropdown-toggle chevron down icon"></i>
                                 <ul class="dropdown-menu" role="menu">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="reportComment" data-commentid="{{CommentID}}">Zgłoś</a></li>
-
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteComment" data-commentid="{{CommentID}}" data-newsid="{{NewsID}}">Usuń</a></li>
-
                                 </ul>
+                            </div>
+                            <div class="reportSpan pull-right {{ReportedClass}}" style="margin:5px 40px 0 0;">
+                                <span>
+                                    <small><strong>zgłoszony </strong><i class="alarm outline icon red"></i></small>
+                                </span>
                             </div>
                         }
                         <div class="post-heading">
@@ -45,7 +48,8 @@
                 </div>
 
                 <div class="post-description col-xs-12">
-                    <span class="text" style="word-wrap:break-word;">{{Comment}}</span>
+                    <span class="text basicMessage {{CommentBasicClass}}" style="word-wrap:break-word;">{{Comment}}</span>
+                    <span class="text removedMessage {{CommentRemovedClass}}">Komentarz został usunięty.</span>
                 </div>
 
                 <div class="col-xs-12 removePadding">
@@ -88,7 +92,7 @@
                     @if (Request.IsAuthenticated)
                     {
                         <div class="col-xs-2 col-sm-1 removePadding">
-                            <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+                            <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" style="margin-top:14px;" alt="img">
                         </div>
                         <div class="col-xs-9 col-sm-10 removePadding">
                             <span class="charCounter pull-right" style="font-size:11px"></span>
@@ -99,7 +103,7 @@
                             <form class="frmAddReply pull-right">
                                 <input class="commentID" type="hidden" name="NewsID" value="{{CommentID}}">
 
-                                <button class="btn btn-primary" type="submit">
+                                <button class="btn btn-primary" type="submit" style="margin-top:14px;">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
                             </form>
@@ -116,9 +120,7 @@
             </div>
         </div>
 
-        <ul class="reply-list" style="margin-bottom:2px;">
-
-        </ul>
+        <ul class="reply-list" style="margin-bottom:2px;"></ul>
     </li>
 </script>
 
@@ -143,6 +145,11 @@
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="DeleteReply" data-replyid="{{CommentID}}" data-newsid="{{NewsID}}" style="cursor:pointer">Usuń</a></li>
 
                                             </ul>
+                                        </div>
+                                        <div class="reportSpan pull-right {{ReportedClass}}" style="margin:5px 40px 0 0;">
+                                            <span>
+                                                <small><strong>zgłoszony </strong><i class="alarm outline icon red"></i></small>
+                                            </span>
                                         </div>
                                     }
                                     <div class="post-heading">

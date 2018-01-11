@@ -18,6 +18,11 @@
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="deletePost" data-postid="{{PostID}}" data-topicid="{{TopicID}}">Usuń</a></li>
                                 </ul>
                             </div>
+                            <div class="reportSpan pull-right {{ReportedClass}}" style="margin:5px 40px 0 0;">
+                                <span>
+                                    <small><strong>zgłoszony </strong><i class="alarm outline icon red"></i></small>
+                                </span>
+                            </div>
                         }
                         <div class="post-heading">
                             <div class="pull-left">
@@ -27,12 +32,6 @@
                                 <div class="title h5">
                                     <div class="commentStatsAbove" style="height:17px">
                                         <small class="rightMenuPostTitle"><strong>{{UserName}}</strong></small>
-
-                                        @*<span class="ui basic label">
-                                                <span class="greenColor"><strong>{{positiveCount}}</strong></span>
-                                                / <span>{{allCount}}</span>
-                                            </span>
-                                            <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>*@
                                     </div>
                                     <div class="commentStatsBelow" style="height:17px">
                                         <small class="text-muted"><i class="calendar icon"></i>Dodano: {{Date}}</small>
@@ -44,28 +43,12 @@
                 </div>
 
                 <div class="post-description col-xs-12">
-                    <span class="text" style="word-wrap:break-word;">{{Post}}</span>
+                    <span class="text baicMessage {{PostBasicClass}}" style="word-wrap:break-word;">{{Post}}</span>
+                    <span class="text removedMessage {{PostRemovedClass}}" ">Komentarz został usunięty.</span>
                 </div>
 
                 <div class="col-xs-12 removePadding">
                     <div class="col-xs-5" style="padding:0 0 8px 10px">
-                        @*<div class="commentFakeVote ui right labeled button " tabindex="0" title="">
-                                <div class="ui button BGwhite">
-                                    <i class="thumbs {{class2}} down red icon"></i>
-                                </div>
-                                <a id="commentFakeValue" class="ui left pointing label redColor BGredColor BGredColorLight">
-                                    {{CommentFakeV}}
-                                </a>
-                            </div>
-
-                            <div class="commentFaktVote ui left labeled button" tabindex="0" title="">
-                                <a id="commentFaktValue" class="ui right pointing label greenColor BGgreenColor BGgreenColorLight">
-                                    {{CommentFaktV}}
-                                </a>
-                                <div class="ui button BGwhite" data-content="Add users to your feed">
-                                    <i class="thumbs {{class1}} up green icon "></i>
-                                </div>
-                            </div>*@
                     </div>
 
                     <div class="col-xs-7 text-right removePadding">
@@ -82,10 +65,10 @@
                     @if (Request.IsAuthenticated)
                     {
                         <div class="col-xs-2 col-sm-1 removePadding">
-                            <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+                            <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img" style="margin-top:14px;">
                         </div>
                         <div class="col-xs-9 col-sm-10 removePadding">
-                            <span class="charCounterR pull-right" style="font-size:11px"></span>
+                            <span class="charCounter pull-right" style="font-size:11px"></span>
                             <textarea rows="10" maxlength="3000" id="frmReplyText" name="ReplyText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym komentarzu ?"></textarea>
                         </div>
 
@@ -93,7 +76,7 @@
                             <form class="frmAddPostReply pull-right">
                                 <input class="postID" type="hidden" name="postID" value="{{PostID}}">
 
-                                <button class="btn btn-primary" type="submit">
+                                <button class="btn btn-primary" type="submit" style="margin-top:14px;">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
                             </form>
@@ -109,9 +92,7 @@
 
             </div>
         </div>
-        <ul class="reply-list" style="margin-bottom:2px;">
-
-        </ul>
+        <ul class="reply-list" style="margin-bottom:2px;"></ul>
     </li>
 </script>
 
@@ -134,6 +115,11 @@
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="deletePostReply" data-postid="{{PostID}}" data-newsid="{{TopicID}}" style="cursor:pointer">Usuń</a></li>
                                             </ul>
                                         </div>
+                                        <div class="reportSpan pull-right {{ReportedClass}}" style="margin:5px 40px 0 0;">
+                                            <span>
+                                                <small><strong>zgłoszony </strong><i class="alarm outline icon red"></i></small>
+                                            </span>
+                                        </div>
                                     }
                                     <div class="post-heading">
                                         <div class="pull-left">
@@ -143,12 +129,6 @@
                                             <div class="title h5">
                                                 <div class="commentStatsAbove" style="height:17px">
                                                     <small class="rightMenuPostTitle"><strong>{{UserName}}</strong></small>
-
-                                                    @*<span class="ui basic label">
-                                                            <span class="greenColor"><strong>{{positiveCount}}</strong></span>
-                                                            / <span>{{allCount}}</span>
-                                                        </span>
-                                                        <span class="ui basic label"><i class="fa-trophy orange icon"></i>{{reputationPoints}} %</span>*@
                                                 </div>
                                                 <div class="commentStatsBelow" style="height:17px">
                                                     <small class="text-muted"><i class="calendar icon"></i>Dodano: {{Date}}</small>
@@ -163,23 +143,6 @@
                                 <span class="text" style="word-wrap:break-word;">{{Post}}</span>
                             </div>
                             <div class="row m0" style="padding:0 0 8px 10px">
-                                @*<div class="replyFakeVote ui right labeled button " tabindex="0">
-                                        <div class="ui button BGwhite" data-content="{{popupMsg}}">
-                                            <i class="thumbs {{class2}} down red icon"></i>
-                                        </div>
-                                        <a id="replyFakeValue" class="BGredColorLight ui basic left pointing label">
-                                            {{CommentFakeV}}
-                                        </a>
-                                    </div>
-
-                                    <div class="replyFaktVote ui left labeled button" tabindex="0">
-                                        <a id="replyFaktValue" class="ui basic right pointing label BGgreenColorLight">
-                                            {{CommentFaktV}}
-                                        </a>
-                                        <div class="ui button BGwhite" data-content="{{popupMsg}}">
-                                            <i class="thumbs {{class1}} up green icon "></i>
-                                        </div>
-                                    </div>*@
                             </div>
                         </div>
                     </div>

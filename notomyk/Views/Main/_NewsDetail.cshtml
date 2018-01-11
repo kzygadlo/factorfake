@@ -9,8 +9,7 @@
 @Html.Partial("_NewsDetailTemplates")
 
 <div id="SingleNews" class="first">
-    <div class="list-group-item n1">
-        <div class="row m0">
+    <div class="col-xs-12 removePadding list-group-item n1">
             <div class="col-xs-12 removePadding">
                 <div class="col-sm-6 col-xs-12" style="padding: 0 7px 0 10px">
                     <div class="fof col-xs-12 removePadding">
@@ -171,9 +170,7 @@
                     <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
                 }
             </div>
-        </div>
-    </div>
-   
-   
+    </div>  
 </div>
+
 @Html.Partial("_GenericComment")
