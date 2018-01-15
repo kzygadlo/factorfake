@@ -67,7 +67,7 @@
                         window.location.href = response.redirectUrl;
                     }
                     else {
-                        showNotification('negative', 'Usuwanie newsów.', 'Wystąpił błąd podczas usuwania newsów.', $whereAppend)
+                        showNotification('negative', 'Usuwanie newsów.', response.errMessage, $whereAppend)
                     }
                 },
                 error: function () {

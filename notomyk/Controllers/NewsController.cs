@@ -38,21 +38,43 @@ namespace notomyk.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                
-
                 if (ModelState.IsValid)
                 {
                     var _uID = User.Identity.GetUserId();
                     var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
-                    var newsValidator = new addNewsValidator(_User, db);
+                    var newsValidator = new NewsValidator(_User);
 
                     var valResult = newsValidator.IfExceededNewsNumber();
 
                     if (valResult == 0)
                     {
+                        if (string.IsNullOrWhiteSpace(newN.UrlLink))
+                        {
+                            return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.NewsEmptyLink });
+                        }
+
                         var news = new tbl_News();
                         var metaDataFromUrl = NewsMethodes.GetMetaDataFromUrl(newN.UrlLink);
                         var homeUrl = NewsMethodes.GetHomeURL(newN.UrlLink);
+                        var URL = new Uri(newN.UrlLink);
+
+                        if (newsValidator.UrlForbidden(newN.UrlLink))
+                        {
+                            FOFlog.Error(string.Format("User: {0} tried to add news from forbidden domain: {1}", _User.UserName, newN.UrlLink));
+                            return RedirectToAction("Index", "Error", new { errorMessage = string.Format("Podany link pochodzi z domeny: {0}, która jest na naszej czarnej liście. Jeżeli uważasz, że ta domena jest bezpieczna - skontaktuj się z nami.", URL.Host) });
+                        }
+
+                        if (string.IsNullOrWhiteSpace(metaDataFromUrl.Description))
+                        {
+                            FOFlog.Error(string.Format("User: {0} tried to add news with empty description: {1}", _User.UserName, newN.UrlLink));
+                            return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessage.NewsNoDescription, URL.Host) });
+                        }
+
+                        if (string.IsNullOrWhiteSpace(metaDataFromUrl.Title))
+                        {
+                            FOFlog.Error(string.Format("User: {0} tried to add news with empty title: {1}", _User.UserName, newN.UrlLink));
+                            return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessage.NewsNoTitle, URL.Host) });
+                        }
 
                         var newsID = db.News.Where(n => n.ArticleLink == newN.UrlLink).Select(n => n.tbl_NewsID).FirstOrDefault();
                         if (newsID != 0)
@@ -61,6 +83,7 @@ namespace notomyk.Controllers
                         }
 
                         var newspaperId = db.Newspaper.Where(n => n.NewspaperLink == homeUrl).Select(n => n.tbl_NewspaperID).FirstOrDefault();
+
                         if (newspaperId == 0)
                         {
                             var addNewspaper = new tbl_Newspaper();
@@ -82,7 +105,7 @@ namespace notomyk.Controllers
                         news.UserId = User.Identity.GetUserId();
                         news.Title = string.IsNullOrEmpty(metaDataFromUrl.Title) ? metaDataFromUrl.SiteName : myEncoding.ReplaceSign(metaDataFromUrl.Title);
                         news.Description = myEncoding.ReplaceSign(metaDataFromUrl.Description);
-                       
+
                         if (string.IsNullOrEmpty(metaDataFromUrl.ImageUrl))
                         {
                             news.PictureLink = "/Images/Utility/defaultImage.jpg";
@@ -90,7 +113,7 @@ namespace notomyk.Controllers
                         else
                         {
                             news.PictureLink = myImageSave.Link(metaDataFromUrl.ImageUrl.ToString());
-                        }                        
+                        }
 
                         db.News.Add(news);
 
@@ -98,7 +121,7 @@ namespace notomyk.Controllers
 
                         myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
 
-                        newsValidator.NewsAdded(_User, db);
+                        newsValidator.NewsAdded(_User);
 
                         FOFlog.Info(string.Format("User: {0} added news ID: {1}", news.ApplicationUser.UserName, news.tbl_NewsID));
 
@@ -164,10 +187,20 @@ namespace notomyk.Controllers
 
         [HttpPost]
         public JsonResult Remove(int newsID)
-        {
-            //if (myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()))
-            if (User.IsInRole("Admin"))
+        {            
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator") || myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()))
             {
+                if (myUser.IsNewsAuthor(newsID, User.Identity.GetUserId()) && !User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+                {
+                    if (db.Comment.Any(c => c.tbl_NewsID == newsID && c.IsActive == true))
+                    {
+                        return Json(new
+                        {
+                            Success = false,
+                            errMessage = ErrorMessage.NewsRemoveHasComment
+                        });
+                    }
+                }
                 using (NTMContext db = new NTMContext())
                 {
 
@@ -176,9 +209,11 @@ namespace notomyk.Controllers
 
                     db.SaveChanges();
 
+                    FOFlog.Info(string.Format("User: {0} removed newsID: {1}", User.Identity.Name, newsID));
+
                     RedirectToAction("Index", "Main");
 
-                    return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
+                    //return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
                 }
             }
             return Json(new
@@ -197,6 +232,8 @@ namespace notomyk.Controllers
                 news.IsReported = ToReport;
                 db.SaveChanges();
 
+
+                FOFlog.Info(string.Format("User: {0} reported newsID: {1}", User.Identity.Name, newsID));
                 return Json(new
                 {
                     Success = true,

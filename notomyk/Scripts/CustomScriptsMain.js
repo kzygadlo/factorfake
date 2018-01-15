@@ -9,13 +9,21 @@ $(document).ready(function () {
 
     $('.newspaperFilter.ui.dropdown').change(
     function () {
-        beforeFiltering();
-    });
+        beforeFiltering()
+        });
+
+    $('.newspaperFilter.ui.dropdown').dropdown({
+        maxSelections: 6
+        });
 
     $('.tagFilter.ui.dropdown').change(
     function () {
-        beforeFiltering();
-    });
+        beforeFiltering()
+        });
+
+    $('.tagFilter.ui.dropdown').dropdown({
+        maxSelections: 6
+        });
 
     $('.whatNewsFilter').dropdown({
         onChange:

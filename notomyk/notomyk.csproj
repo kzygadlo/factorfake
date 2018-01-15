@@ -22,6 +22,8 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -226,10 +228,11 @@
     <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
     <Compile Include="Infrastructure\addLoginValidator.cs" />
-    <Compile Include="Infrastructure\addNewsValidator.cs">
+    <Compile Include="Infrastructure\NewsValidator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Infrastructure\AppConfig.cs" />
+    <Compile Include="Infrastructure\BlackListValidator.cs" />
     <Compile Include="Infrastructure\ErrorMessage.cs" />
     <Compile Include="Infrastructure\GetAppSettingsValue.cs" />
     <Compile Include="Infrastructure\HttpDownloader.cs" />
@@ -1643,7 +1646,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51289</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

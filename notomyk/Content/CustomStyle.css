@@ -195,7 +195,7 @@ body {
 /*---------------------------------------------LIST of NEWS and right pane ---------------------------------------*/
 
 #SingleNews .list-group-item.n1 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding: 10px 0 10px 0;
     /*background-color: #f7f7f7;*/
     /*-moz-border-radius: 2px;

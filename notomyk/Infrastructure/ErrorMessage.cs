@@ -12,5 +12,9 @@ namespace notomyk.Infrastructure
         public static string YouAreNotAdmin = "Nie jesteś zalogowany jako admin.";
         public static string GeneralError = "Podczas przetwarzania żądania wystąpił błąd. Informacje o nim zostały zapisane w naszych logach. Zapoznamy się z nim i postaramy się go naprawić.";
         public static string UserDoesntExist = "Nie ma takiego użytkownika.";
+        public static string NewsNoDescription = "Podany link nie moze zostać poprawnie odczytany (błędny opis newsa). Być może linki z tej domeny: {0} nie są rozpoznane jako artykuły prasowe. Zostanie to odnotowane w naszych logach i sprawdzimy co było tego przyczyną.";
+        public static string NewsNoTitle = "Podany link nie moze zostać poprawnie odczytany (błędny tytuł). Być może linki z tej domeny: {0} nie są rozpoznane jako artykuły prasowe. Zostanie to odnotowane w naszych logach i sprawdzimy co było tego przyczyną.";
+        public static string NewsEmptyLink = "Podany link jest nieprawidłowy.";
+        public static string NewsRemoveHasComment = "Nie możesz usunąc newsa ponieważ ktoś już go skomentował. Teraz może go usunąc tylko moderator.";
     }
 }

@@ -12,20 +12,20 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace notomyk.Infrastructure
 {
-    public class addNewsValidator
+    public class NewsValidator
     {
-
+        NTMContext db = new NTMContext();
         ApplicationUser _user = new ApplicationUser();
         public string WhatRole;
         int _NewsLimitNumber;
         public bool EmailConfirmed;
 
-        public addNewsValidator()
+        public NewsValidator()
         {
         
         }
 
-        public addNewsValidator(ApplicationUser user, NTMContext db)
+        public NewsValidator(ApplicationUser user)
         {
 
 
@@ -87,11 +87,28 @@ namespace notomyk.Infrastructure
             return _NewsLimitNumber;
         }
 
-        public void NewsAdded(ApplicationUser user, NTMContext db)
+        public void NewsAdded(ApplicationUser user)
         {
             user.NewsCounter++;
             user.LastNewsAdded = DateTime.UtcNow;
             db.SaveChanges();
+        }
+
+        public bool UrlForbidden(string url)
+        {
+            var homeURL = new Uri(url);
+            string host = homeURL.Host;
+
+            if (host.Substring(0, 4) == "www.")
+            {
+                host = host.Substring(4);
+            }
+
+            if (db.BlackList.Any(b => b.url == host))
+            {
+                return true;
+            }
+            return false;
         }
       
     }
