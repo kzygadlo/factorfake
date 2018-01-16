@@ -9,18 +9,69 @@ namespace notomyk.Infrastructure
 {
     public static class GetAppSettingsValue
     {
-        private static NTMContext _db = null;
-        private static AppSettings _appS = null;
-        static GetAppSettingsValue()
-        {
-            _appS = new AppSettings();
-            _db = new NTMContext();
-        }   
-
         public static string Value(string Key)
         {
-            _appS = _db.AppSettings.Where(s => s.Key == Key).FirstOrDefault();
-            return _appS.Value;
+            switch (Key)
+            {
+                case "CommentsLimitAdmin":
+                    return "999";
+
+                case "CommentsLimitModerator":
+                    return "999";
+
+                case "CommentsLimitUser":
+                    return "20";
+
+                case "CommentsLimitNotConfirmed":
+                    return "5";
+
+                case "CommentsAddDelayAdmin":
+                    return "0";
+
+                case "CommentsAddDelayModerator":
+                    return "0";
+
+                case "CommentsAddDelayUser":
+                    return "30";
+
+                case "NewsLimitAdmin":
+                    return "999";
+
+                case "NewsLimitModerator":
+                    return "999";
+                  
+                case "NewsLimitUser":
+                    return "10";
+                   
+                case "NewsLimitNotConfirmed":
+                    return "1";                   
+
+                case "NewNewsHours":
+                    return "48";
+                  
+                case "FilterVoting":
+                    return "4";
+                    
+                case "FilterVisitors":
+                    return "2";
+                    
+                case "FilterComments":
+                    return "2";
+                    
+                case "TagStrignLenght":
+                    return "42";
+                    
+                case "MinCommentsForReputation":
+                    return "2";
+                   
+                case "MinNumberVotes":
+                    return "2";
+            
+                default:
+                    return "1";
+
+            }
+
         }
     }
 }

@@ -74,9 +74,8 @@
                     <i class="sidebar icon"></i>
                 </button>
                 <a class="navbar-brand" href="@Url.Action("Index", "Main")">
-                        <img src="~/Images/Utility/fflogo2.png" style="height:38px; padding-top:10px" class="ffLogo" />                             
-                        @*<img src="~/Images/Utility/l1.png" style="height:50px; float:left" class="ffLogo" />*@
-                        @*<img src="~/Images/Utility/l2.png" class="ffLogo" style="margin-top:5px" />*@                    
+                    <img src="@Url.FOFheaderLogo()" style="height:46px; margin-top:2px" class="ffLogo hidden-sm hidden-xs" />
+                    <img src="@Url.FOFheaderLogo()" style="height:46px; margin-top:6px" class="ffLogo visible-sm visible-xs" />
                 </a>
                 @{
                     var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
@@ -85,13 +84,13 @@
                 @if (Request.IsAuthenticated)
                 {
                     <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Index", "Manage")">
-                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" style="margin-top:8px"/>
+                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm" style="margin-top:8px"/>
                     </a>
                 }
                 else
                 {
                     <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Login", "Account")">
-                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm visible-xs" />
+                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm" style="margin-top:8px" />
                     </a>
 
                 }
@@ -166,8 +165,8 @@
 
         <div class="copyright col-xs-12">
             
-            <div class="col-sm-9 removePadding"><img src="~/Images/Utility/ffslogodark.png" style="height:25px" /><span>&nbsp;Copyright &copy; 2017 Fakt or Fake.</span></div>
-            <div class="col-sm-3" style="text-align:right; padding: 0 5px 0 0;"><span>Kontakt: </span><a href="mailto:administracja@faktorfake.pl">administracja@faktorfake.pl</a></div>            
+            <div class="col-sm-9 removePadding"><img src="@Url.FOFiconDarkW()" height="28" style="margin:1px 2px 0 0" /><span>&nbsp;Copyright &copy; 2017 Fakt or Fake.</span></div>
+            <div class="col-sm-3" style="text-align:right; padding: 3px 5px 0 0;"><span>Kontakt: </span><a href="mailto:administracja@faktorfake.pl" class="ffColor">administracja@faktorfake.pl</a></div>            
             
         </div>
     </footer>

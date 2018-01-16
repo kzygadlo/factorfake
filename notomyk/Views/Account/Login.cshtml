@@ -8,7 +8,7 @@
     <div class="col-xs-12">
 
         <div class="main-login main-center">
-            <img class="profile-img" src="~/Images/Utility/favicons_fof/android-icon-192x192.png" alt="">
+            <img class="profile-img" src="@Url.FOFiconLight()" alt="">
             @*<img class="profile-img" src="~/Images/Utility/loginLogo.png" alt="">*@
 
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))

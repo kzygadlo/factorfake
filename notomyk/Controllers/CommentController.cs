@@ -224,7 +224,7 @@ namespace notomyk.Controllers
                                     {
                                         success = false,
                                         errHeader = string.Format("Filtr anty-spamowy."),
-                                        errMessage = string.Format("Musisz odczekać {0} sekund aby dodać nowy komentarz.", valResultD)
+                                        errMessage = string.Format("Musisz odczekać jeszcze {0} sekund aby dodać nowy komentarz.", commentValidator.timeToGO)
                                     });
                                 // time dealy 
                             }

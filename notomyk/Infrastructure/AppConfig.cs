@@ -51,38 +51,8 @@ namespace notomyk.Infrastructure
         }
 
 #endregion Paths
-        public static string ProgressBarStyle(int Fakt, int Fake)
-        {
-            string FaktColor = "rgba(92, 184, 92, 0)";
-            string FakeColor = "rgba(217, 83, 79, 0)";
-            //string RightColor = "rgba(255, 255, 255, 1)";
-            string RightColor = "rgba(220, 220, 220, 0);";
-            string Color;
-            int Percent = Math.Abs(FFpercentages(Fakt, Fake));
 
-            if (Fakt > Fake)
-            {
-                Color = FaktColor;
-            }
-            else
-            {
-                Color = FakeColor;
-            }
 
-            return string.Format("background: linear-gradient(to right, {0} 0%,{0} 0%,{0} {1}%, {2} {1}%, {2} 100%)", Color, Percent, RightColor);
-        }
-
-        public static int FFpercentages(int Fakt, int Fake)
-        {
-            return (int)(((decimal)(Fakt - Fake) / (Fakt + Fake)) * 100);
-        }
-
-        //public static string UserIcon(string UserIconName)
-        //{
-        //    var iconFolder = AppConfig.IconFolder;
-        //    var userIconName = UserIconName ?? "user_icon_default.jpg";
-        //    return  Regex.Replace(Path.Combine(iconFolder, userIconName), @"~", "");
-        //}
 
         public static string UserLogoLink(string userID)
         {

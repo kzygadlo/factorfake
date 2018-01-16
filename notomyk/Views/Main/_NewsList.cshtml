@@ -10,16 +10,16 @@
 @Html.Partial("_SingleNewsTemplate")
 
 
+
 <div class="event-list-main col-xs-12 removePadding">
-
-    <ul id="newsContainer" style="margin-bottom:0"></ul>
-
-    <div id="loadingImage" class="ui segment" style="width:100%; margin-bottom:10px; border:none; box-shadow:none">
+    <div id="loadingImage" class="ui segment" style="width:100%; border:none; box-shadow:none; margin-bottom:5px">
         <div class="ui active inverted dimmer">
             <div class="ui medium text loader">Wczytywanie wiadomości.</div>
         </div>
         <p></p>
     </div>
+    <ul id="newsContainer" style="margin-bottom:10px"></ul>
+
     <input type="button" id="newPageButton" class="addNewPage col-xs-12" hidden="hidden" value="" data-id="0" />
     <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
 </div>

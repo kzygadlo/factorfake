@@ -588,6 +588,11 @@
     <Content Include="Images\Utility\fflogo2.png" />
     <Content Include="Images\Utility\fflslogo2.png" />
     <Content Include="Images\Utility\ffslogodark.png" />
+    <Content Include="Images\Utility\FOFlogos\foffooterlogo.PNG" />
+    <Content Include="Images\Utility\FOFlogos\fofheaderlogo.PNG" />
+    <Content Include="Images\Utility\FOFlogos\foficondark.PNG" />
+    <Content Include="Images\Utility\FOFlogos\foficondarkW.PNG" />
+    <Content Include="Images\Utility\FOFlogos\foficonlight.PNG" />
     <Content Include="Images\Utility\loading-gif-transparent-4.gif" />
     <Content Include="Images\Utility\loginLogo.png" />
     <Content Include="Images\Utility\stars.jpg" />

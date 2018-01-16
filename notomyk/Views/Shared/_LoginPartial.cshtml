@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li style="padding:5px;" class="hidden-sm hidden-xs">
                 @{
-        var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
+                    var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
                 }
                 <img src="@imgUrl" class="img-circle imgUserLogo" />
             </li>

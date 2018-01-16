@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -28,6 +29,51 @@ namespace notomyk.Infrastructure
         {
             var newspaperIconFolder = AppConfig.NewspaperIconsFolder_wide;
             var path = Path.Combine(newspaperIconFolder, newspaperIconFilename);
+            return helper.Content(path);
+        }
+
+        public static string FOFheaderLogo(this UrlHelper helper)
+        {
+            var fofLogosPath = ConfigurationManager.AppSettings["FOFlogos"];
+            var fileName = "fofheaderlogo.png";
+            var path = Path.Combine(fofLogosPath, fileName);
+            
+            return helper.Content(path);
+        }
+
+        public static string FOFfooterLogo(this UrlHelper helper)
+        {
+            var fofLogosPath = ConfigurationManager.AppSettings["FOFlogos"];
+            var fileName = "foffooterlogo.png";
+            var path = Path.Combine(fofLogosPath, fileName);
+
+            return helper.Content(path);
+        }
+
+        public static string FOFiconLight(this UrlHelper helper)
+        {
+            var fofLogosPath = ConfigurationManager.AppSettings["FOFlogos"];
+            var fileName = "foficonlight.png";
+            var path = Path.Combine(fofLogosPath, fileName);
+
+            return helper.Content(path);
+        }
+
+        public static string FOFiconDark(this UrlHelper helper)
+        {
+            var fofLogosPath = ConfigurationManager.AppSettings["FOFlogos"];
+            var fileName = "foficondark.png";
+            var path = Path.Combine(fofLogosPath, fileName);
+
+            return helper.Content(path);
+        }
+
+        public static string FOFiconDarkW(this UrlHelper helper)
+        {
+            var fofLogosPath = ConfigurationManager.AppSettings["FOFlogos"];
+            var fileName = "foficondarkW.png";
+            var path = Path.Combine(fofLogosPath, fileName);
+
             return helper.Content(path);
         }
 

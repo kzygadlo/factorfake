@@ -16,6 +16,7 @@ namespace notomyk.Infrastructure
         public bool EmailConfirmed;
         int _CommentsLimitNumber;
         double _CommentsTimeDelay;
+        public double timeToGO;
 
         ApplicationUser _User = new ApplicationUser();
 
@@ -114,6 +115,9 @@ namespace notomyk.Infrastructure
             {
                 return 0;
             }
+
+            timeToGO = _CommentsTimeDelay - timeDiff;
+
             return _CommentsTimeDelay;
         }
 

@@ -299,6 +299,7 @@ function showComments(Filter) {
 
     var $template = $('#commentPattern').html();
     var $commentList = $("#commentsList");
+    var $commentsContainer = $('.comments-container');
 
     function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV, repPcom, repAcom, repPoins, basicClass, removedClass, reportClass) {
 
@@ -345,6 +346,7 @@ function showComments(Filter) {
 
     var NewsID = $(".frmNewsID").val();
 
+    $commentsContainer.addClass("hidden");
 
     $.ajax({
         url: '/Comment/Get',
@@ -358,7 +360,8 @@ function showComments(Filter) {
             $('#sortingTab').addClass("hidden");
             $('#noResultTab').addClass("hidden");
             $('#loadingImage').removeClass("hidden");
-            $.each(result, function (key, val) {
+            
+;            $.each(result, function (key, val) {
                 fulfillCommTemplate(NewsID, val.cid, val.com, val.date, val.userN, val.userL, val.faktV, val.fakeV, val.repliesV, val.voteForComment, val.positiveCommentsNumber, val.allCommentsNumber, val.reputationPoints, val.commentBasicClass, val.commentRemovedClass, val.reportedClass)
             });
 
@@ -384,6 +387,7 @@ function showComments(Filter) {
             }
 
             $('#loadingImage').addClass("hidden");
+            $commentsContainer.removeClass("hidden");
         },
         error: function () {
             showNotification('negative', 'Pobieranie komentarzy.', 'Wystąpił błąd podczas pobierania komentarzy.', $commentList)

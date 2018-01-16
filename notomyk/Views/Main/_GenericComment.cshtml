@@ -1,25 +1,25 @@
 ﻿@Html.Partial("_NotificationTemplateJQ")
 
-<div id="loadingImage" class="ui segment col-xs-12" style="width:100%; box-shadow:none">
+<div id="loadingImage" class="ui segment col-xs-12" style="width:100%; box-shadow:none; margin-bottom:5px">
     <div class="ui active inverted dimmer">
         <div class="ui medium text loader">Wczytywanie komentarzy.</div>
     </div>
 </div>
 
 
-<div id="sortingTab" class="sorting col-lg-12 list-group-item hidden">
+<div id="sortingTab" class="sorting col-xs-12 list-group-item hidden">
     <c class="text-muted">Sortuj wg: </c>
     <a href="#" id="commentSort0">daty dodania  | </a>
     <a href="#" id="commentSort1">reputacji autorów | </a>
     <a href="#" id="commentSort2">oceny </a>
 </div>
 
-<div id="noResultTab" class="sorting col-lg-12 list-group-item hidden" style="text-align:center">
+<div id="noResultTab" class="sorting col-xs-12 list-group-item hidden" style="text-align:center">
     <c class="text-muted">Brak komentarzy dla tego artykułu. Bądź pierwszy i skomentuj. </c>
 </div>
 
 
-<div class="comments-container col-lg-12 removePadding">
+<div class="comments-container col-xs-12 removePadding" style="margin-bottom:10px">
     @*Comments container*@
     <ul id="commentsList" class="comments-list">
         
