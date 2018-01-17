@@ -343,8 +343,8 @@ body {
 
     .rightList .post .post-heading .avatar {
         padding-top: 1px;
-        width: 32px;
-        height: 32px;
+        width: 32px !important;
+        height: 32px !important;
         display: block;
         margin-right: 15px;
     }
@@ -628,8 +628,8 @@ footer.nb-footer {
 }
 
 .profile-img {
-    width: 96px;
-    height: 96px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto 30px;
     display: block;
     -moz-border-radius: 50%;

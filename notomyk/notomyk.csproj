@@ -557,44 +557,21 @@
     <Content Include="Images\UserIcons\ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" />
     <Content Include="Images\UserIcons\user_icon_default.jpg" />
     <Content Include="Images\Utility\defaultImage.jpg" />
-    <Content Include="Images\Utility\favicon.png" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-144x144.png" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-192x192.jpg" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-36x36.png" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-48x48.png" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-72x72.png" />
-    <Content Include="Images\Utility\favicons_fof\android-icon-96x96.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-114x114.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-120x120.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-144x144.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-152x152.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-180x180.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-57x57.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-60x60.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-72x72.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-76x76.png" />
-    <Content Include="Images\Utility\favicons_fof\apple-icon-precomposed.png" />
+    <Content Include="Images\Utility\favicons_fof\android-chrome-192x192.png" />
+    <Content Include="Images\Utility\favicons_fof\android-chrome-512x512.png" />
+    <Content Include="Images\Utility\favicons_fof\apple-touch-icon.png" />
     <Content Include="Images\Utility\favicons_fof\browserconfig.xml" />
     <Content Include="Images\Utility\favicons_fof\favicon-16x16.png" />
     <Content Include="Images\Utility\favicons_fof\favicon-32x32.png" />
-    <Content Include="Images\Utility\favicons_fof\favicon-96x96.png" />
     <Content Include="Images\Utility\favicons_fof\favicon.ico" />
-    <Content Include="Images\Utility\favicons_fof\manifest.json" />
-    <Content Include="Images\Utility\favicons_fof\ms-icon-144x144.png" />
-    <Content Include="Images\Utility\favicons_fof\ms-icon-150x150.png" />
-    <Content Include="Images\Utility\favicons_fof\ms-icon-310x310.png" />
-    <Content Include="Images\Utility\favicons_fof\ms-icon-70x70.png" />
-    <Content Include="Images\Utility\fflogo.jpg" />
-    <Content Include="Images\Utility\fflogo2.png" />
-    <Content Include="Images\Utility\fflslogo2.png" />
-    <Content Include="Images\Utility\ffslogodark.png" />
+    <Content Include="Images\Utility\favicons_fof\mstile-150x150.png" />
+    <Content Include="Images\Utility\favicons_fof\safari-pinned-tab.svg" />
     <Content Include="Images\Utility\FOFlogos\foffooterlogo.PNG" />
     <Content Include="Images\Utility\FOFlogos\fofheaderlogo.PNG" />
     <Content Include="Images\Utility\FOFlogos\foficondark.PNG" />
     <Content Include="Images\Utility\FOFlogos\foficondarkW.PNG" />
     <Content Include="Images\Utility\FOFlogos\foficonlight.PNG" />
     <Content Include="Images\Utility\loading-gif-transparent-4.gif" />
-    <Content Include="Images\Utility\loginLogo.png" />
     <Content Include="Images\Utility\stars.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -807,6 +784,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Utility\favicons_fof\manifest.json" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
