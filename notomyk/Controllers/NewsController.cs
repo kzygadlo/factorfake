@@ -211,9 +211,9 @@ namespace notomyk.Controllers
 
                     FOFlog.Info(string.Format("User: {0} removed newsID: {1}", User.Identity.Name, newsID));
 
-                    RedirectToAction("Index", "Main");
+                    //return RedirectToAction("Index", "Main");
 
-                    //return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
+                    return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
                 }
             }
             return Json(new

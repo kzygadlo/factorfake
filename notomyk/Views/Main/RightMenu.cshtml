@@ -24,23 +24,44 @@
             @foreach (var user in Model.UsersRep)
             {
                 var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
-
+                int isOnline = GetTimeAgo.IsOnline(user.lastActivity);
                 <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
                     <div class="ui relaxed middle aligned  divided list">
                         <div class="item col-xs-8" style="padding:0 !important">
                             <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
                             <div class="content">
-                                <strong>@user.UserName&nbsp;&nbsp;</strong>
+
+                                <div style="height:17px">
+                                    <small class="rightMenuPostTitle"><strong>@user.UserName</strong></small>
+                                </div>
+                                <div class="description" style="height:17px;">
+                                    <small>
+                                        <i class="announcement icon"></i><span class="hidden-md">Aktywny:&nbsp;</span>
+                                        @if (isOnline == 1)
+                                        {
+                                            <strong style="color:green">Online</strong>
+                                        }
+                                        else if (isOnline == 0)
+                                        {
+                                            <span style="color:darkorange">@GetTimeAgo.CalculateDateDiff(user.lastActivity)</span>
+                                        }
+                                        else
+                                        {
+                                            @GetTimeAgo.CalculateDateDiff(user.lastActivity)
+                                        }
+                                    </small>
+                                </div>
+                                @*<strong>@user.UserName&nbsp;&nbsp;</strong>*@
                             </div>
                         </div>
                         <div class="pull-left meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
                             <span class="ui basic label">
-                            <span class="greenColor"><strong>@user.Pcomments</strong></span>                            
-                            / <span>@user.Acomments</span>
+                                <span class="greenColor"><strong>@user.Pcomments</strong></span>
+                                / <span>@user.Acomments</span>
                             </span>
                         </div>
-                        <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">                           
-                            <span class="ui orange basic label">@ReputationLogic.ReputationPercentage(user.Pcomments,user.Acomments) %</span>
+                        <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
+                            <span class="ui orange basic label">@ReputationLogic.ReputationPercentage(user.Pcomments, user.Acomments) %</span>
                         </div>
                     </div>
                 </div>
@@ -51,14 +72,32 @@
             @foreach (var user in Model.UsersNews)
             {
                 var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
-
+                int isOnline = GetTimeAgo.IsOnline(user.LastActivity);
                 <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
                     <div class="ui relaxed middle aligned  divided list">
                         <div class="item col-xs-10" style="padding:0 !important">
                             <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
                             <div class="content">
-                                <strong>@user.UserName&nbsp;&nbsp;</strong>
-                                @*<div class="ui star rating" data-rating="3" data-max-rating="5"></div>*@
+                                <div style="height:17px">
+                                    <small class="rightMenuPostTitle"><strong>@user.UserName</strong></small>
+                                </div>
+                                <div class="description" style="height:17px;">
+                                    <small>
+                                        <i class="announcement icon"></i><span class="hidden-md">Aktywny:&nbsp;</span>
+                                        @if (isOnline == 1)
+                                        {
+                                            <strong style="color:green">Online</strong>
+                                        }
+                                        else if (isOnline == 0)
+                                        {
+                                            <span style="color:darkorange">@GetTimeAgo.CalculateDateDiff(user.LastActivity)</span>
+                                        }
+                                        else
+                                        {
+                                            @GetTimeAgo.CalculateDateDiff(user.LastActivity)
+                                        }
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
@@ -72,14 +111,32 @@
             @foreach (var user in Model.UsersComm)
             {
                 var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
-
+                int isOnline = GetTimeAgo.IsOnline(user.LastActivity);
                 <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
                     <div class="ui relaxed middle aligned  divided list">
                         <div class="item col-xs-10" style="padding:0 !important">
                             <i class="icon"><img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt=""></i>
                             <div class="content">
-                                <strong>@user.UserName&nbsp;&nbsp;</strong>
-                                @*<div class="ui star rating" data-rating="3" data-max-rating="5"></div>*@
+                                <div style="height:17px">
+                                    <small class="rightMenuPostTitle"><strong>@user.UserName</strong></small>
+                                </div>
+                                <div class="description" style="height:17px;">
+                                    <small>
+                                        <i class="announcement icon"></i><span class="hidden-md">Aktywny:&nbsp;</span>
+                                        @if (isOnline == 1)
+                                        {
+                                            <strong style="color:green">Online</strong>
+                                        }
+                                        else if (isOnline == 0)
+                                        {
+                                            <span style="color:darkorange">@GetTimeAgo.CalculateDateDiff(user.LastActivity)</span>
+                                        }
+                                        else
+                                        {
+                                            @GetTimeAgo.CalculateDateDiff(user.LastActivity)
+                                        }
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
@@ -137,7 +194,11 @@
                     <div class="content">
 
                         <div class="header" style="padding:0 0 3px 5px"><span class="p3lines">@News.Title</span></div>
-                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                        <div class="description" style="padding-left: 5px">
+                            <small>
+                                <i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)
+                            </small>
+                        </div>
                     </div>
                 </a>
             }
@@ -168,7 +229,11 @@
                     <div class="content">
 
                         <div class="header" style="padding:0 0 3px 5px"><span class="p3lines">@News.Title</span></div>
-                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                        <div class="description" style="padding-left: 5px">
+                            <small>
+                                <i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)
+                            </small>
+                        </div>
                     </div>
                 </a>
             }
@@ -177,7 +242,7 @@
         <div id="3c" class="news ui middle aligned divided list tab-pane" style="margin:0">
             @foreach (var News in Model.CommentedNews)
             {
-                int CommNum = Convert.ToInt32(@News.Collection_Comments.Where(n=> n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + Convert.ToInt32(@News.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count());
+                int CommNum = Convert.ToInt32(@News.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + Convert.ToInt32(@News.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count());
 
                 <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
                     <div class="right floated content">
@@ -200,7 +265,11 @@
                     <div class="content">
 
                         <div class="header" style="padding:0 0 3px 5px"><span class="p3lines">@News.Title</span></div>
-                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                        <div class="description" style="padding-left: 5px">
+                            <small>
+                                <i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)
+                            </small>
+                        </div>
                     </div>
                 </a>
             }
@@ -229,7 +298,11 @@
                     <div class="content">
 
                         <div class="header" style="padding:0 0 3px 5px"><span class="p3lines">@News.Title</span></div>
-                        <div class="description" style="padding-left: 5px"><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)</div>
+                        <div class="description" style="padding-left: 5px">
+                            <small>
+                                <i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(News.DateAdd)
+                            </small>
+                        </div>
                     </div>
                 </a>
             }

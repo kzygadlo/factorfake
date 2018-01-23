@@ -431,6 +431,10 @@
     <Compile Include="Migrations\201801082208411_BlackListAndLoginAttemps.Designer.cs">
       <DependentUpon>201801082208411_BlackListAndLoginAttemps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801231748193_LastActivity.cs" />
+    <Compile Include="Migrations\201801231748193_LastActivity.Designer.cs">
+      <DependentUpon>201801231748193_LastActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppSettings.cs" />
@@ -441,6 +445,7 @@
     <Compile Include="Models\ForumTopic.cs" />
     <Compile Include="Models\GetTimeAgo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\logLastActivity.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MetaInformation.cs" />
     <Compile Include="Models\ForumPost.cs" />
@@ -1613,6 +1618,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801082208411_BlackListAndLoginAttemps.resx">
       <DependentUpon>201801082208411_BlackListAndLoginAttemps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801231748193_LastActivity.resx">
+      <DependentUpon>201801231748193_LastActivity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

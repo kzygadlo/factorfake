@@ -19,7 +19,7 @@
                 }
                 else
                 {
-                    @Html.ActionLink("Witaj " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    @Html.ActionLink("Witaj: " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                 }
                 
             </li>

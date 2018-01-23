@@ -171,7 +171,7 @@ namespace notomyk.Controllers
         public ActionResult Add(string CommentText, int NewsID, int parentID = 0)
         {
             if (Request.IsAuthenticated)
-            {
+            {                
                 if (ModelState.IsValid)
                 {
                     using (NTMContext db = new NTMContext())

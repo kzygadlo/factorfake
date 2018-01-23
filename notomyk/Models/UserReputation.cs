@@ -12,5 +12,6 @@ namespace notomyk.Models
         public int Pcomments { get; set; }
         public int Acomments { get; set; }
         public double Reputation { get; set; }
+        public DateTime? lastActivity { get; set; }
     }
 }

@@ -103,7 +103,14 @@
                 },
                 success: function (response) {
                     if (response.Success == true) {
-                        showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Post.closest('.commentBoxJQ'))
+                        if ($Post.closest('.comment-box').find('.reportSpan').hasClass('hidden')) {
+                            showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Post.closest('.commentBoxJQ'))
+                            $Post.closest('.comment-box').find('.reportSpan').removeClass('hidden');
+                        }
+                        else {
+                            showNotification('negative', 'Zgłaszanie komentarza.', 'Komentarz został już zgłoszony.', $Post.closest('.commentBoxJQ'))
+                        }
+                        
                     }
                     else {
                         showNotification('negative', 'Zgłaszanie komentarza.', response.errMessage, $Post.closest('.commentBoxJQ'))
@@ -161,16 +168,20 @@
                 postID: PostID
             },
             success: function (response) {
-                if (response.success == true) {
+                if (response.success == true && response.childComments == 0) {
+
                     $entComm.closest(".singleComment").fadeOut(600, function () {
                         $entComm.closest(".singleComment").remove();
                     });
 
                 }
+                else if (response.success == true && response.childComments > 0) {
+                    $entComm.closest(".singleComment").find(".removedMessage").removeClass('hidden');
+                    $entComm.closest(".singleComment").find(".basicMessage").addClass('hidden');
+                }
                 else {
                     showNotification('negative', response.errHeader, response.errMessage, $entComm.closest('.commentBoxJQ'))
                 }
-
             },
             error: function () {
                 showNotification('negative', 'Usuwanie komentarza.', 'Wystąpił błąd podczas usuwania komentarza.', $entComm.closest('.commentBoxJQ'))
@@ -213,7 +224,7 @@ function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend, $whe
         },
         success: function (response) {
             if (response.success == true) {
-                fulfillPostCommentTemplate(response.postID, response.post, response.dateAdd, response.userName, response.userLogoLink, $template, $wherePrepend, $comment, parentID);
+                fulfillPostCommentTemplateForNewPost(response.postID, response.post, response.dateAdd, response.userName, response.userLogoLink, $template, $wherePrepend, $comment, parentID);
             } else {
                 showNotification('negative', response.errHeader, response.errMessage, $whereAppendNotif)
             }
@@ -224,14 +235,17 @@ function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend, $whe
     });
 };
 
-function fulfillPostCommentTemplate(postID, post, date, userN, userL, $template, $wherePrepend, $comment, parentID) {
+function fulfillPostCommentTemplateForNewPost(postID, post, date, userN, userL, $template, $wherePrepend, $comment, parentID, basicClass, removedClass, reportClass) {
     var commentVariables =
     {
         PostID: postID,
         Post: post,
         Date: date,
         UserName: userN,
-        LogoName: userL
+        LogoName: userL,
+        ReportedClass: "hidden",
+        CommentBasicClass: "",
+        CommentRemovedClass: "hidden"
         //,
         //CommentFaktV: 0,
         //CommentFakeV: 0,
@@ -268,7 +282,7 @@ function showPosts(Filter) {
     var $template = $('#forumPostTemplate').html();
     var $commentList = $("#commentsList");
 
-    function fulfillCommTemplate(postID, post, date, userN, userL, repV) {
+    function fulfillCommTemplate(postID, post, date, userN, userL, repV, basicClass, removedClass, reportClass) {
 
         var repValue = "";
         if (repV != 0) {
@@ -292,7 +306,10 @@ function showPosts(Filter) {
             Date: date,
             UserName: userN,
             LogoName: userL,
-            RepliesV: repValue
+            RepliesV: repValue,
+            ReportedClass: reportClass,
+            PostBasicClass: basicClass,
+            PostRemovedClass: removedClass
         };
         var html = Mustache.to_html($template, replyVariables);
         //$comment.val("");
@@ -316,7 +333,7 @@ function showPosts(Filter) {
             $('#loadingImage').removeClass("hidden");
 
             $.each(result, function (key, val) {
-                fulfillCommTemplate(val.postID, val.post, val.dateAdd, val.userName, val.userLogoLink, val.repliesNumber)
+                fulfillCommTemplate(val.postID, val.post, val.dateAdd, val.userName, val.userLogoLink, val.repliesNumber, val.commentBasicClass, val.commentRemovedClass, val.reportedClass)
             });
 
             if (result.length == 0) {

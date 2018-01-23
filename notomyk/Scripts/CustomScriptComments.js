@@ -237,7 +237,7 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend, $w
         },
         success: function (response) {
             if (response.success == true) {
-                fulfillCommentTemplate(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints);
+                fulfillCommentTemplateForNewComment(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints);
             } else {
 
                 showNotification('negative', response.errHeader, response.errMessage, $whereAppendNotif)
@@ -249,7 +249,7 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend, $w
     });
 };
 
-function fulfillCommentTemplate(cid, com, date, userN, userL, $template, $wherePrepend, $comment, newsID, parentID, repPcom, repAcom, repPoins) {
+function fulfillCommentTemplateForNewComment(cid, com, date, userN, userL, $template, $wherePrepend, $comment, newsID, parentID, repPcom, repAcom, repPoins) {
     var commentVariables =
     {
         NewsID: newsID,

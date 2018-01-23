@@ -21,7 +21,11 @@ namespace notomyk.Controllers
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
         public ActionResult Index(bool mainPage = true)
         {
-              
+            if (Request.IsAuthenticated)
+            {
+                logLastActivity la = new logLastActivity(User.Identity.GetUserId());
+            }
+
             var newspaperList = db.Newspaper
                  .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
                  .OrderBy(o => o.NewspaperName)
@@ -49,7 +53,7 @@ namespace notomyk.Controllers
 
             var finalList = listOfNews.Select(x => new
             {
-                CommentsNumber = Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + +Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count()),
+                CommentsNumber = Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count()) + Convert.ToInt32(x.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count()),
                 x.ApplicationUser,
                 x.ArticleLink,
                 x.DateAdd,
@@ -187,6 +191,9 @@ namespace notomyk.Controllers
             {
                 ViewBag.popupMsg = "Musisz byc zalogowany aby oddać głos.";
             }
+            else {
+                logLastActivity la = new logLastActivity(User.Identity.GetUserId());
+            }
             
 
             ViewBag.NewsID = ID;
@@ -304,8 +311,9 @@ namespace notomyk.Controllers
 
             var userR = db.Users.Select(
                 o => new UserReputation
-                {
+                {                    
                     Id = o.Id,
+                    lastActivity = o.LastActivity,
                     UserName = o.UserName,
                     Pcomments = o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
                     Acomments = o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),

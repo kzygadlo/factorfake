@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System;
+using notomyk.DAL;
 
 namespace notomyk.Models
 {
@@ -18,6 +19,8 @@ namespace notomyk.Models
         public DateTime? LastCommentAdded { get; set; }
         public int LoginAttempts { get; set; }
         public DateTime? LastLoginAttempt { get; set; }
+        public DateTime? AccountCreateDate { get; set; }
+        public DateTime? LastActivity { get; set; }
 
         public virtual ICollection<VoteLog> VotingLogs { get; set; }
 

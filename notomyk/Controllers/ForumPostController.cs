@@ -144,7 +144,10 @@ namespace notomyk.Controllers
                     post.IsActive = false;
                     db.SaveChanges();
 
-                    return Json(new { success = true });
+                    return Json(new {
+                        success = true,
+                        childComments = post.Children.Where(c => c.IsActive == true).Count()
+                    });
                 }
             }
             else

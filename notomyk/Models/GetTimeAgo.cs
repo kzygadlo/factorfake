@@ -7,9 +7,14 @@ namespace notomyk.Models
 {
     public class GetTimeAgo
     {
-        public static string CalculateDateDiff(DateTime strDate)
+        public static string CalculateDateDiff(DateTime? strDate)
         {
             string strTime = string.Empty;
+
+            if (strDate == null)
+            {
+                return "brak danych";
+            }
             if (IsDate(Convert.ToString(strDate)))
             {
                 TimeSpan t = DateTime.UtcNow - Convert.ToDateTime(strDate);
@@ -41,7 +46,7 @@ namespace notomyk.Models
                 else if (deltaMinutes < (24 * 60))
                 {
                     minutes = (int)Math.Floor(deltaMinutes / 60);
-                    return minutes + " godzin temu";
+                    return minutes + " godz. temu";
                 }
                 else if (deltaMinutes < (24 * 60 * 2))
                 {
@@ -59,7 +64,7 @@ namespace notomyk.Models
                 else if (deltaMinutes < (24 * 60 * 31))
                 {
                     minutes = (int)Math.Floor(deltaMinutes / (60 * 24 * 7));
-                    return minutes + " tygodni temu";
+                    return minutes + " tyg. temu";
                 }
                 else if (deltaMinutes < (24 * 60 * 61))
                 {
@@ -68,7 +73,7 @@ namespace notomyk.Models
                 else if (deltaMinutes < (24 * 60 * 365.25))
                 {
                     minutes = (int)Math.Floor(deltaMinutes / (60 * 24 * 30));
-                    return minutes + " miesięcy temu";
+                    return minutes + " mies. temu";
                 }
                 else if (deltaMinutes < (24 * 60 * 731))
                 {
@@ -87,6 +92,25 @@ namespace notomyk.Models
         {
             DateTime tmp;
             return DateTime.TryParse(o, out tmp);
-        } 
+        }
+
+        public static int IsOnline(DateTime? date)
+        {
+            TimeSpan t = DateTime.UtcNow - Convert.ToDateTime(date);
+            double deltaMinutes = t.TotalMinutes;
+
+            if (deltaMinutes < 20)
+            {
+                return 1;
+            }
+            else if (deltaMinutes < 1440)
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
     }
 }

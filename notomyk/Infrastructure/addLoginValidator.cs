@@ -73,6 +73,8 @@ namespace notomyk.Infrastructure
         public void SuccessfulLogin()
         {
             _User.LoginAttempts = 0;
+            _User.LastLoginAttempt = DateTime.UtcNow;
+            _User.LastActivity = DateTime.UtcNow;
             db.SaveChanges();
         }
     }

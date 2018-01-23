@@ -16,6 +16,11 @@ namespace notomyk.Controllers
 
         public ActionResult Index()
         {
+            if (Request.IsAuthenticated)
+            {
+                logLastActivity la = new logLastActivity(User.Identity.GetUserId());
+            }
+
             var model = new ForumMain()
             {
                 Categories = db.ForumCategory.OrderBy(o => o.Order).ToList(),
@@ -27,6 +32,10 @@ namespace notomyk.Controllers
 
         public ActionResult Topic(int ID)
         {
+            if (Request.IsAuthenticated)
+            {
+                logLastActivity la = new logLastActivity(User.Identity.GetUserId());
+            }
             var singleTopic = db.ForumTopic.Where(t => t.ID == ID).FirstOrDefault();
 
             if (Request.Cookies[string.Format("HasVisitedTopic:{0}", ID)] == null)

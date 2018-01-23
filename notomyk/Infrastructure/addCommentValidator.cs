@@ -125,6 +125,7 @@ namespace notomyk.Infrastructure
         {
             user.CommentsCounter++;
             user.LastCommentAdded = DateTime.UtcNow;
+            user.LastActivity = DateTime.UtcNow;
             db.SaveChanges();
         }
     }

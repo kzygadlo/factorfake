@@ -91,6 +91,7 @@ namespace notomyk.Infrastructure
         {
             user.NewsCounter++;
             user.LastNewsAdded = DateTime.UtcNow;
+            user.LastActivity = DateTime.UtcNow;
             db.SaveChanges();
         }
 

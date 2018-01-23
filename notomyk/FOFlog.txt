@@ -9,3 +9,7 @@
 2018-01-15 19:59:04.0877|ERROR|notomyk.Controllers.NewsController|User: faktorfejk tried to add news from forbidden domain: https://www.pornhub.com/view_video.php?viewkey=ph5a4adf9b6f323
 2018-01-15 21:22:40.3967|INFO|notomyk.Controllers.NewsController|User: krzysiek added news ID: 114
 2018-01-15 21:43:20.6572|INFO|notomyk.Controllers.NewsController|User: krzysiek reported newsID: 81
+2018-01-22 19:26:31.0021|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 114
+2018-01-22 19:26:37.7906|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 114
+2018-01-22 19:28:07.8938|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 114
+2018-01-22 19:29:59.5112|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 112
