@@ -16,18 +16,31 @@
                     <div class="fof col-xs-12 removePadding">
 
                         <div class="ui labeled button fakt pull-left" tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
-                            @if (@Model.WhatVote == 1)
-                            {
-                                <div class="voteFakt ui green BGgreenColor button">
-                                    <i class="thumbs outline up icon"></i> Fakt
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="voteFakt ui green BGgreenColor button BGgreenColorLight">
-                                    <i class="thumbs outline up icon"></i> Fakt
-                                </div>
-                            }
+                            @*@if (@Model.WhatVote == 1)
+                                {
+                                    <div class="voteFakt ui BGgreenColorLight button">
+                                        <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="voteFakt ui BGgreenColorLight button">
+                                        <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                    </div>
+                                }*@
+
+
+                            <div class="voteFakt ui BGgreenColorLight button">
+                                @if (@Model.WhatVote == 1)
+                                {
+                                    <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                }
+                                else
+                                {
+                                    <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                }
+                            </div>
+
 
                             <a class="voteFakt ui basic green left pointing label">
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
@@ -38,18 +51,29 @@
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == false).Count()
                             </a>
 
-                            @if (@Model.WhatVote == -1)
-                            {
-                                <div class="voteFake ui red BGredColor button">
-                                    <i class="thumbs outline down icon"></i> Fake
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="voteFake ui red BGredColor button BGredColorLight">
-                                    <i class="thumbs outline down icon"></i> Fake
-                                </div>
-                            }
+                            @*@if (@Model.WhatVote == -1)
+                                {
+                                    <div class="voteFake ui button BGredColorLight">
+                                        <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="voteFake ui button BGredColorLight">
+                                        <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
+                                    </div>
+                                }*@
+
+                            <div class="voteFake ui BGredColorLight button">
+                                @if (@Model.WhatVote == -1)
+                                {
+                                    <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
+                                }
+                                else
+                                {
+                                    <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
+                                }
+                            </div>
 
                         </div>
                     </div>

@@ -26,16 +26,38 @@ namespace notomyk.Controllers
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());
             }
 
-            var newspaperList = db.Newspaper
-                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0)
+            int numberOfVotes = Convert.ToInt32(GetAppSettingsValue.Value("MinNumberVotes"));
+            List<string> newspaperList = new List<string>();
+            List<Tag> tagList = new List<Tag>();
+
+            if (mainPage)
+            {
+                newspaperList = db.Newspaper
+                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count > numberOfVotes).Count() > 0)
                  .OrderBy(o => o.NewspaperName)
                  .Select(s => s.NewspaperName)
                  .Distinct()
                  .ToList();
 
-            var tagList = db.Tag
-                .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true))
-                .OrderByDescending(o => o.ListOfNews.Count).ToList();
+                tagList = db.Tag
+                    .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true && n.News.VoteLogs.Count > numberOfVotes))
+                    .OrderByDescending(o => o.ListOfNews.Count).ToList();
+            }
+            else
+            {
+                newspaperList = db.Newspaper
+                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count < numberOfVotes).Count() > 0)
+                 .OrderBy(o => o.NewspaperName)
+                 .Select(s => s.NewspaperName)
+                 .Distinct()
+                 .ToList();
+
+                tagList = db.Tag
+                    .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true && n.News.VoteLogs.Count < numberOfVotes))
+                    .OrderByDescending(o => o.ListOfNews.Count).ToList();
+            }
+
+            
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;

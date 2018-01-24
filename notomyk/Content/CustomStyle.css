@@ -247,6 +247,7 @@ body {
     content: "";
     height: 1px;
     background: linear-gradient(to right, rgba(0,0,0,0) 0%,#b6b1b1 50%,rgba(0,0,0,0) 100%);
+    /*background: linear-gradient(to right, rgba(0,0,0,0) 0%, #000000 50%,rgba(0,0,0,0) 100%);*/
     display: block;
 }
 

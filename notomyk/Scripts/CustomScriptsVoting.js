@@ -44,14 +44,14 @@ function newsVoting(whatVote) {
     var $notifBox = $('#SingleNews');
 
     var $newsID = $('.frmNewsID').val();
-    var $fakt = $(".voteFakt.button")
-    var $fake = $(".voteFake.button")
+    var $fake = $(".voteFakt.button > i")
+    var $fakt = $(".voteFake.button > i")
 
     var $faktValue = $("a.voteFakt")
     var $fakeValue = $("a.voteFake")
 
-    var $faktClass = "BGgreenColorLight";
-    var $fakeClass = "BGredColorLight";
+    var $faktClass = "red";
+    var $fakeClass = "green";
 
     ajaxVoteRequest(whatVote, true, $newsID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
 };
@@ -109,6 +109,37 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
 
 
 function votingAction(whatVote, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass) {
+
+    switch (whatVote) {
+
+        case -2:
+            $fakt.addClass($faktClass);
+            $fake.removeClass($fakeClass);
+
+            $fakeValue.html(parseInt($($fakeValue).html(), 10) + 1)
+            $faktValue.html(parseInt($($faktValue).html(), 10) - 1)
+            break;
+        case -1:
+            $fake.removeClass($fakeClass);
+            $fakeValue.html(parseInt($($fakeValue).html(), 10) + 1)
+            break;
+        case 0:
+            break;
+        case 1:
+            $fakt.removeClass($faktClass);
+            $faktValue.html(parseInt($($faktValue).html(), 10) + 1)
+            break;
+        case 2:
+            $fakt.removeClass($faktClass);
+            $fake.addClass($fakeClass);
+
+            $fakeValue.html(parseInt($($fakeValue).html(), 10) - 1)
+            $faktValue.html(parseInt($($faktValue).html(), 10) + 1)
+            break;
+    }
+}
+
+function NewsvotingAction(whatVote, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass) {
 
     switch (whatVote) {
 
