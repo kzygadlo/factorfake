@@ -12,7 +12,7 @@ namespace notomyk.ViewModel
         public IEnumerable<tbl_News> FaktNews { get; set; }
         public IEnumerable<tbl_News> CommentedNews { get; set; }
         public IEnumerable<tbl_News> VisitedNews { get; set; }
-        public IEnumerable<UserReputation> UsersRep { get; set; }
+        public IEnumerable<ApplicationUser> UsersRep { get; set; }
         public IEnumerable<ApplicationUser> UsersComm { get; set; }
         public IEnumerable<ApplicationUser> UsersNews { get; set; }
     }

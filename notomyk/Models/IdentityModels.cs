@@ -7,12 +7,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System;
 using notomyk.DAL;
+using System.Linq;
+using notomyk.Infrastructure;
 
 namespace notomyk.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+
+        private int MinCommentsForReputation = Convert.ToInt32(GetAppSettingsValue.Value("MinCommentsForReputation"));
+
+
         public int NewsCounter { get; set; }
         public DateTime? LastNewsAdded { get; set; }
         public int CommentsCounter { get; set; }
@@ -35,6 +41,45 @@ namespace notomyk.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public int Reputation()
+        {
+
+            double _result;
+
+            DateTime? lastActivity = this.LastActivity;
+            int LastActDiff = 0;
+
+            if (lastActivity.HasValue)
+            {
+                LastActDiff = (DateTime.UtcNow - (DateTime)lastActivity).Days;
+            }
+
+
+            int aComments = AllCommentsCount();
+            int pComments = PostitiveCommentsCount();
+
+            if (aComments > 3)
+            {
+                _result = ((Convert.ToDouble(pComments) / Convert.ToDouble(aComments)) * 100) - LastActDiff / 2;                
+            }
+            else
+            {
+                _result = 0;
+            }
+            return Convert.ToInt16(_result);
+
+        }
+
+        public int AllCommentsCount()
+        {
+            return this.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count();
+        }
+
+        public int PostitiveCommentsCount()
+        {
+            return this.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count();
         }
     }
 }

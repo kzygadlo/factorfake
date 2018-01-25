@@ -5,7 +5,7 @@ using System.Web;
 
 namespace notomyk.Models
 {
-    public class UserReputation
+    public class dotelUasdfserReputation
     {
         public string Id { get; set;}
         public string UserName { get; set; }

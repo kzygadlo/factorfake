@@ -57,7 +57,7 @@ namespace notomyk.Controllers
                     .OrderByDescending(o => o.ListOfNews.Count).ToList();
             }
 
-            
+
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
@@ -90,8 +90,8 @@ namespace notomyk.Controllers
                 x.UserId,
                 x.VoteLogs,
                 x.Visitors,
-                Fakt = x.VoteLogs.Where(v => v.Vote == true).Count(),
-                Fake = x.VoteLogs.Where(v => v.Vote == false).Count(),
+                RatingValue = x.RatingValue(),
+                RatingClass = x.RatingClass(),
                 Tags = tagsToViews.ReturnTags(x.EventsTags.OrderByDescending(o => o.Tags.ListOfNews.Count)
                         .Select(e => e.Tags.TagName)
                         .Take(5)
@@ -105,24 +105,24 @@ namespace notomyk.Controllers
             string iconP = p.NewspaperIconPath_250("path");
 
             return Json(finalList.Select(x => new
-                {
-                    newsID = x.tbl_NewsID,
-                    urlActionLink = url.Replace("id", x.tbl_NewsID.ToString()),
-                    newspaperPictureLink = iconP.Replace("path", x.Newspaper.NewspaperIconLink),
-                    newsPictureLink = x.PictureLink,
-                    newsTitle = myEncoding.ReplaceSign(x.Title),
-                    //newsDescription = myEncoding.ReplaceSign(x.Description),
-                    newsDescription = HttpUtility.HtmlDecode(x.Description),
-                    numberOfVisitors = x.Visitors,
-                    numberOfComments = x.CommentsNumber,
-                    dateAdded = GetTimeAgo.CalculateDateDiff(x.DateAdd),
-                    ratingClass = Rating.RatingClass(x.Fakt, x.Fake),
-                    ratingValue = Rating.RatingValue(x.Fakt, x.Fake),
-                    faktValue = x.Fakt,
-                    fakeValue = x.Fake,
-                    remainingRows = filter.Remains,
-                    tagList = x.Tags
-                }), JsonRequestBehavior.AllowGet);
+            {
+                newsID = x.tbl_NewsID,
+                urlActionLink = url.Replace("id", x.tbl_NewsID.ToString()),
+                newspaperPictureLink = iconP.Replace("path", x.Newspaper.NewspaperIconLink),
+                newsPictureLink = x.PictureLink,
+                newsTitle = myEncoding.ReplaceSign(x.Title),
+                //newsDescription = myEncoding.ReplaceSign(x.Description),
+                newsDescription = HttpUtility.HtmlDecode(x.Description),
+                numberOfVisitors = x.Visitors,
+                numberOfComments = x.CommentsNumber,
+                dateAdded = GetTimeAgo.CalculateDateDiff(x.DateAdd),
+                ratingClass = x.RatingClass,
+                ratingValue = x.RatingValue,
+                faktValue = x.VoteLogs.Where(v => v.Vote == true).Count(),
+                fakeValue = x.VoteLogs.Where(v => v.Vote == false).Count(),
+                remainingRows = filter.Remains,
+                tagList = x.Tags
+            }), JsonRequestBehavior.AllowGet);
         }
 
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
@@ -213,10 +213,11 @@ namespace notomyk.Controllers
             {
                 ViewBag.popupMsg = "Musisz byc zalogowany aby oddać głos.";
             }
-            else {
+            else
+            {
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());
             }
-            
+
 
             ViewBag.NewsID = ID;
 
@@ -329,21 +330,12 @@ namespace notomyk.Controllers
                 .Take(10)
                 .ToList();
 
-            int MinCommentsForReputation = Convert.ToInt32(GetAppSettingsValue.Value("MinCommentsForReputation"));
 
-            var userR = db.Users.Select(
-                o => new UserReputation
-                {                    
-                    Id = o.Id,
-                    lastActivity = o.LastActivity,
-                    UserName = o.UserName,
-                    Pcomments = o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
-                    Acomments = o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
-                    Reputation = (o.tbl_Comment.Where(c => c.IsActive == true 
-                        && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() == 0 ? 0 : o.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() / (1.0 * o.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count()))
-                }
-                ).OrderByDescending(o => o.Reputation)
-                .Take(5).ToList();
+            List<ApplicationUser> uR = new List<ApplicationUser>();
+
+            uR = db.Users.ToList();
+
+            var userR = uR.OrderByDescending(o => o.Reputation()).Take(5).ToList();
 
             var usersNews = (from x in db.Users
                              orderby x.tbl_News.Count descending
@@ -353,16 +345,17 @@ namespace notomyk.Controllers
                              orderby x.tbl_Comment.Where(c => c.IsActive == true).Count() descending
                              select x).Take(5).ToList();
 
-            
 
-            var vm = new RightMenuModel() { 
-                FakeNews = fakeN, 
-                FaktNews = faktN, 
-                VisitedNews = visitors, 
-                CommentedNews = comments, 
-                UsersRep = userR, 
-                UsersNews = usersNews, 
-                UsersComm = usersComm 
+
+            var vm = new RightMenuModel()
+            {
+                FakeNews = fakeN,
+                FaktNews = faktN,
+                VisitedNews = visitors,
+                CommentedNews = comments,
+                UsersRep = userR,
+                UsersNews = usersNews,
+                UsersComm = usersComm
             };
 
             return PartialView(vm);
@@ -371,7 +364,7 @@ namespace notomyk.Controllers
         [ChildActionOnly]
         public ActionResult RightMenuForum()
         {
-            RightMenuForum model = new RightMenuForum(); 
+            RightMenuForum model = new RightMenuForum();
             model.Topics = db.ForumTopic.Where(t => t.OnMainPage != null && t.IsActive == true).OrderBy(o => o.OnMainPage).ToList();
 
             return PartialView(model);

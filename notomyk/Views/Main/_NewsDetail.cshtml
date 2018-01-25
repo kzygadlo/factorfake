@@ -29,17 +29,32 @@
                                     </div>
                                 }*@
 
-
-                            <div class="voteFakt ui BGgreenColorLight button">
-                                @if (@Model.WhatVote == 1)
-                                {
-                                    <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                }
-                                else
-                                {
-                                    <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                }
-                            </div>
+                            @if (Model.SingleNews.RatingClass() == 2)
+                            {
+                                <div class="voteFakt ui green button">
+                                    @if (@Model.WhatVote == 1)
+                                    {
+                                        <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="voteFakt ui BGgreenColorLight button">
+                                    @if (@Model.WhatVote == 1)
+                                    {
+                                        <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
+                                    }
+                                </div>
+                            }
 
 
                             <a class="voteFakt ui basic green left pointing label">
@@ -51,29 +66,35 @@
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == false).Count()
                             </a>
 
-                            @*@if (@Model.WhatVote == -1)
-                                {
-                                    <div class="voteFake ui button BGredColorLight">
+                            @if (Model.SingleNews.RatingClass() == 4)
+                            {
+                                <div class="voteFake ui red button">
+                                    @if (@Model.WhatVote == -1)
+                                    {
                                         <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="voteFake ui button BGredColorLight">
+                                    }
+                                    else
+                                    {
                                         <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
-                                    </div>
-                                }*@
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="voteFake ui BGredColorLight button">
+                                    @if (@Model.WhatVote == -1)
+                                    {
+                                        <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
+                                    }
+                                </div>
+                            }
 
-                            <div class="voteFake ui BGredColorLight button">
-                                @if (@Model.WhatVote == -1)
-                                {
-                                    <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
-                                }
-                                else
-                                {
-                                    <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
-                                }
-                            </div>
+
+
 
                         </div>
                     </div>

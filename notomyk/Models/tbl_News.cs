@@ -1,4 +1,5 @@
-﻿using System;
+﻿using notomyk.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +10,9 @@ namespace notomyk.Models
 {
     public class tbl_News
     {
+
+        int value = Convert.ToInt32(GetAppSettingsValue.Value("FilterVoting"));
+
         public tbl_News()
         {
             IsActive = true;
@@ -38,5 +42,42 @@ namespace notomyk.Models
         public virtual ICollection<tbl_Comment> Collection_Comments { get; set; }
         public virtual ICollection<EventTag> EventsTags { get; set; }
         public virtual ICollection<VoteLog> VoteLogs { get; set; }
+
+
+        public int RatingValue()
+        {
+            int Fakt = this.VoteLogs.Where(v => v.Vote == true).Count();
+            int Fake = this.VoteLogs.Where(v => v.Vote == false).Count();
+
+            return Fakt - Fake;
+        }
+
+        public int RatingClass()
+        {
+
+            int Fakt = this.VoteLogs.Where(v => v.Vote == true).Count();
+            int Fake = this.VoteLogs.Where(v => v.Vote == false).Count();
+
+
+            if (Fakt > Fake)
+            {
+                if (Fakt + Fake >= value && (Fake == 0 || Fakt / Fake > 2))
+                {
+                    return 2;
+                }
+
+                return 1;
+            }
+            else if (Fakt < Fake)
+            {
+                if (Fakt + Fake >= value && (Fakt == 0 || Fake / Fakt > 2))
+                {
+                    return 4;
+                }
+                return 3;
+            }
+
+            return 0;
+        }
     }
 }

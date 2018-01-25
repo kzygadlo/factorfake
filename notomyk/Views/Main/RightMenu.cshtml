@@ -24,7 +24,7 @@
             @foreach (var user in Model.UsersRep)
             {
                 var imgUrl = Url.Content(AppConfig.UserLogoLink(user.Id));
-                int isOnline = GetTimeAgo.IsOnline(user.lastActivity);
+                int isOnline = GetTimeAgo.IsOnline(user.LastActivity);
                 <div class="singleUser item col-xs-12" style="padding: 3px 2px 3px 3px; margin-bottom:1px">
                     <div class="ui relaxed middle aligned  divided list">
                         <div class="item col-xs-8" style="padding:0 !important">
@@ -43,11 +43,11 @@
                                         }
                                         else if (isOnline == 0)
                                         {
-                                            <span style="color:darkorange">@GetTimeAgo.CalculateDateDiff(user.lastActivity)</span>
+                                            <span style="color:darkorange">@GetTimeAgo.CalculateDateDiff(user.LastActivity)</span>
                                         }
                                         else
                                         {
-                                            @GetTimeAgo.CalculateDateDiff(user.lastActivity)
+                                            @GetTimeAgo.CalculateDateDiff(user.LastActivity)
                                         }
                                     </small>
                                 </div>
@@ -56,12 +56,12 @@
                         </div>
                         <div class="pull-left meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
                             <span class="ui basic label">
-                                <span class="greenColor"><strong>@user.Pcomments</strong></span>
-                                / <span>@user.Acomments</span>
+                                <span class="greenColor"><strong>@user.PostitiveCommentsCount()</strong></span>
+                                / <span>@user.AllCommentsCount()</span>
                             </span>
                         </div>
                         <div class="pull-right meta col-xs-2" style="text-align:right; padding:4px 5px 4px 0">
-                            <span class="ui orange basic label">@ReputationLogic.ReputationPercentage(user.Pcomments, user.Acomments) %</span>
+                            <span class="ui orange basic label">@user.Reputation() %</span>
                         </div>
                     </div>
                 </div>

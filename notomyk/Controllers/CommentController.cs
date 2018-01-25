@@ -19,8 +19,6 @@ namespace notomyk.Controllers
 {
     public class CommentController : Controller
     {
-        private int MinCommentsForReputation = Convert.ToInt32(GetAppSettingsValue.Value("MinCommentsForReputation"));
-
         private NTMContext db = new NTMContext();
 
         public ActionResult Index()
@@ -44,16 +42,15 @@ namespace notomyk.Controllers
                 var CommentsList = CFiltered
                                       .Select(s => new
                                       {
+                                          ApplicationUser = s.ApplicationUser,
                                           s.tbl_CommentID,
-                                          comment = s.IsActive == true ? s.Comment: "",
+                                          comment = s.IsActive == true ? s.Comment : "",
                                           s.DateAdd,
                                           s.ApplicationUser.Id,
                                           s.ApplicationUser.UserName,
                                           s.VoteCommentLogs,
                                           children = s.Children.Where(c => c.IsActive == true).Count(),
                                           voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
-                                          positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
-                                          commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
                                           whatVoteForNews = s.ApplicationUser.VotingLogs.Where(n => n.tbl_NewsID == newsID).Select(x => x.Vote).FirstOrDefault(),
                                           commentBasicClass = s.IsActive == true ? "" : "hidden",
                                           commentRemovedClass = s.IsActive == true ? "hidden" : "",
@@ -62,7 +59,7 @@ namespace notomyk.Controllers
                                       .ToList();
 
                 return Json(CommentsList.Select(x => new
-                {
+                {                    
                     com = x.comment,
                     cid = x.tbl_CommentID,
                     date = GetTimeAgo.CalculateDateDiff(x.DateAdd),
@@ -75,9 +72,9 @@ namespace notomyk.Controllers
                     fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
                     repliesV = x.children,
                     voteForComment = ifVoted(x.voted),
-                    positiveCommentsNumber = x.positiveCommentsCount,
-                    allCommentsNumber = x.commentsCount,
-                    reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount),
+                    positiveCommentsNumber = x.ApplicationUser.PostitiveCommentsCount(),
+                    allCommentsNumber = x.ApplicationUser.AllCommentsCount(),
+                    reputationPoints = x.ApplicationUser.Reputation(),
                     whatVote = x.whatVoteForNews,
                     commentBasicClass = x.commentBasicClass,
                     commentRemovedClass = x.commentRemovedClass,
@@ -109,25 +106,33 @@ namespace notomyk.Controllers
             return result;
         }
 
-        public IQueryable<tbl_Comment> CommentListFiltered(int newsID, int filter)
+        public IEnumerable<tbl_Comment> CommentListFiltered(int newsID, int filter)
         {
-            var result = db.Comment.Include(i => i.Children).Where(c => (c.IsActive == true || c.Children.Count > 0) && c.tbl_NewsID == newsID && c.Parenttbl_CommentID == null).AsQueryable();
+            var result = db.Comment.Include(i => i.Children).Where(c => (c.IsActive == true || c.Children.Count > 0) && c.tbl_NewsID == newsID && c.Parenttbl_CommentID == null).ToList();
+            
+            return CommentsSorting(result,filter);
+        }
+
+        public IEnumerable<tbl_Comment> CommentsSorting(IEnumerable<tbl_Comment> comments, int filter)
+        {
             switch (filter)
             {
                 case 0: // by date added
-                    result = result.OrderBy(o => o.DateAdd);
+                    comments = comments.OrderBy(o => o.DateAdd);
                     break;
                 case 1: // by author reputation
-                    result = result.OrderBy(o => o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() == 0 ? 0 : o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count() / (1.0 * o.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count()));
+                    comments = comments.OrderBy(o => o.ApplicationUser.Reputation());
                     break;
                 case 2: // by votes
-                    result = result.OrderBy(o => o.VoteCommentLogs.Where(v => v.Vote == true).Count() - o.VoteCommentLogs.Where(v => v.Vote == false).Count());
+                    comments = comments.OrderBy(o => o.VoteCommentLogs.Where(v => v.Vote == true).Count() - o.VoteCommentLogs.Where(v => v.Vote == false).Count());
                     break;
                 case 3:
                     break;
             }
-            return result;
+
+            return comments;
         }
+
 
         public JsonResult GetReplies(int parentID)
         {
@@ -143,8 +148,9 @@ namespace notomyk.Controllers
                     s.ApplicationUser.UserName,
                     s.VoteCommentLogs,
                     voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
-                    positiveCommentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
-                    commentsCount = s.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
+                    positiveCommentsCount = s.ApplicationUser.PostitiveCommentsCount(),
+                    commentsCount = s.ApplicationUser.AllCommentsCount(),
+                    ReputationPoints = s.ApplicationUser.Reputation(),
                     reportedClass = s.IsReported == true ? "" : "hidden"
                 }
                 ).OrderByDescending(o => o.DateAdd)
@@ -162,7 +168,7 @@ namespace notomyk.Controllers
                 voteForComment = ifVoted(x.voted),
                 positiveCommentsNumber = x.positiveCommentsCount,
                 allCommentsNumber = x.commentsCount,
-                reputationPoints = ReputationLogic.ReputationPercentage(x.positiveCommentsCount, x.commentsCount),
+                reputationPoints = x.ReputationPoints,
                 reportedClass = x.reportedClass
             }), JsonRequestBehavior.AllowGet);
         }
@@ -171,7 +177,7 @@ namespace notomyk.Controllers
         public ActionResult Add(string CommentText, int NewsID, int parentID = 0)
         {
             if (Request.IsAuthenticated)
-            {                
+            {
                 if (ModelState.IsValid)
                 {
                     using (NTMContext db = new NTMContext())
@@ -212,9 +218,9 @@ namespace notomyk.Controllers
                                     date = GetTimeAgo.CalculateDateDiff(comment.DateAdd),
                                     userN = user.UserName,
                                     userL = Url.Content(AppConfig.UserLogoLink(user.Id)),
-                                    positiveCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
-                                    allCommentsNumber = comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(),
-                                    reputationPoints = ReputationLogic.ReputationPercentage(comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count(), comment.ApplicationUser.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count())
+                                    positiveCommentsNumber = comment.ApplicationUser.PostitiveCommentsCount(),
+                                    allCommentsNumber = comment.ApplicationUser.AllCommentsCount(),
+                                    reputationPoints = comment.ApplicationUser.Reputation()
                                 });
                             }
                             else
@@ -224,7 +230,7 @@ namespace notomyk.Controllers
                                     {
                                         success = false,
                                         errHeader = string.Format("Filtr anty-spamowy."),
-                                        errMessage = string.Format("Musisz odczekać jeszcze {0} sekund aby dodać nowy komentarz.", commentValidator.timeToGO)
+                                        errMessage = string.Format("Musisz odczekać jeszcze {0} sekund aby dodać nowy komentarz.", Convert.ToInt16(commentValidator.timeToGO))
                                     });
                                 // time dealy 
                             }
@@ -275,7 +281,8 @@ namespace notomyk.Controllers
                     comment.IsActive = false;
                     db.SaveChanges();
 
-                    return Json(new { 
+                    return Json(new
+                    {
                         success = true,
                         childComments = comment.Children.Where(c => c.IsActive == true).Count()
                     });

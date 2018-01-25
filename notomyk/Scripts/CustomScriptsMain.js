@@ -213,22 +213,22 @@ function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, n
 
     switch (ratingC) {
         case 1:
-            $('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
+            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
             break;
 
         case 2:
-            $('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
+            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
             $('#newsContainer').find('#' + newsID + '').find('.info').addClass("bGreenColor");
             $('#newsContainer').find('#' + newsID + '').find('#FaktTag').text("Fakt");
 
             break;
 
         case 3:
-            $('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
+            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
             break;
 
         case 4:
-            $('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
+            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
             $('#newsContainer').find('#' + newsID + '').find('.info').addClass("bRedColor");
             $('#newsContainer').find('#' + newsID + '').find('#FakeTag').text("Fake");
             break;

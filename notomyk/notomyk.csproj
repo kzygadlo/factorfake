@@ -243,7 +243,6 @@
     <Compile Include="Infrastructure\myTags.cs" />
     <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
-    <Compile Include="Infrastructure\Rating.cs" />
     <Compile Include="Infrastructure\StringTranslate.cs" />
     <Compile Include="Infrastructure\tagsToViews.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
@@ -449,12 +448,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MetaInformation.cs" />
     <Compile Include="Models\ForumPost.cs" />
-    <Compile Include="Models\ReputationLogic.cs" />
     <Compile Include="Models\tbl_Comment.cs" />
     <Compile Include="Models\tbl_News.cs" />
     <Compile Include="Models\tbl_Newspaper.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\UserReputation.cs" />
+    <Compile Include="Models\toDel-UserReputation.cs" />
     <Compile Include="Models\VoteCommentLog.cs" />
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
