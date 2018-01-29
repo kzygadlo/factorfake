@@ -27,6 +27,7 @@ namespace notomyk.Controllers
                 Topics = db.ForumTopic.Where(t => t.IsActive == true).OrderBy(o => o.DateAdd).ToList()
             };
 
+            ViewBag.Forum = "active";
             return View(model);
         }
 

@@ -1,24 +1,10 @@
-﻿/* NUGET: BEGIN LICENSE TEXT
- *
- * Microsoft grants you the right to use these script files for the sole
- * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online service, subject to the applicable licensing or use
- * terms; or (ii) using the files as included with a Microsoft product subject
- * to that product's license terms. Microsoft reserves all other rights to the
- * files not expressly granted by Microsoft, whether by implication, estoppel
- * or otherwise. Insofar as a script file is dual licensed under GPL,
- * Microsoft neither took the code under GPL nor distributes it thereunder but
- * under the terms set out in this paragraph. All notices and licenses
- * below are for informational purposes only.
- *
- * NUGET: END LICENSE TEXT */
-/*
+﻿/*
 * This file has been commented to support Visual Studio Intellisense.
 * You should not use this file at runtime inside the browser--it is only
 * intended to be used only for design-time IntelliSense.  Please use the
 * standard jQuery library for all production use.
 *
-* Comment version: 1.11.1
+* Comment version: 1.16.0
 */
 
 /*
@@ -29,7 +15,7 @@
 * for informational purposes only and are not the license terms under
 * which Microsoft distributed this file.
 *
-* jQuery Validation Plugin - v1.11.1 - 2/4/2013
+* jQuery Validation Plugin - v1.16.0 - 12/5/2016
 * https://github.com/jzaefferer/jquery-validation
 * Copyright (c) 2013 Jörn Zaefferer; Licensed MIT
 *
@@ -329,14 +315,14 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "To pole jest wymagane.",
-		remote: "Proszę poprawić to pole.",
-		email: "Proszę podać poprawny adres email.",
-		url: "Proszę podać poprawny link URL.",
-		date: "Proszę podać poprawną datę.",
+		required: "This field is required.",
+		remote: "Please fix this field.",
+		email: "Please enter a valid email address.",
+		url: "Please enter a valid URL.",
+		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date (ISO).",
-		number: "Proszę podać poprawny numer.",
-		digits: "Proszę wpisać tylko liczby.",
+		number: "Please enter a valid number.",
+		digits: "Please enter only digits.",
 		creditcard: "Please enter a valid credit card number.",
 		equalTo: "Please enter the same value again.",
 		accept: "Please enter a value with a valid extension.",

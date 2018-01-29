@@ -1,4 +1,6 @@
 ﻿using notomyk.DAL;
+using notomyk.Infrastructure;
+using notomyk.Models;
 using notomyk.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -6,12 +8,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace notomyk.Controllers
 {
     public class AdminController : Controller
     {
         private NTMContext db = new NTMContext();
         // GET: Admin
+
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
@@ -24,7 +28,7 @@ namespace notomyk.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Error", new { errorMessage = "Nie jestes rozpoznany jako Admin." });
+                    return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.YouAreNotAdmin });
                 }               
 
             }
@@ -34,7 +38,8 @@ namespace notomyk.Controllers
             }
         }
 
-        public ActionResult UserTable()
+
+        public ActionResult UserRoles()
         {
             if (Request.IsAuthenticated)
             {
@@ -43,16 +48,19 @@ namespace notomyk.Controllers
                     var model = new AdminModel();
                     model.Users = db.Users.ToList();
                     return View(model);
+
+                    
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Error", new { errorMessage = "Nie jestes rozpoznany jako Admin." });
+                    return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.YouAreNotAdmin });
                 }
             }
             else
             {
-                return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("AppSettings", "Admin") });
+                return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Index", "Admin") });
             }
+            
         }
 
         [HttpPost]
@@ -65,5 +73,8 @@ namespace notomyk.Controllers
 
             return RedirectToAction("AppSettings");
         }
+
+
+        
     }
 }

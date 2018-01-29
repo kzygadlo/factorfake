@@ -1,0 +1,44 @@
+﻿@model notomyk.ViewModel.UserWithRoleName
+
+<div class="col-md-9" style="margin-bottom:10px">
+    <h2>User details</h2>
+
+    @using (Html.BeginForm("Save", "AdminUserTable", FormMethod.Post))
+    {
+        if (Model != null && Model.User.Id != "")
+        {
+            @Html.HiddenFor(a => a.User.Id)
+        }
+
+        <div class="form-group">
+            <label>UserName</label>
+            @Html.TextBoxFor(a => a.User.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.User.UserName)
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            @Html.TextBoxFor(a => a.User.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.User.Email)
+        </div>
+
+        <div class="form-group">
+            <label>EmailConfirmed</label>
+            @Html.DropDownListFor(a => a.User.EmailConfirmed, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.User.EmailConfirmed)
+        </div>
+
+        <div class="form-group">
+            <label>UserRole</label>
+            @Html.DropDownListFor(a => a.RoleName, new[] { new SelectListItem { Text = "User", Value = "User" }, new SelectListItem { Text = "Moderator", Value = "Moderator" }, new SelectListItem { Text = "Admin", Value = "Admin" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.RoleName)
+        </div>
+        <div>
+            <input type="submit" value="Save" />
+        </div>
+        <div>
+            @Html.ActionLink("Cancel", "Index", "AdminUserTable")
+        </div>
+    }
+</div>
+@Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")

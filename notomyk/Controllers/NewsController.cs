@@ -76,10 +76,16 @@ namespace notomyk.Controllers
                             return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessage.NewsNoTitle, URL.Host) });
                         }
 
-                        var newsID = db.News.Where(n => n.ArticleLink == newN.UrlLink).Select(n => n.tbl_NewsID).FirstOrDefault();
-                        if (newsID != 0)
+                        
+                        if (db.News.Any(n => n.ArticleLink == newN.UrlLink))
                         {
-                            return RedirectToAction("News", "Main", new { id = newsID });
+                            var newsExist = db.News.Where(n => n.ArticleLink == newN.UrlLink).FirstOrDefault();
+
+                            if (newsExist.IsActive == true)
+                            {
+                                return RedirectToAction("News", "Main", new { id = newsExist.tbl_NewsID });
+                            }
+                            return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessage.NewsHasBeenRemoved) });
                         }
 
                         var newspaperId = db.Newspaper.Where(n => n.NewspaperLink == homeUrl).Select(n => n.tbl_NewspaperID).FirstOrDefault();

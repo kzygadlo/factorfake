@@ -194,14 +194,14 @@
 
 function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $template, $replyList, repPcom, repAcom, repPoins, commV, reportClass) {
 
-    var c1 = "outline";
-    var c2 = "outline";
+    var c1 = "";
+    var c2 = "";
 
     if (commV == 0) {
-        c2 = "";
+        c2 = "red";
     }
     else if (commV == 1) {
-        c1 = "";
+        c1 = "green";
     }
 
     var replyVariables =
@@ -260,8 +260,8 @@ function fulfillCommentTemplateForNewComment(cid, com, date, userN, userL, $temp
         LogoName: userL,
         CommentFaktV: 0,
         CommentFakeV: 0,
-        class1: "outline",
-        class2: "outline",
+        class1: "",
+        class2: "",
         positiveCount: repPcom,
         allCount: repAcom,
         reputationPoints: repPoins,
@@ -308,14 +308,14 @@ function showComments(Filter) {
             repValue = "odpowiedzi: " + repV;
         }
 
-        var c1 = "outline";
-        var c2 = "outline";
+        var c1 = "";
+        var c2 = "";
 
         if (commV == 0) {
-            c2 = "";
+            c2 = "red";
         }
         else if (commV == 1) {
-            c1 = "";
+            c1 = "green";
         }
 
         var replyVariables =

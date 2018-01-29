@@ -21,7 +21,10 @@
             <div class="postDetails col-xs-12 removePadding">
 
                 @{
-                    var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));
+
+                    var imgUrl = @Url.FOFiconLight();
+                    //temporarly not used. FOF as default avatar
+                    //var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));
                 }
                 <div class="ui cards">
                     <div class="card">

@@ -1,19 +1,13 @@
 ﻿using notomyk.Infrastructure;
 using notomyk.Models;
-using notomyk.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using notomyk.DAL;
 using System.Data.Entity;
-using System.Web.Security;
-using System.Configuration;
 
 namespace notomyk.Controllers
 {
@@ -141,6 +135,7 @@ namespace notomyk.Controllers
             var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
                 s => new
                 {
+                    ApplicationUser = s.ApplicationUser,
                     s.tbl_CommentID,
                     comment = s.IsActive == true ? s.Comment : "",
                     s.DateAdd,
@@ -148,9 +143,6 @@ namespace notomyk.Controllers
                     s.ApplicationUser.UserName,
                     s.VoteCommentLogs,
                     voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
-                    positiveCommentsCount = s.ApplicationUser.PostitiveCommentsCount(),
-                    commentsCount = s.ApplicationUser.AllCommentsCount(),
-                    ReputationPoints = s.ApplicationUser.Reputation(),
                     reportedClass = s.IsReported == true ? "" : "hidden"
                 }
                 ).OrderByDescending(o => o.DateAdd)
@@ -166,9 +158,9 @@ namespace notomyk.Controllers
                 faktV = x.VoteCommentLogs.Where(c => c.Vote == true).Count(),
                 fakeV = x.VoteCommentLogs.Where(c => c.Vote == false).Count(),
                 voteForComment = ifVoted(x.voted),
-                positiveCommentsNumber = x.positiveCommentsCount,
-                allCommentsNumber = x.commentsCount,
-                reputationPoints = x.ReputationPoints,
+                positiveCommentsNumber = x.ApplicationUser.PostitiveCommentsCount(),
+                allCommentsNumber = x.ApplicationUser.AllCommentsCount(),
+                reputationPoints = x.ApplicationUser.Reputation(),
                 reportedClass = x.reportedClass
             }), JsonRequestBehavior.AllowGet);
         }

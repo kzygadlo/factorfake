@@ -42,6 +42,8 @@ namespace notomyk.Controllers
                 tagList = db.Tag
                     .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true && n.News.VoteLogs.Count > numberOfVotes))
                     .OrderByDescending(o => o.ListOfNews.Count).ToList();
+
+                ViewBag.Start = "active";
             }
             else
             {
@@ -55,6 +57,8 @@ namespace notomyk.Controllers
                 tagList = db.Tag
                     .Where(t => t.ListOfNews.Any(n => n.News.IsActive == true && n.News.VoteLogs.Count < numberOfVotes))
                     .OrderByDescending(o => o.ListOfNews.Count).ToList();
+
+                ViewBag.WaitingRoom = "active";
             }
 
 

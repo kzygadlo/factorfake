@@ -13,3 +13,4 @@
 2018-01-22 19:26:37.7906|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 114
 2018-01-22 19:28:07.8938|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 114
 2018-01-22 19:29:59.5112|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 112
+2018-01-27 15:30:01.1741|INFO|notomyk.Controllers.NewsController|User: anakh removed newsID: 95

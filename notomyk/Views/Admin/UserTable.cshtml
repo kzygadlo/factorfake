@@ -1,9 +1,6 @@
 ﻿@model notomyk.ViewModel.AdminModel
 
-<div class="col-md-9">
-    @foreach (var user in Model.Users)
-    {
-        <p><span>@user.UserName - @user.Email - @user.EmailConfirmed</span></p>
-    }
+<div class="col-md-9">    
+
 </div>
 @Html.Partial("_RightMenuAdmin")

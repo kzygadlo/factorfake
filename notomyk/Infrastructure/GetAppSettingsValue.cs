@@ -66,7 +66,10 @@ namespace notomyk.Infrastructure
                    
                 case "MinNumberVotes":
                     return "2";
-            
+
+                case "UserID":
+                    return "5a900ec8-6179-4cd6-a33e-463979bff729";
+
                 default:
                     return "1";
 

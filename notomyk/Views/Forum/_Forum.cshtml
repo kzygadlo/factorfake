@@ -26,18 +26,21 @@
                 <div class="rightList">
                     @foreach (var topic in (IEnumerable<ForumTopic>)Model.Topics)
                     {
-                        
-                        
+
+
                         if (@topic.ForumCategory.ID == category.ID)
                         {
-                            var imgUrl = Url.Content(AppConfig.UserLogoLink(topic.ApplicationUser.Id));
+                            var imgUrl = @Url.FOFiconLight();
+                            //temporarly not used. FOF as default avatar
+                            //var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));
+
                             var commentsNmber = topic.Posts.Where(t => t.IsActive == true).Count();
-                            
+
                             <div class="post">
                                 <a href="@Url.Action("Topic", "Forum", new { ID = topic.ID })">
                                     <div class="post-heading">
                                         <div class="pull-left">
-                                            <img src="@imgUrl" class="avatar NTMavatar" alt="user profile image">
+                                            <img src="@imgUrl" class="avatar NTMavatar img-circle" alt="user profile image">
                                         </div>
                                         <div class="pull-left meta">
                                             <div class="title h5">

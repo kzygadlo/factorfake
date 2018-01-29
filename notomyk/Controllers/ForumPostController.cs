@@ -1,9 +1,7 @@
 ﻿using notomyk.DAL;
 using notomyk.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using notomyk.Infrastructure;
