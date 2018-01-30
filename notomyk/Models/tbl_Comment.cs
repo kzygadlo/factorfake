@@ -28,6 +28,11 @@ namespace notomyk.Models
 
         public int tbl_NewsID { get; set; }
         public bool IsReported { get; set; }
+
+        //public string EditedContent { get; set; }
+        //public DateTime? EditedWhen { get; set; }
+        //public string EditedBy { get; set; }
+
         public virtual tbl_News Newses { get; set; }
 
         [ForeignKey("ApplicationUser")] //as User Id is not present in target table therefore we must indicate to which table 'UserID' is referenced as PK

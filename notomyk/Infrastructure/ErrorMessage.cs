@@ -20,5 +20,7 @@ namespace notomyk.Infrastructure
         public static string NewsAlreadyExist = "News który próbujesz dodać został już dodany przez kogoś innego. Zostaniesz do niego  przekierowany.";
         public static string UserNotFound = "Nie ma takiego użytkownika.";
         public static string AdminTableSaveFailed = "Nie udało się zapisać zmian.";
+        public static string ValueIsNotInt = "Musisz podać wartość liczbową dla tych ustawień.";
+        public static string ValueTrueOrFalse = "Musisz podać wartość 1 albo 0 dla tych ustawień.";
     }
 }

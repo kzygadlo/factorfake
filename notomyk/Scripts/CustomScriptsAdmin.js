@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var oTable = $('#myDatatable').DataTable({
+    var adminUserTable = $('#AdminUserTable').DataTable({
         "ajax": {
             "url": '/AdminUserTable/GetUsers',
             "type": "get",
@@ -10,10 +10,32 @@
             { "data": "Email", "autoWidth": true },
             { "data": "EmailConfirmed", "autoWidth": true },
             { "data": "RoleName", "autoWidth": true },
+            //{ "data": "LastActivity", "autoWidth": true },
 
             {
                 "data": "Id", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminUserTable/Save/' + data + '">Edit</a>';
+                }
+            }
+        ]
+    })
+
+    var adminSettings = $('#AdminSettings').DataTable({
+        "ajax": {
+            "url": '/AdminSettings/GetSettings/',
+            "type": "get",
+            "data": function (d) {
+                d.type = $('#ifGlobal').val();
+            },
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "Key", "autoWidth": true },
+            { "data": "Value", "autoWidth": true },
+
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminSettings/Save/' + data + '">Edit</a>';
                 }
             }
         ]

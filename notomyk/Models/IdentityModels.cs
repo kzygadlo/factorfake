@@ -15,9 +15,8 @@ namespace notomyk.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-
-        private int MinCommentsForReputation = Convert.ToInt32(GetAppSettingsValue.Value("MinCommentsForReputation"));
-
+        private int MinCommentsForReputation = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
+        
 
         public int NewsCounter { get; set; }
         public DateTime? LastNewsAdded { get; set; }

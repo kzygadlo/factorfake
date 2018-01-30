@@ -11,7 +11,7 @@ namespace notomyk.Models
     public class tbl_News
     {
 
-        int value = Convert.ToInt32(GetAppSettingsValue.Value("FilterVoting"));
+        int value = Convert.ToInt32(cApp.AppSettings["FilterVoting"]);
 
         public tbl_News()
         {

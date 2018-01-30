@@ -1,0 +1,26 @@
+﻿@model notomyk.Models.AppSettings
+
+<div class="col-md-9" style="margin-bottom:10px">
+    <h2>Setting</h2>
+
+    @using (Html.BeginForm("Save", "AdminSettings", FormMethod.Post))
+    {
+        if (Model != null && Model.ID != 0)
+        {
+            @Html.HiddenFor(a => a.ID)
+        }
+
+        <div class="form-group">
+            <label>@Model.Key</label>
+            @Html.TextBoxFor(a => a.Value, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Value)
+        </div>
+        <div>
+            <input type="submit" value="Save" />
+        </div>
+        <div>
+            @Html.ActionLink("Cancel", "Index", "AdminSetting")
+        </div>
+    }
+</div>
+@Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")

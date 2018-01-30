@@ -14,3 +14,60 @@
 2018-01-22 19:28:07.8938|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 114
 2018-01-22 19:29:59.5112|INFO|notomyk.Controllers.NewsController|User: faktorfejk removed newsID: 112
 2018-01-27 15:30:01.1741|INFO|notomyk.Controllers.NewsController|User: anakh removed newsID: 95
+2018-01-30 18:49:39.4849|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5050|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5050|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5170|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5170|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5170|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5170|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5326|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5326|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5326|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5326|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5496|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5496|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5496|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5496|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5646|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5646|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:49:39.5646|ERROR|notomyk.Infrastructure.cConfig|Get Settings from sConfig
+2018-01-30 18:52:22.8079|ERROR|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 19:49:01.6622|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 19:49:48.1223|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 19:52:34.5694|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 19:53:58.9113|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:00:42.1997|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:02:57.4189|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:06:07.1038|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:07:47.1658|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:10:22.1811|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:12:48.2817|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:22:17.7976|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:28:01.8547|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:29:12.1937|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:31:08.3059|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:34:37.2431|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:40:36.7868|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:41:40.0540|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:44:02.1925|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:49:26.7612|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:51:50.3856|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:54:57.6165|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 20:58:50.1920|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:00:44.8188|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:04:53.4450|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:27:16.3980|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:33:36.5094|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:38:22.9647|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:48:51.8456|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:52:40.5694|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 21:58:34.4861|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:04:18.0884|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:12:49.5320|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:43:56.1828|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:46:30.4651|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:47:55.3253|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:50:17.4788|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:50:56.6575|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table
+2018-01-30 22:51:24.9994|INFO|notomyk.Infrastructure.cApp|Get Settings from AppSettings table

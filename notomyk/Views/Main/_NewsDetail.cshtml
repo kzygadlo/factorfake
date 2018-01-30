@@ -190,6 +190,7 @@
             </div>
 
             <div id="addComment" class="col-xs-12">
+                <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
                 @if (Request.IsAuthenticated)
                 {
                     <div class="col-xs-2 col-sm-1" style="padding:14px 0 0 0">
@@ -201,7 +202,7 @@
                     </div>
                     <div class="col-xs-1" style="padding:14px 0 0 0">
                         <form class="frmAddComment  pull-right">
-                            <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
+
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
@@ -213,7 +214,7 @@
                     <div class="col-xs-12 removePadding">
                         <textarea id="frmCommentTextNoAuth" readonly rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden; resize:none" placeholder="Zaloguj się aby dodać komentarz."></textarea>
                     </div>
-                    <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
+                    @*<input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>*@
                 }
             </div>
         </div>

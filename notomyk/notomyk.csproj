@@ -208,6 +208,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminSettingsController.cs" />
     <Compile Include="Controllers\AdminUserTableController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ConfirmationController.cs" />
@@ -229,13 +230,13 @@
     <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
     <Compile Include="Infrastructure\addLoginValidator.cs" />
+    <Compile Include="Infrastructure\cApp.cs" />
     <Compile Include="Infrastructure\NewsValidator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Infrastructure\AppConfig.cs" />
     <Compile Include="Infrastructure\BlackListValidator.cs" />
     <Compile Include="Infrastructure\ErrorMessage.cs" />
-    <Compile Include="Infrastructure\GetAppSettingsValue.cs" />
     <Compile Include="Infrastructure\HttpDownloader.cs" />
     <Compile Include="Infrastructure\myEncoding.cs" />
     <Compile Include="Infrastructure\myImageSave.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Infrastructure\myTags.cs" />
     <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
+    <Compile Include="Infrastructure\cConfig.cs" />
     <Compile Include="Infrastructure\StringTranslate.cs" />
     <Compile Include="Infrastructure\tagsToViews.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
@@ -435,6 +437,10 @@
     <Compile Include="Migrations\201801231748193_LastActivity.Designer.cs">
       <DependentUpon>201801231748193_LastActivity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801301815478_appSettings.cs" />
+    <Compile Include="Migrations\201801301815478_appSettings.Designer.cs">
+      <DependentUpon>201801301815478_appSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppSettings.cs" />
@@ -453,7 +459,6 @@
     <Compile Include="Models\tbl_News.cs" />
     <Compile Include="Models\tbl_Newspaper.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\toDel-UserReputation.cs" />
     <Compile Include="Models\VoteCommentLog.cs" />
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -539,6 +544,7 @@
     <Content Include="Images\Logos\250\logo_fakt.jpg" />
     <Content Include="Images\Logos\250\logo_gazetapolska.jpg" />
     <Content Include="Images\Logos\250\logo_gwroclawska.jpg" />
+    <Content Include="Images\Logos\250\logo_hltv.png" />
     <Content Include="Images\Logos\250\logo_interia.jpg" />
     <Content Include="Images\Logos\250\logo_interiafacet.jpg" />
     <Content Include="Images\Logos\250\logo_interiakobieta.jpg" />
@@ -570,6 +576,7 @@
     <Content Include="Images\Logos\icons\logo_fakt.jpg" />
     <Content Include="Images\Logos\icons\logo_gazetapolska.jpg" />
     <Content Include="Images\Logos\icons\logo_gwroclawska.jpg" />
+    <Content Include="Images\Logos\icons\logo_hltv.png" />
     <Content Include="Images\Logos\icons\logo_interia.jpg" />
     <Content Include="Images\Logos\icons\logo_interiafacet.jpg" />
     <Content Include="Images\Logos\icons\logo_interiakobieta.jpg" />
@@ -853,6 +860,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\AdminUserTable\Save.cshtml" />
+    <Content Include="Views\AdminSettings\Index.cshtml" />
+    <Content Include="Views\AdminSettings\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1669,6 +1678,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801231748193_LastActivity.resx">
       <DependentUpon>201801231748193_LastActivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301815478_appSettings.resx">
+      <DependentUpon>201801301815478_appSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

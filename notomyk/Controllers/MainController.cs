@@ -26,7 +26,8 @@ namespace notomyk.Controllers
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());
             }
 
-            int numberOfVotes = Convert.ToInt32(GetAppSettingsValue.Value("MinNumberVotes"));
+            //int numberOfVotes = Convert.ToInt32(cApp.AppSettings("MinNumberVotes"));
+            int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
             List<string> newspaperList = new List<string>();
             List<Tag> tagList = new List<Tag>();
 
@@ -132,9 +133,12 @@ namespace notomyk.Controllers
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
         {
             var result = db.News.Where(n => n.IsActive == true).AsQueryable();
-            int votingValue = Convert.ToInt32(GetAppSettingsValue.Value("FilterVoting"));
-            int commentValue = Convert.ToInt32(GetAppSettingsValue.Value("FilterComments"));
-            int visitorsValue = Convert.ToInt32(GetAppSettingsValue.Value("FilterVisitors"));
+            //int votingValue = Convert.ToInt32(cApp.AppSettings("FilterVoting"));
+            //int commentValue = Convert.ToInt32(cApp.AppSettings("FilterComments"));
+            //int visitorsValue = Convert.ToInt32(cApp.AppSettings("FilterVisitors"));
+            int votingValue = Convert.ToInt32(cApp.AppSettings["FilterVoting"]);
+            int commentValue = Convert.ToInt32(cApp.AppSettings["FilterComments"]);
+            int visitorsValue = Convert.ToInt32(cApp.AppSettings["FilterVisitors"]);
 
             if (filter != null)
             {
@@ -188,15 +192,15 @@ namespace notomyk.Controllers
                 }
             }
 
-            int numberOfVotes = Convert.ToInt32(GetAppSettingsValue.Value("MinNumberVotes"));
+            int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
 
             if (filter.MainPage == true)
             {
-                result = result.Where(r => r.VoteLogs.Count() >= numberOfVotes);
+                result = result.Where(r => r.VoteLogs.Count() > numberOfVotes);
             }
             else
             {
-                result = result.Where(r => r.VoteLogs.Count() < numberOfVotes);
+                result = result.Where(r => r.VoteLogs.Count() <= numberOfVotes);
             }
 
             filter.Remains = result.Count() - 10 - filter.Page * 10;

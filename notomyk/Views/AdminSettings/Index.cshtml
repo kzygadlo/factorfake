@@ -1,14 +1,15 @@
-﻿<div class="col-md-9" style="margin-bottom:10px">
+﻿
+<div class="col-md-9" style="margin-bottom:10px">
+
+    <input id="ifGlobal" type="hidden" name="NewsID" value="@ViewBag.Type">
+
     <div style="width:100%; margin: 0 auto" class="tablecontainer">
-        <table id="AdminUserTable" data-page-length='100'>
+        <table id="AdminSettings" data-page-length='100'>
             <thead>
                 <tr style="text-align:right !important">
                     @*<th>Id</th>*@
-                    <th>UserName</th>
-                    <th>Email</th>
-                    <th>EmailConfirmed</th>
-                    <th>RoleName</th>
-                    @*<th>LastActivity</th>*@
+                    <th>Key</th>
+                    <th>Value</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -16,3 +17,4 @@
     </div>
 </div>
 @Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")
+

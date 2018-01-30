@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using notomyk.Infrastructure;
 using notomyk.ViewModel;
+using System;
 
 namespace notomyk.Controllers
 {
@@ -23,6 +24,8 @@ namespace notomyk.Controllers
         public ActionResult GetUsers()
         {
 
+            DateTime date;
+            
             //var newspapers = db.Newspaper.Include(c => c.Colection_Newses).ToList();
             var users = db.Users.
                 OrderBy(o => o.UserName).
@@ -31,8 +34,9 @@ namespace notomyk.Controllers
                     x.UserName,
                     x.Email,
                     x.EmailConfirmed,
-                    RoleName = db.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
-                    x.Id
+                    RoleName = db.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,               
+                    x.Id,
+                    
                 }).ToList();
 
             return Json(new { data = users }, JsonRequestBehavior.AllowGet);
