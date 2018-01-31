@@ -231,6 +231,7 @@
     <Compile Include="Infrastructure\addCommentValidator.cs" />
     <Compile Include="Infrastructure\addLoginValidator.cs" />
     <Compile Include="Infrastructure\cApp.cs" />
+    <Compile Include="Infrastructure\ConvertDateToString.cs" />
     <Compile Include="Infrastructure\NewsValidator.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -245,7 +246,6 @@
     <Compile Include="Infrastructure\myTags.cs" />
     <Compile Include="Infrastructure\myUser.cs" />
     <Compile Include="Infrastructure\NewsMethodes.cs" />
-    <Compile Include="Infrastructure\cConfig.cs" />
     <Compile Include="Infrastructure\StringTranslate.cs" />
     <Compile Include="Infrastructure\tagsToViews.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
@@ -440,6 +440,10 @@
     <Compile Include="Migrations\201801301815478_appSettings.cs" />
     <Compile Include="Migrations\201801301815478_appSettings.Designer.cs">
       <DependentUpon>201801301815478_appSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801311955005_descriptionForAppS.cs" />
+    <Compile Include="Migrations\201801311955005_descriptionForAppS.Designer.cs">
+      <DependentUpon>201801311955005_descriptionForAppS.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -843,7 +847,6 @@
     <Content Include="Views\Forum\_ForumPostTemplate.cshtml" />
     <Content Include="Views\Main\_NewsDetailTemplates.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\UserTable.cshtml" />
     <Content Include="Views\Admin\_RightMenuAdmin.cshtml" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -855,7 +858,6 @@
     <Content Include="Views\Confirmation\Index.cshtml" />
     <Content Include="Views\Shared\_NotificationTemplateJQ.cshtml" />
     <Content Include="Views\Main\_SingleNewsTemplate.cshtml" />
-    <Content Include="Views\Admin\UserRoles.cshtml" />
     <Content Include="Views\AdminUserTable\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
@@ -1681,6 +1683,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801301815478_appSettings.resx">
       <DependentUpon>201801301815478_appSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801311955005_descriptionForAppS.resx">
+      <DependentUpon>201801311955005_descriptionForAppS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

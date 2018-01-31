@@ -1,20 +1,22 @@
-﻿
-<div class="col-md-9" style="margin-bottom:10px">
+﻿<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12 removePadding adminContainer">
+        <div class="col-md-9" style="margin-bottom:10px">
+            <input id="ifGlobal" type="hidden" name="NewsID" value="@ViewBag.Type">
 
-    <input id="ifGlobal" type="hidden" name="NewsID" value="@ViewBag.Type">
-
-    <div style="width:100%; margin: 0 auto" class="tablecontainer">
-        <table id="AdminSettings" data-page-length='100'>
-            <thead>
-                <tr style="text-align:right !important">
-                    @*<th>Id</th>*@
-                    <th>Key</th>
-                    <th>Value</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-        </table>
+            <div style="width:100%; margin: 0 auto" class="tablecontainer">
+                <table id="AdminSettings" data-page-length='100'>
+                    <thead>
+                        <tr style="text-align:right !important">
+                            @*<th>Id</th>*@
+                            <th>Key</th>
+                            <th>Value</th>
+                            <th>Description</th>                            
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        @Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")
     </div>
 </div>
-@Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")
-

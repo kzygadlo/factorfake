@@ -10,7 +10,7 @@
             { "data": "Email", "autoWidth": true },
             { "data": "EmailConfirmed", "autoWidth": true },
             { "data": "RoleName", "autoWidth": true },
-            //{ "data": "LastActivity", "autoWidth": true },
+            { "data": "LastActivity", "autoWidth": true },
 
             {
                 "data": "Id", "width": "50px", "render": function (data) {
@@ -32,6 +32,7 @@
         "columns": [
             { "data": "Key", "autoWidth": true },
             { "data": "Value", "autoWidth": true },
+            { "data": "Description", "autoWidth": true },
 
             {
                 "data": "ID", "width": "50px", "render": function (data) {

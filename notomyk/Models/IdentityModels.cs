@@ -15,8 +15,9 @@ namespace notomyk.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        private int MinCommentsForReputation = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
-        
+        private int MinNumberVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
+        private int MinCommentsForReputation = Convert.ToInt32(cApp.AppSettings["MinCommentsForReputation"]);
+
 
         public int NewsCounter { get; set; }
         public DateTime? LastNewsAdded { get; set; }
@@ -59,7 +60,7 @@ namespace notomyk.Models
             int aComments = AllCommentsCount();
             int pComments = PostitiveCommentsCount();
 
-            if (aComments > 3)
+            if (aComments >= MinCommentsForReputation)
             {
                 _result = ((Convert.ToDouble(pComments) / Convert.ToDouble(aComments)) * 100) - LastActDiff / 2;                
             }
@@ -73,12 +74,12 @@ namespace notomyk.Models
 
         public int AllCommentsCount()
         {
-            return this.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count();
+            return this.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
         }
 
         public int PostitiveCommentsCount()
         {
-            return this.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinCommentsForReputation).Count();
+            return this.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
         }
     }
 }

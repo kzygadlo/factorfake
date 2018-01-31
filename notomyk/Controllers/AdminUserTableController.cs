@@ -24,22 +24,31 @@ namespace notomyk.Controllers
         public ActionResult GetUsers()
         {
 
-            DateTime date;
-            
             //var newspapers = db.Newspaper.Include(c => c.Colection_Newses).ToList();
             var users = db.Users.
                 OrderBy(o => o.UserName).
                 Select(x => new
-                {                   
+                {
                     x.UserName,
                     x.Email,
                     x.EmailConfirmed,
-                    RoleName = db.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,               
-                    x.Id,
-                    
+                    RoleName = db.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
+                    x.LastActivity,
+                    x.Id
                 }).ToList();
 
-            return Json(new { data = users }, JsonRequestBehavior.AllowGet);
+
+            var filtereUsers = users.Select(y => new
+            {
+                y.UserName,
+                y.Email,
+                y.EmailConfirmed,
+                y.RoleName,
+                LastActivity = ConvertToString.Date(y.LastActivity),
+                y.Id
+            });
+
+            return Json(new { data = filtereUsers }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -55,16 +64,16 @@ namespace notomyk.Controllers
                 if (user.User.Roles.Count > 0)
                 {
                     string roleID = user.User.Roles.FirstOrDefault().RoleId;
-                    user.RoleName = db.Roles.FirstOrDefault(r => r.Id == roleID ).Name;
+                    user.RoleName = db.Roles.FirstOrDefault(r => r.Id == roleID).Name;
                 }
                 else
                 {
                     user.RoleName = "User";
                 }
                 return View(user);
-            }            
+            }
 
-            return View("Index");                
+            return View("Index");
         }
 
         [Authorize(Roles = "Admin")]
@@ -74,7 +83,7 @@ namespace notomyk.Controllers
             bool status = false;
             if (ModelState.IsValid)
             {
-                
+
                 if (_u.User.Id != "")
                 {
                     var u = db.Users.Where(s => s.Id == _u.User.Id).FirstOrDefault();
@@ -86,9 +95,9 @@ namespace notomyk.Controllers
                     if (u.Roles.Count > 0)
                     {
                         string RoleID = u.Roles.FirstOrDefault().RoleId;
-                        oldRoleName = db.Roles.FirstOrDefault(r => r.Id == RoleID ).Name;
-                    }                    
-                    
+                        oldRoleName = db.Roles.FirstOrDefault(r => r.Id == RoleID).Name;
+                    }
+
                     //var oldRoleName = db.Roles.FirstOrDefault(r => r.Id == oldRoleID).Name;
                     if (oldRoleName != _u.RoleName)
                     {
@@ -112,7 +121,7 @@ namespace notomyk.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.AdminTableSaveFailed});
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.AdminTableSaveFailed });
             }
 
         }

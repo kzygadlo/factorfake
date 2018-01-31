@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using NLog;
 using notomyk.DAL;
 using notomyk.Infrastructure;
@@ -7,8 +6,6 @@ using notomyk.Models;
 using notomyk.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,6 +24,7 @@ namespace notomyk.Controllers
             }
 
             //int numberOfVotes = Convert.ToInt32(cApp.AppSettings("MinNumberVotes"));
+
             int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
             List<string> newspaperList = new List<string>();
             List<Tag> tagList = new List<Tag>();
@@ -133,9 +131,6 @@ namespace notomyk.Controllers
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
         {
             var result = db.News.Where(n => n.IsActive == true).AsQueryable();
-            //int votingValue = Convert.ToInt32(cApp.AppSettings("FilterVoting"));
-            //int commentValue = Convert.ToInt32(cApp.AppSettings("FilterComments"));
-            //int visitorsValue = Convert.ToInt32(cApp.AppSettings("FilterVisitors"));
             int votingValue = Convert.ToInt32(cApp.AppSettings["FilterVoting"]);
             int commentValue = Convert.ToInt32(cApp.AppSettings["FilterComments"]);
             int visitorsValue = Convert.ToInt32(cApp.AppSettings["FilterVisitors"]);
@@ -163,10 +158,10 @@ namespace notomyk.Controllers
                                 && (n.VoteLogs.Where(v => v.Vote == true).Count() == 0 || n.VoteLogs.Where(v => v.Vote == false).Count() / n.VoteLogs.Where(v => v.Vote == true).Count() > 2));
                             break;
                         case 3: //Top Comments
-                            result = result.Where(n => n.Collection_Comments.Where(c => c.IsActive == true).Count() > commentValue).OrderByDescending(o => o.Collection_Comments.Where(c => c.IsActive == true).Count());
+                            result = result.Where(n => n.Collection_Comments.Where(c => c.IsActive == true).Count() >= commentValue).OrderByDescending(o => o.Collection_Comments.Where(c => c.IsActive == true).Count());
                             break;
                         case 4: //Top Visits
-                            result = result.Where(n => n.Visitors > visitorsValue).OrderByDescending(o => o.Visitors);
+                            result = result.Where(n => n.Visitors >= visitorsValue).OrderByDescending(o => o.Visitors);
                             break;
                     }
                 }

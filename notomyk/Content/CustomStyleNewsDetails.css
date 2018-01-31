@@ -275,6 +275,10 @@ border: none;*/
         background-color: #f7f7f7;
     }
 
+    .defaultContainer .adminContainer {
+    padding: 10px;
+    }
+
 
 #addReplyBox .button {
     padding-right: 0;

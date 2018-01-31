@@ -32,7 +32,8 @@ namespace notomyk.Controllers
                 .Select(x => new {
                     x.ID,
                     x.Key,
-                    x.Value
+                    x.Value,
+                    x.Description
                 }).ToList();
 
             return Json(new { data = settings }, JsonRequestBehavior.AllowGet);
@@ -78,7 +79,9 @@ namespace notomyk.Controllers
                         }
 
                         s.Value = settings.Value;
+                        s.Description = settings.Description;
                         db.SaveChanges();
+                        HttpRuntime.Cache.Remove("appSettings");
                         status = true;
                     }
                     else

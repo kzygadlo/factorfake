@@ -1,18 +1,23 @@
-﻿<div class="col-md-9" style="margin-bottom:10px">
-    <div style="width:100%; margin: 0 auto" class="tablecontainer">
-        <table id="AdminUserTable" data-page-length='100'>
-            <thead>
-                <tr style="text-align:right !important">
-                    @*<th>Id</th>*@
-                    <th>UserName</th>
-                    <th>Email</th>
-                    <th>EmailConfirmed</th>
-                    <th>RoleName</th>
-                    @*<th>LastActivity</th>*@
-                    <th>Edit</th>
-                </tr>
-            </thead>
-        </table>
+﻿
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12 removePadding adminContainer">
+        <div class="col-md-9">
+            <div style="width:100%; margin: 0 auto" class="tablecontainer">
+                <table id="AdminUserTable" data-page-length='100'>
+                    <thead>
+                        <tr style="text-align:right !important">
+                            @*<th>Id</th>*@
+                            <th>UserName</th>
+                            <th>Email</th>
+                            <th>EmailConfirmed</th>
+                            <th>RoleName</th>
+                            <th>LastActivity</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        @Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")
     </div>
 </div>
-@Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")

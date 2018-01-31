@@ -1,26 +1,34 @@
 ﻿@model notomyk.Models.AppSettings
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12 removePadding adminContainer">
+        <div class="col-md-9">
+            <h2>Setting</h2>
 
-<div class="col-md-9" style="margin-bottom:10px">
-    <h2>Setting</h2>
+            @using (Html.BeginForm("Save", "AdminSettings", FormMethod.Post))
+            {
+                if (Model != null && Model.ID != 0)
+                {
+                    @Html.HiddenFor(a => a.ID)
+                }
 
-    @using (Html.BeginForm("Save", "AdminSettings", FormMethod.Post))
-    {
-        if (Model != null && Model.ID != 0)
-        {
-            @Html.HiddenFor(a => a.ID)
-        }
-
-        <div class="form-group">
-            <label>@Model.Key</label>
-            @Html.TextBoxFor(a => a.Value, new { @class = "form-control" })
-            @Html.ValidationMessageFor(a => a.Value)
+                <div class="form-group">
+                    <label>@Model.Key</label>
+                    @Html.TextBoxFor(a => a.Value, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Value)
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    @Html.TextBoxFor(a => a.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(a => a.Description)
+                </div>
+                <div>
+                    <input type="submit" value="Save" />
+                </div>
+                <div>
+                    @Html.ActionLink("Cancel", "Index", "AdminSettings")
+                </div>
+            }
         </div>
-        <div>
-            <input type="submit" value="Save" />
-        </div>
-        <div>
-            @Html.ActionLink("Cancel", "Index", "AdminSetting")
-        </div>
-    }
+        @Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")
+    </div>
 </div>
-@Html.Partial("~/Views/Admin/_RightMenuAdmin.cshtml")
