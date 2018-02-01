@@ -207,12 +207,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminVotingNewsController.cs" />
+    <Compile Include="Controllers\AdminBlackListController.cs" />
+    <Compile Include="Controllers\AdminCommentsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminForumPostController.cs" />
+    <Compile Include="Controllers\AdminForumTopicController.cs" />
+    <Compile Include="Controllers\AdminNewsController.cs" />
+    <Compile Include="Controllers\AdminNewspapersController.cs" />
     <Compile Include="Controllers\AdminSettingsController.cs" />
+    <Compile Include="Controllers\AdminTagController.cs" />
     <Compile Include="Controllers\AdminUserTableController.cs" />
+    <Compile Include="Controllers\AdminVotingCommentController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ConfirmationController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\AdminForumCategoryController.cs" />
     <Compile Include="Controllers\ForumPostController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -445,6 +455,10 @@
     <Compile Include="Migrations\201801311955005_descriptionForAppS.Designer.cs">
       <DependentUpon>201801311955005_descriptionForAppS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802011525166_newColumnNewspaperTable.cs" />
+    <Compile Include="Migrations\201802011525166_newColumnNewspaperTable.Designer.cs">
+      <DependentUpon>201802011525166_newColumnNewspaperTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppSettings.cs" />
@@ -485,6 +499,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\CustomStyle.css" />
+    <Content Include="Content\CustomStyleAdmin.css" />
     <Content Include="Content\CustomStyleForum.css" />
     <Content Include="Content\CustomStyleMedia.css" />
     <Content Include="Content\CustomStyleNewsDetails.css" />
@@ -847,7 +862,7 @@
     <Content Include="Views\Forum\_ForumPostTemplate.cshtml" />
     <Content Include="Views\Main\_NewsDetailTemplates.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\_RightMenuAdmin.cshtml" />
+    <Content Include="Views\Admin\_AdminPanelMenu.cshtml" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -864,6 +879,20 @@
     <Content Include="Views\AdminUserTable\Save.cshtml" />
     <Content Include="Views\AdminSettings\Index.cshtml" />
     <Content Include="Views\AdminSettings\Save.cshtml" />
+    <Content Include="Views\AdminNewspapers\Index.cshtml" />
+    <Content Include="Views\AdminBlackList\Index.cshtml" />
+    <Content Include="Views\AdminComments\Index.cshtml" />
+    <Content Include="Views\AdminTag\Index.cshtml" />
+    <Content Include="Views\AdminNews\Index.cshtml" />
+    <Content Include="Views\AdminForumCategory\Index.cshtml" />
+    <Content Include="Views\AdminForumPost\Index.cshtml" />
+    <Content Include="Views\AdminForumTopic\Index.cshtml" />
+    <Content Include="Views\AdminVotingNews\Index.cshtml" />
+    <Content Include="Views\AdminVotingComment\Index.cshtml" />
+    <Content Include="Views\Admin\_SettingsRestricted.cshtml" />
+    <Content Include="Views\Admin\_SettingsForum.cshtml" />
+    <Content Include="Views\Admin\_SettingsModerator.cshtml" />
+    <Content Include="Views\Admin\_SettingsOther.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1523,7 +1552,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\Logos\Utils\" />
     <Folder Include="Views\AddComment\" />
-    <Folder Include="Views\ForumComment\" />
     <Folder Include="Views\Reply\" />
     <Folder Include="Views\Tag\" />
     <Folder Include="Views\Voting\" />
@@ -1686,6 +1714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801311955005_descriptionForAppS.resx">
       <DependentUpon>201801311955005_descriptionForAppS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802011525166_newColumnNewspaperTable.resx">
+      <DependentUpon>201802011525166_newColumnNewspaperTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

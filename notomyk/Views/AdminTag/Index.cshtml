@@ -3,21 +3,24 @@
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12 removePadding adminContainer">
 
-            <input id="ifGlobal" type="hidden" name="NewsID" value="@ViewBag.Type">
-
             <div style="width:100%; margin: 0 auto" class="tablecontainer">
-                <table id="AdminSettingsTable" data-page-length='100'>
+                <table id="AdminTagsTable" data-page-length='100'>
                     <thead>
                         <tr style="text-align:right !important">
-                            @*<th>Id</th>*@
-                            <th>Key</th>
-                            <th>Value</th>
-                            <th>Description</th>
+                            <th>TagName</th>
+                            <th>HowManyTimesUsed</th>
+                            @*<th>IsActive</th>*@
+                            @*<th>Comment</th>*@
                             <th>Edit</th>
+                            <th>Remove</th>
                         </tr>
                     </thead>
                 </table>
-     
+        
         </div>
     </div>
 </div>
+
+
+
+

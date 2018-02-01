@@ -1,0 +1,25 @@
+﻿
+.adminContainer .item {
+    margin-left: 8px;
+}
+
+.adminContainer .settingsDescription,
+.adminContainer .settings {
+    padding-top:5px !important;
+
+}
+
+
+
+/*.defaultContainer {
+    padding: 0 5px 0 5px;
+    margin-bottom: 10px;
+}
+
+    .defaultContainer > div {
+        background-color: #f7f7f7;
+    }
+
+    .defaultContainer .adminContainer {
+        padding: 10px;
+    }*/

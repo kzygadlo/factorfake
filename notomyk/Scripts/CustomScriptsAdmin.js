@@ -20,7 +20,7 @@
         ]
     })
 
-    var adminSettings = $('#AdminSettings').DataTable({
+    var adminSettings = $('#AdminSettingsTable').DataTable({
         "ajax": {
             "url": '/AdminSettings/GetSettings/',
             "type": "get",
@@ -42,51 +42,251 @@
         ]
     })
 
+    var adminNewspapers = $('#AdminNewspaperTable').DataTable({
+        "ajax": {
+            "url": '/AdminNewspapers/GetNewspapers/',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "NewspaperName", "autoWidth": true },
+            { "data": "NewspaperLink", "autoWidth": true },
+            { "data": "IsActive", "autoWidth": true },
+            {
+                "data": "tbl_NewspaperID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminNewspapers/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "tbl_NewspaperID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminNewspapers/Remove/' + data + '">Remove</a>';
+                }
+            },
+        ]
+    })
 
-    //$('.tablecontainer').on('click', 'a.popup', function (e) {
-    //    e.preventDefault();
-    //    OpenPopup($(this).attr('href'));
-    //})
-    //function OpenPopup(pageUrl) {
-    //    var $pageContent = $('<div/>');
-    //    $pageContent.load(pageUrl, function () {
-    //        $('#popupForm', $pageContent).removeData('validator');
-    //        $('#popupForm', $pageContent).removeData('unobtrusiveValidation');
-    //        $.validator.unobtrusive.parse('form');
+    var adminBlackList = $('#AdminBlackListTable').DataTable({
+        "ajax": {
+            "url": '/AdminBlackList/GetBlackList',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "url", "autoWidth": true },
 
-    //    });
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminBlackList/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminBlackList/Remove/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
 
-    //    $dialog = $('<div class="popupWindow" style="overflow:auto"></div>')
-    //        .html($pageContent)
-    //        .dialog({
-    //            draggable: false,
-    //            autoOpen: false,
-    //            resizable: false,
-    //            model: true,
-    //            title: 'Popup Dialog',
-    //            height: 550,
-    //            width: 600,
-    //            close: function () {
-    //                $dialog.dialog('destroy').remove();
-    //            }
-    //        })
+    var adminComments = $('#AdminCommentTable').DataTable({
+        "ajax": {
+            "url": '/AdminComments/GetComments',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "UserName", "autoWidth": true },
+            { "data": "IsReported", "autoWidth": true },
+            { "data": "IsActive", "autoWidth": true },
+            //{ "data": "Comment", "width": "100px" },
 
-    //    $('.popupWindow').on('submit', '#popupForm', function (e) {
-    //        var url = $('#popupForm')[0].action;
-    //        $.ajax({
-    //            type: "POST",
-    //            url: url,
-    //            data: $('#popupForm').serialize(),
-    //            success: function (data) {
-    //                if (data.status) {
-    //                    $dialog.dialog('close');
-    //                    oTable.ajax.reload();
-    //                }
-    //            }
-    //        })
+            {
+                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminComments/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminComments/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+    
+    var adminTags = $('#AdminTagsTable').DataTable({
+        "ajax": {
+            "url": '/AdminTag/GetTags',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "TagName", "autoWidth": true },
+            { "data": "HowManyTimesUsed", "autoWidth": true },
+            //{ "data": "IsActive", "autoWidth": true },
+            //{ "data": "Comment", "width": "100px" },
 
-    //        e.preventDefault();
-    //    })
-    //    $dialog.dialog('open');
-    //}
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminTag/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminTag/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+    var adminNewses = $('#AdminNewsesTable').DataTable({
+        "ajax": {
+            "url": '/AdminNews/GetNewses',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "NewspaperName", "autoWidth": true },
+            { "data": "UserName", "autoWidth": true },
+            { "data": "Description", "autoWidth": true },
+            { "data": "IsReported", "autoWidth": true },
+            { "data": "IsActive", "autoWidth": true },
+            {
+                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminNews/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminNews/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+
+
+    var adminForumCategories = $('#AdminForumCategoriesTable').DataTable({
+        "ajax": {
+            "url": '/AdminForumCategory/GetForumCategories',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "CategoryName", "autoWidth": true },
+            { "data": "IconClass", "autoWidth": true },
+            { "data": "Order", "autoWidth": true },
+            { "data": "HowManyTopics", "autoWidth": true },
+
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminForumCategory/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminForumCategory/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+
+    var adminForumPosts = $('#AdminForumPostsTable').DataTable({
+        "ajax": {
+            "url": '/AdminForumPost/GetForumPosts',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "UserName", "autoWidth": true },
+            { "data": "Content", "autoWidth": true },
+            { "data": "IsReported", "autoWidth": true },
+    
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminForumPost/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminForumPost/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+
+    var adminForumTopics = $('#AdminForumTopicsTable').DataTable({
+        "ajax": {
+            "url": '/AdminForumTopic/GetForumTopics',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "UserName", "autoWidth": true },
+            { "data": "Description", "autoWidth": true },
+            { "data": "IsActive", "autoWidth": true },
+
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminForumTopic/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminForumTopic/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+    var adminVoteNews = $('#AdminNewsVotesTable').DataTable({
+        "ajax": {
+            "url": '/AdminVotingNews/GetNewsVotes',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "UserName", "autoWidth": true },
+            { "data": "tbl_NewsID", "autoWidth": true },
+            { "data": "Vote", "autoWidth": true },
+
+            {
+                "data": "VoteLogID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminVotingNews/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "VoteLogID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminVotingNews/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+
+    var adminVoteComments = $('#AdminCommentsVotesTable').DataTable({
+        "ajax": {
+            "url": '/AdminVotingComment/GetCommentVotes',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "UserName", "autoWidth": true },
+            { "data": "tbl_CommentID", "autoWidth": true },
+            { "data": "Vote", "autoWidth": true },
+
+            {
+                "data": "VoteCommentLogID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminVotingComment/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "VoteCommentLogID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminVotingComment/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+
 })
