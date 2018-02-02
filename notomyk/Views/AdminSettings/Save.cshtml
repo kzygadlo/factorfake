@@ -1,7 +1,10 @@
 ﻿@model notomyk.Models.AppSettings
+
+@Html.Partial("~/Views/Admin/Index.cshtml")
+
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12 removePadding adminContainer">
-        <div class="col-md-9">
+
             <h2>Setting</h2>
 
             @using (Html.BeginForm("Save", "AdminSettings", FormMethod.Post))
@@ -22,13 +25,9 @@
                     @Html.ValidationMessageFor(a => a.Description)
                 </div>
                 <div>
-                    <input type="submit" value="Save" />
-                </div>
-                <div>
-                    @Html.ActionLink("Cancel", "Index", "AdminSettings")
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    @Html.ActionLink("Cancel", "Index", "AdminSettings", null, new { @class = "btn btn-danger btn-large" })
                 </div>
             }
         </div>
-        @Html.Partial("~/Views/Admin/_AdminPanelMenu.cshtml")
-    </div>
 </div>

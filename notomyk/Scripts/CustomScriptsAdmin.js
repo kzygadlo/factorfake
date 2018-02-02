@@ -1,27 +1,5 @@
 ﻿$(document).ready(function () {
 
-    //var xxx = $('#AdminUserTable').DataTable({
-    //    ajax: {
-    //        url: '/AdminUserTable/GetUsers',
-    //        type: "get",
-    //        datatype: "json"
-    //    },
-    //    columns: [
-    //        { data: "UserName", autoWidth: true },
-    //        { data: "Email", autoWidth: true },
-    //        { data: "EmailConfirmed", autoWidth: true },
-    //        { data: "RoleName", autoWidth: true },
-    //        { data: "LastActivity", autoWidth: true },
-
-    //        {
-    //            data: "Comm.NumberOfComments", width: "50px", render: function (data) {
-
-    //                return '<a class="" href="/AdminComments/Index/' + data + '">' + data + '</a>';
-    //            }
-    //        }
-            
-    //    ]
-    //})
     var adminUserTable = $('#AdminUserTable').DataTable({
         "ajax": {
             "url": '/AdminUserTable/GetUsers',
@@ -41,14 +19,12 @@
                     return '<a class="" href="/AdminComments/IndexUserID/' + result[0] + '">' + result[1] + '</a>';
                 }
             },
-
             {
                 "data": "News", "width": "50px", "render": function (data) {
                     var result = data.split(';')
-                    return '<a class="" href="/AdminNews/IndexNewsID/' + result[0] + '">' + result[1] + '</a>';
+                    return '<a class="" href="/AdminNews/IndexUserID/' + result[0] + '">' + result[1] + '</a>';
                 }
             },
-
             {
                 "data": "Id", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminUserTable/Save/' + data + '">Edit</a>';
@@ -128,22 +104,32 @@
         "ajax": {
             "url": '/AdminComments/GetComments',
             "type": "get",
+            "data": function (d) {
+                d.newsID = $('#newsID').val();
+                d.userID = $('#userID').val();
+                d.parentID = $('#parentID').val();
+            },
             "datatype": "json"
         },
         "columns": [
+            
             { "data": "UserName", "autoWidth": true },
+            { "data": "Comment", "autoWidth": true },
+            { "data": "Fakt", "autoWidth": true },
+            { "data": "Fake", "autoWidth": true },
             { "data": "IsReported", "autoWidth": true },
             { "data": "IsActive", "autoWidth": true },
-            //{ "data": "Comment", "width": "100px" },
-
+            { "data": "Date", "autoWidth": true },
             {
-                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminComments/Save/' + data + '">Edit</a>';
+                "data": "Child", "width": "50px", "render": function (data) {
+                    var result = data.split(';')
+                    return '<a class="" href="/AdminComments/Index/' + result[0] + '">' + result[1] + '</a>';
                 }
             },
+
             {
-                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminComments/Save/' + data + '">Remove</a>';
+                "data": "tbl_CommentID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminComments/Save/' + data + '">Edit</a>';
                 }
             }
         ]
@@ -178,6 +164,10 @@
         "ajax": {
             "url": '/AdminNews/GetNewses',
             "type": "get",
+            "data": function (d) {
+                d.newspaperID = $('#newspaperID').val();
+                d.userID = $('#userID').val();
+            },
             "datatype": "json"
         },
         "columns": [

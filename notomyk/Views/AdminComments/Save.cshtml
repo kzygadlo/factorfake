@@ -1,0 +1,42 @@
+﻿@model notomyk.Models.tbl_Comment
+
+@Html.Partial("~/Views/Admin/Index.cshtml")
+
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12 removePadding adminContainer">
+
+        @using (Html.BeginForm("Save", "AdminComments", FormMethod.Post))
+        {
+            if (Model != null && Model.tbl_CommentID != 0)
+            {
+                @Html.HiddenFor(a => a.tbl_CommentID)
+            }
+
+            <div class="form-group">
+                <label>UserName : @Model.ApplicationUser.UserName</label>
+            </div>
+            <div class="form-group">
+                <label>Comment</label>
+                @Html.TextAreaFor(a => a.Comment, new { @class = "form-control displayInline" , rows = "10", cols = "10" })
+                @Html.ValidationMessageFor(a => a.Comment)
+            </div>
+
+            <div class="form-group">
+                <label>Is reported ?</label>
+                @Html.DropDownListFor(a => a.IsReported, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.IsReported)
+            </div>
+
+            <div class="form-group">
+                <label>IsActive</label>
+                @Html.DropDownListFor(a => a.IsActive, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.IsActive)
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                @Html.ActionLink("Cancel", "Index", "AdminComments", null, new { @class = "btn btn-danger btn-large" })
+            </div>
+        }
+    </div>
+</div>
+

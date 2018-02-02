@@ -18,6 +18,10 @@
     color: #fff !important;
 }
 
+.displayInline {
+    display: inline-block;
+}
+
 .rightTable .ui.basic.label,
 .comments-list .panel-heading .ui.basic.label {
     height: 20px !important;
@@ -33,11 +37,14 @@
     margin-left: 0;
 }
 
+.dataTables_paginate .paginate_button {
+padding: 0 !important;
+}
 .commentFaktValue,
 .commentFakeValue,
 .replyFaktValue,
 .replyFakeValue {
-    font-size:11px !important;
+    font-size: 11px !important;
     font-weight: bold !important;
 }
 

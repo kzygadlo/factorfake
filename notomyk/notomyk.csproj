@@ -893,6 +893,7 @@
     <Content Include="Views\Admin\_SettingsForum.cshtml" />
     <Content Include="Views\Admin\_SettingsModerator.cshtml" />
     <Content Include="Views\Admin\_SettingsOther.cshtml" />
+    <Content Include="Views\AdminComments\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

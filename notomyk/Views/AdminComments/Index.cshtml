@@ -3,21 +3,28 @@
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12 removePadding adminContainer">
 
-            <div style="width:100%; margin: 0 auto" class="tablecontainer">
-                <table id="AdminCommentTable" data-page-length='100'>
-                    <thead>
-                        <tr style="text-align:right !important">
-                            <th>UserName</th>
-                            <th>IsReported</th>
-                            <th>IsActive</th>
-                            @*<th>Comment</th>*@
-                            <th>Edit</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-   
+        <input id="userID" type="hidden" name="NewsID" value="@ViewBag.UserID">
+        <input id="newsID" type="hidden" name="NewsID" value="@ViewBag.NewsID">
+        <input id="parentID" type="hidden" name="NewsID" value="@ViewBag.ParentID">
+
+        <div style="width:100%; margin: 0 auto" class="tablecontainer">
+            <table id="AdminCommentTable" class="stripe hover row-border" data-page-length='50'>
+                <thead>
+                    <tr style="text-align:right !important">
+                        <th>UserName</th>
+                        <th>Comment</th>
+                        <th>Fakt</th>
+                        <th>Fake</th>
+                        <th>IsReported</th>
+                        <th>IsActive</th>
+                        <th>Date</th>
+                        <th>Child</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
     </div>
 </div>
 

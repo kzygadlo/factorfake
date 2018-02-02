@@ -19,9 +19,35 @@ namespace notomyk.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult GetNewses()
+        public ActionResult IndexUserID(string id)
         {
-            var newses = db.News.Select(x => new
+            ViewBag.NewspaperID = 0;
+            ViewBag.UserID = id;
+            return View("Index");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult IndexNewspaperID(int id)
+        {
+            ViewBag.NewsID = id;
+            return View("Index");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult GetNewses(int newspaperID, string userID)
+        {
+            var n = db.News.AsQueryable();
+
+            if (newspaperID != 0)
+            {
+                n = n.Where(c => c.tbl_NewspaperID == newspaperID);
+            }
+            else if (userID != "")
+            {
+                n = db.News.Where(c => c.ApplicationUser.Id == userID);
+            }
+
+            var newses = n.Select(x => new
             {
                 x.Newspaper.NewspaperName,
                 x.ApplicationUser.UserName,

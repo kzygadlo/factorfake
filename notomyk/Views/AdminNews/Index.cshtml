@@ -3,21 +3,24 @@
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12 removePadding adminContainer">
 
-            <div style="width:100%; margin: 0 auto" class="tablecontainer">
-                <table id="AdminNewsesTable" data-page-length='100'>
-                    <thead>
-                        <tr style="text-align:right !important">
-                            <th>NewspaperName</th>
-                            <th>UserName</th>
-                            <th>Description</th>
-                            <th>IsReported</th>
-                            <th>IsActive</th>
-                            <th>Edit</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+        <input id="userID" type="hidden" name="NewsID" value="@ViewBag.UserID">
+        <input id="newspaperID" type="hidden" name="NewsID" value="@ViewBag.NewspaperID">
+
+        <div style="width:100%; margin: 0 auto" class="tablecontainer">
+            <table id="AdminNewsesTable" class="stripe hover row-border" data-page-length='50'>
+                <thead>
+                    <tr style="text-align:right !important">
+                        <th>NewspaperName</th>
+                        <th>UserName</th>
+                        <th>Description</th>
+                        <th>IsReported</th>
+                        <th>IsActive</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
 
     </div>
 </div>
