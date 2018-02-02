@@ -18,9 +18,34 @@ namespace notomyk.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult GetComments()
+        public ActionResult IndexUserID(string id)
         {
-            var comments = db.Comment.Select(x => new {
+            ViewBag.UserID = id;
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult IndexNewsID(int id)
+        {
+            ViewBag.NewsID = id;
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult GetComments(int newsID, string userID)
+        {
+            var n = db.Comment.AsQueryable();
+
+            if (newsID != 0)
+            {
+                n = n.Where(c => c.tbl_NewsID == newsID);
+            }
+            else if (userID != "")
+            {
+                n = db.Comment.Where(c => c.ApplicationUser.Id == userID);
+            }
+
+            var comments = n.Select(x => new {
                 x.ApplicationUser.UserName,
                 x.IsReported,
                 x.IsActive,                

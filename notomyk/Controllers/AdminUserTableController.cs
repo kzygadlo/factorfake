@@ -33,6 +33,8 @@ namespace notomyk.Controllers
                     x.Email,
                     x.EmailConfirmed,
                     RoleName = db.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
+                    Comm = x.tbl_Comment.Count,
+                    News = x.tbl_News.Count,
                     x.LastActivity,
                     x.Id
                 }).ToList();
@@ -45,10 +47,13 @@ namespace notomyk.Controllers
                 y.EmailConfirmed,
                 y.RoleName,
                 LastActivity = ConvertToString.Date(y.LastActivity),
+                Comm = string.Concat(y.Id,";",y.Comm),
+                News = string.Concat(y.Id,";",y.News),
                 y.Id
             });
 
-            return Json(new { data = filtereUsers }, JsonRequestBehavior.AllowGet);
+            return Json(new {
+                data = filtereUsers }, JsonRequestBehavior.AllowGet);
 
         }
 

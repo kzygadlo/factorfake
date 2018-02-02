@@ -1,4 +1,27 @@
 ﻿$(document).ready(function () {
+
+    //var xxx = $('#AdminUserTable').DataTable({
+    //    ajax: {
+    //        url: '/AdminUserTable/GetUsers',
+    //        type: "get",
+    //        datatype: "json"
+    //    },
+    //    columns: [
+    //        { data: "UserName", autoWidth: true },
+    //        { data: "Email", autoWidth: true },
+    //        { data: "EmailConfirmed", autoWidth: true },
+    //        { data: "RoleName", autoWidth: true },
+    //        { data: "LastActivity", autoWidth: true },
+
+    //        {
+    //            data: "Comm.NumberOfComments", width: "50px", render: function (data) {
+
+    //                return '<a class="" href="/AdminComments/Index/' + data + '">' + data + '</a>';
+    //            }
+    //        }
+            
+    //    ]
+    //})
     var adminUserTable = $('#AdminUserTable').DataTable({
         "ajax": {
             "url": '/AdminUserTable/GetUsers',
@@ -11,6 +34,20 @@
             { "data": "EmailConfirmed", "autoWidth": true },
             { "data": "RoleName", "autoWidth": true },
             { "data": "LastActivity", "autoWidth": true },
+
+            {
+                "data": "Comm", "width": "50px", "render": function (data) {
+                    var result = data.split(';')
+                    return '<a class="" href="/AdminComments/IndexUserID/' + result[0] + '">' + result[1] + '</a>';
+                }
+            },
+
+            {
+                "data": "News", "width": "50px", "render": function (data) {
+                    var result = data.split(';')
+                    return '<a class="" href="/AdminNews/IndexNewsID/' + result[0] + '">' + result[1] + '</a>';
+                }
+            },
 
             {
                 "data": "Id", "width": "50px", "render": function (data) {

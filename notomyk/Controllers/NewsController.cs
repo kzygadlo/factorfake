@@ -3,15 +3,10 @@ using notomyk.Infrastructure;
 using notomyk.Models;
 using notomyk.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Security.Claims;
 using Microsoft.AspNet.Identity;
-using System.Data.Entity;
 using NLog;
 
 namespace notomyk.Controllers
@@ -20,7 +15,6 @@ namespace notomyk.Controllers
     {
         private NTMContext db = new NTMContext();
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
-        //GET: Add
         public ActionResult Add()
         {
             if (Request.IsAuthenticated)
@@ -155,11 +149,9 @@ namespace notomyk.Controllers
         [HttpPost]
         public ActionResult NewsFakt(int newsID)
         {
-
             if (Request.IsAuthenticated)
             {
                 var news = db.News.FirstOrDefault(n => n.tbl_NewsID == newsID);
-                //news.Fakt++;
                 db.SaveChanges();
 
                 return RedirectToAction("News", "Main", new { id = newsID });
@@ -168,27 +160,21 @@ namespace notomyk.Controllers
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("News", "Main", new { id = newsID }) });
             }
-
         }
 
         [HttpPost]
         public ActionResult NewsFake(int newsID)
         {
-
             if (Request.IsAuthenticated)
             {
                 var news = db.News.FirstOrDefault(n => n.tbl_NewsID == newsID);
-
-                //news.Fake++;
                 db.SaveChanges();
-
                 return RedirectToAction("News", "Main", new { id = newsID });
             }
             else
             {
                 return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("News", "Main", new { id = newsID }) });
             }
-
         }
 
         [HttpPost]
@@ -212,13 +198,8 @@ namespace notomyk.Controllers
 
                     var newsToDelete = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
                     newsToDelete.IsActive = false;
-
                     db.SaveChanges();
-
                     FOFlog.Info(string.Format("User: {0} removed newsID: {1}", User.Identity.Name, newsID));
-
-                    //return RedirectToAction("Index", "Main");
-
                     return Json(new { Success = true, redirectUrl = Url.Action("Index", "Main") });
                 }
             }
@@ -237,8 +218,6 @@ namespace notomyk.Controllers
                 var news = db.News.Where(n => n.tbl_NewsID == newsID).FirstOrDefault();
                 news.IsReported = ToReport;
                 db.SaveChanges();
-
-
                 FOFlog.Info(string.Format("User: {0} reported newsID: {1}", User.Identity.Name, newsID));
                 return Json(new
                 {

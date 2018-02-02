@@ -62,3 +62,14 @@
 2018-02-01 21:03:31.8596|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
 2018-02-01 21:16:21.1557|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
 2018-02-01 21:27:39.5251|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 19:16:18.1552|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 19:29:02.2391|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:04:41.3543|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:05:27.4875|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:19:11.0911|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:21:32.7274|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:24:47.0949|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:30:59.8218|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:33:37.7919|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:38:33.9752|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
+2018-02-02 20:43:00.0098|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
