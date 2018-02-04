@@ -36,16 +36,16 @@ namespace notomyk.Controllers
                 var CommentsList = CFiltered
                                       .Select(s => new
                                       {
-                                          ApplicationUser = s.ApplicationUser,
+                                          ApplicationUser = s.ApplicationUserAutor,
                                           s.tbl_CommentID,
                                           comment = s.IsActive == true ? s.Comment : "",
                                           s.DateAdd,
-                                          s.ApplicationUser.Id,
-                                          s.ApplicationUser.UserName,
+                                          s.ApplicationUserAutor.Id,
+                                          s.ApplicationUserAutor.UserName,
                                           s.VoteCommentLogs,
                                           children = s.Children.Where(c => c.IsActive == true).Count(),
                                           voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
-                                          whatVoteForNews = s.ApplicationUser.VotingLogs.Where(n => n.tbl_NewsID == newsID).Select(x => x.Vote).FirstOrDefault(),
+                                          whatVoteForNews = s.ApplicationUserAutor.VotingLogs.Where(n => n.tbl_NewsID == newsID).Select(x => x.Vote).FirstOrDefault(),
                                           commentBasicClass = s.IsActive == true ? "" : "hidden",
                                           commentRemovedClass = s.IsActive == true ? "hidden" : "",
                                           reportedClass = s.IsReported == true ? "" : "hidden"
@@ -115,7 +115,7 @@ namespace notomyk.Controllers
                     comments = comments.OrderBy(o => o.DateAdd);
                     break;
                 case 1: // by author reputation
-                    comments = comments.OrderBy(o => o.ApplicationUser.Reputation());
+                    comments = comments.OrderBy(o => o.ApplicationUserAutor.Reputation());
                     break;
                 case 2: // by votes
                     comments = comments.OrderBy(o => o.VoteCommentLogs.Where(v => v.Vote == true).Count() - o.VoteCommentLogs.Where(v => v.Vote == false).Count());
@@ -135,12 +135,12 @@ namespace notomyk.Controllers
             var CommentsList = db.Comment.Where(c => c.Parenttbl_CommentID == parentID && c.IsActive == true).Select(
                 s => new
                 {
-                    ApplicationUser = s.ApplicationUser,
+                    ApplicationUser = s.ApplicationUserAutor,
                     s.tbl_CommentID,
                     comment = s.IsActive == true ? s.Comment : "",
                     s.DateAdd,
-                    s.ApplicationUser.Id,
-                    s.ApplicationUser.UserName,
+                    s.ApplicationUserAutor.Id,
+                    s.ApplicationUserAutor.UserName,
                     s.VoteCommentLogs,
                     voted = s.VoteCommentLogs.Where(v => v.UserId == uName).FirstOrDefault(),
                     reportedClass = s.IsReported == true ? "" : "hidden"
@@ -186,9 +186,10 @@ namespace notomyk.Controllers
                             if (valResultD == 0)
                             {
                                 var comment = new tbl_Comment();
+                                var userReference = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
                                 comment.Comment = CommentText;
                                 comment.DateAdd = DateTime.UtcNow;
-                                comment.UserId = _uID;
+                                comment.ApplicationUserAutor = userReference;
                                 comment.tbl_NewsID = NewsID;
 
                                 if (parentID != 0)
@@ -196,7 +197,7 @@ namespace notomyk.Controllers
                                     comment.Parenttbl_CommentID = parentID;
                                 }
 
-                                var user = db.Users.Where(u => u.Id == comment.UserId).FirstOrDefault();
+                                var user = db.Users.Where(u => u.Id == comment.ApplicationUserAutor.Id).FirstOrDefault();
                                 db.Comment.Add(comment);
                                 db.SaveChanges();
 
@@ -210,9 +211,9 @@ namespace notomyk.Controllers
                                     date = GetTimeAgo.CalculateDateDiff(comment.DateAdd),
                                     userN = user.UserName,
                                     userL = Url.Content(AppConfig.UserLogoLink(user.Id)),
-                                    positiveCommentsNumber = comment.ApplicationUser.PostitiveCommentsCount(),
-                                    allCommentsNumber = comment.ApplicationUser.AllCommentsCount(),
-                                    reputationPoints = comment.ApplicationUser.Reputation()
+                                    positiveCommentsNumber = comment.ApplicationUserAutor.PostitiveCommentsCount(),
+                                    allCommentsNumber = comment.ApplicationUserAutor.AllCommentsCount(),
+                                    reputationPoints = comment.ApplicationUserAutor.Reputation()
                                 });
                             }
                             else

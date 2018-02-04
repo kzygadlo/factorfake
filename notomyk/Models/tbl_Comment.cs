@@ -29,15 +29,22 @@ namespace notomyk.Models
         public int tbl_NewsID { get; set; }
         public bool IsReported { get; set; }
 
-        //public string EditedContent { get; set; }
-        //public DateTime? EditedWhen { get; set; }
-        //public string EditedBy { get; set; }
+        
+        public string ApplicationUserAutor_Id { get; set; }
+
+        public string NewContent { get; set; }
+        public string EditorName { get; set; }        
+        public DateTime? EditDate { get; set; }
+
 
         public virtual tbl_News Newses { get; set; }
 
-        [ForeignKey("ApplicationUser")] //as User Id is not present in target table therefore we must indicate to which table 'UserID' is referenced as PK
-        public string UserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        //[ForeignKey("ApplicationUserEditor_Id")]
+        //public virtual ApplicationUser ApplicationUserEditor { get; set; }
+        [ForeignKey("ApplicationUserAutor_Id")]
+        public virtual ApplicationUser ApplicationUserAutor { get; set; }
+
+
         public virtual ICollection<VoteCommentLog> VoteCommentLogs { get; set; }
     }
 }

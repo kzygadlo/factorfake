@@ -13,7 +13,7 @@ namespace notomyk.Infrastructure
             using (NTMContext db = new NTMContext())
             {
 
-                if (db.Comment.Any(c => c.tbl_CommentID == commID && c.UserId == userID))
+                if (db.Comment.Any(c => c.tbl_CommentID == commID && c.ApplicationUserAutor.Id == userID))
                 {
                     return true;
                 }

@@ -14,6 +14,8 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+
+            ViewBag.AdminVotingNewsClass = "active";
             return View();
         }
 

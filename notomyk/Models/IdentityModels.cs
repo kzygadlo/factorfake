@@ -31,9 +31,9 @@ namespace notomyk.Models
         public virtual ICollection<VoteLog> VotingLogs { get; set; }
 
         public virtual ICollection<tbl_News> tbl_News { get; set; }
+        //public virtual ICollection<tbl_Comment> EditedComments { get; set; }
+        public virtual ICollection<tbl_Comment> Comments { get; set; }
 
-        public virtual ICollection<tbl_Comment> tbl_Comment { get; set; }
-        //public virtual tbl_Comment tbl_Comment { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -74,12 +74,12 @@ namespace notomyk.Models
 
         public int AllCommentsCount()
         {
-            return this.tbl_Comment.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
+            return this.Comments.Where(c => c.IsActive == true && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
         }
 
         public int PostitiveCommentsCount()
         {
-            return this.tbl_Comment.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
+            return this.Comments.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
         }
     }
 }

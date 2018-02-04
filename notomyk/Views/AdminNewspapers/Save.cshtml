@@ -1,0 +1,48 @@
+﻿@model notomyk.Models.tbl_Newspaper
+
+@Html.Partial("~/Views/Admin/Index.cshtml")
+
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12 removePadding adminContainer">
+
+        @using (Html.BeginForm("Save", "AdminNewspapers", FormMethod.Post))
+        {
+            if (Model != null && Model.tbl_NewspaperID != 0)
+            {
+                @Html.HiddenFor(a => a.tbl_NewspaperID)
+            }
+
+            <div class="form-group">
+                <label>Newspaper Name</label>
+                @Html.TextBoxFor(a => a.NewspaperName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.NewspaperName)
+            </div>
+
+            <div class="form-group">
+                <label>Newspaper Link</label>
+                @Html.TextBoxFor(a => a.NewspaperLink, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.NewspaperLink)
+            </div>
+            <div class="form-group">
+                <label>IsActive</label>
+                @Html.DropDownListFor(a => a.IsActive, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.IsActive)
+            </div>
+            <div class="form-group">
+                <label>Newspaper Logo name</label>
+                @Html.TextBoxFor(a => a.NewspaperIconLink, new { @class = "form-control displayInline" })
+                @Html.ValidationMessageFor(a => a.NewspaperIconLink)
+                <img class="profile-img" src="@Url.NewspaperIconPath_250(Model.NewspaperIconLink)" style="margin-top:20px" alt="img">
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                @Html.ActionLink("Cancel", "Index", "AdminNewspapers", null, new { @class = "btn btn-danger btn-large" })
+                @Html.ActionLink("Dodaj do BlackListy", "BlackList", "AdminNewspapers", null, new { @class = "btn btn-warning btn-large" })
+                @Html.ActionLink("Dodaj/Zmien Logo", "BlackList", "AdminNewspapers", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        }
+    </div>
+</div>
+
+

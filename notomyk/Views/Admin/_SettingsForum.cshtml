@@ -1,8 +1,8 @@
 ﻿<div class="ui middle aligned divided list">
 
-    <div class="item">
+    <div class="item @ViewBag.AdminForumCategoryClass" >
         <div class="right floated content">
-            <a href="@Url.Action("Index","AdminForumCategory")">
+            <a href="@Url.Action("Index","AdminForumCategory")" >
                 <div class="ui button">
                     GO
                 </div>
@@ -14,9 +14,9 @@
         </div>
     </div>
 
-    <div class="item">
+    <div class="item @ViewBag.AdminForumTopicClass"> 
         <div class="right floated content">
-            <a href="@Url.Action("Index","AdminForumTopic")">
+            <a href="@Url.Action("Index","AdminForumTopic")" >
                 <div class="ui button">
                     GO
                 </div>
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="item">
+    <div class="item @ViewBag.AdminForumPostClass" >
         <div class="right floated content">
             <a href="@Url.Action("Index","AdminForumPost")">
                 <div class="ui button">

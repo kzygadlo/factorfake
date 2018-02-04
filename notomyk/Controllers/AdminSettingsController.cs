@@ -17,10 +17,13 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index(int id)
         {
+            ViewBag.AdminSettingsClass = "active";
             ViewBag.Type = "standard";
             if (id != 0)
             {
                 ViewBag.Type = "global";
+                ViewBag.AdminSettingsClass = "";
+                ViewBag.AdminSettingsGlobalClass = "active";
             }
             return View();
         }

@@ -16,6 +16,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index(int id)
         {
+            ViewBag.AdminCommentsClass = "active";
             ViewBag.NewsID = 0;
             ViewBag.UserID = "";
             ViewBag.ParentID = id;
@@ -25,6 +26,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult IndexUserID(string id)
         {
+            ViewBag.AdminCommentsClass = "active";
             ViewBag.NewsID = 0;
             ViewBag.UserID = id;
             ViewBag.ParentID = 0;
@@ -34,6 +36,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult IndexNewsID(int id)
         {
+            ViewBag.AdminCommentsClass = "active";
             ViewBag.NewsID = id;
             ViewBag.ParentID = 0;
             return View("Index");
@@ -42,7 +45,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult GetComments(int newsID, string userID, int parentID)
         {
-            var n = db.Comment.AsQueryable();
+            var n = db.Comment.OrderByDescending(o => o.DateAdd).AsQueryable();
 
             if (newsID != 0)
             {
@@ -50,7 +53,7 @@ namespace notomyk.Controllers
             }
             else if (userID != "")
             {
-                n = db.Comment.Where(c => c.ApplicationUser.Id == userID);
+                n = db.Comment.Where(c => c.ApplicationUserAutor.Id == userID);
             }
 
             if (parentID != 0)
@@ -59,7 +62,7 @@ namespace notomyk.Controllers
             }
 
             var comments = n.Select(x => new {
-                x.ApplicationUser.UserName,
+                x.ApplicationUserAutor.UserName,
                 x.Comment,
                 x.Fakt,
                 x.Fake,
@@ -108,7 +111,15 @@ namespace notomyk.Controllers
                 {
                     var c = db.Comment.Where(d => d.tbl_CommentID == comm.tbl_CommentID).FirstOrDefault();
 
-                    c.Comment = comm.Comment;
+                    if (c.Comment != comm.Comment)
+                    {
+                        string userName = User.Identity.Name;
+
+                        c.NewContent = comm.Comment;
+                        c.EditDate = DateTime.UtcNow;
+                        c.EditorName = userName;
+                    }
+
                     c.IsActive = comm.IsActive;
                     c.IsReported = comm.IsReported;
                     db.SaveChanges();

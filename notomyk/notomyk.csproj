@@ -459,6 +459,18 @@
     <Compile Include="Migrations\201802011525166_newColumnNewspaperTable.Designer.cs">
       <DependentUpon>201802011525166_newColumnNewspaperTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802031751016_tblCommentRefactoring1.cs" />
+    <Compile Include="Migrations\201802031751016_tblCommentRefactoring1.Designer.cs">
+      <DependentUpon>201802031751016_tblCommentRefactoring1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802041455073_tblCommentRefactoring2.cs" />
+    <Compile Include="Migrations\201802041455073_tblCommentRefactoring2.Designer.cs">
+      <DependentUpon>201802041455073_tblCommentRefactoring2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802041610481_tblCommentRefactoring3.cs" />
+    <Compile Include="Migrations\201802041610481_tblCommentRefactoring3.Designer.cs">
+      <DependentUpon>201802041610481_tblCommentRefactoring3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppSettings.cs" />
@@ -894,6 +906,8 @@
     <Content Include="Views\Admin\_SettingsModerator.cshtml" />
     <Content Include="Views\Admin\_SettingsOther.cshtml" />
     <Content Include="Views\AdminComments\Save.cshtml" />
+    <Content Include="Views\AdminNews\Save.cshtml" />
+    <Content Include="Views\AdminNewspapers\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1718,6 +1732,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802011525166_newColumnNewspaperTable.resx">
       <DependentUpon>201802011525166_newColumnNewspaperTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802031751016_tblCommentRefactoring1.resx">
+      <DependentUpon>201802031751016_tblCommentRefactoring1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802041455073_tblCommentRefactoring2.resx">
+      <DependentUpon>201802041455073_tblCommentRefactoring2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802041610481_tblCommentRefactoring3.resx">
+      <DependentUpon>201802041610481_tblCommentRefactoring3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

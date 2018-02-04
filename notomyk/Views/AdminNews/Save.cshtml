@@ -1,0 +1,58 @@
+﻿@model notomyk.Models.tbl_News
+
+@Html.Partial("~/Views/Admin/Index.cshtml")
+
+<div class="col-xs-12 defaultContainer">
+    <div class="col-xs-12 removePadding adminContainer">
+
+        @using (Html.BeginForm("Save", "AdminNews", FormMethod.Post))
+    {
+        if (Model != null && Model.tbl_NewsID != 0)
+        {
+            @Html.HiddenFor(a => a.tbl_NewsID)
+    }
+
+    <div class="form-group">
+        <label>dodał : @Model.ApplicationUser.UserName | gazeta : @Model.Newspaper.NewspaperName</label>
+    </div>
+    <div class="form-group">
+        <label>Tytuł</label>
+        @Html.TextBoxFor(a => a.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.Title)
+    </div>
+    <div class="form-group">
+        <label>Opis</label>
+        @Html.TextAreaFor(a => a.Description, new { @class = "form-control displayInline", rows = "3", cols = "10" })
+        @Html.ValidationMessageFor(a => a.Description)
+    </div>
+    <div class="form-group">
+        <label>Link artykułu</label>
+        @Html.TextBoxFor(a => a.ArticleLink, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.ArticleLink)
+    </div>
+    <div class="form-group">
+        <label>Link do zdjęcia</label>
+        @Html.TextBoxFor(a => a.PictureLink, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.PictureLink)
+    </div>
+
+    <div class="form-group">
+        <label>Is reported ?</label>
+        @Html.DropDownListFor(a => a.IsReported, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.IsReported)
+    </div>
+
+    <div class="form-group">
+        <label>IsActive</label>
+        @Html.DropDownListFor(a => a.IsActive, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.IsActive)
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Cancel", "Index", "AdminNews", null, new { @class = "btn btn-danger btn-large" })
+    </div>
+}
+    </div>
+</div>
+
+

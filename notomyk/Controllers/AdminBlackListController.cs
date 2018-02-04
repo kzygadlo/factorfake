@@ -14,6 +14,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            ViewBag.AdminBlackListClass = "active";
             return View();
         }
 

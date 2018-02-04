@@ -17,6 +17,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            ViewBag.AdminUserTableClass = "active";
             return View();
         }
 
@@ -33,7 +34,7 @@ namespace notomyk.Controllers
                     x.Email,
                     x.EmailConfirmed,
                     RoleName = db.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
-                    Comm = x.tbl_Comment.Count,
+                    Comm = x.Comments.Count,
                     News = x.tbl_News.Count,
                     x.LastActivity,
                     x.Id

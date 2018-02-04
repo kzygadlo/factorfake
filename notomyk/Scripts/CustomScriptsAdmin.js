@@ -12,7 +12,6 @@
             { "data": "EmailConfirmed", "autoWidth": true },
             { "data": "RoleName", "autoWidth": true },
             { "data": "LastActivity", "autoWidth": true },
-
             {
                 "data": "Comm", "width": "50px", "render": function (data) {
                     var result = data.split(';')
@@ -64,7 +63,14 @@
         "columns": [
             { "data": "NewspaperName", "autoWidth": true },
             { "data": "NewspaperLink", "autoWidth": true },
+            { "data": "NewspaperIconLink", "autoWidth": true },
             { "data": "IsActive", "autoWidth": true },
+            {
+                "data": "News", "width": "50px", "render": function (data) {
+                    var result = data.split(';')
+                    return '<a class="" href="/AdminNews/IndexNewspaperID/' + result[0] + '">' + result[1] + '</a>';
+                }
+            },
             {
                 "data": "tbl_NewspaperID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminNewspapers/Save/' + data + '">Edit</a>';
@@ -72,9 +78,9 @@
             },
             {
                 "data": "tbl_NewspaperID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminNewspapers/Remove/' + data + '">Remove</a>';
+                    return '<a class="" href="/AdminNewspapers/Remove/' + data + '">Del</a>';
                 }
-            },
+            }
         ]
     })
 
@@ -112,7 +118,7 @@
             "datatype": "json"
         },
         "columns": [
-            
+
             { "data": "UserName", "autoWidth": true },
             { "data": "Comment", "autoWidth": true },
             { "data": "Fakt", "autoWidth": true },
@@ -134,7 +140,7 @@
             }
         ]
     })
-    
+
     var adminTags = $('#AdminTagsTable').DataTable({
         "ajax": {
             "url": '/AdminTag/GetTags',
@@ -154,7 +160,7 @@
             },
             {
                 "data": "ID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminTag/Save/' + data + '">Remove</a>';
+                    return '<a class="" href="/AdminTag/Save/' + data + '">Del</a>';
                 }
             }
         ]
@@ -172,10 +178,20 @@
         },
         "columns": [
             { "data": "NewspaperName", "autoWidth": true },
-            { "data": "UserName", "autoWidth": true },
             { "data": "Description", "autoWidth": true },
             { "data": "IsReported", "autoWidth": true },
             { "data": "IsActive", "autoWidth": true },
+            { "data": "DateAdd", "autoWidth": true },
+            { "data": "Visitors", "autoWidth": true },
+            { "data": "faktValue", "autoWidth": true },
+            { "data": "fakeValue", "autoWidth": true },
+
+            {
+                "data": "Comm", "width": "50px", "render": function (data) {
+                    var result = data.split(';')
+                    return '<a class="" href="/AdminComments/IndexNewsID/' + result[0] + '">' + result[1] + '</a>';
+                }
+            },
             {
                 "data": "tbl_NewsID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminNews/Save/' + data + '">Edit</a>';
@@ -183,9 +199,11 @@
             },
             {
                 "data": "tbl_NewsID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminNews/Save/' + data + '">Remove</a>';
+                    return '<a class="" href="/AdminNews/Save/' + data + '">Del</a>';
                 }
             }
+
+
         ]
     })
 
@@ -227,7 +245,7 @@
             { "data": "UserName", "autoWidth": true },
             { "data": "Content", "autoWidth": true },
             { "data": "IsReported", "autoWidth": true },
-    
+
             {
                 "data": "ID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminForumPost/Save/' + data + '">Edit</a>';
