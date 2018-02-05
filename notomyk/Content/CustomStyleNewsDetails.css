@@ -2,6 +2,21 @@
 
 /*single Comment*/
 
+.voteFakt.button,
+.voteFake.label{
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.voteFake.button,
+.voteFakt.label {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
 
 .removedMessage {
 word-wrap:break-word;
@@ -10,7 +25,8 @@ text-decoration: line-through;
 }
 
 .postBG > div {
-background-color: #fff;
+    background-color: #fff;
+
 }
 
 .info .detailsIcon span {
@@ -269,10 +285,11 @@ border: none;*/
 .defaultContainer {
     padding: 0 5px 0 5px;
     margin-bottom: 10px;
+    /*border: 1px solid #ddd;*/
 }
 
     .defaultContainer > div {
-        background-color: #f7f7f7;
+        background-color: #fff;
     }
 
     .defaultContainer .adminContainer {

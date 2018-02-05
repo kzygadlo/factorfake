@@ -11,7 +11,7 @@
 
     .rightTable .nav > li.active > a {
         color: #333;
-        background-color: #eee;
+        background-color: #fff;
     }
 
     .rightTable .nav > li > a:hover {
@@ -28,7 +28,8 @@
     }
 
     .rightTable .news a {
-    background-color:#f5f5f5;
+        background-color: #fff;
+        /*border: 1px solid #ddd;*/
     }
 
     .rightTable .news a:hover {
@@ -36,7 +37,8 @@
     }
 
     .rightTable .singleUser {
-    background-color:#f5f5f5;
+    background-color:#fff;
+
     }
 
     .rightTable .singleUser:hover {

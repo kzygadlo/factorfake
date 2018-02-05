@@ -13,3 +13,6 @@
     background-color: #c9c9c9;
 }
 
+.adminContainer .profile-img {
+    border-radius: 0%;
+}

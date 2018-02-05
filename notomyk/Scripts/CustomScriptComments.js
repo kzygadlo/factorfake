@@ -25,7 +25,7 @@
     $(document).on('submit', '.frmAddReply', function (event) {
         event.preventDefault();
         var $notifBox = $(this).closest('.commentBoxJQ');
-        var $comment = $(this).closest('.addReply').find('.message');
+        var $comment = $(this).find('.addReply').find('.message');
         var $newsID = $('.frmNewsID').val();
         var $parentID = $(this).find('.commentID').val();
         var $template = $('#replyPattern').html();

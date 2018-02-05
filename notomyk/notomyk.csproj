@@ -242,6 +242,7 @@
     <Compile Include="Infrastructure\addLoginValidator.cs" />
     <Compile Include="Infrastructure\cApp.cs" />
     <Compile Include="Infrastructure\ConvertDateToString.cs" />
+    <Compile Include="Infrastructure\ImageHandler.cs" />
     <Compile Include="Infrastructure\NewsValidator.cs">
       <SubType>Code</SubType>
     </Compile>

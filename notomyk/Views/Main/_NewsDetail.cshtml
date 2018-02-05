@@ -16,18 +16,7 @@
                     <div class="fof col-xs-12 removePadding">
 
                         <div class="ui labeled button fakt pull-left" tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
-                            @*@if (@Model.WhatVote == 1)
-                                {
-                                    <div class="voteFakt ui BGgreenColorLight button">
-                                        <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="voteFakt ui BGgreenColorLight button">
-                                        <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                    </div>
-                                }*@
+
 
                             @if (Model.SingleNews.RatingClass() == 2)
                             {
@@ -92,10 +81,6 @@
                                     }
                                 </div>
                             }
-
-
-
-
                         </div>
                     </div>
                     <div class="col-xs-12" style="padding: 0 3px 0 0">
@@ -121,19 +106,19 @@
 
                                 <div class="statButtons extra content">
                                     <div class="ui three buttons">
-                                        <div class="ui compact menu col-xs-4" style="padding: 0 5px 0 5px">
+                                        <div class="ui compact menu col-xs-4 LeftRadius" style="padding: 0 5px 0 5px">
                                             <x class="item">
                                                 <i class="icon mail"></i> Komentarzy
                                                 <div class="floating ui basic blue label">@ViewBag.CommNum</div>
 
                                         </div>
-                                        <div class="ui compact menu col-xs-4" style="padding: 0 5px 0 5px; border-left:none; border-right:none;">
+                                        <div class="ui compact menu col-xs-4 noRadius" style="padding: 0 5px 0 5px; border-left:none; border-right:none;">
                                             <x class="item">
                                                 <i class="icon tv"></i> Odwiedzin
                                                 <div class="floating ui basic grey label">@Model.SingleNews.Visitors</div>
                                             </x>
                                         </div>
-                                        <div class="fb-share-button col-xs-4"
+                                        <div class="fb-share-button col-xs-4 RightRadius"
                                              style="background-color:#4267b2; padding-top:1px"
                                              data-href="@ViewBag.fbButtonUrl"
                                              data-layout="button_count"
@@ -193,27 +178,31 @@
                 <input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>
                 @if (Request.IsAuthenticated)
                 {
-                    <div class="col-xs-2 col-sm-1" style="padding:14px 0 0 0">
-                        <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
-                    </div>
-                    <div class="col-xs-9 col-sm-10 removePadding">
+                    <form class="frmAddComment">
                         <span class="charCounter pull-right" style="font-size:11px"></span>
-                        <textarea maxlength="3000" id="frmCommentText" rows="10" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden;" placeholder="Co uważasz o tym artykule ?"></textarea>
-                    </div>
-                    <div class="col-xs-1" style="padding:14px 0 0 0">
-                        <form class="frmAddComment  pull-right">
+                        <div class="ui action input col-xs-12 removePadding">
 
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            <img src="@imgUrl" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
+
+                            <input id="frmCommentText" type="text" placeholder="Co uważasz o tym artykule ?   [wciśnij enter aby dodać komentarz]"
+                                   style="margin-left:5px;" maxlength="3000" cols="40" rows="10" name="CommentText">
+
+                            <button class="ui icon blue button" type="submit">
+                                <i class="large plus icon"></i>
                             </button>
-                        </form>
-                    </div>
+
+                        </div>
+                    </form>
                 }
                 else
                 {
-                    <div class="col-xs-12 removePadding">
-                        <textarea id="frmCommentTextNoAuth" readonly rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden; resize:none" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                    <div class="ui action input col-xs-12 removePadding">
+                        <input readonly id="frmCommentTextNoAuth" type="text" placeholder="Zaloguj się aby dodać komentarz."
+                                maxlength="3000" cols="40" rows="10" name="CommentText">
                     </div>
+                    @*<div class="col-xs-12 removePadding">
+                            <textarea id="frmCommentTextNoAuth" readonly rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden; resize:none" placeholder="Zaloguj się aby dodać komentarz."></textarea>
+                        </div>*@
                     @*<input class="frmNewsID" type="hidden" name="NewsID" value=@Model.SingleNews.tbl_NewsID>*@
                 }
             </div>
