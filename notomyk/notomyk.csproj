@@ -240,8 +240,10 @@
     <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
     <Compile Include="Infrastructure\addLoginValidator.cs" />
+    <Compile Include="Infrastructure\cAppGlobal.cs" />
     <Compile Include="Infrastructure\cApp.cs" />
     <Compile Include="Infrastructure\ConvertDateToString.cs" />
+    <Compile Include="Infrastructure\ErrorMessageGlobal.cs" />
     <Compile Include="Infrastructure\ImageHandler.cs" />
     <Compile Include="Infrastructure\NewsValidator.cs">
       <SubType>Code</SubType>

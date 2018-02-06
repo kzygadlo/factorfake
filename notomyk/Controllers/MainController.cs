@@ -18,11 +18,17 @@ namespace notomyk.Controllers
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
         public ActionResult Index(bool mainPage = true)
         {
+
+            if (!cAppGlobal.IsAllowed("SiteEnabled"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.SiteEnabled });
+            }
+
             if (Request.IsAuthenticated)
             {
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());
             }
-
+            
             //int numberOfVotes = Convert.ToInt32(cApp.AppSettings("MinNumberVotes"));
 
             int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
@@ -212,6 +218,11 @@ namespace notomyk.Controllers
 
         public ActionResult News(int ID)
         {
+            if (!cAppGlobal.IsAllowed("SiteEnabled"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.SiteEnabled });
+            }
+
             if (!Request.IsAuthenticated)
             {
                 ViewBag.popupMsg = "Musisz byc zalogowany aby oddać głos.";

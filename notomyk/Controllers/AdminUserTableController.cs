@@ -37,6 +37,8 @@ namespace notomyk.Controllers
                     Comm = x.Comments.Count,
                     News = x.tbl_News.Count,
                     x.LastActivity,
+                    x.LockoutEnabled,
+                    x.LockoutEndDateUtc,
                     x.Id
                 }).ToList();
 
@@ -48,13 +50,17 @@ namespace notomyk.Controllers
                 y.EmailConfirmed,
                 y.RoleName,
                 LastActivity = ConvertToString.Date(y.LastActivity),
-                Comm = string.Concat(y.Id,";",y.Comm),
-                News = string.Concat(y.Id,";",y.News),
+                Active = y.LockoutEnabled,
+                BanTo = y.LockoutEndDateUtc,
+                Comm = string.Concat(y.Id, ";", y.Comm),
+                News = string.Concat(y.Id, ";", y.News),
                 y.Id
             });
 
-            return Json(new {
-                data = filtereUsers }, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                data = filtereUsers
+            }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -93,6 +99,17 @@ namespace notomyk.Controllers
                 if (_u.User.Id != "")
                 {
                     var u = db.Users.Where(s => s.Id == _u.User.Id).FirstOrDefault();
+
+                    if (db.Users.Any(x => x.Email == _u.User.Email && x.Id != _u.User.Id))
+                    {
+                        return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.EmailIsTaken });
+                    }
+
+                    if (db.Users.Any(x => x.UserName == _u.User.UserName && x.Id != _u.User.Id))
+                    {
+                        return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.UserNameIsTaken });
+                    }
+
                     u.UserName = _u.User.UserName;
                     u.Email = _u.User.Email;
                     u.EmailConfirmed = _u.User.EmailConfirmed;
@@ -130,6 +147,13 @@ namespace notomyk.Controllers
                 return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.AdminTableSaveFailed });
             }
 
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Ban(int whatBan, string userID)
+        {
+            return RedirectToAction("Save", "AdminUserTable", new { ID = userID});
         }
     }
 }

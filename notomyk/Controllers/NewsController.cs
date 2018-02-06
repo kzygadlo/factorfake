@@ -17,6 +17,7 @@ namespace notomyk.Controllers
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
         public ActionResult Add()
         {
+
             if (Request.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Main");
@@ -30,6 +31,11 @@ namespace notomyk.Controllers
         [HttpPost]
         public ActionResult Add(NewNews newN)
         {
+            if (!cAppGlobal.IsAllowed("SiteEnabled"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.SiteEnabled });
+            }
+
             if (Request.IsAuthenticated)
             {
                 if (ModelState.IsValid)

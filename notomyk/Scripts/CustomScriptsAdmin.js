@@ -12,6 +12,8 @@
             { "data": "EmailConfirmed", "autoWidth": true },
             { "data": "RoleName", "autoWidth": true },
             { "data": "LastActivity", "autoWidth": true },
+            { "data": "Active", "autoWidth": true },
+            { "data": "BanTo", "autoWidth": true },
             {
                 "data": "Comm", "width": "50px", "render": function (data) {
                     var result = data.split(';')

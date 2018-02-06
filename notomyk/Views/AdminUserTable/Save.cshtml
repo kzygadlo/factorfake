@@ -35,12 +35,18 @@
                 @Html.DropDownListFor(a => a.RoleName, new[] { new SelectListItem { Text = "User", Value = "User" }, new SelectListItem { Text = "Moderator", Value = "Moderator" }, new SelectListItem { Text = "Admin", Value = "Admin" } }, new { @class = "form-control" })
                 @Html.ValidationMessageFor(a => a.RoleName)
             </div>
-            <div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save</button>
                 @Html.ActionLink("Cancel", "Index", "AdminUserTable", null, new { @class = "btn btn-danger btn-large" })
-            </div>           
+            </div>
 
         }
-
+            <div >
+                @Html.ActionLink("Ban Dzien", "Ban", "AdminNewspapers", null, new { @class = "btn btn-warning btn-large" })
+                @Html.ActionLink("Ban Tydzien", "Ban", "AdminNewspapers", null, new { @class = "btn btn-warning btn-large" })
+                @Html.ActionLink("BanPerm", "Ban", "AdminNewspapers", null, new { @class = "btn btn-danger btn-large" })
+                @Html.ActionLink("Zejmij bana", "Ban", "AdminNewspapers", null, new { @class = "btn btn-success btn-large" })
+            </div>
+       
     </div>
 </div>

@@ -22,6 +22,8 @@ namespace notomyk.Infrastructure
         public const string AdminTableSaveFailed = "Nie udało się zapisać zmian.";
         public const string ValueIsNotInt = "Musisz podać wartość liczbową dla tych ustawień.";
         public const string ValueTrueOrFalse = "Musisz podać wartość 1 albo 0 dla tych ustawień.";
+        public const string EmailIsTaken = "Email jest już używany przez kogoś innego.";
+        public const string UserNameIsTaken = "Nazwa użytkownika jest juz używana przez kogos innego.";
     }
 
     

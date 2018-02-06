@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using notomyk.Infrastructure;
 
 namespace notomyk.Controllers
 {
@@ -16,6 +17,11 @@ namespace notomyk.Controllers
 
         public ActionResult Index()
         {
+            if (!cAppGlobal.IsAllowed("SiteEnabled"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.SiteEnabled });
+            }
+
             if (Request.IsAuthenticated)
             {
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());

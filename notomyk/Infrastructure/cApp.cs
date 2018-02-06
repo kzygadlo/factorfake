@@ -37,16 +37,6 @@ namespace notomyk.Infrastructure
             }
 
             HttpRuntime.Cache["appSettings"] = SettingsDictionary;
-
-            //HttpRuntime.Cache.Add(
-            //    "appSettings",
-            //    SettingsDictionary,
-            //    null,
-            //    System.Web.Caching.Cache.NoAbsoluteExpiration,
-            //    System.Web.Caching.Cache.NoSlidingExpiration,      
-            //    System.Web.Caching.CacheItemPriority.Default,
-            //    null
-            //    );
         }
 
         public List<AppSettings> SettingsFromDB()
@@ -55,5 +45,6 @@ namespace notomyk.Infrastructure
             var settings = db.AppSettings.ToList();
             return settings;
         }
+
     }
 }

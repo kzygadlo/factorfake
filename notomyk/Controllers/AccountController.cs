@@ -197,6 +197,10 @@ namespace notomyk.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (!cAppGlobal.IsAllowed("SiteEnabled"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.SiteEnabled });
+            }
             return View();
         }
 
@@ -345,7 +349,8 @@ namespace notomyk.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            //var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
