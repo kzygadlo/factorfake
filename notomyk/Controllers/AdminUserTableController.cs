@@ -151,11 +151,10 @@ namespace notomyk.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Ban(int whatBan, string userID)
-        {
+        public ActionResult Ban(int whatBan, string userID)        {
             
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new NTMContext()));
-            var currentUser = userManager.FindByIdAsync(User.Identity.GetUserId());
+
             var user = userManager.FindById(userID);
             if (user.LockoutEnabled)
             {
@@ -175,7 +174,8 @@ namespace notomyk.Controllers
                         break;
                 }
             }
-            
+
+            //db.SaveChanges();
             userManager.Update(user);
             return RedirectToAction("Save", "AdminUserTable", new { ID = userID});
         }

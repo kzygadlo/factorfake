@@ -223,3 +223,5 @@
 2018-02-07 22:29:56.7689|INFO|notomyk.Infrastructure.cAppGlobalSettings|SettingsGlobal taken from DB
 2018-02-07 22:37:45.2004|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
 2018-02-07 22:37:45.7830|INFO|notomyk.Infrastructure.cAppGlobalSettings|SettingsGlobal taken from DB
+2018-02-07 22:49:05.3757|INFO|notomyk.Infrastructure.cAppGlobalSettings|SettingsGlobal taken from DB
+2018-02-07 22:49:07.3033|INFO|notomyk.Infrastructure.cApp|Settings taken from DB
