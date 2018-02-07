@@ -1,17 +1,19 @@
-﻿using notomyk.DAL;
-using System.Linq;
-using System.Web.Mvc;
-using notomyk.Models;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using NLog;
+using notomyk.DAL;
 using notomyk.Infrastructure;
+using notomyk.Models;
 using notomyk.ViewModel;
 using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace notomyk.Controllers
 {
     public class AdminUserTableController : Controller
     {
+        private static Logger FOFlog = LogManager.GetCurrentClassLogger();
         NTMContext db = new NTMContext();
         // GET: AdminUserTable
         [Authorize(Roles = "Admin")]
@@ -50,8 +52,7 @@ namespace notomyk.Controllers
                 y.EmailConfirmed,
                 y.RoleName,
                 LastActivity = ConvertToString.Date(y.LastActivity),
-                Active = y.LockoutEnabled,
-                BanTo = y.LockoutEndDateUtc,
+                BanTo = ConvertToString.Date(y.LockoutEndDateUtc),
                 Comm = string.Concat(y.Id, ";", y.Comm),
                 News = string.Concat(y.Id, ";", y.News),
                 y.Id
@@ -113,6 +114,7 @@ namespace notomyk.Controllers
                     u.UserName = _u.User.UserName;
                     u.Email = _u.User.Email;
                     u.EmailConfirmed = _u.User.EmailConfirmed;
+                    u.LockoutEnabled = _u.User.LockoutEnabled;
 
                     string oldRoleName = "";
                     if (u.Roles.Count > 0)
@@ -146,13 +148,35 @@ namespace notomyk.Controllers
             {
                 return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.AdminTableSaveFailed });
             }
-
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost]
         public ActionResult Ban(int whatBan, string userID)
         {
+            
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new NTMContext()));
+            var currentUser = userManager.FindByIdAsync(User.Identity.GetUserId());
+            var user = userManager.FindById(userID);
+            if (user.LockoutEnabled)
+            {
+                switch (whatBan)
+                {
+                    case 0:
+                        user.LockoutEndDateUtc = null;
+                        break;
+                    case 1:
+                        user.LockoutEndDateUtc = DateTime.UtcNow.AddDays(1);
+                        break;
+                    case 2:
+                        user.LockoutEndDateUtc = DateTime.UtcNow.AddDays(7);
+                        break;
+                    case 3:
+                        user.LockoutEndDateUtc = DateTime.UtcNow.AddYears(2).AddDays(1);
+                        break;
+                }
+            }
+            
+            userManager.Update(user);
             return RedirectToAction("Save", "AdminUserTable", new { ID = userID});
         }
     }

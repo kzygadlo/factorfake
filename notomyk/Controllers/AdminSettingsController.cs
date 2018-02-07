@@ -15,23 +15,16 @@ namespace notomyk.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
             ViewBag.AdminSettingsClass = "active";
-            ViewBag.Type = "standard";
-            if (id != 0)
-            {
-                ViewBag.Type = "global";
-                ViewBag.AdminSettingsClass = "";
-                ViewBag.AdminSettingsGlobalClass = "active";
-            }
             return View();
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult GetSettings(string type)
         {
-            var settings = db.AppSettings.Where(w => w.Type == type)
+            var settings = db.AppSettings
                 .Select(x => new {
                     x.ID,
                     x.Key,
@@ -58,7 +51,6 @@ namespace notomyk.Controllers
         [HttpPost]
         public ActionResult Save(AppSettings settings)
         {
-            int returnID = 0;
             bool status = false;
             if (ModelState.IsValid)
             {
@@ -72,15 +64,6 @@ namespace notomyk.Controllers
 
                     if (result)
                     {
-                        if (s.Type.ToLower() == "global")
-                        {
-                            returnID = 1;
-                            if (settings.Value != "0" && settings.Value != "1")
-                            {
-                                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.ValueTrueOrFalse });
-                            }
-                        }
-
                         s.Value = settings.Value;
                         s.Description = settings.Description;
                         db.SaveChanges();
@@ -96,7 +79,7 @@ namespace notomyk.Controllers
 
             if (status)
             {
-                return RedirectToAction("Index", "AdminSettings", new { id = returnID });
+                return RedirectToAction("Index", "AdminSettings");
             }
             else
             {

@@ -24,7 +24,7 @@ namespace notomyk.Infrastructure
         public void CheckIfSettingTrue(string key)
         {
             string dictValue;
-            if (cApp.AppSettings.TryGetValue(key, out dictValue))
+            if (cAppGlobalSettings.AppGlobalSettings.TryGetValue(key, out dictValue))
             {
                 int value;
                 if (int.TryParse(dictValue, out value))

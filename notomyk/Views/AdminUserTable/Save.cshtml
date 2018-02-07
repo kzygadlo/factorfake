@@ -12,41 +12,59 @@
                 @Html.HiddenFor(a => a.User.Id)
             }
 
-            <div class="form-group">
+            <div class="form-group col-sm-6 ">
                 <label>UserName</label>
                 @Html.TextBoxFor(a => a.User.UserName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(a => a.User.UserName)
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-sm-6 ">
                 <label>Email</label>
                 @Html.TextBoxFor(a => a.User.Email, new { @class = "form-control" })
                 @Html.ValidationMessageFor(a => a.User.Email)
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-sm-6 ">
                 <label>EmailConfirmed</label>
                 @Html.DropDownListFor(a => a.User.EmailConfirmed, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
                 @Html.ValidationMessageFor(a => a.User.EmailConfirmed)
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-sm-6 ">
                 <label>UserRole</label>
                 @Html.DropDownListFor(a => a.RoleName, new[] { new SelectListItem { Text = "User", Value = "User" }, new SelectListItem { Text = "Moderator", Value = "Moderator" }, new SelectListItem { Text = "Admin", Value = "Admin" } }, new { @class = "form-control" })
                 @Html.ValidationMessageFor(a => a.RoleName)
             </div>
-            <div class="form-group">
+
+            <div class="form-group col-sm-6 ">
+                <label>Wlaczone banowanie ?</label>
+                @Html.DropDownListFor(a => a.User.LockoutEnabled, new[] { new SelectListItem { Text = "true", Value = "true" }, new SelectListItem { Text = "false", Value = "false" } }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.User.LockoutEnabled)
+            </div>
+
+            <div class="form-group col-sm-6 ">
+                <label>Do kiedy ban ?</label>
+                @Html.TextBoxFor(a => a.User.LockoutEndDateUtc, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(a => a.User.LockoutEndDateUtc)
+            </div>
+
+            <div class="form-group col-sm-6">
                 <button type="submit" class="btn btn-primary">Save</button>
                 @Html.ActionLink("Cancel", "Index", "AdminUserTable", null, new { @class = "btn btn-danger btn-large" })
             </div>
 
+
         }
-            <div >
-                @Html.ActionLink("Ban Dzien", "Ban", "AdminNewspapers", null, new { @class = "btn btn-warning btn-large" })
-                @Html.ActionLink("Ban Tydzien", "Ban", "AdminNewspapers", null, new { @class = "btn btn-warning btn-large" })
-                @Html.ActionLink("BanPerm", "Ban", "AdminNewspapers", null, new { @class = "btn btn-danger btn-large" })
-                @Html.ActionLink("Zejmij bana", "Ban", "AdminNewspapers", null, new { @class = "btn btn-success btn-large" })
-            </div>
-       
+
+        <div class="form-group col-sm-6">
+            @Html.ActionLink("Ban Dzien", "Ban", "AdminUserTable", new { whatBan = 1, userID = Model.User.Id }, new { @class = "btn btn-warning btn-large" })
+            @Html.ActionLink("Ban Tydzien", "Ban", "AdminUserTable", new { whatBan = 2, userID = Model.User.Id }, new { @class = "btn btn-warning btn-large" })
+            @Html.ActionLink("BanPerm", "Ban", "AdminUserTable", new { whatBan = 3, userID = Model.User.Id }, new { @class = "btn btn-danger btn-large" })
+            @Html.ActionLink("Zejmij bana", "Ban", "AdminUserTable", new { whatBan = 0, userID = Model.User.Id }, new { @class = "btn btn-success btn-large" })
+        </div>
+        @*<div class="form-group col-sm-6">
+                <img class="profile-img" src="@Url.Content(AppConfig.UserLogoLink(Model.User.Id))" style="margin-top:20px" alt="img">
+            </div>*@
+
     </div>
 </div>

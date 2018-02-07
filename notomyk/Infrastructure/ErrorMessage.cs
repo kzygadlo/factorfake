@@ -24,6 +24,8 @@ namespace notomyk.Infrastructure
         public const string ValueTrueOrFalse = "Musisz podać wartość 1 albo 0 dla tych ustawień.";
         public const string EmailIsTaken = "Email jest już używany przez kogoś innego.";
         public const string UserNameIsTaken = "Nazwa użytkownika jest juz używana przez kogos innego.";
+        public const string LockedAccount = "Twoje konto zostało zablokowane na {0}.";
+        public const string FieldsRequired = "Nie wypelniles wszystkich wymaganych pol.";
     }
 
     

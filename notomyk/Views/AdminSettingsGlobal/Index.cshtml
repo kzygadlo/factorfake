@@ -1,10 +1,13 @@
-﻿@Html.Partial("~/Views/Admin/Index.cshtml")
+﻿
+@Html.Partial("~/Views/Admin/Index.cshtml")
 
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12 removePadding adminContainer">
-
+        <div class="form-group" style="margin-bottom:10px;">
+            @Html.ActionLink("Dodaj nowe ustawienie", "Save", "AdminSettingsGlobal", new { id = 0 }, new { @class = "btn btn-primary btn-large" })
+        </div>
         <div style="width:100%; margin: 0 auto" class="tablecontainer">
-            <table id="AdminSettingsTable" class="stripe hover row-border" data-page-length='50'>
+            <table id="AdminSettingsGlobalTable" class="stripe hover row-border" data-page-length='50'>
                 <thead>
                     <tr style="text-align:right !important">
                         @*<th>Id</th>*@

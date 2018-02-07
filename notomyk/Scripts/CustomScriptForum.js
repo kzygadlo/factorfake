@@ -244,8 +244,8 @@ function fulfillPostCommentTemplateForNewPost(postID, post, date, userN, userL, 
         UserName: userN,
         LogoName: userL,
         ReportedClass: "hidden",
-        CommentBasicClass: "",
-        CommentRemovedClass: "hidden"
+        PostBasicClass: "",
+        PostRemovedClass: "hidden"
         //,
         //CommentFaktV: 0,
         //CommentFakeV: 0,

@@ -38,7 +38,7 @@ namespace notomyk.Controllers
             if (mainPage)
             {
                 newspaperList = db.Newspaper
-                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count > numberOfVotes).Count() > 0)
+                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count > numberOfVotes).Count() > 0 && n.IsActive == true)
                  .OrderBy(o => o.NewspaperName)
                  .Select(s => s.NewspaperName)
                  .Distinct()
@@ -53,7 +53,7 @@ namespace notomyk.Controllers
             else
             {
                 newspaperList = db.Newspaper
-                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count < numberOfVotes).Count() > 0)
+                 .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count < numberOfVotes).Count() > 0 && n.IsActive == true)
                  .OrderBy(o => o.NewspaperName)
                  .Select(s => s.NewspaperName)
                  .Distinct()
@@ -136,7 +136,7 @@ namespace notomyk.Controllers
 
         public IQueryable<tbl_News> GetNewsList(FilterModel filter)
         {
-            var result = db.News.Where(n => n.IsActive == true).AsQueryable();
+            var result = db.News.Where(n => n.IsActive == true && n.Newspaper.IsActive == true).AsQueryable();
             int votingValue = Convert.ToInt32(cApp.AppSettings["FilterVoting"]);
             int commentValue = Convert.ToInt32(cApp.AppSettings["FilterComments"]);
             int visitorsValue = Convert.ToInt32(cApp.AppSettings["FilterVisitors"]);
@@ -245,7 +245,7 @@ namespace notomyk.Controllers
             }
 
 
-            var singleNews = db.News.Where(n => n.tbl_NewsID == ID && n.IsActive == true).FirstOrDefault();
+            var singleNews = db.News.Where(n => n.tbl_NewsID == ID && n.IsActive == true && n.Newspaper.IsActive == true).FirstOrDefault();
 
             if (singleNews == null)
             {
@@ -253,7 +253,7 @@ namespace notomyk.Controllers
             }
 
             var leftNews = db.News
-                .Where(n => n.tbl_NewspaperID == singleNews.tbl_NewspaperID && n.IsActive == true)
+                .Where(n => n.tbl_NewspaperID == singleNews.tbl_NewspaperID && n.IsActive == true && n.Newspaper.IsActive == true)
                 .OrderByDescending(n => n.DateAdd)
                 .Take(5)
                 .ToList();
@@ -319,27 +319,27 @@ namespace notomyk.Controllers
         {
 
             var faktN = db.News
-                .Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() >= n.VoteLogs.Where(v => v.Vote == false).Count())
+                .Where(n => n.VoteLogs.Where(v => v.Vote == true).Count() >= n.VoteLogs.Where(v => v.Vote == false).Count() && n.Newspaper.IsActive == true)
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == true).Count() - n.VoteLogs.Where(v => v.Vote == false).Count())
                 .Take(10)
                 .ToList();
 
             var fakeN = db.News
-                .Where(n => n.VoteLogs.Where(v => v.Vote == false).Count() >= n.VoteLogs.Where(v => v.Vote == true).Count())
+                .Where(n => n.VoteLogs.Where(v => v.Vote == false).Count() >= n.VoteLogs.Where(v => v.Vote == true).Count() && n.Newspaper.IsActive == true)
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == false).Count() - n.VoteLogs.Where(v => v.Vote == true).Count())
                 .Take(10)
                 .ToList();
 
             var comments = db.News
-                .Where(n => n.IsActive == true)
+                .Where(n => n.IsActive == true && n.Newspaper.IsActive == true)
                 .OrderByDescending(n => n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID == null).Count() + n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID != null && c.Parent.IsActive == true).Count())
                 .Take(10)
                 .ToList();
 
             var visitors = db.News
-                .Where(n => n.IsActive == true)
+                .Where(n => n.IsActive == true && n.Newspaper.IsActive == true)
                 .OrderByDescending(n => n.Visitors)
                 .Take(10)
                 .ToList();

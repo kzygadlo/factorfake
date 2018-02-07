@@ -12,7 +12,6 @@
             { "data": "EmailConfirmed", "autoWidth": true },
             { "data": "RoleName", "autoWidth": true },
             { "data": "LastActivity", "autoWidth": true },
-            { "data": "Active", "autoWidth": true },
             { "data": "BanTo", "autoWidth": true },
             {
                 "data": "Comm", "width": "50px", "render": function (data) {
@@ -38,9 +37,6 @@
         "ajax": {
             "url": '/AdminSettings/GetSettings/',
             "type": "get",
-            "data": function (d) {
-                d.type = $('#ifGlobal').val();
-            },
             "datatype": "json"
         },
         "columns": [
@@ -51,6 +47,24 @@
             {
                 "data": "ID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminSettings/Save/' + data + '">Edit</a>';
+                }
+            }
+        ]
+    })
+
+    var adminSettingsGlobal = $('#AdminSettingsGlobalTable').DataTable({
+        "ajax": {
+            "url": '/AdminSettingsGlobal/GetSettings/',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "Key", "autoWidth": true },
+            { "data": "Value", "autoWidth": true },
+            { "data": "Description", "autoWidth": true },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminSettingsGlobal/Save/' + data + '">Edit</a>';
                 }
             }
         ]

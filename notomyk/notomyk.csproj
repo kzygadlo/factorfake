@@ -207,6 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminSettingsGlobalController.cs" />
     <Compile Include="Controllers\AdminVotingNewsController.cs" />
     <Compile Include="Controllers\AdminBlackListController.cs" />
     <Compile Include="Controllers\AdminCommentsController.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
     <Compile Include="Infrastructure\addLoginValidator.cs" />
+    <Compile Include="Infrastructure\cAppGlobalSettings.cs" />
     <Compile Include="Infrastructure\cAppGlobal.cs" />
     <Compile Include="Infrastructure\cApp.cs" />
     <Compile Include="Infrastructure\ConvertDateToString.cs" />
@@ -474,8 +476,17 @@
     <Compile Include="Migrations\201802041610481_tblCommentRefactoring3.Designer.cs">
       <DependentUpon>201802041610481_tblCommentRefactoring3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802072045114_appSettingsGlobal.cs" />
+    <Compile Include="Migrations\201802072045114_appSettingsGlobal.Designer.cs">
+      <DependentUpon>201802072045114_appSettingsGlobal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802072120134_removeColumnFromAppSettings.cs" />
+    <Compile Include="Migrations\201802072120134_removeColumnFromAppSettings.Designer.cs">
+      <DependentUpon>201802072120134_removeColumnFromAppSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppSettingsGlobal.cs" />
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\BlackList.cs" />
     <Compile Include="Models\EventTag.cs" />
@@ -911,6 +922,8 @@
     <Content Include="Views\AdminComments\Save.cshtml" />
     <Content Include="Views\AdminNews\Save.cshtml" />
     <Content Include="Views\AdminNewspapers\Save.cshtml" />
+    <Content Include="Views\AdminSettingsGlobal\Index.cshtml" />
+    <Content Include="Views\AdminSettingsGlobal\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1744,6 +1757,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802041610481_tblCommentRefactoring3.resx">
       <DependentUpon>201802041610481_tblCommentRefactoring3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802072045114_appSettingsGlobal.resx">
+      <DependentUpon>201802072045114_appSettingsGlobal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802072120134_removeColumnFromAppSettings.resx">
+      <DependentUpon>201802072120134_removeColumnFromAppSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
