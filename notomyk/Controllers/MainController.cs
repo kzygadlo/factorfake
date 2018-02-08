@@ -284,7 +284,7 @@ namespace notomyk.Controllers
 
             ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
 
-            ViewBag.ogTitle = "FAKTORFAKE : " + singleNews.Title;
+            ViewBag.ogTitle = singleNews.Title;
             ViewBag.ogDescription = singleNews.Description;
             ViewBag.ogImage = fofUrl1 + "/Images/Logos/250/" + singleNews.Newspaper.NewspaperIconLink;
 

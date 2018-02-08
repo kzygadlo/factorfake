@@ -11,7 +11,7 @@
 
     .rightTable .nav > li.active > a {
         color: #333;
-        background-color: #fff;
+        background-color: #f8f8f8;
     }
 
     .rightTable .nav > li > a:hover {
@@ -28,19 +28,18 @@
     }
 
     .rightTable .news a {
-        background-color: #fff;
+        background-color: #f8f8f8;
         /*border: 1px solid #ddd;*/
     }
 
+
+.rightTable .singleUser {
+    background-color: #f8f8f8;
+}
+
+    .newsList a.item:hover,
+    .rightList.forumList .post .post-heading:hover,
+    .rightTable .singleUser:hover,
     .rightTable .news a:hover {
-    background-color:white
-    }
-
-    .rightTable .singleUser {
-    background-color:#fff;
-
-    }
-
-    .rightTable .singleUser:hover {
-    background-color:white;
+        background-color: white;
     }

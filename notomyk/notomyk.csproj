@@ -716,6 +716,8 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Scripts\CustomScriptsValidation.js" />
+    <None Include="Properties\PublishProfiles\PROD [faktorfake.hostingasp.pl] .pubxml" />
+    <None Include="Properties\PublishProfiles\UAT - [notomyk.pl].pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -930,7 +932,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="Properties\PublishProfiles\faktorfake.hostingasp.pl - Web Deploy %282%29.pubxml" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

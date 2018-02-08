@@ -167,13 +167,13 @@
             <a href="#4c" data-toggle="tab"><small><strong>Wizyty</strong></small></a>
         </li>
     </ul>
-    <div class="tab-content clearfix">
+    <div class="tab-content clearfix newsList">
         <div id="1c" class="news ui middle aligned divided list tab-pane active">
             @foreach (var News in Model.FaktNews)
             {
                 var Rating = News.VoteLogs.Where(n => n.Vote == true).Count() - News.VoteLogs.Where(n => n.Vote == false).Count();
 
-                <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
+                <a class="item kurestwo" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
                     <div class="right floated content">
 
                         <div style="float:right">

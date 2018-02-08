@@ -31,7 +31,7 @@
     font-size: 12px !important;
 }
 
-#newsContainer .nIcons .ui.label {
+#newsContainer .nIcons #hashtag2 .ui.label {
     padding: 3px 4px 5px 4px !important;
 }
 
@@ -366,7 +366,7 @@ body {
 .rightList .post .post-heading {
     padding: 0px 2px;
     height: 34px;
-    background-color: #fff;
+    background-color: #f8f8f8;
     /*border: 1px solid #ddd;*/
     margin-bottom: 1px;
 }
@@ -377,7 +377,7 @@ body {
     }
 
     .rightList .post .post-heading:hover {
-        background-color: white;
+        background-color: red;
     }
 
     .rightList .post .post-heading .avatar {

@@ -133,10 +133,13 @@
             },
             "datatype": "json"
         },
+        "columnDefs": [
+            { "className": "breakLine350", "targets": [1] }
+        ],
         "columns": [
 
             { "data": "UserName", "autoWidth": true },
-            { "data": "Comment", "autoWidth": true },
+            { "data": "Comment", "autoWidth": false },
             { "data": "Fakt", "autoWidth": true },
             { "data": "Fake", "autoWidth": true },
             { "data": "IsReported", "autoWidth": true },
@@ -153,7 +156,7 @@
                 "data": "tbl_CommentID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminComments/Save/' + data + '">Edit</a>';
                 }
-            }
+            }            
         ]
     })
 

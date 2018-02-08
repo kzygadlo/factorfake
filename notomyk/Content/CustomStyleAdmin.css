@@ -1,7 +1,7 @@
 ﻿
 .adminContainer .item {
     margin-left: 8px;
-    padding: 3px 1px 3px 4px !important; 
+    padding: 3px 1px 3px 4px !important;
 }
 
 .adminContainer .settingsDescription,
@@ -15,4 +15,10 @@
 
 .adminContainer .profile-img {
     border-radius: 0%;
+}
+
+.breakLine350 {
+    width: 415px;
+    word-wrap: break-word;
+    display: block;
 }
