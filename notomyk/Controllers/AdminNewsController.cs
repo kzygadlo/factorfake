@@ -16,7 +16,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            ViewBag.AdminNewsClass = "active";            
+            ViewBag.AdminNewsClass = "active";
             ViewBag.NewspaperID = 0;
             ViewBag.UserID = "";
             return View();
@@ -61,7 +61,7 @@ namespace notomyk.Controllers
                 x.IsReported,
                 x.IsActive,
                 x.DateAdd,
-                x.Visitors,    
+                x.Visitors,
                 faktValue = x.VoteLogs.Where(v => v.Vote == true).Count(),
                 fakeValue = x.VoteLogs.Where(v => v.Vote == false).Count(),
                 Comm = x.Collection_Comments.Count,
@@ -114,9 +114,55 @@ namespace notomyk.Controllers
                     n.PictureLink = news.PictureLink;
                     n.IsReported = news.IsReported;
                     n.IsActive = news.IsActive;
-                    
+
                     db.SaveChanges();
                     status = true;
+                }
+            }
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+            if (status)
+            {
+                return RedirectToAction("Index", "AdminNews");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.AdminTableSaveFailed });
+            }
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult Remove(int ID)
+        {
+            if (db.News.Any(n => n.tbl_NewsID == ID))
+            {
+                var news = db.News.Where(n => n.tbl_NewsID == ID).FirstOrDefault();
+                return View(news);
+            }
+
+            return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.ItemDoesntExist });
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Remove(tbl_News news)
+        {
+            bool status = false;
+            if (ModelState.IsValid)
+            {
+                if (db.News.Any(n => n.tbl_NewsID == news.tbl_NewsID))
+                {
+                    var newsToDelete = db.News.Where(n => n.tbl_NewsID == news.tbl_NewsID).FirstOrDefault();
+                    db.News.Remove(newsToDelete);
+                    db.SaveChanges();
+                    status = true;
+                }
+                else {
+                    return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.ItemDoesntExist });
                 }
             }
 

@@ -1,25 +1,38 @@
-﻿@Html.Partial("~/Views/Admin/Index.cshtml")
+﻿@model notomyk.Models.BlackList
+
+@Html.Partial("~/Views/Admin/Index.cshtml")
 
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12 removePadding adminContainer">
 
+        
+        @using (Html.BeginForm("SaveAdd", "AdminBlackList", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label>Dodaj do BlackListy</label>
+                <div>
+                    @Html.TextBoxFor(a => a.url, new { @class = "form-control displayInline" })
+                    <button type="submit" class="btn btn-warning">Dodaj</button>
+                    @Html.ValidationMessageFor(a => a.url)
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("SaveRemove", "AdminBlackList", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label>Usun z BlackListy</label>
+                <div>
+                    @Html.TextBoxFor(a => a.url, new { @class = "form-control displayInline" })
+                    <button type="submit" class="btn btn-success">Usun</button>
+                    @Html.ValidationMessageFor(a => a.url)
+                </div>
+            </div>
+        }
+
         <div>
-            do zmiany. za duzo pozycji do wyswietlenia. 
+            @ViewBag.Result
         </div>
-
-            @*<div style="width:100%; margin: 0 auto" class="tablecontainer">
-                <table id="AdminBlackListTable" class="stripe hover row-border" data-page-length='50'>
-                    <thead>
-                        <tr style="text-align:right !important">
-                            <th>url</th>
-                            <th>ID</th>
-                            <th>Edit</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>*@
-
     </div>
 </div>
 

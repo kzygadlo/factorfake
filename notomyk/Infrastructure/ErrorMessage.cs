@@ -26,6 +26,7 @@ namespace notomyk.Infrastructure
         public const string UserNameIsTaken = "Nazwa użytkownika jest juz używana przez kogos innego.";
         public const string LockedAccount = "Twoje konto zostało zablokowane na {0}.";
         public const string FieldsRequired = "Nie wypelniles wszystkich wymaganych pol.";
+        public const string ItemDoesntExist = "Objekt o takim ID nie istnieje.";
     }
 
     

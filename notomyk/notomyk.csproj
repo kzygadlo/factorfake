@@ -926,6 +926,7 @@
     <Content Include="Views\AdminNewspapers\Save.cshtml" />
     <Content Include="Views\AdminSettingsGlobal\Index.cshtml" />
     <Content Include="Views\AdminSettingsGlobal\Save.cshtml" />
+    <Content Include="Views\AdminNews\Remove.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

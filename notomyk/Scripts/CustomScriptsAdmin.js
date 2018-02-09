@@ -77,6 +77,7 @@
             "datatype": "json"
         },
         "columns": [
+            { "data": "tbl_NewspaperID", "autoWidth": true },
             { "data": "NewspaperName", "autoWidth": true },
             { "data": "NewspaperLink", "autoWidth": true },
             { "data": "NewspaperIconLink", "autoWidth": true },
@@ -100,27 +101,6 @@
         ]
     })
 
-    var adminBlackList = $('#AdminBlackListTable').DataTable({
-        "ajax": {
-            "url": '/AdminBlackList/GetBlackList',
-            "type": "get",
-            "datatype": "json"
-        },
-        "columns": [
-            { "data": "url", "autoWidth": true },
-
-            {
-                "data": "ID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminBlackList/Save/' + data + '">Edit</a>';
-                }
-            },
-            {
-                "data": "ID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminBlackList/Remove/' + data + '">Remove</a>';
-                }
-            }
-        ]
-    })
 
     var adminComments = $('#AdminCommentTable').DataTable({
         "ajax": {
@@ -156,7 +136,7 @@
                 "data": "tbl_CommentID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminComments/Save/' + data + '">Edit</a>';
                 }
-            }            
+            }
         ]
     })
 
@@ -196,6 +176,11 @@
             "datatype": "json"
         },
         "columns": [
+            {
+                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/Main/News/' + data + '">' + data + '</a>';
+                }
+            },
             { "data": "NewspaperName", "autoWidth": true },
             { "data": "Description", "autoWidth": true },
             { "data": "IsReported", "autoWidth": true },
@@ -215,14 +200,7 @@
                 "data": "tbl_NewsID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminNews/Save/' + data + '">Edit</a>';
                 }
-            },
-            {
-                "data": "tbl_NewsID", "width": "50px", "render": function (data) {
-                    return '<a class="" href="/AdminNews/Save/' + data + '">Del</a>';
-                }
             }
-
-
         ]
     })
 
@@ -347,6 +325,29 @@
             {
                 "data": "VoteCommentLogID", "width": "50px", "render": function (data) {
                     return '<a class="" href="/AdminVotingComment/Save/' + data + '">Remove</a>';
+                }
+            }
+        ]
+    })
+
+
+    var adminBlackList = $('#AdminBlackListTable').DataTable({
+        "ajax": {
+            "url": '/AdminBlackList/GetBlackList',
+            "type": "get",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "url", "autoWidth": true },
+
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminBlackList/Save/' + data + '">Edit</a>';
+                }
+            },
+            {
+                "data": "ID", "width": "50px", "render": function (data) {
+                    return '<a class="" href="/AdminBlackList/Remove/' + data + '">Remove</a>';
                 }
             }
         ]
