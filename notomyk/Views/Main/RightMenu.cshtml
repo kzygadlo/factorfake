@@ -173,7 +173,7 @@
             {
                 var Rating = News.VoteLogs.Where(n => n.Vote == true).Count() - News.VoteLogs.Where(n => n.Vote == false).Count();
 
-                <a class="item kurestwo" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
+                <a class="item" href="@Url.Action("News", "Main", new {id = News.tbl_NewsID})" style="text-decoration:none;padding:5px 0 5px 5px">
                     <div class="right floated content">
 
                         <div style="float:right">

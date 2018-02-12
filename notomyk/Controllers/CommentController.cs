@@ -169,15 +169,26 @@ namespace notomyk.Controllers
         public ActionResult Add(string CommentText, int NewsID, int parentID = 0)
         {
             if (Request.IsAuthenticated)
-            {
+            {                
                 if (ModelState.IsValid)
                 {
                     using (NTMContext db = new NTMContext())
                     {
                         var _uID = User.Identity.GetUserId();
                         var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
-                        var commentValidator = new addCommentValidator(_User, db);
 
+                        if (_User.IsBanned()) {
+                            return Json(
+                                    new
+                                    {
+                                        success = false,
+                                        errHeader = string.Format("Blokada konta."),
+                                        errMessage = string.Format("Konto użytkownika {0} zostało zablokowane na {1}", _User.UserName, GetTimeAgo.CalculateDateDiffAhead(_User.LockoutEndDateUtc))
+                                    });
+                        }
+
+                        var commentValidator = new addCommentValidator(_User, db);
+                                                
                         var valResultN = commentValidator.IfExceededCommentsNumber();
                         if (valResultN == 0)
                         {

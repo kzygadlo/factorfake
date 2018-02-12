@@ -23,8 +23,8 @@ namespace notomyk.Models
         public DateTime? LastNewsAdded { get; set; }
         public int CommentsCounter { get; set; }
         public DateTime? LastCommentAdded { get; set; }
-        public int LoginAttempts { get; set; }
-        public DateTime? LastLoginAttempt { get; set; }
+
+
         public DateTime? AccountCreateDate { get; set; }
         public DateTime? LastActivity { get; set; }
 
@@ -80,6 +80,21 @@ namespace notomyk.Models
         public int PostitiveCommentsCount()
         {
             return this.Comments.Where(c => c.IsActive == true && c.Fakt > c.Fake && (c.Fakt + c.Fake) >= MinNumberVotes).Count();
+        }
+
+        public bool IsBanned()
+        {
+            DateTime? banDate;
+            DateTime nowDate = DateTime.UtcNow;
+
+            banDate = LockoutEndDateUtc;
+
+            if (banDate != null && nowDate > banDate)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

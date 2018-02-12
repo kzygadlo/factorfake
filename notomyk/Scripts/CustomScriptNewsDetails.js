@@ -96,8 +96,16 @@
                     ToReport: true
                 },
                 success: function (response) {
+
                     if (response.Success == true) {
-                        showNotification('positive', 'Zgłaszanie newsów.', 'News został zgłoszony do moderacji.', $whereAppend)
+
+                        if ($('.newsReported').hasClass('hidden')) {
+                            showNotification('positive', 'Zgłaszanie newsów.', 'News został zgłoszony do moderacji.', $whereAppend)
+                            $('.newsReported').removeClass('hidden');
+                        }
+                        else {
+                            showNotification('negative', 'Zgłaszanie newsa.', 'News został już zgłoszony.', $whereAppend);
+                        }                        
                     }
                     else {
                         showNotification('negative', 'Zgłaszanie newsów.', response.errMessage, $whereAppend)

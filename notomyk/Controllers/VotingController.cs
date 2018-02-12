@@ -65,6 +65,7 @@ namespace notomyk.Controllers
                         }                        
 
                         isVoted.Vote = whatVote;
+                        isVoted.Timestamp = DateTime.UtcNow;
                         db.SaveChanges();
                         return Json(new {result = whatVote? 2 : -2 });
                     }
@@ -78,14 +79,17 @@ namespace notomyk.Controllers
                         singleVote.tbl_NewsID = ID;
                         singleVote.UserId = currentUserID;
                         singleVote.Vote = whatVote;
+                        singleVote.Timestamp = DateTime.UtcNow;
                         db.VoteLog.Add(singleVote);
                     }
                     else
                     {
-                        singleVote = new VoteCommentLog();
+                        singleVote = new VoteCommentLog();                        
                         singleVote.tbl_CommentID = ID;
                         singleVote.UserId = currentUserID;
                         singleVote.Vote = whatVote;
+                        singleVote.Timestamp = DateTime.UtcNow;
+
                         var comment = db.Comment.Where(c => c.tbl_CommentID == ID).FirstOrDefault();
                         if (whatVote)
                         {

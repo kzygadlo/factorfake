@@ -76,6 +76,12 @@ namespace notomyk.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
+            if (!cAppGlobal.IsAllowed("LoginAllowed"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.LoginDisabled });
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -109,65 +115,6 @@ namespace notomyk.Controllers
                     ModelState.AddModelError("", string.Format("{0}/{1} Nieudana próba logowania.", user.AccessFailedCount, ConfigurationManager.AppSettings["MaxLoginsAttempts"]));
                     return View(model);
             }
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
-
-            //var user = UserManager.FindByEmail(model.Email);
-            //var result = SignInStatus.Failure;
-
-            //var loginValidation = new addLoginValidator(user);
-
-            //if (user != null)
-            //{
-
-            //    if (!loginValidation.IfExceededLoginAttempts())
-            //    {
-            //        result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            //    }
-            //    else
-            //    {
-            //        if (loginValidation.WhetherDelayTimeHasPassed() == 0)
-            //        {
-            //            result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            //        }
-            //        else
-            //        {
-            //            ModelState.AddModelError("", string.Format("Nie udało Ci się zalogować {0} razy pod rząd. Musisz odczekac jeszcze {1} sek przed ponownym logowaniem.",loginValidation._User.LoginAttempts, Convert.ToInt16(loginValidation.timeToGO)));
-            //            return View(model);
-            //        }
-            //    }
-            //}
-
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        if (user != null)
-            //        {
-            //            loginValidation.SuccessfulLogin();
-            //        }
-            //        return RedirectToLocal(returnUrl);
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            //    case SignInStatus.Failure:
-            //    default:
-
-            //        if (user != null)
-            //        {
-            //            loginValidation.WrongLogin();
-            //            ModelState.AddModelError("", string.Format("Nieudana próba logowania ({0}).", loginValidation._User.LoginAttempts));
-            //        }
-            //        else
-            //        {
-            //            ModelState.AddModelError("", "Nieudana próba logowania.");
-            //        }
-
-            //        return View(model);
-            //}
         }
 
         //
@@ -222,6 +169,12 @@ namespace notomyk.Controllers
             {
                 return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.SiteEnabled });
             }
+
+            if (!cAppGlobal.IsAllowed("RegisterAllowed"))
+            {
+                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessageGlobal.RegisterDisabled });
+            }
+
             return View();
         }
 

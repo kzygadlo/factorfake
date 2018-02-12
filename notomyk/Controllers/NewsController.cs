@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using NLog;
+using Microsoft.Owin.Security;
 
 namespace notomyk.Controllers
 {
@@ -44,6 +45,11 @@ namespace notomyk.Controllers
                     var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
                     var newsValidator = new NewsValidator(_User);
 
+                    if (_User.IsBanned())
+                    {
+                        return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessageGlobal.UserBanned, _User.UserName, GetTimeAgo.CalculateDateDiffAhead(_User.LockoutEndDateUtc)) });
+                    }
+                    
                     var valResult = newsValidator.IfExceededNewsNumber();
 
                     if (valResult == 0)

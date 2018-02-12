@@ -252,6 +252,11 @@ namespace notomyk.Controllers
                 return RedirectToAction("Index", "Main");
             }
 
+            if (!singleNews.IsReported)
+            {
+                ViewBag.ReportedClass = "hidden";
+            }
+
             var leftNews = db.News
                 .Where(n => n.tbl_NewspaperID == singleNews.tbl_NewspaperID && n.IsActive == true && n.Newspaper.IsActive == true)
                 .OrderByDescending(n => n.DateAdd)

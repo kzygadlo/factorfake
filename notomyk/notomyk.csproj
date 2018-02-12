@@ -240,7 +240,6 @@
     </Compile>
     <Compile Include="Infrastructure\Account.cs" />
     <Compile Include="Infrastructure\addCommentValidator.cs" />
-    <Compile Include="Infrastructure\addLoginValidator.cs" />
     <Compile Include="Infrastructure\cAppGlobalSettings.cs" />
     <Compile Include="Infrastructure\cAppGlobal.cs" />
     <Compile Include="Infrastructure\cApp.cs" />
@@ -483,6 +482,14 @@
     <Compile Include="Migrations\201802072120134_removeColumnFromAppSettings.cs" />
     <Compile Include="Migrations\201802072120134_removeColumnFromAppSettings.Designer.cs">
       <DependentUpon>201802072120134_removeColumnFromAppSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802121949216_timespanForVoting.cs" />
+    <Compile Include="Migrations\201802121949216_timespanForVoting.Designer.cs">
+      <DependentUpon>201802121949216_timespanForVoting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802122021184_publicFieldsForVotings.cs" />
+    <Compile Include="Migrations\201802122021184_publicFieldsForVotings.Designer.cs">
+      <DependentUpon>201802122021184_publicFieldsForVotings.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1765,6 +1772,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802072120134_removeColumnFromAppSettings.resx">
       <DependentUpon>201802072120134_removeColumnFromAppSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802121949216_timespanForVoting.resx">
+      <DependentUpon>201802121949216_timespanForVoting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802122021184_publicFieldsForVotings.resx">
+      <DependentUpon>201802122021184_publicFieldsForVotings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
