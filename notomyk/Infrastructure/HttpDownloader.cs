@@ -128,6 +128,28 @@ namespace notomyk.Infrastructure
                 {
                 }
             }
+            //MyWrapper
+            else
+            {
+                if (html.IndexOf("<meta charset=\"utf-8\"") > 0)
+                {
+                    string charsetUTF = "utf-8";
+                    try
+                    {
+                        Encoding metaEncoding = Encoding.GetEncoding(charsetUTF);
+                        if (Encoding != metaEncoding)
+                        {
+                            memStream.Position = 0L;
+                            StreamReader recodeReader = new StreamReader(memStream, metaEncoding);
+                            html = recodeReader.ReadToEnd().Trim();
+                            recodeReader.Close();
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                    }
+                }                
+            }
 
             return html;
         }

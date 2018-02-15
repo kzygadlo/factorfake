@@ -29,8 +29,7 @@ margin-bottom:10px;
     border-bottom: 1px solid rgba(0,0,0,.05) !important;
 }
 
-#SingleError .postDetails,
-#SingleConfirmation .postDetails {
+#SingleError .postDetails{
     border-top: 1px solid rgba(0,0,0,.05) !important;
     border-bottom: 1px solid rgba(0,0,0,.05) !important;
 }
@@ -51,8 +50,7 @@ margin-bottom:10px;
 }
 
 
-#SingleError .card > .extra,
-#SingleConfirmation .card > .extra {
+#SingleError .card > .extra {
     border: none !important;
 }
 

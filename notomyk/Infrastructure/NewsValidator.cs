@@ -14,7 +14,6 @@ namespace notomyk.Infrastructure
 {
     public class NewsValidator
     {
-        NTMContext db = new NTMContext();
         ApplicationUser _user = new ApplicationUser();
         public string WhatRole;
         int _NewsLimitNumber;
@@ -25,10 +24,8 @@ namespace notomyk.Infrastructure
         
         }
 
-        public NewsValidator(ApplicationUser user)
+        public NewsValidator(ApplicationUser user, NTMContext db)
         {
-
-
             if (CheckIfCounterToReset(user.LastNewsAdded) == true)
             {
                 user.NewsCounter = 0;
@@ -87,7 +84,7 @@ namespace notomyk.Infrastructure
             return _NewsLimitNumber;
         }
 
-        public void NewsAdded(ApplicationUser user)
+        public void NewsAdded(ApplicationUser user, NTMContext db)
         {
             user.NewsCounter++;
             user.LastNewsAdded = DateTime.UtcNow;
@@ -95,7 +92,7 @@ namespace notomyk.Infrastructure
             db.SaveChanges();
         }
 
-        public bool UrlForbidden(string url)
+        public bool UrlForbidden(string url, NTMContext db)
         {
             var homeURL = new Uri(url);
             string host = homeURL.Host;

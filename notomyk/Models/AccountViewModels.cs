@@ -48,12 +48,12 @@ namespace notomyk.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email nie może być pusty.")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "To nie jest poprawny adres e-mail.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Hasło nie może być puste.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -65,12 +65,12 @@ namespace notomyk.Models
     public class RegisterViewModel
     {
 
-        [Required]
-        [Display(Name = "UserName")]
-        [StringLength(20)]
+        [Required(ErrorMessage = "User Name nie może być pusty.")]
+        [Display(Name = "User Name")]
+        [StringLength(20, ErrorMessage = "User Name może miec co najwyżej {1} znakow.")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email nie może być pusty.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -81,7 +81,7 @@ namespace notomyk.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        //[Required(ErrorMessage = "Hasło nie może być puste.")]
+        [Required(ErrorMessage = "Hasło nie może być puste.")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "Podane hasla nie sa takie same.")]

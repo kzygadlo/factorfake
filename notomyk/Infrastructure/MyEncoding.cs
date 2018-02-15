@@ -11,6 +11,12 @@ namespace notomyk.Infrastructure
         {
             if (input != null)
             {
+              
+                if (input.IndexOf("&amp;quot;") > 0)
+                {
+                    input = input.Replace("&amp;quot;", "'");
+                }
+
                 if (input.IndexOf("&#34;") > 0)
                 {
                     input = input.Replace("&#34;", "\"");
@@ -41,6 +47,15 @@ namespace notomyk.Infrastructure
                     input = input.Replace("&#346;", "Ś");
                 }
 
+                if (input.IndexOf("&#39;") > 0)
+                {
+                    input = input.Replace("&#39;", "'");
+                }
+
+                if (input.IndexOf("&#039;") > 0)
+                {
+                    input = input.Replace("&#039;", "'");
+                }
             }
 
             return input;

@@ -136,8 +136,7 @@ body {
     font-size: 14px;
 }
 
-#SingleError,
-#SingleConfirmation {
+#SingleError {
     padding: 0 4px 0 4px;
 }
 /*------------------- end to override-----------------------*/

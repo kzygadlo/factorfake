@@ -152,6 +152,10 @@ namespace notomyk.Controllers
         public ActionResult Remove(tbl_News news)
         {
             bool status = false;
+            news.Description = "";
+            news.Title = "";
+            news.ArticleLink = "";
+
             if (ModelState.IsValid)
             {
                 if (db.News.Any(n => n.tbl_NewsID == news.tbl_NewsID))

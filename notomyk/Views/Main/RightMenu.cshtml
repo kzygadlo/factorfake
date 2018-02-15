@@ -168,7 +168,7 @@
         </li>
     </ul>
     <div class="tab-content clearfix newsList">
-        <div id="1c" class="news ui middle aligned divided list tab-pane active">
+        <div id="1c" class="news ui middle aligned divided list tab-pane active"  style="margin:0">
             @foreach (var News in Model.FaktNews)
             {
                 var Rating = News.VoteLogs.Where(n => n.Vote == true).Count() - News.VoteLogs.Where(n => n.Vote == false).Count();

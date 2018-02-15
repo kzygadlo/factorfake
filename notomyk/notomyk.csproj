@@ -934,6 +934,7 @@
     <Content Include="Views\AdminSettingsGlobal\Index.cshtml" />
     <Content Include="Views\AdminSettingsGlobal\Save.cshtml" />
     <Content Include="Views\AdminNews\Remove.cshtml" />
+    <Content Include="Views\AdminForumTopic\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

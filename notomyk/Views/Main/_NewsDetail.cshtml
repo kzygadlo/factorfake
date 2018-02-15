@@ -88,7 +88,9 @@
                             <div class="card">
 
                                 <div class="statInfo content">
-                                    <img class="newspaperLogo left floated ui image visible-xs" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" height="57" style="margin-right:10px">
+                                    <a class="visible-xs" href="@Url.Action("WhatNewspaper", "Main", new { id = myNewspaper.ReturnNewspaperName(Model.SingleNews.Newspaper.NewspaperName) })">
+                                        <img class="newspaperLogo left floated ui image" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" height="57" style="margin-right:10px">
+                                    </a>
                                     <img class="userLogoNews right floated ui image img-circle" src="@Url.Content(AppConfig.UserLogoLink(Model.SingleNews.ApplicationUser.Id))" height="45" width="45" style="margin-top:5px">
                                     <div class="header">
 
@@ -201,7 +203,7 @@
                 {
                     <div class="ui action input col-xs-12 removePadding">
                         <input readonly id="frmCommentTextNoAuth" type="text" placeholder="Zaloguj się aby dodać komentarz."
-                                maxlength="3000" cols="40" rows="10" name="CommentText">
+                               maxlength="3000" cols="40" rows="10" name="CommentText">
                     </div>
                     @*<div class="col-xs-12 removePadding">
                             <textarea id="frmCommentTextNoAuth" readonly rows="10" cols="500" name="CommentText" class="form-control message" style="height: 34px; overflow: hidden; resize:none" placeholder="Zaloguj się aby dodać komentarz."></textarea>

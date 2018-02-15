@@ -182,7 +182,7 @@
                 }
             },
             { "data": "NewspaperName", "autoWidth": true },
-            { "data": "Description", "autoWidth": true },
+            { "data": "Title", "autoWidth": true },
             { "data": "IsReported", "autoWidth": true },
             { "data": "IsActive", "autoWidth": true },
             { "data": "DateAdd", "autoWidth": true },

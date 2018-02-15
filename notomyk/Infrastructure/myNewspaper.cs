@@ -15,5 +15,12 @@ namespace notomyk.Infrastructure
             }
             return link;
         }
+
+        public static string ReturnNewspaperName(string name)
+        {
+            var result = name.Split('.');
+
+            return result[0];
+        }
     }
 }

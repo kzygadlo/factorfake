@@ -14,9 +14,21 @@ namespace notomyk.Controllers
 {
     public class MainController : Controller
     {
+
+        public ActionResult WhatNewspaper(string id) {
+
+            if (db.Newspaper.Any(n => n.NewspaperName.Contains(id)))
+            {
+                var newspapersList = db.Newspaper.Where(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0).ToList();
+                return RedirectToAction("Index", new { newspaper = id });
+            }
+
+            return RedirectToAction("Index");
+        }
+
         private NTMContext db = new NTMContext();
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
-        public ActionResult Index(bool mainPage = true)
+        public ActionResult Index(int mainPage = 1, string newspaper = "")
         {
 
             if (!cAppGlobal.IsAllowed("SiteEnabled"))
@@ -29,13 +41,11 @@ namespace notomyk.Controllers
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());
             }
             
-            //int numberOfVotes = Convert.ToInt32(cApp.AppSettings("MinNumberVotes"));
-
-            int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
+            int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotesForMainPage"]);
             List<string> newspaperList = new List<string>();
             List<Tag> tagList = new List<Tag>();
 
-            if (mainPage)
+            if (mainPage == 1)
             {
                 newspaperList = db.Newspaper
                  .Where(n => n.Colection_Newses.Where(c => c.IsActive == true && c.VoteLogs.Count > numberOfVotes).Count() > 0 && n.IsActive == true)
@@ -65,16 +75,48 @@ namespace notomyk.Controllers
 
                 ViewBag.WaitingRoom = "active";
             }
+                                 
 
-
+            if (newspaper != "")
+            {
+                ViewBag.Default = ReturnListOfNewspapers(newspaper, ref newspaperList);
+                ViewBag.MainPage = 2;
+            }
+            else
+            {
+                ViewBag.MainPage = mainPage;
+            }
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
             vm.Categories = tagList;
 
-            ViewBag.MainPage = mainPage;
-
             return View(vm);
+        }
+
+        private string ReturnListOfNewspapers(string newspaper,  ref List<string> ListNewspapers)
+        {
+
+            string result = "";
+            var nList = db.Newspaper.Where(n => n.NewspaperName.Contains(newspaper)).Select(s => s.NewspaperName).ToList();
+
+            foreach (var n in nList)
+            {
+                result = result + n + ",";
+
+                if (!ListNewspapers.Any(x => x.Contains(n)))
+                {
+                    ListNewspapers.Add(n);
+                }
+            }
+
+            if (result.Length > 1)
+            {
+                result = result.Remove(result.Length - 1);
+            }
+
+            return result;
+
         }
 
         [HttpPost]
@@ -193,16 +235,17 @@ namespace notomyk.Controllers
                 }
             }
 
-            int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotes"]);
+            int numberOfVotesforMainPage = Convert.ToInt32(cApp.AppSettings["MinNumberVotesForMainPage"]);
 
-            if (filter.MainPage == true)
+            if (filter.MainPage == 1)
             {
-                result = result.Where(r => r.VoteLogs.Count() > numberOfVotes);
+                result = result.Where(r => r.VoteLogs.Count() > numberOfVotesforMainPage);
             }
-            else
+            else if (filter.MainPage == 0)
             {
-                result = result.Where(r => r.VoteLogs.Count() <= numberOfVotes);
+                result = result.Where(r => r.VoteLogs.Count() <= numberOfVotesforMainPage);
             }
+
 
             filter.Remains = result.Count() - 10 - filter.Page * 10;
 

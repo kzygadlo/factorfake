@@ -8,39 +8,39 @@
             <h2>Czy napewno chcesz usunac ? Usuniete zostana rowniez wszystkie komentarze i glosy dla tego Newsa.</h2>
         </div>
         @using (Html.BeginForm("Remove", "AdminNews", FormMethod.Post))
+    {
+        if (Model != null && Model.tbl_NewsID != 0)
         {
-            if (Model != null && Model.tbl_NewsID != 0)
-            {
-                @Html.HiddenFor(a => a.tbl_NewsID)
-                @Html.HiddenFor(a => a.Title)
-                @Html.HiddenFor(a => a.Description)
-                @Html.HiddenFor(a => a.ArticleLink)
-            }
+            @Html.HiddenFor(a => a.tbl_NewsID)
+            @Html.HiddenFor(a => a.Title)
+            @Html.HiddenFor(a => a.Description)
+            @Html.HiddenFor(a => a.ArticleLink)
+    }
 
-            <div class="form-group">
-                <label>dodał : @Model.ApplicationUser.UserName | gazeta : @Model.Newspaper.NewspaperName</label>
-            </div>
-            <div class="form-group">
-                <label>Tytuł:</label>
-                <label>@Model.Title</label>
-            </div>
-            <div class="form-group">
-                <label>Opis:</label>
-                <label>@Model.Description</label>
-            </div>
-            <div class="form-group">
-                <label>Liczba komentarzy :</label>
-                <label>@Model.Collection_Comments.Count</label>
-            </div>
-            <div class="form-group">
-                <label>Liczba glosow: </label>
-                <label>@Model.VoteLogs.Count</label>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-danger">USUN</button>
-                @Html.ActionLink("Anuluj", "Index", "AdminNews", null, new { @class = "btn btn-primary btn-large" })
-            </div>
-        }
+    <div class="form-group">
+        <label>dodał : @Model.ApplicationUser.UserName | gazeta : @Model.Newspaper.NewspaperName</label>
+    </div>
+    <div class="form-group">
+        <label>Tytuł:</label>
+        <label>@Model.Title</label>
+    </div>
+    <div class="form-group">
+        <label>Opis:</label>
+        <label>@Model.Description</label>
+    </div>
+    <div class="form-group">
+        <label>Liczba komentarzy :</label>
+        <label>@Model.Collection_Comments.Count</label>
+    </div>
+    <div class="form-group">
+        <label>Liczba glosow: </label>
+        <label>@Model.VoteLogs.Count</label>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-danger">USUN</button>
+        @Html.ActionLink("Anuluj", "Index", "AdminNews", null, new { @class = "btn btn-primary btn-large" })
+    </div>
+}
     </div>
 </div>
 

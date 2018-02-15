@@ -1,11 +1,16 @@
 ﻿
 $(document).ready(function () {
 
+    
     $('.ui.rating').rating();
 
     getListOfNews();
     $('.ui.dropdown').dropdown();
     $('#search-select').dropdown();
+
+    $('#multi-select')
+        .dropdown()
+        ;
 
     $('.newspaperFilter.ui.dropdown').change(
     function () {
@@ -39,30 +44,30 @@ $(document).ready(function () {
             }
     });
 
-    $(function () {
+    //$(function () {
 
-        $(window).bind("resize", function () {
-            console.log($(this).width())
-            if ($(this).width() < 991) {
-                $('.newspaperFilter').removeClass('search');
-                $('.newspaperFilter').find('.search').addClass('hidden');
-                $('.newspaperFilter').find('.sizer').addClass('hidden');
+    //    $(window).bind("resize", function () {
+    //        console.log($(this).width())
+    //        if ($(this).width() < 991) {
+    //            $('.newspaperFilter').removeClass('search');
+    //            $('.newspaperFilter').find('.search').addClass('hidden');
+    //            $('.newspaperFilter').find('.sizer').addClass('hidden');
 
-                $('.tagFilter').removeClass('search');
-                $('.tagFilter').find('.search').addClass('hidden');
-                $('.tagFilter').find('.sizer').addClass('hidden');
-            }
-            else {
-                $('.newspaperFilter').addClass('search');
-                $('.newspaperFilter').find('.search').removeClass('hidden');
-                $('.newspaperFilter').find('.sizer').removeClass('hidden');
+    //            $('.tagFilter').removeClass('search');
+    //            $('.tagFilter').find('.search').addClass('hidden');
+    //            $('.tagFilter').find('.sizer').addClass('hidden');
+    //        }
+    //        else {
+    //            $('.newspaperFilter').addClass('search');
+    //            $('.newspaperFilter').find('.search').removeClass('hidden');
+    //            $('.newspaperFilter').find('.sizer').removeClass('hidden');
 
-                $('.tagFilter').addClass('search');
-                $('.tagFilter').find('.search').removeClass('hidden');
-                $('.tagFilter').find('.sizer').removeClass('hidden');
-            }
-        })
-    });
+    //            $('.tagFilter').addClass('search');
+    //            $('.tagFilter').find('.search').removeClass('hidden');
+    //            $('.tagFilter').find('.sizer').removeClass('hidden');
+    //        }
+    //    })
+    //});
 });
 
 function beforeFiltering(xs) {
@@ -145,30 +150,29 @@ function getListOfNews() {
 
                     fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, $htmlList, val.faktValue, val.fakeValue);
 
-                    resultRemaining = val.remainingRows;
+                    var resultRemaining = val.remainingRows;
+
+                    if (resultRemaining >= 10) {
+                        $('#newPageButton').removeClass("hidden");
+                        $('#newPageButton').val("Pokaż kolejne 10 z " + resultRemaining + " pozostałych.");
+                    }
+                    else if (resultRemaining > 0) {
+                        $('#newPageButton').removeClass("hidden");
+                        $('#newPageButton').val("Pokaż kolejne " + resultRemaining + " z " + resultRemaining + " pozostałych.");
+                    }
+                    else {
+                        $('#newPageButton').addClass("hidden");
+                    }
                 });
 
                 $('#loadingImage').addClass("hidden");
-                $('#newPageButton').fadeIn('slow');
-
-                if (resultRemaining >= 10) {
-                    $('#newPageButton').removeClass("hidden");
-                    $('#newPageButton').val("Pokaż kolejne 10 z " + resultRemaining + " pozostałych.");
-                }
-                else {
-                    $('#newPageButton').removeClass("hidden");
-                    $('#newPageButton').val("Pokaż kolejne " + resultRemaining + " z " + resultRemaining + " pozostałych.");
-                }
+                $('#newPageButton').fadeIn('slow');                                
 
                 if (result.length == 0) {
                     $('#newPageButton').removeClass("hidden");
                     $('#newPageButton').val("Brak wyników dla wybranych filtrów.");
                 }
-                else {
-                    if (resultRemaining <= 0) {
-                        $('#newPageButton').addClass("hidden");
-                    }
-                }
+
                 $('#newPageButton').inc('id', 1);
             },
             error: function () {

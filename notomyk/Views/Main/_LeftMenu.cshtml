@@ -6,8 +6,10 @@
 <div class="row" style="margin:0px">
     <div class="leftMenu">
         <div class="col-lg-12 removePadding" style="margin-bottom:10px">
-            <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" />
-        </div>
+            <a href="@Url.Action("WhatNewspaper", "Main", new { id = myNewspaper.ReturnNewspaperName(Model.SingleNews.Newspaper.NewspaperName) })">
+                <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" />
+            </a>
+             </div>
         @*<div class="col-lg-12 removePadding" style="margin:10px 0 0;">
             <ul class="list-group">
                 <li class="list-group-item">Fakt news: 10</li>

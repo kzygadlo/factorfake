@@ -43,7 +43,7 @@ namespace notomyk.Controllers
                 {
                     var _uID = User.Identity.GetUserId();
                     var _User = db.Users.Where(u => u.Id == _uID).FirstOrDefault();
-                    var newsValidator = new NewsValidator(_User);
+                    var newsValidator = new NewsValidator(_User, db);
 
                     if (_User.IsBanned())
                     {
@@ -64,7 +64,7 @@ namespace notomyk.Controllers
                         var homeUrl = NewsMethodes.GetHomeURL(newN.UrlLink);
                         var URL = new Uri(newN.UrlLink);
 
-                        if (newsValidator.UrlForbidden(newN.UrlLink))
+                        if (newsValidator.UrlForbidden(newN.UrlLink, db))
                         {
                             FOFlog.Error(string.Format("User: {0} tried to add news from forbidden domain: {1}", _User.UserName, newN.UrlLink));
                             return RedirectToAction("Index", "Error", new { errorMessage = string.Format("Podany link pochodzi z domeny: {0}, która jest na naszej czarnej liście. Jeżeli uważasz, że ta domena jest bezpieczna - skontaktuj się z nami.", URL.Host) });
@@ -133,7 +133,7 @@ namespace notomyk.Controllers
 
                         myTags.AddTags(news.tbl_NewsID, metaDataFromUrl.Keywords);
 
-                        newsValidator.NewsAdded(_User);
+                        newsValidator.NewsAdded(_User, db);
 
                         FOFlog.Info(string.Format("User: {0} added news ID: {1}", news.ApplicationUser.UserName, news.tbl_NewsID));
 

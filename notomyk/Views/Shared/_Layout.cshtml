@@ -105,8 +105,8 @@
 
             <div class="collapse navbar-collapse" id="menu" style="margin-left:5px; margin-right:5px">
                 <ul class="nav navbar-nav">
-                    <li class="@ViewBag.Start"><a href="@Url.Action("Index", "Main")">  Start <span class="sr-only">(current)</span></a></li>
-                    <li class="@ViewBag.WaitingRoom"><a href="@Url.Action("Index", "Main", new { mainPage = false })">  Poczekalnia</a></li>
+                    <li class="@ViewBag.Start"><a href="@Url.Action("Index", "Main")">  Główna <span class="sr-only">(current)</span></a></li>
+                    <li class="@ViewBag.WaitingRoom"><a href="@Url.Action("Index", "Main", new { mainPage = 0 })">  Poczekalnia</a></li>
                     <li class="@ViewBag.Forum"><a href="@Url.Action("Index", "Forum")">  Forum</a></li>
                     <li class="navbar-form navbar-right hidden-sm hidden-xs" role="search" action="/" method="GET">
                         <div>
