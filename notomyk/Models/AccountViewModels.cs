@@ -67,7 +67,7 @@ namespace notomyk.Models
 
         [Required(ErrorMessage = "User Name nie może być pusty.")]
         [Display(Name = "User Name")]
-        [StringLength(20, ErrorMessage = "User Name może miec co najwyżej {1} znakow.")]
+        [StringLength(40, ErrorMessage = "User Name może miec co najwyżej {1} znakow.")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Email nie może być pusty.")]

@@ -124,7 +124,7 @@ namespace notomyk.Controllers
                     }
 
                     //var oldRoleName = db.Roles.FirstOrDefault(r => r.Id == oldRoleID).Name;
-                    if (oldRoleName != _u.RoleName)
+                    if ((oldRoleName != _u.RoleName) || oldRoleName == null)
                     {
                         var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new NTMContext()));
 

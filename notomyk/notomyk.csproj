@@ -59,6 +59,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -171,17 +180,8 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
@@ -526,6 +526,7 @@
     <Compile Include="ViewModel\UserWithRoleName.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-social.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -661,6 +662,8 @@
     <Content Include="Images\UserIcons\188126b3-a692-4364-8a91-0c9fec2177a2.png" />
     <Content Include="Images\UserIcons\ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" />
     <Content Include="Images\UserIcons\user_icon_default.jpg" />
+    <Content Include="Images\Utility\ajax-loader.gif" />
+    <Content Include="Images\Utility\ajax-loader.png" />
     <Content Include="Images\Utility\defaultImage.jpg" />
     <Content Include="Images\Utility\favicons_fof\android-chrome-192x192.png" />
     <Content Include="Images\Utility\favicons_fof\android-chrome-512x512.png" />
@@ -671,13 +674,18 @@
     <Content Include="Images\Utility\favicons_fof\favicon.ico" />
     <Content Include="Images\Utility\favicons_fof\mstile-150x150.png" />
     <Content Include="Images\Utility\favicons_fof\safari-pinned-tab.svg" />
+    <Content Include="Images\Utility\fb-login.png" />
+    <Content Include="Images\Utility\fb-share.png" />
     <Content Include="Images\Utility\FOFlogos\foffooterlogo.PNG" />
     <Content Include="Images\Utility\FOFlogos\fofheaderlogo.PNG" />
     <Content Include="Images\Utility\FOFlogos\foficondark.PNG" />
     <Content Include="Images\Utility\FOFlogos\foficondarkW.PNG" />
     <Content Include="Images\Utility\FOFlogos\foficonlight.PNG" />
+    <Content Include="Images\Utility\FOFlogos\foficonlightNoBorder.png" />
+    <Content Include="Images\Utility\google-login.png" />
     <Content Include="Images\Utility\loading-gif-transparent-4.gif" />
     <Content Include="Images\Utility\stars.jpg" />
+    <Content Include="Images\Utility\twitter-share.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CustomScriptNotification.js" />

@@ -15,9 +15,12 @@ namespace notomyk.Models
 
         public logLastActivity(string userID)
         {
-            user = db.Users.Where(u => u.Id == userID).FirstOrDefault();
-            user.LastActivity = DateTime.UtcNow;
-            db.SaveChanges();
+            if (db.Users.Any(u => u.Id == userID))
+            {
+                user = db.Users.Where(u => u.Id == userID).FirstOrDefault();
+                user.LastActivity = DateTime.UtcNow;
+                db.SaveChanges();
+            }            
         }
     }
 }

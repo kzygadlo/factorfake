@@ -59,6 +59,7 @@
     <link rel="stylesheet" href="~/Content/CustomStyleMedia.css?v={random number/string}">
     <link rel="stylesheet" href="~/Content/CustomStyleForum.css?v={random number/string}">
     <link rel="stylesheet" href="~/Content/CustomStyleRightMenu.css?v={random number/string}">
+    <link rel="stylesheet" href="~/Content/bootstrap-social.css" />
 
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
@@ -77,7 +78,7 @@
                 <button type="button" class="navButton navbar-toggle collapsed left" data-toggle="collapse" data-target="#menu">
                     <i class="sidebar icon"></i>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Main")">
+                <a class="navbar-brand" href="@Url.Action("Index", "Main")" style="margin-right:0px">
                     <img src="@Url.FOFheaderLogo()" style="height:46px; margin-top:2px" class="ffLogo hidden-sm hidden-xs" />
                     <img src="@Url.FOFheaderLogo()" style="height:46px; margin-top:6px" class="ffLogo visible-sm visible-xs" />
                 </a>
@@ -87,13 +88,13 @@
 
                 @if (Request.IsAuthenticated)
                 {
-                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Index", "Manage")">
-                        <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm" style="margin-top:8px" />
+                    <a class="navbar-brand visible-sm" style="padding: 8px 0 0 10px" href="@Url.Action("Index", "Manage")">
+                        <img src="@imgUrl" class="right img-circle imgUserLogo" style="margin-top:8px; display:inline;" />
                     </a>
                 }
                 else
                 {
-                    <a class="navbar-brand" style="padding: 8px 0 0 10px" href="@Url.Action("Login", "Account")">
+                    <a class="navbar-brand visible-sm" style="padding: 8px 0 0 10px" href="@Url.Action("Login", "Account")">
                         <img src="@imgUrl" class="right img-circle imgUserLogo visible-sm" style="margin-top:8px" />
                     </a>
 

@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using notomyk.DAL;
 using notomyk.Models;
+using Microsoft.Owin.Security.Facebook;
 
 namespace notomyk
 {
@@ -35,7 +36,7 @@ namespace notomyk
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -55,15 +56,20 @@ namespace notomyk
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            var options = new FacebookAuthenticationOptions()
+            {
+                AppId = "288016351717557",
+                AppSecret = "2c009733980bb658c50345c878246b53"                
+            };
+            options.Scope.Add("email");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseFacebookAuthentication(options);
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "740114772911-n3abfehcv1nj88n1uu1sl2585qktsm9h.apps.googleusercontent.com",
+                ClientSecret = "k7z9yXeXIGA9szBokuYFUvoy"
+            });
         }
     }
 }

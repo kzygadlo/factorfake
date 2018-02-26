@@ -101,13 +101,19 @@ namespace notomyk.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var user = UserManager.FindByEmail(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", string.Format("Podany e-mail {0} nie jest zarejestrowany.", model.Email));
+                return View(model);
+            }
+
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessage.LockedAccount, GetTimeAgo.CalculateDateDiffAhead(user.LockoutEndDateUtc) ) }); ;
+                    return RedirectToAction("Index", "Error", new { errorMessage = string.Format(ErrorMessage.LockedAccount, GetTimeAgo.CalculateDateDiffAhead(user.LockoutEndDateUtc)) }); ;
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
@@ -152,7 +158,7 @@ namespace notomyk.Controllers
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
-                    return RedirectToAction("Index", "Error", new { errorMessage = "Blad."}); ;
+                    return RedirectToAction("Index", "Error", new { errorMessage = "Blad." }); ;
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Niepoprawny kod.");
@@ -403,7 +409,7 @@ namespace notomyk.Controllers
             {
                 return RedirectToAction("Login");
             }
-
+                        
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -419,7 +425,58 @@ namespace notomyk.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+
+                    if (loginInfo.Email != null)
+                    {
+                        var ifEmailExist = await UserManager.FindByEmailAsync(loginInfo.Email);
+                        if (ifEmailExist != null)
+                        {
+                            return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.ExternalLoginEmailIsTaken });
+                        }
+                    }                   
+
+                    string fbEmail = "";
+                    if (loginInfo.Email == null)
+                    {
+                        fbEmail = string.Concat(loginInfo.Login.ProviderKey ?? loginInfo.DefaultUserName, "@facebook.com");
+                    }
+
+                    var user = new ApplicationUser
+                    {
+                        EmailConfirmed = true,
+                        UserName = loginInfo.ExternalIdentity.Name ?? loginInfo.DefaultUserName,
+                        Email = loginInfo.Email ?? fbEmail
+                    };
+                    var registrationResult = await UserManager.CreateAsync(user);
+                    if (registrationResult.Succeeded)
+                    {
+                        await this.UserManager.AddToRoleAsync(user.Id, "User");
+                        if (loginInfo.Login.LoginProvider.ToLower() == "facebook")
+                        {
+                            string fbImageLink = string.Concat("https://graph.facebook.com/", loginInfo.Login.ProviderKey, "/picture?width=250&height=250");
+                            try
+                            {
+                                myImageSave.SaveFbImage(fbImageLink, user.Id);
+                            }
+                            catch
+                            {
+
+                            }
+                        }                        
+
+                        registrationResult = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                        if (registrationResult.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
+                        else
+                            throw new Exception("External provider association error");
+                    }
+                    else
+                        throw new Exception("Registration error");
+
+                    //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -443,7 +500,7 @@ namespace notomyk.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = info.DefaultUserName, Email = info.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

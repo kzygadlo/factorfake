@@ -1,8 +1,6 @@
 ﻿@model notomyk.Models.ForumTopic
 @using notomyk.Models
-
 @Html.Partial("_ForumPostTemplate")
-
 <div id="SingleTopic" class="first">
     <div class="list-group-item n1" style="padding: 10px">
         <div class="row m0">
@@ -16,15 +14,10 @@
                         <div class="ui button">Usuń</div>
                     </a>
                 </div>
-
             }
             <div class="postDetails col-xs-12 removePadding">
-
                 @{
-
                     var imgUrl = @Url.FOFiconLight();
-                    //temporarly not used. FOF as default avatar
-                    //var imgUrl = Url.Content(AppConfig.UserLogoLink(Model.ApplicationUser.Id));
                 }
                 <div class="ui cards">
                     <div class="card">
@@ -39,7 +32,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="col-xs-12" style="padding:10px 10px 10px 10px">
                 <h2>
@@ -56,13 +48,12 @@
                 @if (Request.IsAuthenticated)
                 {
                     <form class="frmAddPostComment">
-                        @*<input class="commentID" type="hidden" name="NewsID" value="{{CommentID}}">*@
                         <span class="charCounter pull-right" style="font-size:11px"></span>
                         <div class="ui action input col-xs-12 removePadding">
 
                             <img src="@Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()))" class="img-circle avatar imgUserLogoSmall pull-left" alt="img">
 
-                            <input id="frmCommentText" type="text" placeholder="Co uważasz o tym artykule ?"
+                            <input id="frmCommentText" type="text" placeholder="Napisz swoją opinie na ten temat."
                                    style="margin-left:5px;" maxlength="3000" cols="40" rows="10" name="CommentText" class="message">
 
                             <button class="ui icon blue button" type="submit">
@@ -82,6 +73,4 @@
         </div>
     </div>
 </div>
-
-
 @Html.Partial("~/Views/Main/_GenericComment.cshtml")

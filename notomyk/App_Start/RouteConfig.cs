@@ -13,16 +13,38 @@ namespace notomyk
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "NewspaperName",
-                url: "{id}",
-                defaults: new { controller = "Main", action = "WhatNewspaper" });
 
-                routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Main", action = "Index", id = 0 }
+            routes.MapRoute(
+            name: "NewspaperName",
+            url: "gazeta/{id}"
+            , defaults: new { controller = "Main", action = "WhatNewspaper" }
             );
+
+            routes.MapRoute(
+            name: "PortalName",
+            url: "portal/{id}"
+            , defaults: new { controller = "Main", action = "WhatNewspaper" }
+            );
+
+            routes.MapRoute(
+            name: "Default",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Main", action = "Index", id = 0 });
+        }
+
+        public class NotEqual : IRouteConstraint
+        {
+            private string _match = String.Empty;
+
+            public NotEqual(string match)
+            {
+                _match = match;
+            }
+
+            public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+            {
+                return String.Compare(values[parameterName].ToString(), _match, true) != 0;
+            }
         }
     }
 }

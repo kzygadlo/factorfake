@@ -77,5 +77,14 @@ namespace notomyk.Infrastructure
             return helper.Content(path);
         }
 
+        public static string FOFiconJustF(this UrlHelper helper)
+        {
+            var fofLogosPath = ConfigurationManager.AppSettings["FOFlogos"];
+            var fileName = "foficonlightNoBorder.png";
+            var path = Path.Combine(fofLogosPath, fileName);
+
+            return helper.Content(path);
+        }
+
     }
 }

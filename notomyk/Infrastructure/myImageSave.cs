@@ -72,5 +72,23 @@ namespace notomyk.Infrastructure
 
             return link;
         }
+
+        public static void SaveFbImage(string link, string userID)
+        {
+            _imgName = string.Concat(userID,".png");
+            _path = ConfigurationManager.AppSettings["UserIconsFolder"];
+            _fullPath = HostingEnvironment.MapPath(_path) + _imgName;
+
+            var directory = new DirectoryInfo(HostingEnvironment.MapPath(ConfigurationManager.AppSettings["UserIconsFolder"]));
+            if (directory.Exists == false)
+            {
+                directory.Create();
+            }
+
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(LinkValidator(link), directory + _imgName);
+            }
+        }
     }
 }

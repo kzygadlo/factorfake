@@ -10,18 +10,19 @@
                 @{
                     var imgUrl = Url.Content(AppConfig.UserLogoLink(User.Identity.GetUserId()));
                 }
-                <img src="@imgUrl" class="img-circle imgUserLogo" />
+                <a href="@Url.Action("Index", "Manage")" style="margin:0 !important; padding:0 !important">
+                    <img src="@imgUrl" class="img-circle imgUserLogo" />
+                </a>
             </li>
             <li class="hidden-md">
-                @if (User.Identity.GetUserName().Length > 15)
-                {
-                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                }
-                else
+                @if (User.Identity.GetUserName().Length < 9)
                 {
                     @Html.ActionLink("Witaj: " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                 }
-                
+                else
+                {
+                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "overme" })
+                }
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
         </ul>

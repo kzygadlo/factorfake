@@ -20,12 +20,12 @@
 
                 @foreach (var topic in Model.Topics)
                 {
-                    var imgUrl = Url.Content(AppConfig.UserLogoLink(topic.ApplicationUser.Id));
+                    //var imgUrl = Url.Content(AppConfig.UserLogoLink(topic.ApplicationUser.Id));
                     <div class="post">
                         <a href="@Url.Action("Topic", "Forum", new {ID = @topic.ID})">
                             <div class="post-heading">
                                 <div class="pull-left">
-                                    <img src="@imgUrl" height="32" width="32" class="avatar img-circle" alt="">
+                                    <img src="@Url.FOFiconJustF()" height="32" width="32" class="avatar img-circle" alt="">
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5">

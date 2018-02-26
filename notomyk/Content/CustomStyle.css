@@ -1,9 +1,26 @@
 ﻿/*------------------------------------------------MAIN---------------------------------------------*/
 
+.overme {
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
+.overme135 {
+    width: 135px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
+.overme170 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 170px;
+}
 /*---------------------to override------------------------*/
-
 .genericBorder {
     border: 1px solid #ddd;
 }
@@ -61,8 +78,9 @@
 }
 
 .dataTables_paginate .paginate_button {
-padding: 0 !important;
+    padding: 0 !important;
 }
+
 .commentFaktValue,
 .commentFakeValue,
 .replyFaktValue,
@@ -72,7 +90,7 @@ padding: 0 !important;
 }
 
 textarea {
-  resize: vertical; /* user can resize vertically, but width is fixed */
+    resize: vertical; /* user can resize vertically, but width is fixed */
 }
 
 body {
@@ -87,7 +105,7 @@ body {
 
 .label-info {
     /*background-color: white;    
-    color: #5bc0de !important;*/    
+    color: #5bc0de !important;*/
     border: #0e4781 solid thin !important;
     padding: 0 4px 1px 4px;
 }
@@ -152,12 +170,10 @@ body {
 
 .BGgreenColorLight {
     background-color: #d0e9d0 !important;
-
 }
 
 .BGredColorLight {
     background-color: #e8d3d3 !important;
-
 }
 
 .BGwhite {
@@ -733,6 +749,23 @@ input::-webkit-input-placeholder {
     margin: 0 auto;
     max-width: 330px;
     padding: 25px 40px 15px 40px;
+}
+
+    .main-center .form-group,
+    .main-center .checkbox {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+        .main-center .form-group > button {
+            max-width: 250px;
+        }
+
+.checkboxLabel {
+    margin: 0;
+}
+.checkboxLabel > span{
+    margin-left: 3px;
 }
 
 .login-button {

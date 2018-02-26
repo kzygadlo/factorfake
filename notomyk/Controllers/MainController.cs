@@ -17,10 +17,10 @@ namespace notomyk.Controllers
 
         public ActionResult WhatNewspaper(string id) {
 
-            if (db.Newspaper.Any(n => n.NewspaperName.Contains(id)))
+            if (db.Newspaper.Any(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0))
             {
                 var newspapersList = db.Newspaper.Where(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0).ToList();
-                return RedirectToAction("Index", new { newspaper = id });
+                return RedirectToAction("Index", new { f = id });
             }
 
             return RedirectToAction("Index");
@@ -28,7 +28,7 @@ namespace notomyk.Controllers
 
         private NTMContext db = new NTMContext();
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
-        public ActionResult Index(int mainPage = 1, string newspaper = "")
+        public ActionResult Index(int mainPage = 1, string f = "")
         {
 
             if (!cAppGlobal.IsAllowed("SiteEnabled"))
@@ -77,9 +77,9 @@ namespace notomyk.Controllers
             }
                                  
 
-            if (newspaper != "")
+            if (f != "")
             {
-                ViewBag.Default = ReturnListOfNewspapers(newspaper, ref newspaperList);
+                ViewBag.Default = ReturnListOfNewspapers(f, ref newspaperList);
                 ViewBag.MainPage = 2;
             }
             else
@@ -287,7 +287,7 @@ namespace notomyk.Controllers
                 whatVote = isVoted.Vote ? 1 : -1;
             }
 
-
+        
             var singleNews = db.News.Where(n => n.tbl_NewsID == ID && n.IsActive == true && n.Newspaper.IsActive == true).FirstOrDefault();
 
             if (singleNews == null)
@@ -327,14 +327,15 @@ namespace notomyk.Controllers
 
             var vm = new NewsDetail();
 
-            var fofUrl1 = "http://www.faktorfake.pl";
+            var fofUrl1 = "https://www.faktorfake.pl";
             var fofUrl2 = Url.Action("News", "Main", new { ID = ID });
 
             ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
 
-            ViewBag.ogTitle = singleNews.Title;
+            ViewBag.ogTitle = string.Concat(singleNews.Newspaper.NewspaperName, " | ",  singleNews.Title);
             ViewBag.ogDescription = singleNews.Description;
-            ViewBag.ogImage = fofUrl1 + "/Images/Logos/250/" + singleNews.Newspaper.NewspaperIconLink;
+
+            ViewBag.ogImage = imgUrl(singleNews.PictureLink, fofUrl1);
 
             var commNumber = singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count() + singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count();
             ViewBag.CommNum = commNumber;
@@ -346,6 +347,20 @@ namespace notomyk.Controllers
 
             return View(vm);
 
+        }
+
+        public string imgUrl (string url, string rootUrl)
+        {
+            string result = url;
+
+            if (url.Contains("http") == true)
+            {
+                return url;
+            }
+            else
+            {
+                return string.Concat(rootUrl,url);
+            }            
         }
 
         public ActionResult AllNews()
@@ -391,7 +406,6 @@ namespace notomyk.Controllers
                 .OrderByDescending(n => n.Visitors)
                 .Take(10)
                 .ToList();
-
 
             List<ApplicationUser> uR = new List<ApplicationUser>();
 

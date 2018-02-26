@@ -104,7 +104,7 @@ namespace notomyk.Controllers
         #region Upload Photo
 
         [HttpPost]
-        public async Task<ActionResult> UploadPhoto(HttpPostedFileBase file)
+        public async Task<ActionResult> UploadPhoto(HttpPostedFileBase file, string userName = "")
         {
             if (file != null && file.ContentLength > 0)
             {
