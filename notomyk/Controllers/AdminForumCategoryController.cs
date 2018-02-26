@@ -18,6 +18,7 @@ namespace notomyk.Controllers
             return View();
         }
 
+
         [Authorize(Roles = "Admin")]
         public ActionResult GetForumCategories()
         {
