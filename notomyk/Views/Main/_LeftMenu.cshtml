@@ -3,93 +3,86 @@
 @using notomyk.Models
 
 
-<div class="row" style="margin:0px">
-    <div class="leftMenu">
-        <div class="col-lg-12 removePadding" style="margin-bottom:10px">
-            <a href="@Url.Action("f", "Main", new { id = myNewspaper.ReturnNewspaperName(Model.SingleNews.Newspaper.NewspaperName) })">
-                <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" />
-            </a>
-             </div>
-        @*<div class="col-lg-12 removePadding" style="margin:10px 0 0;">
-            <ul class="list-group">
-                <li class="list-group-item">Fakt news: 10</li>
-                <li class="list-group-item">Fake news: 100</li>
-                <li class="list-group-item">Poziom reputacji: 40%</li>
-            </ul>
-        </div>*@
 
-        <div class="newsItem col-lg-12">
-            <ul>
-                @foreach (var lnews in Model.LeftNews)
+<div style="margin:0px">
+    <div class="removePadding" style="margin-bottom:10px; max-width:180px">
+        <a href="@Url.Action("WhatNewspaper", "Main", new { id = myNewspaper.ReturnNewspaperName(Model.SingleNews.Newspaper.NewspaperName) })">
+            <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" />
+        </a>
+    </div>
+
+    <div class="newsItem" style="max-width:180px">
+        <ul>
+            @foreach (var lnews in Model.LeftNews)
+            {
+
+                string title = lnews.Title;
+                string thumbClass = string.Empty;
+
+                var newsRate = lnews.VoteLogs.Where(c => c.Vote == true).Count() - lnews.VoteLogs.Where(c => c.Vote == false).Count();
+
+                if (newsRate > 0)
                 {
-
-                    string title = lnews.Title;
-                    string thumbClass = string.Empty;
-                    
-                    var newsRate = lnews.VoteLogs.Where(c => c.Vote == true).Count() - lnews.VoteLogs.Where(c => c.Vote == false).Count();
-
-                    if (newsRate > 0)
-                    {
-                        thumbClass = "greenColor";
-                    }
-                    else if (newsRate < 0)
-                    {
-                        thumbClass = "redColor";                        
-                    }
-                    
-                    if (lnews.Title.Length > 80)
-                    {
-                        title = string.Concat(lnews.Title.Substring(0, 80), "...");
-                    }
-
-                    <li>
-                        <a href="@Url.Action("News", "Main", new {id = lnews.tbl_NewsID})">
-                            <div class="col-lg-12 removePadding">
-                                <div class="img col-lg-8 removePadding">
-                                    <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@lnews.PictureLink" />
-                                </div>
-                                <div class="rating col-lg-4">
-
-                                    <div class="col-lg-6 removePadding">|
-                                        @if (newsRate >= 0)
-                                        {
-                                            <i class="fa fa-thumbs-o-up @thumbClass" aria-hidden="true"></i>
-                                        }
-                                        else
-                                        {
-                                            newsRate = Math.Abs(newsRate);
-                                            <i class="fa fa-thumbs-o-down @thumbClass" aria-hidden="true"></i>
-                                        }
-                                        
-                                    </div>
-                                    <div class="col-lg-6 removePadding">
-                                        <small>@newsRate</small>
-                                    </div>
-
-                                    <div class="col-lg-6 removePadding">
-                                        |<i class="fa fa-comments" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col-lg-6 removePadding">
-                                        <small>@lnews.Collection_Comments.Count</small>
-                                    </div>
-
-                                    <div class="col-lg-6 removePadding">
-                                        |<i class="fa fa-television" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col-lg-6 removePadding">
-                                        <small>@lnews.Visitors</small>
-                                    </div>
-                                </div>
-                                <div class="description col-lg-12 removePadding">
-                                    <p><small><i class="calendar icon"></i>Dodano - @GetTimeAgo.CalculateDateDiff(lnews.DateAdd)</small></p>
-                                    <p><small><strong>@title</strong></small></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                    thumbClass = "greenColor";
+                }
+                else if (newsRate < 0)
+                {
+                    thumbClass = "redColor";
                 }
 
-            </ul>
-        </div>
+                if (lnews.Title.Length > 80)
+                {
+                    title = string.Concat(lnews.Title.Substring(0, 80), "...");
+                }
+
+                <li>
+                    <a href="@Url.Action("News", "Main", new {id = lnews.tbl_NewsID})">
+                        <div class="col-lg-12 removePadding">
+                            <div class="img col-lg-8 removePadding">
+                                <img class="img-responsive img-rounded text-center removeRadius" alt="" src="@lnews.PictureLink" />
+                            </div>
+                            <div class="rating col-lg-4">
+
+                                <div class="col-lg-6 removePadding">
+                                    |
+                                    @if (newsRate >= 0)
+                                    {
+                                        <i class="fa fa-thumbs-o-up @thumbClass" aria-hidden="true"></i>
+                                    }
+                                    else
+                                    {
+                                        newsRate = Math.Abs(newsRate);
+                                        <i class="fa fa-thumbs-o-down @thumbClass" aria-hidden="true"></i>
+                                    }
+
+                                </div>
+                                <div class="col-lg-6 removePadding">
+                                    <small>@newsRate</small>
+                                </div>
+
+                                <div class="col-lg-6 removePadding">
+                                    |<i class="fa fa-comments" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-lg-6 removePadding">
+                                    <small>@lnews.Collection_Comments.Count</small>
+                                </div>
+
+                                <div class="col-lg-6 removePadding">
+                                    |<i class="fa fa-television" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-lg-6 removePadding">
+                                    <small>@lnews.Visitors</small>
+                                </div>
+                            </div>
+                            <div class="description col-lg-12 removePadding">
+                                <p><small><i class="calendar icon"></i>Dodano - @GetTimeAgo.CalculateDateDiff(lnews.DateAdd)</small></p>
+                                <p><small><strong>@title</strong></small></p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+
+        </ul>
     </div>
 </div>

@@ -12,6 +12,15 @@ $(document).ready(function () {
                 $tInput.addClass('tagBG');
             }
         });
+
+
+    $(".rNews").click(function () {        
+        $('.rightTable a').removeClass('activePane');
+        $('.forumList .post').removeClass('activePane');
+        $(this).addClass('activePane');
+        //$('#editTags').addClass('hidden');
+    });
+
 });
 
 $(document).ready(function () {

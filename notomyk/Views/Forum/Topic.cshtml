@@ -1,10 +1,11 @@
-﻿
-<div class="post col-md-9 col-xs-12" style="padding: 0 5px 0 5px">    
-    @Html.Partial("_Topic")    
+﻿@model notomyk.Models.ForumTopic
+
+<div class="post col-md-9 col-xs-12" style="padding: 0 5px 0 5px">
+    @Html.Partial("_Topic")
 </div>
 
 <section class="col-md-3" style="padding: 0 5px 0 5px">
-    @Html.Action("RightMenu", "Main")
+    @Html.Action("RightMenu", "Main", new { topicID = Model.ID})
 </section>
 
 

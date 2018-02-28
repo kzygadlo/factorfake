@@ -259,7 +259,7 @@ namespace notomyk.Controllers
             return result;
         }
 
-        public ActionResult News(int ID)
+        public ActionResult News(int ID, int nPage = 1)
         {
             if (!cAppGlobal.IsAllowed("SiteEnabled"))
             {
@@ -340,6 +340,8 @@ namespace notomyk.Controllers
             var commNumber = singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID == null).Count() + singleNews.Collection_Comments.Where(n => n.IsActive == true && n.Parenttbl_CommentID != null && n.Parent.IsActive == true).Count();
             ViewBag.CommNum = commNumber;
 
+            ViewBag.PageN = nPage;
+
             vm.SingleNews = singleNews;
             vm.LeftNews = leftNews;
             vm.CommaSeparatedTags = CommaSeparatedTags;
@@ -378,7 +380,7 @@ namespace notomyk.Controllers
 
 
         [ChildActionOnly]
-        public ActionResult RightMenu()
+        public ActionResult RightMenu(int newsID = 0, int topicID = 0, int nPage = 2)
         {
 
             var faktN = db.News
@@ -434,14 +436,20 @@ namespace notomyk.Controllers
                 UsersComm = usersComm
             };
 
+            ViewBag.NewsID = newsID;
+            ViewBag.TopicID = topicID;
+            ViewBag.PageN = nPage;
+
             return PartialView(vm);
         }
 
         [ChildActionOnly]
-        public ActionResult RightMenuForum()
+        public ActionResult RightMenuForum(int topicID = 0)
         {
             RightMenuForum model = new RightMenuForum();
             model.Topics = db.ForumTopic.Where(t => t.OnMainPage != null && t.IsActive == true).OrderBy(o => o.OnMainPage).ToList();
+
+            ViewBag.TopicID = topicID;
 
             return PartialView(model);
         }

@@ -5,6 +5,14 @@
         encoding: "xml"
     });
 
+    $('.rTopic').click(function () {
+        $('.forumList .post').removeClass('activePane');
+        $('.rightTable a').removeClass('activePane');
+        $(this).closest('.post').addClass('activePane');
+        //$('#editTags').addClass('hidden');
+    });
+
+
     //Show PostReplies
     $(document).on('click', '#PostContainerJS', function (event) {
         event.stopPropagation();

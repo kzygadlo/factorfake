@@ -8,7 +8,7 @@
         padding: 0;
     }
 
-    .mainContainer {
+    #MainContainer {
         margin-top: 65px;
     }
 
@@ -29,7 +29,7 @@
         padding: 0;
     }
 
-    .mainContainer {
+    #MainContainer {
         margin-top: 65px;
     }
 
@@ -49,6 +49,10 @@
     .navbar-brand {
         padding: 13px 0 0 0;
     }
+
+    .affix, .affix-top {
+        position: fixed;
+    }
 }
 
 
@@ -60,13 +64,25 @@
         /*font-size: 1.2em;*/
     }
 
-    .mainContainer {
+    #MainContainer {
         margin-top: 20px;
     }
 
     .navbar-header .ffLogo {
         padding-left: 15px;
     }
+
+    #midCol.affix-top {
+        position: fixed;
+        width: 265px;
+        margin-right: 10px;
+    }
+
+    #midCol.affix {
+        position: static;
+        width: 100%;
+    }
+
 }
 
 
@@ -77,13 +93,25 @@
         /*font-size: 1.3em;*/
     }
 
-    .mainContainer {
+    #MainContainer {
         margin-top: 20px;
     }
 
     .navbar-header .ffLogo {
         /*padding-left: 15px;*/
     }
+
+    #midCol.affix-top {
+        position: fixed;
+        width: 265px;
+        margin-right: 10px;
+    }
+
+    #midCol.affix {
+        position: static;
+        width: 100%;
+    }
+
 }
 
 

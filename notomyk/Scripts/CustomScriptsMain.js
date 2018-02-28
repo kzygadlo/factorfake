@@ -1,7 +1,6 @@
 ﻿
 $(document).ready(function () {
 
-    
     $('.ui.rating').rating();
 
     getListOfNews();
@@ -13,35 +12,35 @@ $(document).ready(function () {
         ;
 
     $('.newspaperFilter.ui.dropdown').change(
-    function () {
-        beforeFiltering()
+        function () {
+            beforeFiltering()
         });
 
     $('.newspaperFilter.ui.dropdown').dropdown({
         maxSelections: 6
-        });
+    });
 
     $('.tagFilter.ui.dropdown').change(
-    function () {
-        beforeFiltering()
+        function () {
+            beforeFiltering()
         });
 
     $('.tagFilter.ui.dropdown').dropdown({
         maxSelections: 6
-        });
+    });
 
     $('.whatNewsFilter').dropdown({
         onChange:
-            function () {
-                beforeFiltering();
-            }
+        function () {
+            beforeFiltering();
+        }
     });
 
     $('.whatPeriodFilter').dropdown({
         onChange:
-            function () {
-                beforeFiltering();
-            }
+        function () {
+            beforeFiltering();
+        }
     });
 
     //$(function () {
@@ -138,7 +137,7 @@ function getListOfNews() {
             data: model,
             success: function (result) {
 
-                $('#loadingImage').removeClass("hidden");                
+                $('#loadingImage').removeClass("hidden");
                 $.each(result, function (key, val) {
                     var $template = $('#newsPattern').html();
 
@@ -166,7 +165,7 @@ function getListOfNews() {
                 });
 
                 $('#loadingImage').addClass("hidden");
-                $('#newPageButton').fadeIn('slow');                                
+                $('#newPageButton').fadeIn('slow');
 
                 if (result.length == 0) {
                     $('#newPageButton').removeClass("hidden");
@@ -193,21 +192,21 @@ $(document).ready(function () {
 
 function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, nTitle, nDescr, numV, numC, dAdded, ratingC, ratingV, newsID, tags, FaktTag, FakeTag) {
     var newsVariables =
-    {
-        urlActionLink: uAl,
-        newspaperPictureLink: newsPl,
-        newsPictureLink: newspaperPl,
-        newsTitle: nTitle,
-        newsDescription: nDescr,
-        numberOfVisitors: numV,
-        numberOfComments: numC,
-        dateAdded: dAdded,
-        newsRating: ratingV,
-        newsID: newsID,
-        tagsList: tags,
-        faktTag: FaktTag,
-        fakeTag: FakeTag,
-    };
+        {
+            urlActionLink: uAl,
+            newspaperPictureLink: newsPl,
+            newsPictureLink: newspaperPl,
+            newsTitle: nTitle,
+            newsDescription: nDescr,
+            numberOfVisitors: numV,
+            numberOfComments: numC,
+            dateAdded: dAdded,
+            newsRating: ratingV,
+            newsID: newsID,
+            tagsList: tags,
+            faktTag: FaktTag,
+            fakeTag: FakeTag,
+        };
 
 
     var html = Mustache.to_html(Template, newsVariables);

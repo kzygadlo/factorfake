@@ -1,7 +1,7 @@
 ﻿@model notomyk.ViewModel.RightMenuForum
 @using notomyk.Models
 
-<div class="rightTable col-xs-12">
+<div class="rightTable rightTopForum col-xs-12">
     <ul class=" nav nav-pills">
         @*<li class="active">
                 <a href="#1a" data-toggle="tab"><small><stron>Informacje</stron></small></a>
@@ -13,7 +13,9 @@
                 <a href="#3a" data-toggle="tab"><small><strong>Uwagi</strong></small></a>
             </li>*@
     </ul>
-
+    <div class="ui horizontal divider hidden-xs hidden-sm">
+        forum
+    </div>
     <div class="tab-content clearfix">
         <div class="tab-pane active" id="1a">
             <div class="rightList forumList">
@@ -21,8 +23,16 @@
                 @foreach (var topic in Model.Topics)
                 {
                     //var imgUrl = Url.Content(AppConfig.UserLogoLink(topic.ApplicationUser.Id));
-                    <div class="post">
-                        <a href="@Url.Action("Topic", "Forum", new {ID = @topic.ID})">
+
+                    var activePaneClass = "";
+
+                    if (topic.ID == ViewBag.TopicID)
+                    {
+                        activePaneClass = "activePane";
+                    }
+
+                    <div class="post @activePaneClass hidden-xs hidden-sm">
+                        <a class="rTopic" href="@Url.Action("Topic", "Forum", new {ID = @topic.ID})">
                             <div class="post-heading">
                                 <div class="pull-left">
                                     <img src="@Url.FOFiconJustF()" height="32" width="32" class="avatar img-circle" alt="">
@@ -35,14 +45,35 @@
                                         <div class="description" style="height:17px;">
                                             <small><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(topic.DateAdd)</small>
                                         </div>
-                                        @*<div style="height:17px">
-                                            <small class="text-muted">Dodano: @GetTimeAgo.CalculateDateDiff(topic.DateAdd)</small>
-                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="pull-right meta">
                                     <div>
-                                        <i class="@topic.ForumCategory.IconClass icon black" ></i>
+                                        <i class="@topic.ForumCategory.IconClass icon black"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="post visible-xs visible-sm" style="background-color:#f8f8f8">
+                        <a class="rTopic" href="@Url.Action("Topic", "Forum", new {ID = @topic.ID})">
+                            <div class="post-heading">
+                                <div class="pull-left">
+                                    <img src="@Url.FOFiconJustF()" height="32" width="32" class="avatar img-circle" alt="">
+                                </div>
+                                <div class="pull-left meta">
+                                    <div class="title h5">
+                                        <div style="height:17px">
+                                            <small class="rightMenuPostTitle"><strong>@topic.Subject</strong></small>
+                                        </div>
+                                        <div class="description" style="height:17px;">
+                                            <small><i class="calendar icon"></i>Dodano: @GetTimeAgo.CalculateDateDiff(topic.DateAdd)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right meta">
+                                    <div>
+                                        <i class="@topic.ForumCategory.IconClass icon black"></i>
                                     </div>
                                 </div>
                             </div>
@@ -52,4 +83,5 @@
             </div>
         </div>
     </div>
+    @*<div class="ui divider bottomD hidden-xs hidden-sm"></div>*@
 </div>

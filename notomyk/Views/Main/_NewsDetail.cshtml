@@ -88,7 +88,7 @@
                             <div class="card">
 
                                 <div class="statInfo content">
-                                    <a class="visible-xs" href="@Url.Action("f", "Main", new { id = myNewspaper.ReturnNewspaperName(Model.SingleNews.Newspaper.NewspaperName) })">
+                                    <a class="visible-xs" href="@Url.Action("WhatNewspaper", "Main", new { id = myNewspaper.ReturnNewspaperName(Model.SingleNews.Newspaper.NewspaperName) })">
                                         <img class="newspaperLogo left floated ui image" src="@Url.NewspaperIconPath_250(Model.SingleNews.Newspaper.NewspaperIconLink)" height="57" style="margin-right:10px">
                                     </a>
                                     <img class="userLogoNews right floated ui image img-circle" src="@Url.Content(AppConfig.UserLogoLink(Model.SingleNews.ApplicationUser.Id))" height="45" width="45" style="margin-top:5px">

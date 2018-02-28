@@ -145,21 +145,11 @@
                         <button class="btn btn-success removeRadius" type="submit" style="background-color:#48CFAD; border-color:#48CFAD">Dodaj</button>
                     </span>
                 </form>
-
-                @*<form class="mobile_search hidden-md hidden-lg" role="search" action="/" method="GET">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Wklej link..." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" type="button">Dodaj</button>
-                            </span>
-                        </div>
-                    </form>*@
-
             </div>
         </div>
     </nav>
 
-    <div class="mainContainer removePadding">
+    <div id="MainContainer" class="removePadding">
         @RenderBody()
     </div>
 
@@ -175,7 +165,6 @@
 
         </div>
     </footer>
-
     @RenderSection("ScriptsBottom", required: false)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -184,6 +173,7 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 
+    <script src="~/Scripts/sticky-sidebar.js"></script>
     <script src="~/Scripts/CustomScripts.js"></script>
     <script src="~/Scripts/CustomScriptsMain.js"></script>
     <script src="~/Scripts/CustomScriptNewsDetails.js"></script>

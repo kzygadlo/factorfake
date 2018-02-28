@@ -10,13 +10,14 @@
     }
 
     .rightTable .nav > li.active > a {
-        color: #333;
-        background-color: #f8f8f8;
+        color: #48CFAD;
+        background-color: inherit;
+        /*background-color: #f8f8f8;*/
     }
 
     .rightTable .nav > li > a:hover {
-        color: white;
-        background-color: rgb(156,156,156);
+        color: #48CFAD;
+        /*background-color: rgb(156,156,156);*/
     }
 
     .rightTable .nav > li > a {
@@ -28,18 +29,36 @@
     }
 
     .rightTable .news a {
-        background-color: #f8f8f8;
-        /*border: 1px solid #ddd;*/
+        /*background-color: #f8f8f8;*/
     }
 
+    .rightTable .singleUser:hover {
+        background-color: #f8f8f8;
+    }
+    .rightTable .singleUser {
+        background-color: #fff
+        /*background-color: #f8f8f8;*/
+    }
 
-.rightTable .singleUser {
-    background-color: #f8f8f8;
+.activePane {
+    background-color: #fff;
 }
 
-    .newsList a.item:hover,
-    .rightList.forumList .post .post-heading:hover,
-    .rightTable .singleUser:hover,
-    .rightTable .news a:hover {
-        background-color: white;
+    .rightTable .test {
+        background-color: #fff;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: 1px solid #ddd;
     }
+
+.newsList a.item:hover,
+.rightList.forumList .post .post-heading:hover
+.rightTable .news a:hover {
+    background-color: white;
+}
+
+.rightTopUsers .horizontal.divider,
+.rightTopNews .horizontal.divider {
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
+}

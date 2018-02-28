@@ -1,6 +1,7 @@
 ﻿/*------------------------------------------------MAIN---------------------------------------------*/
 
-.overme {
+
+ .overme {
     width: 150px;
     overflow: hidden;
     white-space: nowrap;
@@ -397,7 +398,7 @@ body {
 .rightList .post .post-heading {
     padding: 0px 2px;
     height: 34px;
-    background-color: #f8f8f8;
+    /*background-color: #f8f8f8;*/
     /*border: 1px solid #ddd;*/
     margin-bottom: 1px;
 }
@@ -499,6 +500,9 @@ ul, li {
             margin-bottom: 1px;
             border: 1px solid #ddd;
         }
+
+
+        
 /*----------------------------------------------------END LEFT MENU ------------------------------------------------------*/
 
 /*---------------------------------------------------------NAV------------------------------------------------------------*/
