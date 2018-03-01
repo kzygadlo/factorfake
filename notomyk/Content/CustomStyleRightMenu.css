@@ -44,12 +44,13 @@
     background-color: #fff;
 }
 
-    .rightTable .test {
-        background-color: #fff;
-        margin-top: 1px;
-        margin-bottom: 1px;
-        border: 1px solid #ddd;
-    }
+.rightTable .test {
+    background-color: #fff;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    /*border: 1px solid #ddd;*/
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5 !important;
+}
 
 .newsList a.item:hover,
 .rightList.forumList .post .post-heading:hover
