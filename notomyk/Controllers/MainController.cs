@@ -259,7 +259,7 @@ namespace notomyk.Controllers
             return result;
         }
 
-        public ActionResult News(int ID, int nPage = 1)
+        public ActionResult News(int ID, int nPage = 2)
         {
             if (!cAppGlobal.IsAllowed("SiteEnabled"))
             {

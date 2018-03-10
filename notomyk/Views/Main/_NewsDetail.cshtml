@@ -14,9 +14,7 @@
             <div class="col-xs-12 removePadding">
                 <div class="col-sm-6 col-xs-12" style="padding: 0 7px 0 10px">
                     <div class="fof col-xs-12 removePadding">
-
                         <div class="ui labeled button fakt pull-left" tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
-
 
                             @if (Model.SingleNews.RatingClass() == 2)
                             {
@@ -44,7 +42,6 @@
                                     }
                                 </div>
                             }
-
 
                             <a class="voteFakt ui basic green left pointing label">
                                 @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
@@ -123,13 +120,15 @@
                                                 <div class="floating ui basic grey label">@Model.SingleNews.Visitors</div>
                                             </x>
                                         </div>
-                                        <div class="fb-share-button col-xs-4 RightRadius"
-                                             style="background-color:#4267b2; padding-top:1px"
-                                             data-href="@ViewBag.fbButtonUrl"
-                                             data-layout="button_count"
-                                             data-size="large"
-                                             data-mobile-iframe="true">
-                                        </div>
+                                        <button type="submit" class="btn btn-block btn-social btn-facebook RightRadius col-xs-4">
+                                        <span class="fa fa-facebook"></span> Share</button>
+                                        @*<div class="fb-share-button col-xs-4 RightRadius"
+             style="background-color:#4267b2; padding-top:1px"
+             data-href="@ViewBag.fbButtonUrl"
+             data-layout="button_count"
+             data-size="large"
+             data-mobile-iframe="true">
+        </div>*@
                                     </div>
                                 </div>
                             </div>

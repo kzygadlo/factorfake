@@ -1,9 +1,11 @@
 ﻿/*--------------------------------------------------------COMMENTS ----------------------------------------------------*/
 
-/*single Comment*/
+/*single news*/
 
+
+/*single Comment*/
 .voteFakt.button,
-.voteFake.label{
+.voteFake.label {
     border-top-left-radius: 5px !important;
     border-bottom-left-radius: 5px !important;
     border-top-right-radius: 0 !important;

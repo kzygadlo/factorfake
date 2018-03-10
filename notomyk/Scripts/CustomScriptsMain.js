@@ -221,7 +221,7 @@ function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, n
 
         case 2:
             //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
-            $('#newsContainer').find('#' + newsID + '').find('.info').addClass("bGreenColor");
+            $('#newsContainer').find('#' + newsID + '').find('.info > div').addClass("bGreenColor");
             $('#newsContainer').find('#' + newsID + '').find('#FaktTag').text("Fakt");
 
             break;
@@ -232,7 +232,7 @@ function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, n
 
         case 4:
             //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
-            $('#newsContainer').find('#' + newsID + '').find('.info').addClass("bRedColor");
+            $('#newsContainer').find('#' + newsID + '').find('.info > div').addClass("bRedColor");
             $('#newsContainer').find('#' + newsID + '').find('#FakeTag').text("Fake");
             break;
     }
