@@ -1,8 +1,7 @@
 ﻿/* single news element*/
 
 .singleNewsElement {
-    
-    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5 !important; 
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5 !important;
     background-color: white !important;
     border-radius: .28571429rem !important;
     border-top-left-radius: 0.285714rem;
@@ -11,7 +10,19 @@
     border-bottom-left-radius: 0.285714rem;
 }
 
+.rightButtons {
+    text-align: center;
+    padding-bottom: 5px;
+    min-height: 38px !important;
+}
 
+.fb-share-button {
+    background-color: #4267b2 !important;
+}
+
+    .fb-share-button:hover {
+        background-color: #365899 !important;
+    }
 /*------------------------------------------------MAIN---------------------------------------------*/
 .overme {
     width: 150px;
@@ -353,15 +364,15 @@ div.info {
     background-color: white;
 }
 
-    .event-list > time,
-    .event-list > img {
-        display: inline-block;
-    }
+.event-list > time,
+.event-list > img {
+    display: inline-block;
+}
 
-    .event-list > time,
-    .event-list > img {
-        float: left;
-    }
+.event-list > time,
+.event-list > img {
+    float: left;
+}
 
 .rightPane > img {
     float: right;
@@ -522,7 +533,7 @@ ul, li {
         }
 
 
-        
+
 /*----------------------------------------------------END LEFT MENU ------------------------------------------------------*/
 
 /*---------------------------------------------------------NAV------------------------------------------------------------*/
@@ -788,9 +799,10 @@ input::-webkit-input-placeholder {
 .checkboxLabel {
     margin: 0;
 }
-.checkboxLabel > span{
-    margin-left: 3px;
-}
+
+    .checkboxLabel > span {
+        margin-left: 3px;
+    }
 
 .login-button {
     margin-top: 5px;

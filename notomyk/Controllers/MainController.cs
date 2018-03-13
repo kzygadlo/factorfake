@@ -87,6 +87,10 @@ namespace notomyk.Controllers
                 ViewBag.MainPage = mainPage;
             }
 
+            var fofUrl1 = "https://www.faktorfake.pl";
+            ViewBag.ogImage = imgUrl("/Images/Utility/FOFlogos/foficonlightNoBorder.png", fofUrl1);
+
+
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
             vm.Categories = tagList;
@@ -330,7 +334,10 @@ namespace notomyk.Controllers
             var fofUrl1 = "https://www.faktorfake.pl";
             var fofUrl2 = Url.Action("News", "Main", new { ID = ID });
 
-            ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
+            //ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
+
+            ViewBag.fbButtonUrl = string.Concat("https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl", fofUrl2, "%2F&quote=");
+            ViewBag.twitterButtonUrl = string.Concat("http://twitter.com/share?url=https://faktofrake.pl", fofUrl2, "&hashtags=fakenews,faktorfake");
 
             ViewBag.ogTitle = string.Concat(singleNews.Newspaper.NewspaperName, " | ",  singleNews.Title);
             ViewBag.ogDescription = singleNews.Description;

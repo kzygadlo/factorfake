@@ -659,6 +659,17 @@
     <Content Include="Images\NewsImages\9070beaa-7c88-4498-a41a-40fde2198a9d.png" />
     <Content Include="Images\NewsImages\9baea186-9461-47eb-b2f5-98b0b222c882.png" />
     <Content Include="Images\NewsImages\bbf09319-2fbe-4182-b9d7-468e94f4dbfb.png" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Email.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Facebook.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Google+.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\LinkedIn.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Pinboard.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Pinterest.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Pocket.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Reddit.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Tumblr.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Twitter.svg" />
+    <Content Include="Images\social_flat_rounded_rects_svg\Wordpress.svg" />
     <Content Include="Images\UserIcons\188126b3-a692-4364-8a91-0c9fec2177a2.png" />
     <Content Include="Images\UserIcons\ee70e67f-105e-4f28-b7e2-efd90eb53ca6.png" />
     <Content Include="Images\UserIcons\user_icon_default.jpg" />
@@ -731,6 +742,7 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Scripts\CustomScriptsValidation.js" />
+    <Content Include="Images\social_flat_rounded_rects_svg\license.md" />
     <None Include="Properties\PublishProfiles\PROD [faktorfake.hostingasp.pl] .pubxml" />
     <None Include="Properties\PublishProfiles\UAT - [notomyk.pl].pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
