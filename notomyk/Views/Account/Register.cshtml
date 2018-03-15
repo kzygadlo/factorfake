@@ -6,7 +6,7 @@
 <div class="col-xs-12 defaultContainer">
     <div class="col-xs-12">
         <div class="main-login main-center">
-            <img class="profile-img" src="@Url.FOFiconLight()" alt="">
+            <img class="profile-img hidden-xs" src="@Url.FOFiconLight()" alt="">
 
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
             {
@@ -53,15 +53,37 @@
                 </div>
 
                 <a onclick="this.parentNode.submit();" class="btn btn-block btn-social btn-reddit" style="margin-top:10px">
-                    <span><img height=30 width=30 style="margin-bottom: 7px !important; margin-right:3px" src="@Url.FOFiconLight()" alt=""></span> Rejestracja
+                    <span><img height=30 width=30 style="margin-bottom: 7px !important; margin-right:3px" src="@Url.FOFiconJustF()" alt=""></span> Rejestracja
                 </a>
                 @*<div class="form-group ">
                         <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Rejestracja</button>
                     </div>*@
             }
-            <p class="addAccountLink">
+            <div class="ui horizontal divider">
+                lub
+            </div>
+            @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "Facebook", ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group" style="margin-top:10px">
+                    <button type="submit" class="btn btn-block btn-social btn-facebook"><span class="fa fa-google"></span> Zaloguj się przez Facebooka</button>
+                </div>
+
+            }
+
+            @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "Google", ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group" style="margin-top:10px">
+                    <button type="submit" class="btn btn-block btn-social btn-google"><span class="fa fa-google"></span> Zaloguj się przez Googla</button>
+                </div>
+            }
+            <div class="ui divider"></div>
+            @*<p class="addAccountLink">
                 @Html.ActionLink("Logowanie", "Login")
-            </p>
+            </p>*@
         </div>
 
     </div>

@@ -1,7 +1,7 @@
 ﻿    <script id="newsPattern" type="text/template">
         <li id="{{newsID}}">
             <a href="{{urlActionLink}}">
-                <div class="event-list" style="border: 1px solid #ddd;">
+                <div class="event-list">
                     <img alt="img" src="{{newspaperPictureLink}}" class="hidden-xs" />
                     <img id="newsPicture" alt="" src="{{newsPictureLink}}" />
                     <div class="info">
@@ -44,11 +44,11 @@
                             </div>
                             <div class="col-sm-6 col-xs-12 removePadding" style="text-align:right;padding-right: 5px;">
 
-                                <span class="ui basic label hidden-xs">
+                                <span class="ui basic label hidden-sm hidden-xs">
                                     <i class="desktop icon"></i>
                                     {{numberOfVisitors}}
                                 </span>
-                                <span class="ui basic label hidden-xs">
+                                <span class="ui basic label hidden-sm hidden-xs">
                                     <i class="comments outline icon"></i>
                                     {{numberOfComments}}
                                 </span>

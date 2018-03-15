@@ -88,6 +88,8 @@ namespace notomyk.Controllers
             }
 
             var fofUrl1 = "https://www.faktorfake.pl";
+
+            ViewBag.ogTitle = "Fakt or Fake | Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności bądź tendencyjności.";
             ViewBag.ogImage = imgUrl("/Images/Utility/FOFlogos/foficonlightNoBorder.png", fofUrl1);
 
 
@@ -337,7 +339,7 @@ namespace notomyk.Controllers
             //ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
 
             ViewBag.fbButtonUrl = string.Concat("https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl", fofUrl2, "%2F&quote=");
-            ViewBag.twitterButtonUrl = string.Concat("http://twitter.com/share?url=https://faktofrake.pl", fofUrl2, "&hashtags=fakenews,faktorfake");
+            ViewBag.twitterButtonUrl = string.Concat("http://twitter.com/share?url=https://faktorfake.pl", fofUrl2, "&hashtags=fakenews,faktorfake");
 
             ViewBag.ogTitle = string.Concat(singleNews.Newspaper.NewspaperName, " | ",  singleNews.Title);
             ViewBag.ogDescription = singleNews.Description;

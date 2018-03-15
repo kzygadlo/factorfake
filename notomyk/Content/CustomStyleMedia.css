@@ -5,7 +5,8 @@
     }
 
     .container {
-        padding: 0;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     #MainContainer {
@@ -14,6 +15,14 @@
 
     .navbar-brand {
         padding: 13px 0 0 0;
+    }
+
+    .event-list {
+        box-shadow: none !important;
+    }
+
+    body {
+        padding: 0 !important;
     }
 }
 
@@ -82,7 +91,6 @@
         position: static;
         width: 100%;
     }
-
 }
 
 
@@ -111,7 +119,6 @@
         position: static;
         width: 100%;
     }
-
 }
 
 
