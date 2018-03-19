@@ -46,37 +46,59 @@ namespace notomyk.Models
 
         public int RatingValue()
         {
-            int Fakt = this.VoteLogs.Where(v => v.Vote == true).Count();
-            int Fake = this.VoteLogs.Where(v => v.Vote == false).Count();
+            int Fakt = this.VoteLogs.Where(v => v.Vote == 1).Count();
+            int Fake = this.VoteLogs.Where(v => v.Vote == -1).Count();
 
             return Fakt - Fake;
         }
 
-        public int RatingClass()
+        public int IsFMF()
         {
 
-            int Fakt = this.VoteLogs.Where(v => v.Vote == true).Count();
-            int Fake = this.VoteLogs.Where(v => v.Vote == false).Count();
+            int Fakt = this.VoteLogs.Where(v => v.Vote == 1).Count();
+            int Fake = this.VoteLogs.Where(v => v.Vote == -1).Count();
+            int Manipulated = this.VoteLogs.Where(v => v.Vote == 2).Count();
 
 
-            if (Fakt > Fake)
+            //if (Fakt > Fake)
+            //{
+            //    if (Fakt + Fake >= value && (Fake == 0 || Fakt / Fake > 2))
+            //    {
+            //        return 2;
+            //    }
+
+            //    return 1;
+            //}
+            //else if (Fakt < Fake)
+            //{
+            //    if (Fakt + Fake >= value && (Fakt == 0 || Fake / Fakt > 2))
+            //    {
+            //        return 4;
+            //    }
+            //    return 3;
+            //}
+
+            if (Fakt > Fake && Fakt > Manipulated)
             {
-                if (Fakt + Fake >= value && (Fake == 0 || Fakt / Fake > 2))
+                if (Fakt + Fake + Manipulated >= value)
+                {
+                    return 1;
+                }
+            }
+            else if (Manipulated > Fakt && Manipulated > Fake)
+            {
+                if (Fakt + Fake + Manipulated >= value)
                 {
                     return 2;
                 }
-
-                return 1;
             }
-            else if (Fakt < Fake)
+            else if (Fake > Fakt && Fake > Manipulated)
             {
-                if (Fakt + Fake >= value && (Fakt == 0 || Fake / Fakt > 2))
+                if (Fakt + Fake + Manipulated >= value)
                 {
-                    return 4;
+                    return -1;
                 }
-                return 3;
             }
-
             return 0;
         }
     }

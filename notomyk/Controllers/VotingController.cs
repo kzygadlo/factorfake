@@ -18,7 +18,7 @@ namespace notomyk.Controllers
             return View();
         }
 
-        public JsonResult Vote(bool whatVote, int ID, bool newsVote = true)
+        public JsonResult Vote(bool whatVote, int ID)
         {
 
             if (!User.Identity.IsAuthenticated)
@@ -32,79 +32,59 @@ namespace notomyk.Controllers
                 var currentUserID = User.Identity.GetUserId();
                 var isVoted = (dynamic)null;
 
-                if (newsVote == true)
-                {
-                    isVoted = db.VoteLog.Where(v => v.tbl_NewsID == ID && v.UserId == currentUserID).FirstOrDefault();
-                }
-                else
-                {
-                    isVoted = db.VoteCommentLog.Where(c => c.tbl_CommentID == ID && c.UserId == currentUserID).FirstOrDefault();
-                }
+                isVoted = db.VoteCommentLog.Where(c => c.tbl_CommentID == ID && c.UserId == currentUserID).FirstOrDefault();
 
                 if (isVoted != null)
                 {
                     if (isVoted.Vote == whatVote)
                     {
-                        return Json(new {result = 0 });
+                        return Json(new { result = 0 });
                     }
                     else
                     {
-                        if (newsVote == false)
-                        {
-                            var comment = db.Comment.Where(c => c.tbl_CommentID == ID).FirstOrDefault();
-                            if (whatVote)
-                            {
-                                comment.Fakt++;
-                                comment.Fake--;
-                            }
-                            else
-                            {
-                                comment.Fakt--;
-                                comment.Fake++;
-                            }                        
-                        }                        
-
-                        isVoted.Vote = whatVote;
-                        isVoted.Timestamp = DateTime.UtcNow;
-                        db.SaveChanges();
-                        return Json(new {result = whatVote? 2 : -2 });
-                    }
-                }
-                else
-                {
-                    var singleVote = (dynamic)null; 
-                    if (newsVote == true)
-                    {
-                        singleVote = new VoteLog();
-                        singleVote.tbl_NewsID = ID;
-                        singleVote.UserId = currentUserID;
-                        singleVote.Vote = whatVote;
-                        singleVote.Timestamp = DateTime.UtcNow;
-                        db.VoteLog.Add(singleVote);
-                    }
-                    else
-                    {
-                        singleVote = new VoteCommentLog();                        
-                        singleVote.tbl_CommentID = ID;
-                        singleVote.UserId = currentUserID;
-                        singleVote.Vote = whatVote;
-                        singleVote.Timestamp = DateTime.UtcNow;
-
                         var comment = db.Comment.Where(c => c.tbl_CommentID == ID).FirstOrDefault();
                         if (whatVote)
                         {
                             comment.Fakt++;
+                            comment.Fake--;
                         }
                         else
                         {
+                            comment.Fakt--;
                             comment.Fake++;
                         }
 
-                        db.VoteCommentLog.Add(singleVote);
+
+                        isVoted.Vote = whatVote;
+                        isVoted.Timestamp = DateTime.UtcNow;
+                        db.SaveChanges();
+                        return Json(new { result = whatVote ? 2 : -2 });
+                    }
+                }
+                else
+                {
+                    var singleVote = (dynamic)null;
+
+                    singleVote = new VoteCommentLog();
+                    singleVote.tbl_CommentID = ID;
+                    singleVote.UserId = currentUserID;
+                    singleVote.Vote = whatVote;
+                    singleVote.Timestamp = DateTime.UtcNow;
+
+                    var comment = db.Comment.Where(c => c.tbl_CommentID == ID).FirstOrDefault();
+                    if (whatVote)
+                    {
+                        comment.Fakt++;
+                    }
+                    else
+                    {
+                        comment.Fake++;
                     }
 
+                    db.VoteCommentLog.Add(singleVote);
+
                     db.SaveChanges();
-                    return Json(new {result = whatVote ? 1 : -1 });
+                    return Json(new { result = whatVote ? 1 : -1 });
                 }
             }
         }

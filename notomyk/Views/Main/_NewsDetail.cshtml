@@ -13,71 +13,31 @@
         <div class="row m0">
             <div class="col-xs-12 removePadding">
                 <div class="col-sm-6 col-xs-12" style="padding: 0 7px 0 10px">
-                    <div class="fof col-xs-12 removePadding">
-                        <div class="ui labeled button fakt pull-left" tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
-
-                            @if (Model.SingleNews.RatingClass() == 2)
-                            {
-                                <div class="voteFakt ui green button">
-                                    @if (@Model.WhatVote == 1)
-                                    {
-                                        <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                    }
-                                    else
-                                    {
-                                        <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                    }
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="voteFakt ui BGgreenColorLight button">
-                                    @if (@Model.WhatVote == 1)
-                                    {
-                                        <i class="inverted green thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                    }
-                                    else
-                                    {
-                                        <i class="inverted thumbs up icon"></i><span style="color:white"> Fakt</span>
-                                    }
-                                </div>
-                            }
-
-                            <a class="voteFakt ui basic green left pointing label">
-                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == true).Count()
-                            </a>
+                    <div class="fof col-xs-12 removePadding ui buttons">
+                        <div id="FaktContainer" class="field col-xs-4" style="padding: 0 5px 0 0">
+                            <div class="ui pointing below basic @Model.WhatClass.FaktVotedClass label">
+                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == 1).Count()
+                            </div>
+                            <button class="ui green @Model.WhatClass.FaktClass button" data-content="@ViewBag.popupMsg" data-position="top center">
+                                Fakt
+                            </button>
                         </div>
-                        <div class="ui labeled button fake pull-right " tabindex="0" data-content="@ViewBag.popupMsg" data-position="top center">
-                            <a class="voteFake ui basic red right pointing label">
-                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == false).Count()
-                            </a>
-
-                            @if (Model.SingleNews.RatingClass() == 4)
-                            {
-                                <div class="voteFake ui red button">
-                                    @if (@Model.WhatVote == -1)
-                                    {
-                                        <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
-                                    }
-                                    else
-                                    {
-                                        <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
-                                    }
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="voteFake ui BGredColorLight button">
-                                    @if (@Model.WhatVote == -1)
-                                    {
-                                        <i class="inverted red thumbs down icon"></i><span style="color:white"> Fake</span>
-                                    }
-                                    else
-                                    {
-                                        <i class="inverted thumbs down icon"></i><span style="color:white"> Fake</span>
-                                    }
-                                </div>
-                            }
+                        <div id="ManipulatedContainer" class="field col-xs-4 removePadding">
+                            <div class="ui pointing below basic @Model.WhatClass.ManipulatedVotedClass label">
+                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == 2).Count()
+                            </div>
+                            <button class="ui grey @Model.WhatClass.ManipulatedClass button" data-content="@ViewBag.popupMsg" data-position="top center">
+                                Manipulacja
+                            </button>
+                        </div>
+                        
+                        <div id="FakeContainer" class="field col-xs-4" style="padding: 0 0 0 5px">
+                            <div class="ui pointing below basic @Model.WhatClass.FakeVotedClass label">
+                                @Model.SingleNews.VoteLogs.Where(x => x.Vote == -1).Count()
+                            </div>
+                            <button class="ui red @Model.WhatClass.FakeClass button" data-content="@ViewBag.popupMsg" data-position="top center">
+                                Fake
+                            </button>
                         </div>
                     </div>
                     <div class="col-xs-12" style="padding: 0 3px 0 0">

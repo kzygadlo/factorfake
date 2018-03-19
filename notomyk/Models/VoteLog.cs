@@ -17,7 +17,7 @@ namespace notomyk.Models
         public int VoteLogID { get; set; }
         public int tbl_NewsID { get; set; }       
 
-        public bool Vote { get; set; }
+        public int Vote { get; set; }
         public bool Active { get; set; }
         public DateTime? Timestamp { get; set; }
 

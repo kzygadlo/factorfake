@@ -62,8 +62,8 @@ namespace notomyk.Controllers
                 x.IsActive,
                 x.DateAdd,
                 x.Visitors,
-                faktValue = x.VoteLogs.Where(v => v.Vote == true).Count(),
-                fakeValue = x.VoteLogs.Where(v => v.Vote == false).Count(),
+                faktValue = x.VoteLogs.Where(v => v.Vote == 1).Count(),
+                fakeValue = x.VoteLogs.Where(v => v.Vote == -1).Count(),
                 Comm = x.Collection_Comments.Count,
                 x.tbl_NewsID
             }).ToList();

@@ -11,6 +11,6 @@ namespace notomyk.ViewModel
         public tbl_News SingleNews { get; set; }
         public IEnumerable<tbl_News> LeftNews { get; set; }
         public string CommaSeparatedTags { get; set; }
-        public int WhatVote { get; set; }
+        public NewsCssClasses WhatClass { get; set; }
     }
 }

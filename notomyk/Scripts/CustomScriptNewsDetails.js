@@ -45,15 +45,7 @@
             href: $('#fbButton').data('url')
         })
     });
-
-    $('.button.fakt').popup({
-        on: 'click'
-    });
-
-    $('.button.fake').popup({
-        on: 'click'
-    });
-
+        
     //Remove news
     $(document).ready(function () {
         $(document).on('click', '.deleteNews', function (event) {

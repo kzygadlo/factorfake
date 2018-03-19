@@ -232,6 +232,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VotingNewsController.cs" />
     <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="DAL\NTMContext.cs" />
     <Compile Include="DAL\NTMInitializer.cs" />
@@ -491,6 +492,10 @@
     <Compile Include="Migrations\201802122021184_publicFieldsForVotings.Designer.cs">
       <DependentUpon>201802122021184_publicFieldsForVotings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803162253387_addManipulated.cs" />
+    <Compile Include="Migrations\201803162253387_addManipulated.Designer.cs">
+      <DependentUpon>201803162253387_addManipulated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppSettingsGlobal.cs" />
@@ -506,6 +511,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MetaInformation.cs" />
     <Compile Include="Models\ForumPost.cs" />
+    <Compile Include="Models\NewsCssClasses.cs" />
     <Compile Include="Models\tbl_Comment.cs" />
     <Compile Include="Models\tbl_News.cs" />
     <Compile Include="Models\tbl_Newspaper.cs" />
@@ -1800,6 +1806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802122021184_publicFieldsForVotings.resx">
       <DependentUpon>201802122021184_publicFieldsForVotings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803162253387_addManipulated.resx">
+      <DependentUpon>201803162253387_addManipulated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

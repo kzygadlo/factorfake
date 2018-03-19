@@ -24,6 +24,7 @@
                             <div class="col-sm-2 col-xs-3 hidden-xs" style="height: 46px; padding:5px 0 0 0; text-align:right;">
                                 <span id="FakeTag" class="ui red tag label hidden-xs" style="font-size:11px; "></span>
                                 <span id="FaktTag" class="ui green tag label hidden-xs" style="font-size:11px"></span>
+                                <span id="ManipulatedTag" class="ui grey tag label hidden-xs" style="font-size:11px"></span>
                             </div>
 
                         </div>
@@ -57,11 +58,12 @@
                                     {{dateAdded}}
                                 </span>
                                 <span class="ui basic  green outline  label">
-                                    <i class="thumbs outline green up icon"></i>
                                     {{faktTag}}
                                 </span>
+                                <span class="ui basic grey outline label">
+                                    {{manipulatedTag}}
+                                </span>
                                 <span class="ui basic red outline label">
-                                    <i class="thumbs outline red down icon"></i>
                                     {{fakeTag}}
                                 </span>
                             </div>

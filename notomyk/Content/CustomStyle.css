@@ -11,20 +11,6 @@
 }
 
 
-/*.st-custom-button[data-network] {
-    background-color: #0adeff;
-    display: inline-block;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #fff;
-}
-
-    .st-custom-button[data-network]:focus,
-    .st-custom-button[data-network]:hover {
-        text-decoration: underline;
-        background-color: #00c7ff;
-    }*/
 
 .rightButtons {
     text-align: center;
@@ -174,9 +160,6 @@ body {
     border-radius: 0;
 }
 
-* {
-    /*border-radius: 0 !important;*/
-}
 
 .img-circle {
     border-radius: 50% !important;
@@ -216,6 +199,24 @@ body {
     background-color: #e8d3d3 !important;
 }
 
+.BGgreyColorLight {
+    background-color: #e8e8e8 !important;
+}
+
+.BGgreenColorLightToogle {
+    background-color: #d0e9d0 !important;
+}
+
+.BGredColorLightToogle {
+    background-color: #e8d3d3 !important;
+}
+
+.BGgreyColorLightToogle {
+    background-color: #e8e8e8 !important;
+}
+
+
+
 .BGwhite {
     background-color: white !important;
 }
@@ -227,15 +228,18 @@ body {
     border-left: none;
 }
 
+.bGreyColor {
+    /*background-color: #d0e9d0 !important;*/
+    background-color: #e6e6e6 !important;
+    border-right: 1px solid gre;
+    border-left: none;
+}
+
 .bRedColor {
     /*background-color: #e8d3d3 !important;*/
     background-color: #fff1f1 !important;
     border-right: 1px solid #d9534f;
     border-left: none;
-}
-
-.bGreyColor {
-    background-color: #aaaaaa;
 }
 
 .greenColor {
@@ -245,6 +249,8 @@ body {
 .redColor {
     color: #d9534f !important;
 }
+
+
 
 .ffColor {
     color: #48CFAD;
@@ -522,9 +528,6 @@ ul, li {
         margin: 0;
     }
 
-    .newsItem small {
-        /*margin-right: 10px;*/
-    }
 
     .newsItem .rating {
         padding: 0 0 0 7px;
@@ -576,9 +579,6 @@ ul, li {
 #search input,
 #frmAddNews input {
     font-size: 14px;
-}
-
-.navbar-header .ffLogo {
 }
 
 .navbar-header .navButton {
@@ -636,10 +636,7 @@ footer.nb-footer {
         color: white;
     }
 
-        footer.nb-footer .copyright p {
-            /*margin: 0;
-            padding: 0;*/
-        }
+
 /*---------------------------------------------------------END FOOTER------------------------------------------------------------*/
 
 .p1lines {
@@ -911,19 +908,6 @@ input::-webkit-input-placeholder {
 /*-------------------top filters-------------------*/
 
 
-/*.tagFilter {
-    border: 1px solid rgb(220, 220, 220) !important;
-    box-shadow: none !important;
-    background-color: white !important;
-    padding-left: 10px !important;
-}*/
-
-
-.tagFilter,
-.newspaperFilter {
-    /*width: 100%;*/
-    /*max-width: 100%;*/
-}
 
 .timeFilter {
     border: 1px solid rgb(220, 220, 220) !important;

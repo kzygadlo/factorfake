@@ -1,11 +1,48 @@
 ﻿$(document).ready(function () {
 
-    $(document).on('click', '.voteFakt', function () {
-        newsVoting(true, true);
+    if ($(window).width() >= 992) {
+        $('#ManipulatedContainer > button').hover(
+            function () {
+                $(this).closest('div').find('.label').toggleClass('BGgreyColorLightToogle');
+            }
+        );
+
+        $('#FaktContainer > button').hover(
+            function () {
+                $(this).closest('div').find('.label').toggleClass('BGgreenColorLightToogle');
+            }
+        );
+
+        $('#FakeContainer > button').hover(
+            function () {
+                $(this).closest('div').find('.label').toggleClass('BGredColorLightToogle');
+            }
+        );
+    }
+
+    $('#FaktContainer > button').popup({
+        on: 'click'
     });
 
-    $(document).on('click', '.voteFake', function () {
-        newsVoting(false, true);
+    $('#FakeContainer > button').popup({
+        on: 'click'
+    });
+
+    $('#ManipulatedContainer > button').popup({
+        on: 'click'
+    });
+
+    
+    $(document).on('click', '#FaktContainer .button', function () {
+        newsVoting(1);
+    });
+
+    $(document).on('click', '#ManipulatedContainer .button', function () {
+        newsVoting(2);
+    });
+
+    $(document).on('click', '#FakeContainer .button', function () {
+        newsVoting(-1);
     });
 
     $(document).on('click', '.commentFaktVote', function () {
@@ -38,24 +75,10 @@
     });
 });
 
-
 function newsVoting(whatVote) {
-
-    var $notifBox = $('#SingleNews');
-
     var $newsID = $('.frmNewsID').val();
-    var $fake = $(".voteFake.button > i")
-    var $fakt = $(".voteFakt.button > i")
-
-    var $faktValue = $("a.voteFakt")
-    var $fakeValue = $("a.voteFake")
-
-    var $faktClass = "green";
-    var $fakeClass = "red";
-
-    ajaxVoteRequest(whatVote, true, $newsID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
+    ajaxNewsVoteRequest(whatVote, $newsID)
 };
-
 
 function commentsVoting(whatVote, $this, $notifBox) {
 
@@ -69,7 +92,7 @@ function commentsVoting(whatVote, $this, $notifBox) {
     var $faktClass = "green";
     var $fakeClass = "red";
 
-    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
+    ajaxVoteRequest(whatVote, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
 };
 
 function replyVoting(whatVote, $this, $notifBox) {
@@ -84,10 +107,10 @@ function replyVoting(whatVote, $this, $notifBox) {
     var $faktClass = "green";
     var $fakeClass = "red";
 
-    ajaxVoteRequest(whatVote, false, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
+    ajaxVoteRequest(whatVote, $commentID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox)
 };
 
-function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox) {
+function ajaxVoteRequest(whatVote, itemID, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass, $notifBox) {
 
     $.ajax({
         url: '/Voting/Vote',
@@ -95,8 +118,7 @@ function ajaxVoteRequest(whatVote, whatType, itemID, $fakt, $fake, $faktValue, $
         //timeout: 3000,
         data: {
             whatVote: whatVote,
-            ID: itemID,
-            newsVote: whatType
+            ID: itemID
         },
         success: function (response) {
             votingAction(response.result, $fakt, $fake, $faktValue, $fakeValue, $faktClass, $fakeClass);
@@ -137,4 +159,66 @@ function votingAction(whatVote, $fakt, $fake, $faktValue, $fakeValue, $faktClass
             $faktValue.html(parseInt($($faktValue).html(), 10) + 1)
             break;
     }
+};
+
+function ajaxNewsVoteRequest(whatVote, itemID) {
+
+    var $notifBox = $('#SingleNews');
+
+    $.ajax({
+        url: '/VotingNews/Vote',
+        type: 'POST',
+        //timeout: 3000,
+        data: {
+            whatVote: whatVote,
+            ID: itemID
+        },
+        success: function (response) {
+            votingNewsAction(response.result, response.faktVote, response.fakeVote, response.manipulatedVote);
+        },
+        error: function () {
+            showNotification('negative', 'Głosowanie.', 'Wystąpił błąd podczas głosowania.', $notifBox)
+        }
+    });
+};
+
+function votingNewsAction(whatVote, $faktValue, $fakeValue, $manipulatedValues) {
+
+    var faktClassName = 'BGgreenColorLight';
+    var fakeClassName = 'BGredColorLight';
+    var manipulatedClassName = 'BGgreyColorLight';
+
+    var $fakt = $('#FaktContainer').find('div');
+    var $fake = $('#FakeContainer').find('div');
+    var $manipulated = $('#ManipulatedContainer').find('div');
+
+    $fakt.text($faktValue);
+    $fake.text($fakeValue);
+    $manipulated.text($manipulatedValues);
+
+    switch (whatVote) {
+
+        case -1:
+            $fakt.removeClass(faktClassName);
+            $fake.addClass(fakeClassName);
+            $manipulated.removeClass(manipulatedClassName);
+            break;
+        case 0:
+            $fakt.removeClass(faktClassName);
+            $fake.removeClass(fakeClassName);
+            $manipulated.removeClass(manipulatedClassName);
+            break;
+
+        case 1:
+            $fakt.addClass(faktClassName);
+            $fake.removeClass(fakeClassName);
+            $manipulated.removeClass(manipulatedClassName);
+            break;
+        case 2:
+            $fakt.removeClass(faktClassName);
+            $fake.removeClass(fakeClassName);
+            $manipulated.addClass(manipulatedClassName);
+            break;
+    }
 }
+

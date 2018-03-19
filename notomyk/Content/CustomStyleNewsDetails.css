@@ -1,7 +1,19 @@
 ﻿/*--------------------------------------------------------COMMENTS ----------------------------------------------------*/
 
 /*single news*/
+#SingleNews .field > div,
+#SingleNews .field > button {
+    width: 100%;
+}
 
+#SingleNews .field > button {
+    border-radius: 4px !important;
+}
+
+#SingleNews #ManipulatedContainer > button {
+    padding-left: 0px;
+    padding-right: 0px;
+}
 
 /*single Comment*/
 .voteFakt.button,

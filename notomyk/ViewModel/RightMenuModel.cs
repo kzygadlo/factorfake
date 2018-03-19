@@ -9,6 +9,7 @@ namespace notomyk.ViewModel
     public class RightMenuModel
     {
         public IEnumerable<tbl_News> FakeNews { get; set; }
+        public IEnumerable<tbl_News> ManipulatedNews { get; set; }
         public IEnumerable<tbl_News> FaktNews { get; set; }
         public IEnumerable<tbl_News> CommentedNews { get; set; }
         public IEnumerable<tbl_News> VisitedNews { get; set; }

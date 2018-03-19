@@ -147,7 +147,7 @@ function getListOfNews() {
                         $htmlList = $htmlList + '<span class="ui teal basic label">' + val.tagList[i] + '</span>';
                     }
 
-                    fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, $htmlList, val.faktValue, val.fakeValue);
+                    fulfillNewsListTemplate($template, $newsList, val.urlActionLink, val.newspaperPictureLink, val.newsPictureLink, val.newsTitle, val.newsDescription, val.numberOfVisitors, val.numberOfComments, val.dateAdded, val.ratingClass, val.ratingValue, val.newsID, $htmlList, val.faktValue, val.fakeValue, val.manipulatedValue);
 
                     var resultRemaining = val.remainingRows;
 
@@ -190,7 +190,7 @@ $(document).ready(function () {
     });
 });
 
-function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, nTitle, nDescr, numV, numC, dAdded, ratingC, ratingV, newsID, tags, FaktTag, FakeTag) {
+function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, nTitle, nDescr, numV, numC, dAdded, ratingC, ratingV, newsID, tags, FaktTag, FakeTag, ManipulatedTag) {
     var newsVariables =
         {
             urlActionLink: uAl,
@@ -206,6 +206,7 @@ function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, n
             tagsList: tags,
             faktTag: FaktTag,
             fakeTag: FakeTag,
+            manipulatedTag: ManipulatedTag
         };
 
 
@@ -215,25 +216,20 @@ function fulfillNewsListTemplate(Template, AppendTo, uAl, newsPl, newspaperPl, n
     $(html).hide().appendTo(AppendTo).fadeIn('slow');
 
     switch (ratingC) {
-        case 1:
-            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
-            break;
 
-        case 2:
-            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("greenColor");
-            $('#newsContainer').find('#' + newsID + '').find('.info > div').addClass("bGreenColor");
-            $('#newsContainer').find('#' + newsID + '').find('#FaktTag').text("Fakt");
-
-            break;
-
-        case 3:
-            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
-            break;
-
-        case 4:
-            //$('#newsContainer').find('#' + newsID + '').find('.social').addClass("redColor");
+        case -1:
             $('#newsContainer').find('#' + newsID + '').find('.info > div').addClass("bRedColor");
             $('#newsContainer').find('#' + newsID + '').find('#FakeTag').text("Fake");
+            break;
+
+        case 1:
+            $('#newsContainer').find('#' + newsID + '').find('.info > div').addClass("bGreenColor");
+            $('#newsContainer').find('#' + newsID + '').find('#FaktTag').text("Fakt");
+            break;        
+
+        case 2:
+            $('#newsContainer').find('#' + newsID + '').find('.info > div').addClass("bGreyColor");
+            $('#newsContainer').find('#' + newsID + '').find('#ManipulatedTag').text("Manipulacja");
             break;
     }
 }

@@ -19,7 +19,7 @@
                 string title = lnews.Title;
                 string thumbClass = string.Empty;
 
-                var newsRate = lnews.VoteLogs.Where(c => c.Vote == true).Count() - lnews.VoteLogs.Where(c => c.Vote == false).Count();
+                var newsRate = lnews.VoteLogs.Where(c => c.Vote == 1).Count() - lnews.VoteLogs.Where(c => c.Vote == -1).Count();
 
                 if (newsRate > 0)
                 {
