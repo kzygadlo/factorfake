@@ -6,46 +6,32 @@
         CharacterCountControl: $('.charCounter')
     });
 
-    
-
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '288016351717557',
-            cookie: true,
+            appId: '158285538190656',
             xfbml: true,
-            version: 'v2.11'
+            version: 'v2.12'
         });
-
         FB.AppEvents.logPageView();
-
     };
-
-    //fb share
-    //(function (d, s, id) {
-    //    var js, fjs = d.getElementsByTagName(s)[0];
-    //    if (d.getElementById(id)) { return; }
-    //    js = d.createElement(s); js.id = id;
-    //    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    //    fjs.parentNode.insertBefore(js, fjs);
-    //}(document, 'script', 'facebook-jssdk'));
 
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.12&appId=288016351717557&autoLogAppEvents=1';
+        js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.12&appId=158285538190656&autoLogAppEvents=1';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    $('#fbButton').click(function () {
 
+    $('#fbButton').click(function () {
         FB.ui({
             method: 'share',
             mobile_iframe: true,
             href: $('#fbButton').data('url')
         })
     });
-        
+
     //Remove news
     $(document).ready(function () {
         $(document).on('click', '.deleteNews', function (event) {
@@ -105,13 +91,13 @@
                         }
                         else {
                             showNotification('negative', 'Zgłaszanie newsa.', 'News został już zgłoszony.', $whereAppend);
-                        }                        
+                        }
                     }
                     else {
                         showNotification('negative', 'Zgłaszanie newsów.', response.errMessage, $whereAppend)
                     }
                 },
-                error: function () {                    
+                error: function () {
                     showNotification('negative', 'Zgłaszanie newsów.', 'Wystąpił błąd podczas zgłazania newsa.', $whereAppend)
                 }
             });
@@ -121,9 +107,9 @@
 
     $('.message .close').on('click', function () {
         $(this)
-          .closest('.message')
-          .transition('fade')
-        ;
+            .closest('.message')
+            .transition('fade')
+            ;
     });
 
 });

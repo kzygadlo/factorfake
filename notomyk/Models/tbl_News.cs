@@ -54,29 +54,9 @@ namespace notomyk.Models
 
         public int IsFMF()
         {
-
             int Fakt = this.VoteLogs.Where(v => v.Vote == 1).Count();
             int Fake = this.VoteLogs.Where(v => v.Vote == -1).Count();
             int Manipulated = this.VoteLogs.Where(v => v.Vote == 2).Count();
-
-
-            //if (Fakt > Fake)
-            //{
-            //    if (Fakt + Fake >= value && (Fake == 0 || Fakt / Fake > 2))
-            //    {
-            //        return 2;
-            //    }
-
-            //    return 1;
-            //}
-            //else if (Fakt < Fake)
-            //{
-            //    if (Fakt + Fake >= value && (Fakt == 0 || Fake / Fakt > 2))
-            //    {
-            //        return 4;
-            //    }
-            //    return 3;
-            //}
 
             if (Fakt > Fake && Fakt > Manipulated)
             {
@@ -100,6 +80,66 @@ namespace notomyk.Models
                 }
             }
             return 0;
+        }
+
+        public string LeftMenuIcon(int fakt, int manipulated, int fake)
+        {
+            if (fakt > fake && fakt > manipulated)
+            {
+                return "smile";
+            }
+            else if (manipulated > fakt && manipulated > fake)
+            {
+                return "meh";
+            }
+            else if (fake > fakt && fake > manipulated)
+            {
+                return "frown";
+            }
+            else
+            {
+                return "minus";
+            }
+        }
+
+        public string LeftMenuColor(int fakt, int manipulated, int fake)
+        {
+            if (fakt > fake && fakt > manipulated)
+            {
+                return "green";
+            }
+            else if (manipulated > fakt && manipulated > fake)
+            {
+                return "grey";
+            }
+            else if (fake > fakt && fake > manipulated)
+            {
+                return "red";
+            }
+            else
+            {
+                return "grey";
+            }
+        }
+
+        public int LeftMenuRating(int fakt, int manipulated, int fake)
+        {
+            if (fakt > fake && fakt > manipulated)
+            {
+                return fakt;
+            }
+            else if (manipulated > fakt && manipulated > fake)
+            {
+                return manipulated;
+            }
+            else if (fake > fakt && fake > manipulated)
+            {
+                return fake;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

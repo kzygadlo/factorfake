@@ -56,11 +56,21 @@ namespace notomyk
             //   consumerKey: "",
             //   consumerSecret: "");
 
+            //localhost
+            //var options = new FacebookAuthenticationOptions()
+            //{
+            //    AppId = "1579781052091724",
+            //    AppSecret = "708550fa045be49713206cdcc0f98d94"
+            //};
+
+            //PROD
             var options = new FacebookAuthenticationOptions()
             {
-                AppId = "288016351717557",
-                AppSecret = "2c009733980bb658c50345c878246b53"                
+                AppId = "158285538190656",
+                AppSecret = "334e766c64254a112f65332c964c4a39"
             };
+
+
             options.Scope.Add("email");
 
             app.UseFacebookAuthentication(options);

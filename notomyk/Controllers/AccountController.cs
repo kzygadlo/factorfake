@@ -409,7 +409,7 @@ namespace notomyk.Controllers
             {
                 return RedirectToAction("Login");
             }
-                        
+
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -433,7 +433,7 @@ namespace notomyk.Controllers
                         {
                             return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.ExternalLoginEmailIsTaken });
                         }
-                    }                   
+                    }
 
                     string fbEmail = "";
                     if (loginInfo.Email == null)
@@ -447,6 +447,25 @@ namespace notomyk.Controllers
                         UserName = loginInfo.ExternalIdentity.Name ?? loginInfo.DefaultUserName,
                         Email = loginInfo.Email ?? fbEmail
                     };
+
+
+                    var ifNameExist = await UserManager.FindByNameAsync(user.UserName);
+                    if (ifNameExist != null)
+                    {
+                        var ifDefaultNameExist = await UserManager.FindByNameAsync(loginInfo.DefaultUserName);
+                        if (ifDefaultNameExist != null)
+                        {
+                            if (loginInfo.ExternalIdentity.Name != null)
+
+                                return RedirectToAction("Index", "Error", new { errorMessage = ErrorMessage.ExternalLoginEmailIsTaken });
+                        }
+                        else
+                        {
+                            user.UserName = loginInfo.DefaultUserName;
+                        }
+                    }
+
+
                     var registrationResult = await UserManager.CreateAsync(user);
                     if (registrationResult.Succeeded)
                     {
@@ -462,7 +481,7 @@ namespace notomyk.Controllers
                             {
 
                             }
-                        }                        
+                        }
 
                         registrationResult = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
                         if (registrationResult.Succeeded)

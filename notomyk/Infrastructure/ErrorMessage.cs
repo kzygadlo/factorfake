@@ -29,6 +29,7 @@ namespace notomyk.Infrastructure
         public const string ItemDoesntExist = "Objekt o takim ID nie istnieje.";
         public const string FBnoemail = "Twoje konto Facebook nie posiada przypisanego adresu e-mail. Dlatego też logowanie po przez FB jest niemożliwe. Proszę wybierz inną opcję logowania.";
         public const string ExternalLoginEmailIsTaken = "Email, który próbujesz teraz użyć do zalogowania został już zarejestrowany w sposób standardowy. Jeżeli nie pamiętasz hasła - poproś o jego zresetowanie.";
+        public const string ExternalLoginUserNameIsTaken = "Nazwa uzytkownika, któą próbujesz teraz użyć do zalogowania została już zarejestrowany w sposób standardowy. Jeżeli nie pamiętasz hasła - poproś o jego zresetowanie.";
     }
 
     

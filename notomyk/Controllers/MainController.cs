@@ -12,10 +12,12 @@ using System.Web.Mvc;
 
 namespace notomyk.Controllers
 {
+    [RequireHttps]
     public class MainController : Controller
     {
 
-        public ActionResult WhatNewspaper(string id) {
+        public ActionResult WhatNewspaper(string id)
+        {
 
             if (db.Newspaper.Any(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0))
             {
@@ -40,7 +42,7 @@ namespace notomyk.Controllers
             {
                 logLastActivity la = new logLastActivity(User.Identity.GetUserId());
             }
-            
+
             int numberOfVotes = Convert.ToInt32(cApp.AppSettings["MinNumberVotesForMainPage"]);
             List<string> newspaperList = new List<string>();
             List<Tag> tagList = new List<Tag>();
@@ -75,7 +77,6 @@ namespace notomyk.Controllers
 
                 ViewBag.WaitingRoom = "active";
             }
-                                 
 
             if (f != "")
             {
@@ -92,7 +93,6 @@ namespace notomyk.Controllers
             ViewBag.ogTitle = "Fakt or Fake | Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności bądź tendencyjności.";
             ViewBag.ogImage = imgUrl("/Images/Utility/FOFlogos/foficonlightNoBorder.png", fofUrl1);
 
-
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
             vm.Categories = tagList;
@@ -100,7 +100,7 @@ namespace notomyk.Controllers
             return View(vm);
         }
 
-        private string ReturnListOfNewspapers(string newspaper,  ref List<string> ListNewspapers)
+        private string ReturnListOfNewspapers(string newspaper, ref List<string> ListNewspapers)
         {
 
             string result = "";
@@ -218,6 +218,12 @@ namespace notomyk.Controllers
                         case 4: //Top Visits
                             result = result.Where(n => n.Visitors >= visitorsValue).OrderByDescending(o => o.Visitors);
                             break;
+                        case 5: //Top Manipulated
+                            result = result
+                                .Where(n => n.VoteLogs.Where(v => v.Vote == 2).Count() + n.VoteLogs.Where(v => v.Vote == 1).Count() + n.VoteLogs.Where(v => v.Vote == -1).Count() >= votingValue)
+                                .Where(n => n.VoteLogs.Where(v => v.Vote == 2).Count() > n.VoteLogs.Where(v => v.Vote == 1).Count())
+                                .Where(n => n.VoteLogs.Where(v => v.Vote == 2).Count() > n.VoteLogs.Where(v => v.Vote == -1).Count());
+                            break;
                     }
                 }
 
@@ -256,7 +262,7 @@ namespace notomyk.Controllers
 
             filter.Remains = result.Count() - 10 - filter.Page * 10;
 
-            if (filter.WhatNews == 0 || filter.WhatNews == 1 || filter.WhatNews == 2)
+            if (filter.WhatNews == 0 || filter.WhatNews == 1 || filter.WhatNews == 2 || filter.WhatNews == 5)
             {
                 result = result.OrderByDescending(r => r.DateAdd);
             }
@@ -266,7 +272,7 @@ namespace notomyk.Controllers
             return result;
         }
 
-        public ActionResult News(int ID, int nPage = 2)
+        public ActionResult News(int ID, int nPage = 3)
         {
             if (!cAppGlobal.IsAllowed("SiteEnabled"))
             {
@@ -294,7 +300,6 @@ namespace notomyk.Controllers
                 whatVote = isVoted.Vote;
             }
 
-        
             var singleNews = db.News.Where(n => n.tbl_NewsID == ID && n.IsActive == true && n.Newspaper.IsActive == true).FirstOrDefault();
 
             if (singleNews == null)
@@ -342,7 +347,7 @@ namespace notomyk.Controllers
             ViewBag.fbButtonUrl = string.Concat("https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl", fofUrl2, "%2F&quote=");
             ViewBag.twitterButtonUrl = string.Concat("http://twitter.com/share?url=https://faktorfake.pl", fofUrl2, "&hashtags=fakenews,faktorfake");
 
-            ViewBag.ogTitle = string.Concat(singleNews.Newspaper.NewspaperName, " | ",  singleNews.Title);
+            ViewBag.ogTitle = string.Concat(singleNews.Newspaper.NewspaperName, " | ", singleNews.Title);
             ViewBag.ogDescription = singleNews.Description;
 
             ViewBag.ogImage = imgUrl(singleNews.PictureLink, fofUrl1);
@@ -357,10 +362,9 @@ namespace notomyk.Controllers
             vm.CommaSeparatedTags = CommaSeparatedTags;
 
             vm.WhatClass = NewsClass(singleNews.IsFMF(), whatVote);
-
             return View(vm);
-
         }
+
 
         public NewsCssClasses NewsClass(int IsFMF, int IsVoted)
         {
@@ -385,16 +389,15 @@ namespace notomyk.Controllers
                     break;
                 case 1:
                     result.FaktVotedClass = "BGgreenColorLight";
-                    break;                
+                    break;
                 case 2:
                     result.ManipulatedVotedClass = "BGgreyColorLight";
                     break;
             }
-
             return result;
         }
 
-        public string imgUrl (string url, string rootUrl)
+        public string imgUrl(string url, string rootUrl)
         {
             string result = url;
 
@@ -404,8 +407,8 @@ namespace notomyk.Controllers
             }
             else
             {
-                return string.Concat(rootUrl,url);
-            }            
+                return string.Concat(rootUrl, url);
+            }
         }
 
         public ActionResult AllNews()
@@ -427,14 +430,16 @@ namespace notomyk.Controllers
         {
 
             var faktN = db.News
-                .Where(n => n.VoteLogs.Where(v => v.Vote == 1).Count() >= n.VoteLogs.Where(v => v.Vote == -1).Count() && n.Newspaper.IsActive == true)
+                .Where(n => n.VoteLogs.Where(v => v.Vote == 1).Count() >= n.VoteLogs.Where(v => v.Vote == -1).Count())
+                .Where(n => n.Newspaper.IsActive == true)
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == 1).Count() - n.VoteLogs.Where(v => v.Vote == -1).Count())
                 .Take(10)
                 .ToList();
 
             var fakeN = db.News
-                .Where(n => n.VoteLogs.Where(v => v.Vote == -1).Count() >= n.VoteLogs.Where(v => v.Vote == 1).Count() && n.Newspaper.IsActive == true)
+                .Where(n => n.VoteLogs.Where(v => v.Vote == -1).Count() >= n.VoteLogs.Where(v => v.Vote == 1).Count())
+                .Where(n => n.Newspaper.IsActive == true)
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == -1).Count() - n.VoteLogs.Where(v => v.Vote == 1).Count())
                 .Take(10)
@@ -445,10 +450,9 @@ namespace notomyk.Controllers
                 .Where(n => n.VoteLogs.Where(v => v.Vote == 2).Count() >= n.VoteLogs.Where(v => v.Vote == -1).Count())
                 .Where(n => n.Newspaper.IsActive == true)
                 .Where(n => n.IsActive == true)
-                .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == 2).Count() - n.VoteLogs.Where(v => v.Vote == 1).Count() - n.VoteLogs.Where(v => v.Vote == -1).Count())
-                .Take(10)
+                .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == 2).Count())
                 .ToList();
-            
+
             var comments = db.News
                 .Where(n => n.IsActive == true && n.Newspaper.IsActive == true)
                 .OrderByDescending(n => n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID == null).Count() + n.Collection_Comments.Where(c => c.IsActive == true && c.Parenttbl_CommentID != null && c.Parent.IsActive == true).Count())
@@ -474,8 +478,6 @@ namespace notomyk.Controllers
             var usersComm = (from x in db.Users
                              orderby x.Comments.Where(c => c.IsActive == true).Count() descending
                              select x).Take(5).ToList();
-
-
 
             var vm = new RightMenuModel()
             {

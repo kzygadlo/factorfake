@@ -1,5 +1,8 @@
 ﻿
 $(document).ready(function () {
+
+    $('.ui.dropdown').dropdown();
+
     $(document).on('click',
         '#editTags',
         function (event) {

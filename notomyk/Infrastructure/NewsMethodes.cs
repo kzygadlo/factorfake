@@ -86,8 +86,6 @@ namespace notomyk.Infrastructure
             return false;
         }
 
-
-
         public static MetaInformation GetMetaDataFromUrl(string url)
         {
 

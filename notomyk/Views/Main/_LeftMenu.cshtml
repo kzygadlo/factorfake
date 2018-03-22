@@ -17,18 +17,10 @@
             {
 
                 string title = lnews.Title;
-                string thumbClass = string.Empty;
 
-                var newsRate = lnews.VoteLogs.Where(c => c.Vote == 1).Count() - lnews.VoteLogs.Where(c => c.Vote == -1).Count();
-
-                if (newsRate > 0)
-                {
-                    thumbClass = "greenColor";
-                }
-                else if (newsRate < 0)
-                {
-                    thumbClass = "redColor";
-                }
+                var faktValue = lnews.VoteLogs.Where(c => c.Vote == 1).Count();
+                var manipulatedValue = lnews.VoteLogs.Where(c => c.Vote == 2).Count();
+                var fakeValue = lnews.VoteLogs.Where(c => c.Vote == -1).Count();
 
                 if (lnews.Title.Length > 80)
                 {
@@ -44,20 +36,10 @@
                             <div class="rating col-lg-4">
 
                                 <div class="col-lg-6 removePadding">
-                                    |
-                                    @if (newsRate >= 0)
-                                    {
-                                        <i class="fa fa-thumbs-o-up @thumbClass" aria-hidden="true"></i>
-                                    }
-                                    else
-                                    {
-                                        newsRate = Math.Abs(newsRate);
-                                        <i class="fa fa-thumbs-o-down @thumbClass" aria-hidden="true"></i>
-                                    }
-
+                                    |<i class="outline icon @lnews.LeftMenuIcon(faktValue,manipulatedValue,fakeValue) @lnews.LeftMenuColor(faktValue,manipulatedValue,fakeValue)" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-lg-6 removePadding">
-                                    <small>@newsRate</small>
+                                    <small>@lnews.LeftMenuRating(faktValue, manipulatedValue, fakeValue)</small>
                                 </div>
 
                                 <div class="col-lg-6 removePadding">

@@ -272,7 +272,7 @@
         <div id="2c" class="news ui middle aligned divided list tab-pane @class2" style="margin:0">
             @foreach (var News in Model.ManipulatedNews)
             {
-                var Rating = News.VoteLogs.Where(n => n.Vote == -1).Count() - News.VoteLogs.Where(n => n.Vote == 1).Count();
+                var Rating = News.VoteLogs.Where(n => n.Vote == 2).Count();
                 var activePaneClass = "";
 
                 if (News.tbl_NewsID == ViewBag.NewsID)
@@ -283,7 +283,7 @@
                     <div class="right floated content">
 
                         <div style="float:right">
-                            <span class="ui grey basic pull-right label" style="margin-right:5px">+ @Rating</span>
+                            <span class="ui grey basic pull-right label" style="margin-right:5px">@Rating</span>
                         </div>
 
                         @if (myNews.isNew(News.DateAdd))
