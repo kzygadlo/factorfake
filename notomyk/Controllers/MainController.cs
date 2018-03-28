@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace notomyk.Controllers
 {
-    [RequireHttps]
+
     public class MainController : Controller
     {
 
@@ -21,7 +21,7 @@ namespace notomyk.Controllers
 
             if (db.Newspaper.Any(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0))
             {
-                var newspapersList = db.Newspaper.Where(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0).ToList();
+                //var newspapersList = db.Newspaper.Where(n => n.NewspaperName.Contains(id) && n.Colection_Newses.Where(c => c.IsActive == true).Count() > 0).ToList();
                 return RedirectToAction("Index", new { f = id });
             }
 
@@ -30,7 +30,7 @@ namespace notomyk.Controllers
 
         private NTMContext db = new NTMContext();
         private static Logger FOFlog = LogManager.GetCurrentClassLogger();
-        public ActionResult Index(int mainPage = 1, string f = "")
+        public ActionResult Index(int mainPage = 1, string f = "", string tag = "")
         {
 
             if (!cAppGlobal.IsAllowed("SiteEnabled"))
@@ -88,10 +88,18 @@ namespace notomyk.Controllers
                 ViewBag.MainPage = mainPage;
             }
 
+            if (tag != "")
+            {
+                ViewBag.DefaultTag = db.Tag.Where(t => t.TagName == tag).Select(s => s.ID).FirstOrDefault() ;
+            }
+
+
             var fofUrl1 = "https://www.faktorfake.pl";
 
-            ViewBag.ogTitle = "Fakt or Fake | Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności bądź tendencyjności.";
-            ViewBag.ogImage = imgUrl("/Images/Utility/FOFlogos/foficonlightNoBorder.png", fofUrl1);
+            ViewBag.ogTitle = "FF | Fakt or Fake";
+            ViewBag.fbButtonUrl = fofUrl1;
+            ViewBag.ogDescription = "Strona poświęcona weryfikowaniu news&oacute;w pod kątem ich wiarygodności bądź tendencyjności.";
+            ViewBag.ogImage = imgUrl("/Images/Social/og-image.jpg", fofUrl1);
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;

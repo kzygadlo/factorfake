@@ -43,30 +43,6 @@ $(document).ready(function () {
         }
     });
 
-    //$(function () {
-
-    //    $(window).bind("resize", function () {
-    //        console.log($(this).width())
-    //        if ($(this).width() < 991) {
-    //            $('.newspaperFilter').removeClass('search');
-    //            $('.newspaperFilter').find('.search').addClass('hidden');
-    //            $('.newspaperFilter').find('.sizer').addClass('hidden');
-
-    //            $('.tagFilter').removeClass('search');
-    //            $('.tagFilter').find('.search').addClass('hidden');
-    //            $('.tagFilter').find('.sizer').addClass('hidden');
-    //        }
-    //        else {
-    //            $('.newspaperFilter').addClass('search');
-    //            $('.newspaperFilter').find('.search').removeClass('hidden');
-    //            $('.newspaperFilter').find('.sizer').removeClass('hidden');
-
-    //            $('.tagFilter').addClass('search');
-    //            $('.tagFilter').find('.search').removeClass('hidden');
-    //            $('.tagFilter').find('.sizer').removeClass('hidden');
-    //        }
-    //    })
-    //});
 });
 
 function beforeFiltering(xs) {

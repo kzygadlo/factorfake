@@ -666,6 +666,7 @@
     <Content Include="Images\NewsImages\9070beaa-7c88-4498-a41a-40fde2198a9d.png" />
     <Content Include="Images\NewsImages\9baea186-9461-47eb-b2f5-98b0b222c882.png" />
     <Content Include="Images\NewsImages\bbf09319-2fbe-4182-b9d7-468e94f4dbfb.png" />
+    <Content Include="Images\Social\og-image.jpg" />
     <Content Include="Images\social_flat_rounded_rects_svg\Email.svg" />
     <Content Include="Images\social_flat_rounded_rects_svg\Facebook.svg" />
     <Content Include="Images\social_flat_rounded_rects_svg\Google+.svg" />
@@ -750,6 +751,8 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Scripts\CustomScriptsValidation.js" />
     <Content Include="Images\social_flat_rounded_rects_svg\license.md" />
+    <Content Include="Images\Utility\favicons_fof\site.webmanifest" />
+    <Content Include="Images\Utility\favicons_fof\manifest.json" />
     <None Include="Properties\PublishProfiles\PROD [faktorfake.hostingasp.pl] .pubxml" />
     <None Include="Properties\PublishProfiles\UAT - [notomyk.pl].pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -929,7 +932,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Utility\favicons_fof\manifest.json" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

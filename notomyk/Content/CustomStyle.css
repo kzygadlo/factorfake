@@ -11,6 +11,9 @@
 }
 
 
+._2tga._3e2a {
+    border-radius: 0 !important;
+}
 
 .rightButtons {
     text-align: center;
@@ -18,13 +21,6 @@
     min-height: 37px !important;
 }
 
-.fb-share-button {
-    background-color: #4267b2 !important;
-}
-
-    .fb-share-button:hover {
-        background-color: #365899 !important;
-    }
 /*------------------------------------------------MAIN---------------------------------------------*/
 .overme {
     width: 150px;
