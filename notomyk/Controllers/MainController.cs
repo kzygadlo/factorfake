@@ -459,6 +459,7 @@ namespace notomyk.Controllers
                 .Where(n => n.Newspaper.IsActive == true)
                 .Where(n => n.IsActive == true)
                 .OrderByDescending(n => n.VoteLogs.Where(v => v.Vote == 2).Count())
+                .Take(10)
                 .ToList();
 
             var comments = db.News
