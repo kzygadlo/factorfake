@@ -152,4 +152,10 @@
     </div>
 </div>
 
+
 @Html.Partial("_GenericComment")
+<div class="ui horizontal divider col-xs-12 removePadding">
+    Albo dodaj komentarz poprzez Facebooka
+</div>
+@*<div class="fb-comments" data-href="https://www.faktorfake.pl/" data-numposts="5"></div>*@
+<div class="fb-comments col-xs-12 removePadding" data-href="@ViewBag.fbButtonUrl" data-numposts="5" data-width="655" style="min-height:30px">Trwa wczytywanie komentarzy z Facbooka</div>

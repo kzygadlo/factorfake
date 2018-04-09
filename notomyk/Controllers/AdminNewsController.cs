@@ -57,7 +57,7 @@ namespace notomyk.Controllers
             var newses = n.Select(x => new
             {
                 x.Newspaper.NewspaperName,
-                x.Description,
+                x.Title,
                 x.IsReported,
                 x.IsActive,
                 x.DateAdd,
@@ -71,7 +71,7 @@ namespace notomyk.Controllers
             var newsesFinal = newses.Select(x => new
             {
                 x.NewspaperName,
-                x.Description,
+                x.Title,
                 x.IsReported,
                 x.IsActive,
                 DateAdd = ConvertToString.Date(x.DateAdd),

@@ -6,6 +6,7 @@ using notomyk.Models;
 using notomyk.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -94,12 +95,12 @@ namespace notomyk.Controllers
             }
 
 
-            var fofUrl1 = "https://www.faktorfake.pl";
+            var fofUrl1 = ConfigurationManager.AppSettings["UrlAddress"];
 
             ViewBag.ogTitle = "FF | Fakt or Fake";
             ViewBag.fbButtonUrl = fofUrl1;
-            ViewBag.ogDescription = "Strona poświęcona weryfikowaniu news&oacute;w pod kątem ich wiarygodności bądź tendencyjności.";
-            ViewBag.ogImage = imgUrl("/Images/Social/og-image.jpg", fofUrl1);
+            ViewBag.ogDescription = "Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności bądź tendencyjności.";
+            ViewBag.ogImage = imgUrl("/Images/Social/og-image.png", fofUrl1);
 
             Filters vm = new Filters();
             vm.Newspapers = newspaperList;
@@ -350,9 +351,9 @@ namespace notomyk.Controllers
             var fofUrl1 = "https://www.faktorfake.pl";
             var fofUrl2 = Url.Action("News", "Main", new { ID = ID });
 
-            //ViewBag.fbButtonUrl = fofUrl1 + fofUrl2;
+            ViewBag.fbButtonUrl = ViewBag.fbButtonUrl = string.Concat(HttpContext.Request.Url.AbsoluteUri.Where(u => !char.IsWhiteSpace(u)));
 
-            ViewBag.fbButtonUrl = string.Concat("https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl", fofUrl2, "%2F&quote=");
+            //ViewBag.fbButtonUrl = string.Concat("https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl", fofUrl2, "%2F&quote=");
             ViewBag.twitterButtonUrl = string.Concat("http://twitter.com/share?url=https://faktorfake.pl", fofUrl2, "&hashtags=fakenews,faktorfake");
 
             ViewBag.ogTitle = string.Concat(singleNews.Newspaper.NewspaperName, " | ", singleNews.Title);

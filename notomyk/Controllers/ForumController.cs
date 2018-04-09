@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using notomyk.Infrastructure;
+using System.Configuration;
 
 namespace notomyk.Controllers
 {
@@ -54,8 +55,27 @@ namespace notomyk.Controllers
                 singleTopic.Visitors++;
                 db.SaveChanges();
             }
-            
+
+            var fofUrl1 = ConfigurationManager.AppSettings["UrlAddress"];
+ 
+            ViewBag.ogImage = imgUrl("/Images/Social/og-image.png", fofUrl1);
+            ViewBag.fbButtonUrl = HttpContext.Request.Url.AbsoluteUri;
             return View(singleTopic);
+        }
+
+
+        public string imgUrl(string url, string rootUrl)
+        {
+            string result = url;
+
+            if (url.Contains("http") == true)
+            {
+                return url;
+            }
+            else
+            {
+                return string.Concat(rootUrl, url);
+            }
         }
 
         [HttpGet]

@@ -16,62 +16,32 @@
     <div class="rightButtons visible-xs">
         <div class="sharethis-inline-share-buttons"></div>
     </div>
-    <div class="sharethis-inline-follow-buttons col-xs-12"></div>
+
+
     <div class="rightButtons hidden-xs">
         <div class="fb-like col-xs-4 removePadding"
              style="vertical-align:top;zoom:1;display:inline-block;"
              data-href="https://www.facebook.com/faktorfejk/"
              data-layout="button"
              data-action="like"
-             data-size="small"
+             data-size="large"
              data-show-faces="true"></div>
+        <div class="col-xs-8 removePadding" style="text-align:right;">
+            <button class="ui facebook button"
+                    @*onclick="location.href='https://www.facebook.com/faktorfejk/'"*@
+                    onclick="window.open('https://www.facebook.com/faktorfejk/','_blank')"
+                    value="FB | Fakt or Fake">
+                Odwiedź nas na Facebooku
+            </button>
+        </div>
 
-        <div class="fb-share-button col-xs-4 removePadding"
-             data-href="https://www.faktorfake.pl/"
-             data-layout="button"
-             data-size="small"
-             data-mobile-iframe="true">
-            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"></a>
-        </div>
-        <div class=" col-xs-4 removePadding">
-            <a class="twitter-share-button"
-               href="http://twitter.com/share?url=https://faktofrake.pl&hashtags=fakenews,faktorfake"
-               data-size="small"
-               data-text="Fakt or Fake | Strona poświęcona weryfikowaniu wiadomości pod kątem ich wiarygodności bądź tendencyjności."
-               data-url=""
-               data-hashtags=""
-               data-via=""
-               data-related="">
-            </a>
-        </div>
 
     </div>
 
-    @*<a target="_blank"
-           data-mobile-iframe="true"
-           data-layout="button_count"
-           class="fb-xfbml-parse-ignore"
-           href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl%2F&amp;src=sdkpreparse">
-            <div class="btn btn-sm btn-block btn-social btn-facebook RightRadius col-xs-4 fb-share-button">
-                <span class="fa fa-facebook"></span> Udostępnij
-            </div>
-        </a>*@
-    @*<div class="btn-group col-xs-6 fbLikeIt">
-            <button type="submit" class="btn btn-block btn-social btn-sm  btn-facebook">
-                <span class="fa fa-facebook"></span> Polub Nas
-            </button>
-        </div>
-        <div class="btn-group col-xs-6 fbShare">
-            <button type="submit" class="btn btn-block btn-social btn-sm  btn-facebook">
-                <span class="fa fa-facebook"></span> Udostępnij
-            </button>
-        </div>*@
-
-
-    <div class="ui horizontal divider hidden-xs hidden-sm">
+    <div class="ui horizontal divider hidden-xs hidden-sm col-xs-12 removePadding">
         forum
     </div>
-    <div class="tab-content clearfix">
+    <div class="tab-content clearfix col-xs-12 removePadding">
         <div class="tab-pane active" id="1a">
             <div class="rightList forumList">
 

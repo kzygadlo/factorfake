@@ -1,5 +1,12 @@
 ﻿/* single news element*/
 
+.fb-comments{
+    background-color: white;
+    margin-bottom: 10px;
+    text-align:center;
+    padding-top: 5px !important;
+}
+
 .singleNewsElement {
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5 !important;
     background-color: white !important;
@@ -21,6 +28,19 @@
     min-height: 37px !important;
 }
 
+.ui.facebook.button {
+    font-family: "Helvetica Neue", Verdana, Helvetica, Arial, sans-serif;
+    height: 28px;
+    font-size: 11px;
+    font-weight: 100;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding-left: 1.1em !important;
+    padding-right: 1.1em !important;
+}
 /*------------------------------------------------MAIN---------------------------------------------*/
 .overme {
     width: 150px;
@@ -219,21 +239,21 @@ body {
 
 .bGreenColor {
     /*background-color: #d0e9d0 !important;*/
-    background-color: #f0fff0 !important;
+    background-color: #eef3ee !important;
     border-right: 1px solid #5cb85c;
     border-left: none;
 }
 
 .bGreyColor {
     /*background-color: #d0e9d0 !important;*/
-    background-color: #e6e6e6 !important;
-    border-right: 1px solid gre;
+    background-color: #f1f1f1 !important;
+    border-right: 1px solid #333333;
     border-left: none;
 }
 
 .bRedColor {
     /*background-color: #e8d3d3 !important;*/
-    background-color: #fff1f1 !important;
+    background-color: #f5eded !important;
     border-right: 1px solid #d9534f;
     border-left: none;
 }
