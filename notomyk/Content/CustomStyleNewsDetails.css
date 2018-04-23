@@ -199,8 +199,6 @@ border: none;*/
     padding: 10px 10px 0 10px;
 }
 
-    #addComment button {
-    }
 
 .bootstrap-tagsinput {
     width: 100%;
@@ -259,8 +257,6 @@ border: none;*/
             font-size: 12px;
             font-weight: 400;
         }
-
-}
 
 @media (min-width: 992px) {
     .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {

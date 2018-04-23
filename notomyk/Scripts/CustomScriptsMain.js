@@ -143,7 +143,7 @@ function getListOfNews() {
                 $('#loadingImage').addClass("hidden");
                 $('#newPageButton').fadeIn('slow');
 
-                if (result.length == 0) {
+                if (result.length === 0) {
                     $('#newPageButton').removeClass("hidden");
                     $('#newPageButton').val("Brak wyników dla wybranych filtrów.");
                 }

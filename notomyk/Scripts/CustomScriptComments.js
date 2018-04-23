@@ -103,13 +103,13 @@
             success: function (response) {
 
 
-                if (response.success == true && response.childComments == 0) {
+                if (response.success === true && response.childComments === 0) {
                     $entComm.closest(".singleComment").fadeOut(600, function () {
                         $entComm.closest(".singleComment").remove();
                     });
 
                 }
-                else if (response.success == true && response.childComments > 0)
+                else if (response.success === true && response.childComments > 0)
                 {
                     $entComm.closest(".singleComment").find(".removedMessage").removeClass('hidden');
                     $entComm.closest(".singleComment").find(".basicMessage").addClass('hidden');
@@ -142,7 +142,7 @@
                 commentID: CommentID
             },
             success: function (response) {
-                if (response.success == true) {
+                if (response.success === true) {
                     $entComm.closest(".singleReply").fadeOut(600, function () {
                         $entComm.closest(".singleReply").remove();
                     });
@@ -197,10 +197,10 @@ function fulfillReplyTemplate(rid, rep, date, logoN, userN, faktV, fakeV, $templ
     var c1 = "";
     var c2 = "";
 
-    if (commV == 0) {
+    if (commV === 0) {
         c2 = "red";
     }
-    else if (commV == 1) {
+    else if (commV === 1) {
         c1 = "green";
     }
 
@@ -236,7 +236,7 @@ function ajaxAddComment($comment, newsID, parentID, $template, $wherePrepend, $w
             parentID: parentID
         },
         success: function (response) {
-            if (response.success == true) {
+            if (response.success === true) {
                 fulfillCommentTemplateForNewComment(response.cid, response.com, response.date, response.userN, response.userL, $template, $wherePrepend, $comment, newsID, parentID, response.positiveCommentsNumber, response.allCommentsNumber, response.reputationPoints);
             } else {
 
@@ -271,7 +271,7 @@ function fulfillCommentTemplateForNewComment(cid, com, date, userN, userL, $temp
     };
     var html = Mustache.to_html($template, commentVariables);
 
-    if (parentID != 0 && $wherePrepend.is(":hidden")) {
+    if (parentID !== 0 && $wherePrepend.is(":hidden")) {
         $wherePrepend.fadeToggle();
     }    
 
@@ -280,7 +280,7 @@ function fulfillCommentTemplateForNewComment(cid, com, date, userN, userL, $temp
 
     $comment.val("");
 
-    if (parentID == 0) {
+    if (parentID === 0) {
         $(html).hide().prependTo($wherePrepend).fadeIn('slow');
     }
     else {
@@ -304,17 +304,17 @@ function showComments(Filter) {
     function fulfillCommTemplate(nid, cid, com, date, userN, userL, faktV, fakeV, repV, commV, repPcom, repAcom, repPoins, basicClass, removedClass, reportClass) {
 
         var repValue = "";
-        if (repV != 0) {
+        if (repV !== 0) {
             repValue = "odpowiedzi: " + repV;
         }
 
         var c1 = "";
         var c2 = "";
 
-        if (commV == 0) {
+        if (commV === 0) {
             c2 = "red";
         }
-        else if (commV == 1) {
+        else if (commV === 1) {
             c1 = "green";
         }
 
@@ -379,7 +379,7 @@ function showComments(Filter) {
                 CharacterCountControl: $('.charCounter')
             });
 
-            if (result.length == 0) {
+            if (result.length === 0) {
                 $('#noResultTab').removeClass("hidden");
             }
             else {
@@ -417,7 +417,7 @@ $(document).ready(function () {
                 ToReport: true
             },
             success: function (response) {
-                if (response.Success == true) {
+                if (response.Success === true) {
                     if ($Comment.closest('.comment-box').find('.reportSpan').hasClass('hidden')) {
                         showNotification('positive', 'Zgłaszanie komentarza.', 'Komentarz został zgłoszony do moderacji.', $Comment.closest('.commentBoxJQ'));
                         $Comment.closest('.comment-box').find('.reportSpan').removeClass('hidden');

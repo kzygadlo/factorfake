@@ -231,7 +231,7 @@ function ajaxAddPost($comment, topicID, parentID, $template, $wherePrepend, $whe
             ParentID: parentID
         },
         success: function (response) {
-            if (response.success == true) {
+            if (response.success === true) {
                 fulfillPostCommentTemplateForNewPost(response.postID, response.post, response.dateAdd, response.userName, response.userLogoLink, $template, $wherePrepend, $comment, parentID);
             } else {
                 showNotification('negative', response.errHeader, response.errMessage, $whereAppendNotif)
@@ -265,7 +265,7 @@ function fulfillPostCommentTemplateForNewPost(postID, post, date, userN, userL, 
     };
     var html = Mustache.to_html($template, commentVariables);
 
-    if (parentID != 0 && $wherePrepend.is(":hidden")) {
+    if (parentID !== 0 && $wherePrepend.is(":hidden")) {
         $wherePrepend.fadeToggle();
     }
 
@@ -274,7 +274,7 @@ function fulfillPostCommentTemplateForNewPost(postID, post, date, userN, userL, 
 
     $comment.val("");
 
-    if (parentID == 0) {
+    if (parentID === 0) {
         $(html).hide().prependTo($wherePrepend).fadeIn('slow');
     }
     else {
@@ -293,7 +293,7 @@ function showPosts(Filter) {
     function fulfillCommTemplate(postID, post, date, userN, userL, repV, basicClass, removedClass, reportClass) {
 
         var repValue = "";
-        if (repV != 0) {
+        if (repV !== 0) {
             repValue = "odpowiedzi: " + repV;
         }
 
@@ -344,7 +344,7 @@ function showPosts(Filter) {
                 fulfillCommTemplate(val.postID, val.post, val.dateAdd, val.userName, val.userLogoLink, val.repliesNumber, val.commentBasicClass, val.commentRemovedClass, val.reportedClass)
             });
 
-            if (result.length == 0) {
+            if (result.length === 0) {
                 $('#noResultTab').removeClass("hidden");
             }
             else {

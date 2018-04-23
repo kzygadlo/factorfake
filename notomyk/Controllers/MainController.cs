@@ -351,7 +351,17 @@ namespace notomyk.Controllers
             var fofUrl1 = "https://www.faktorfake.pl";
             var fofUrl2 = Url.Action("News", "Main", new { ID = ID });
 
-            ViewBag.fbButtonUrl = ViewBag.fbButtonUrl = string.Concat(HttpContext.Request.Url.AbsoluteUri.Where(u => !char.IsWhiteSpace(u)));
+            var fbButtonUrl = string.Concat(HttpContext.Request.Url.AbsoluteUri.Where(u => !char.IsWhiteSpace(u)));
+
+            if (fbButtonUrl.IndexOf("?") > 0)
+            {
+                ViewBag.fbButtonUrl = fbButtonUrl.Substring(0, fbButtonUrl.IndexOf("?"));
+            }
+            else
+            {
+                ViewBag.fbButtonUrl = fbButtonUrl;
+            }
+            
 
             //ViewBag.fbButtonUrl = string.Concat("https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.faktorfake.pl", fofUrl2, "%2F&quote=");
             ViewBag.twitterButtonUrl = string.Concat("http://twitter.com/share?url=https://faktorfake.pl", fofUrl2, "&hashtags=fakenews,faktorfake");

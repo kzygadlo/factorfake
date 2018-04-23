@@ -43,7 +43,7 @@ namespace notomyk.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult GetNewses(int newspaperID, string userID)
         {
-            var n = db.News.OrderByDescending(o => o.DateAdd).AsQueryable();
+            var n = db.News.OrderBy(o => o.DateAdd).AsQueryable();
 
             if (newspaperID != 0)
             {

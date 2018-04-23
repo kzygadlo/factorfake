@@ -49,6 +49,7 @@ $.fn.clickToggle = function (func1, func2) {
 
 var allowEdit = function () {
     $(".bootstrap-tagsinput").find('input').addClass("tagsInput");
+    $(".bootstrap-tagsinput > span").addClass("editMode");
     $(".bootstrap-tagsinput > span > span").addClass("tagsSpan");
 
     $("#editTags").removeClass("tags");
@@ -57,6 +58,7 @@ var allowEdit = function () {
 
 var endEdit = function () {
     $(".bootstrap-tagsinput").find('input').removeClass("tagsInput");
+    $(".bootstrap-tagsinput > span").removeClass("editMode");
     $(".bootstrap-tagsinput > span >span").removeClass("tagsSpan");
 
     $("#editTags").removeClass("save");

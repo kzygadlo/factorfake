@@ -3,9 +3,11 @@
     //Tags click
 
     $('.tag').click(function (event) {
-        var textValue = $(this).text();
+        if (!$(this).hasClass('editMode')) {
+            var textValue = $(this).text();
 
-        window.location.href = '/Main/Index/?tag=' + textValue;
+            window.location.href = '/Main/Index/?tag=' + textValue;
+        }        
     });
 
     $("#frmCommentText").MaxLength({
@@ -48,7 +50,7 @@
                     newsID: NewsID
                 },
                 success: function (response) {
-                    if (response.Success == true) {
+                    if (response.Success === true) {
                         window.location.href = response.redirectUrl;
                     }
                     else {
@@ -82,7 +84,7 @@
                 },
                 success: function (response) {
 
-                    if (response.Success == true) {
+                    if (response.Success === true) {
 
                         if ($('.newsReported').hasClass('hidden')) {
                             showNotification('positive', 'Zgłaszanie newsów.', 'News został zgłoszony do moderacji.', $whereAppend)

@@ -59,7 +59,18 @@ namespace notomyk.Controllers
             var fofUrl1 = ConfigurationManager.AppSettings["UrlAddress"];
  
             ViewBag.ogImage = imgUrl("/Images/Social/og-image.png", fofUrl1);
-            ViewBag.fbButtonUrl = HttpContext.Request.Url.AbsoluteUri;
+            var fbButtonUrl = HttpContext.Request.Url.AbsoluteUri;
+
+            if (fbButtonUrl.IndexOf("?") > 0)
+            {
+                ViewBag.fbButtonUrl = fbButtonUrl.Substring(0, fbButtonUrl.IndexOf("?"));
+            }
+            else
+            {
+                ViewBag.fbButtonUrl = fbButtonUrl;
+            }
+            
+
             return View(singleTopic);
         }
 
